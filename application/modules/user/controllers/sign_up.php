@@ -40,7 +40,14 @@ class Sign_up extends MX_Controller {
 					{
 						$this->session->set_userdata('userID', $userID);
 						$this->session->set_userdata('userName', $this->input->post("userName"));
-						echo 1;  // isert successfully
+						$this->session->set_userdata('userTypeID',$this->input->post("userType"));
+						if($this->input->post("userType")==1)
+							$this->session->set_userdata('userType','admin');
+						else if($this->input->post("userType")==2)
+							$this->session->set_userdata('userType','advertiser');
+						else if($this->input->post("userType")==3)
+							$this->session->set_userdata('userType','publisher');
+						echo $this->input->post("userType");  // isert successfully
 					}
 					else
 					{
@@ -49,12 +56,12 @@ class Sign_up extends MX_Controller {
 				}
 				else
 				{
-					echo 3;  //email iss already exist
+					echo 103;  //email iss already exist
 				}
 			}
 			else
 			{
-				echo 2;  // username is already exist
+				echo 102;  // username is already exist
 			}
 		}
 		else

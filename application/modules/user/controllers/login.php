@@ -17,26 +17,40 @@ class Login extends MX_Controller {
 	 */
 	public function index()
 	{
-		if($this->input->post())
+		if($this->session->userdata("userID"))
 		{
-			$this->load->model("user");
-			$result = $this->user->isValidUSer($this->input->post("userName"),$this->input->post("password"));
-			//print_r($result);
-			if(!count($result))
-			{
-				echo 2;
-			}
-			else
-			{
-				$this->session->set_userdata('userID', $result[0]['id']);
-				$this->session->set_userdata('userName', $result[0]['userName']);
-				echo 1;
-			}
+			redirect(base_url().$this->session->userdata('userType')."/dashboard");
 		}
 		else
 		{
-			$this->layout->setLayout("layout/main");
-			$this->layout->view('login');
+			if($this->input->post())
+			{
+				$this->load->model("user");
+				$result = $this->user->isValidUSer($this->input->post("userName"),$this->input->post("password"));
+				//print_r($result);
+				if(!count($result))
+				{
+					echo 201;
+				}
+				else
+				{
+					$this->session->set_userdata('userID', $result[0]['id']);
+					$this->session->set_userdata('userName', $result[0]['userName']);
+					$this->session->set_userdata('userTypeID',$result[0]['userTypeID']);
+					if($result[0]['userTypeID']==1)
+						$this->session->set_userdata('userType','admin');
+					else if($result[0]['userTypeID']==2)
+						$this->session->set_userdata('userType','advertiser');
+					else if($result[0]['userTypeID']==3)
+						$this->session->set_userdata('userType','publisher');
+					echo $result[0]['userTypeID'];
+				}
+			}
+			else
+			{
+				$this->layout->setLayout("layout/main");
+				$this->layout->view('login');
+			}
 		}
 	}
 }

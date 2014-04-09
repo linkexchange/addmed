@@ -62,16 +62,28 @@
 			},
 			success :  function(responseText, statusText, xhr, $form){
 				$("#btn_submit").button("reset");
-				if(responseText==1)
-				{
-					$("#successMessage").html("You are logged in successfully...!");
-					$("#successMessage").show();
-					window.location=base_url+"dashboard/admin";
-				}
-				else if(responseText==2)
+				if(responseText==201)
 				{
 					$("#errorMessage").html("Invalid details...!");
 					$("#errorMessage").show();
+				}
+				else if(responseText>0)
+				{
+					$("#successMessage").html("You are logged in successfully...!");
+					$("#successMessage").show();
+					if(responseText==1)	
+					{
+						window.location=base_url+"admin/dashboard";
+					}
+					else if(responseText==2)	
+					{
+						window.location=base_url+"advertiser/dashboard";
+					}
+					else if(responseText==3)	
+					{
+						window.location=base_url+"publisher/dashboard";
+					}
+
 				}
 			}
 		});

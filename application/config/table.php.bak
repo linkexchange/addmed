@@ -16,6 +16,6 @@
 */
 
 $config['table_user'] = "user";
-$config['table_url'] = 'links';
+$config['table_url'] = 'links'
 
 ?>

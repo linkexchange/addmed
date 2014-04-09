@@ -95,21 +95,38 @@
 			},
 			success :  function(responseText, statusText, xhr, $form){
 				$("#btn_submit").button("reset");
-				if(responseText==1)
+				if(responseText==0)
 				{
-					$("#successMessage").html("You are registered successfully...!");
-					$("#successMessage").show();
-					window.location=base_url+"dashboard/admin";
+					$("#errorMessage").html("Database Server is not working, please try after some time...!");
+					$("#errorMessage").show();
 				}
-				else if(responseText==2)
+				if(responseText==102)
 				{
 					$("#errorMessage").html("username is already exist...!");
 					$("#errorMessage").show();
 				}
-				else if(responseText==3)
+				else if(responseText==103)
 				{
 					$("#errorMessage").html("email is already exist...!");
 					$("#errorMessage").show();
+				}
+				else if(responseText==1)
+				{
+					$("#successMessage").html("You are registered successfully...!");
+					$("#successMessage").show();
+					window.location=base_url+'admin/dashboard';
+				}
+				else if(responseText==2)
+				{
+					$("#successMessage").html("You are registered successfully...!");
+					$("#successMessage").show();
+					window.location=base_url+'advertiser/dashboard';
+				}
+				else if(responseText==3)
+				{
+					$("#successMessage").html("You are registered successfully...!");
+					$("#successMessage").show();
+					window.location=base_url+'publisher/dashboard';
 				}
 			}
 		});

@@ -9,7 +9,7 @@
 						</div>
 						<!-- /widget-header -->
 						<div class="widget-content">
-							<div class="widget big-stats-container">
+							<div class="big-stats-container">
 								<div class="widget-content">
 									<div id="formcontrols" class="tab-pane active">
 										<form class="form-horizontal" id="frm_editprofile" action="" method="POST">
