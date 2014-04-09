@@ -19,6 +19,7 @@
  *
  */
 	define('ENVIRONMENT', 'development');
+	ini_set('session.auto_start', 1);
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

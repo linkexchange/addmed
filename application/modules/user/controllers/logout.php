@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class User extends MX_Controller {
-
+class Logout extends MX_Controller {
 	/**
 	 * Index Page for this controller.
 	 *
@@ -19,15 +17,8 @@ class User extends MX_Controller {
 	 */
 	public function index()
 	{
-		$all_users = story::find_by_email('test@yopmail.com');
-		
-				print "<pre>";
-		        print_r($all_users);
-				print "</pre>";
-        $this->load->view('user');
+		$this->session->unset_userdata('userName');
+		$this->session->unset_userdata('userID');
+		redirect(base_url()."user/login");
 	}
-	
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
