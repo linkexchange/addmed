@@ -33,8 +33,9 @@ class Sign_up extends MX_Controller {
 									"phoneNumber"=>$this->input->post("phoneNumber"),
 									"companyName"=>$this->input->post("companyName"),
 									"password"=>$this->input->post("password"),
-									"userTypeID"=>$this->input->post("userType")
-									);
+									"userTypeID"=>$this->input->post("userType"),
+									'createdDate'=>date("Y-m-d"),
+								);
 					$userID = $this->user->createUser($userData);
 					if($userID)
 					{
@@ -48,6 +49,14 @@ class Sign_up extends MX_Controller {
 						else if($this->input->post("userType")==3)
 							$this->session->set_userdata('userType','publisher');
 						echo $this->input->post("userType");  // isert successfully
+
+						$paymentData=array(
+							'userID'=>$userID,
+							'createdDate'=>date("Y-m-d"),
+							'createdBy'=>$userID,
+						);
+						$this->load->model('payments');
+						$payId=$this->payments->add($paymentData);
 					}
 					else
 					{

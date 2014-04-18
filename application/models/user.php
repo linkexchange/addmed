@@ -79,5 +79,44 @@ class User extends CI_Model {
 		$this->db->where("id",$id);
 		$this->db->delete($this->config->item('table_user'));
 	}
+	function getAllPublishers()
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where("userTypeID","3");
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+		
+	}
+	function getUserByID($id)
+	{
+		$this->db->select("userName");
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where("id",$id);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+		
+	}
+	function getAllPublishersID()
+	{
+		$this->db->select("id");
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where("userTypeID","3");
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+		
+	}
+	function getAllAdvertisersID()
+	{
+		$this->db->select("id");
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where("userTypeID","2");
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+	}
 }
 ?>

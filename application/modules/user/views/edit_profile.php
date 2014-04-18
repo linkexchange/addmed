@@ -74,7 +74,7 @@
 												<div class="control-group">	
 													<div class="controls">
 														<button class="btn btn-primary" type="submit">Save</button> 
-														<a href="<?php echo base_url().'dashboard/admin' ?>" class="btn">Cancel</a>
+														<a href="<?php echo base_url().'admin/dashboard' ?>" class="btn">Cancel</a>
 													</div>
 												</div> <!-- /control-group -->
 											</fieldset>

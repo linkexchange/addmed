@@ -1,23 +1,9 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
 
-class Dashboard extends MX_Controller {
+class Cron extends MX_Controller{
 
-	public function index()
-	{
-		$this->load->model("user");
-		$data['users']=$this->user->getAllUser();
-		$this->load->model("url");
-		$data['totalLinks']=$this->url->getTotalLinks();
-		$data['publishedLinks']=$this->url->getTotalPublishedLinks();
-		$this->load->model("payments");
-		$data['totalPaidPayment']=$this->payments->getTotalPaidPayment();
-		$data['totalPayingPayment']=$this->payments->getTotalPayingPayment();
-
-		$this->layout->setLayout("layout/main");
-		$this->layout->view('dashboard',$data);
-	}
-	public function cronrun(){
-			$data="";
+	public function cronbitly(){
+		$data="";
 		$this->load->model('url');
 		$this->load->model('user');
 		$this->load->model('clicksdetail');
@@ -129,8 +115,7 @@ class Dashboard extends MX_Controller {
 			endif;
 		endforeach;
 
-		$this->layout->setLayout("layout/main");
-		$this->layout->view('dashboard_cronrun',$data);
-		
 	}
 }
+
+?>

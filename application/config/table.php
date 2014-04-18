@@ -17,5 +17,8 @@
 
 $config['table_user'] = "user";
 $config['table_url'] = 'links';
-
+$config['table_clicksdetail'] = 'clicksdetail';
+$config['table_transaction'] = 'transaction';
+$config['table_payments'] = 'payments';
+$config['table_publisher'] = 'publisher';
 ?>

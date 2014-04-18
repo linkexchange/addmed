@@ -59,7 +59,7 @@
 				$("#btn_submit").button("reset");
 				if(responseText>0)
 				{
-					$("#successMessage").html("You link Added successfully...!");
+					$("#successMessage").html(responseText);
 					$("#successMessage").show();
 					window.location=base_url+"link";
 				}
@@ -72,4 +72,5 @@
 		});
 		$("#frm_signup").validationEngine();
 	});
+
 </script>

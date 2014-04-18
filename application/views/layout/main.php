@@ -39,8 +39,23 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 	<body>
 		<div class="navbar navbar-fixed-top">
 		  <div class="navbar-inner">
-			<div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-							class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="<?php echo base_url().$this->session->userdata('userType')."/dashboard"; ?>" > Link Exchange Admin</a>
+			<div class="container"> 
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> 
+				</a>
+				<a class="brand" href="<?php echo base_url().$this->session->userdata('userType')."/dashboard"; ?>" >	
+					<?php if($this->session->userData('userTypeID')==3) : ?> 
+						Link Exchange Publisher
+					<?php elseif($this->session->userData('userTypeID')==2) : ?>
+						Link Exchange Advertiser
+					<?php elseif($this->session->userData('userTypeID')==1) : ?>
+						Link Exchange Admin
+					<?php else : ?>
+						Link Exchange Dashboard
+					<?php endif; ?>
+				</a>
 			<div class="nav-collapse">
 			<?php
 			if( $this->session->userdata('userID'))
@@ -48,17 +63,17 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 			?>
 			
 				<ul class="nav pull-right">
-				  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-									class="icon-cog"></i> Account <b class="caret"></b></a>
+				  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-cog"></i> Account <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-					  <li><a href="javascript:;">Settings</a></li>
+					  <li><a href="<?php echo base_url().$this->session->userdata('userType'); ?>/dashboard/settings">Settings</a></li>
 					  <li><a href="javascript:;">Help</a></li>
 					</ul>
 				  </li>
 				  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
 									class="icon-user"></i> <?php echo $this->session->userdata('userName'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-					  <li><a href="javascript:;">Profile</a></li>
+					  <li><a href="<?php echo base_url(); ?>user/profile/edit/<?php echo $this->session->userdata('userID');?>">Profile</a></li>
 					  <li><a href="<?php echo base_url(); ?>user/logout/">Logout</a></li>
 					</ul>
 				  </li>
@@ -74,7 +89,7 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 			?>
 					<ul class="nav pull-right">
 					<?php
-					if($this->uri->segment(2)=="login")
+					if($this->uri->segment(2)=="login" || !($this->uri->segment(2)))
 					{
 					?>
 						<li class="">						
@@ -85,7 +100,7 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 						</li>
 					<?php
 					}
-					else if($this->uri->segment(2)=="sign_up")
+					else if($this->uri->segment(2)=="sign_up" )
 					{
 					?>
 						<li class="">						
