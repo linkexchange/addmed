@@ -31,9 +31,9 @@
 						<?php if($this->session->userData('userTypeID')==3 ||$this->session->userData('userTypeID')==2 ) : ?>
 							<li><a href="<?php echo base_url().'reports/dashboard'; ?>">View Reports</a></li>
 						<?php elseif($this->session->userData('userTypeID')==1) : ?>
-							<li><a href="<?php echo base_url().'reports/dashboard'; ?>">Reports By Links</a></li>
-							<li><a href="<?php echo base_url().'reports/dashboard/publisher'; ?>">Reports By Publishers</a></li>
-							<li><a href="<?php echo base_url().'reports/dashboard/advertiser'; ?>">Reports By Advertisers</a></li>
+							<li><a href="<?php echo base_url().'reports/dashboard'; ?>">Reports of Links</a></li>
+							<li><a href="<?php echo base_url().'reports/dashboard/publisher'; ?>">Reports of Publishers</a></li>
+							<li><a href="<?php echo base_url().'reports/dashboard/advertiser'; ?>">Reports of Advertisers</a></li>
 						<?php endif; ?>
 						
                     </ul> 

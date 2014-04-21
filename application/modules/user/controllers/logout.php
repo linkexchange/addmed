@@ -19,6 +19,8 @@ class Logout extends MX_Controller {
 	{
 		$this->session->unset_userdata('userName');
 		$this->session->unset_userdata('userID');
+		$this->session->set_userdata('userType');
+		$this->session->set_userdata('loggedIn',FALSE);
 		redirect(base_url()."user/login");
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $this->uri->segment(2)=="sign_up"))
 {
 	redirect(base_url().$this->session->userdata('userType')."/dashboard");
@@ -37,6 +38,7 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 			<![endif]-->
 	</head>
 	<body>
+		
 		<div class="navbar navbar-fixed-top">
 		  <div class="navbar-inner">
 			<div class="container"> 
@@ -45,7 +47,8 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span> 
 				</a>
-				<a class="brand" href="<?php echo base_url().$this->session->userdata('userType')."/dashboard"; ?>" >	
+				<a class="brand" href="<?php if($this->session->userdata('userType') && $this->session->userdata('loggedIn')) echo base_url().$this->session->userdata('userType')."/dashboard"; else echo base_url(); ?>" >	
+				<?php if($this->session->userdata('loggedIn')) : ?>
 					<?php if($this->session->userData('userTypeID')==3) : ?> 
 						Link Exchange Publisher
 					<?php elseif($this->session->userData('userTypeID')==2) : ?>
@@ -55,6 +58,9 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 					<?php else : ?>
 						Link Exchange Dashboard
 					<?php endif; ?>
+				<?php else : ?>
+					Link Exchange Dashboard
+				<?php endif; ?>
 				</a>
 			<div class="nav-collapse">
 			<?php
@@ -191,12 +197,11 @@ if($this->session->userdata('userID') && ($this->uri->segment(2)=="login" || $th
 				?>
 				<div class="login-extra">
 				<?
-				if($this->uri->segment(2)=="login")
-				{
+				
 				?>	
-					<a href="#">Reset Password</a>
+					<a href="#">Forgot Password</a>
 				<?php
-				}
+				
 				?>
 				</div>
 		<?php

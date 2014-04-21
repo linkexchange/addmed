@@ -39,7 +39,9 @@
 												<div class="control-group">											
 													<label for="phoneNumber" class="control-label">Phone Number</label>
 													<div class="controls">
-														<input type="text" value="" id="phoneNumber"  name="phoneNumber" class="span6 validate[required,custom[integer]]">
+														<input type="text" value="" id="phoneNumber"  name="phoneNumber" 
+														placeholder="Phone Number."
+														 class="span6 validate[required,custom[integer]]">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">											
@@ -47,6 +49,12 @@
 													<div class="controls">
 														<input type="password" value="" id="password"  name="password" placeholder="Password"  class="span6 validate[required]">
 													</div> <!-- /controls -->				
+												</div> <!-- /control-group -->
+												<div class="control-group">	
+													<label for="confirm_password" class="control-label">Confirm Password:</label>
+													<div class="controls">
+														<input type="password" class="login validate[equals[password]]" placeholder="Confirm Password" value="" name="confirm_password" id="confirm_password">
+													</div> <!-- /controls -->
 												</div> <!-- /control-group -->
 												<div class="control-group">											
 													<label for="companyAddress" class="control-label">Company Address</label>
