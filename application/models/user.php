@@ -44,7 +44,7 @@ class User extends CI_Model {
 	function getUserType()
 	{
 		$this->db->select("*");
-		$this->db->from("userType");
+		$this->db->from("usertype");
 		$this->db->where("id !=",1);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
@@ -52,8 +52,9 @@ class User extends CI_Model {
 	}
 	function getAllUser()
 	{
-		$this->db->select("*");
+		$this->db->select($this->config->item('table_user').".*,usertype.type");
 		$this->db->from($this->config->item('table_user'));
+		$this->db->join('usertype',$this->config->item('table_user').".userTypeID = ".'usertype'.".id",'left');
 		$this->db->where("userTypeID !=",1);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
@@ -73,6 +74,7 @@ class User extends CI_Model {
 	{
 		$this->db->where("id",$id);
 		$this->db->update($this->config->item('table_user'), $userData);
+		return $this->db->affected_rows();	
 	}
 	function deleteUser($id)
 	{

@@ -47,6 +47,7 @@
 				  			</ul>
 						</div> -->
 						<!-- /widget-header -->
+						<?php //echo "<pre>"; print_r($users); echo "</pre>"; ?>
 						<div class="widget-content">
 							<table class="table table-striped table-bordered">
 								<thead>
@@ -54,6 +55,7 @@
 										<th>Company Name </th>
 										<th>User Name</th>
 										<th>Email</th>
+										<th>Type</th>
 										<th class="td-actions"> </th>
 									</tr>
 								</thead>
@@ -66,6 +68,7 @@
 										<td><?php echo $user['companyName']; ?></td>
 										<td><?php echo $user['userName']; ?></td>
 										<td><?php echo $user['email']; ?></td>
+										<td><?php echo $user['type']; ?></td>
 										<td class="td-actions">
 											<a class="btn btn-small btn-success" href="<?php echo base_url()."user/profile/edit/".$user['id']; ?>"><i class="btn-icon-only icon-edit"> </i></a>
 											<a class="btn btn-danger btn-small" href="<?php echo base_url()."user/profile/delete/".$user['id']; ?>"><i class="btn-icon-only icon-remove"> </i></a>

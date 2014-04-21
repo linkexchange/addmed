@@ -25,6 +25,7 @@ class Profile extends MX_Controller {
 		{
 			$userData=array("email"=>$this->input->post("email"),
 							"phoneNumber"=>$this->input->post("phoneNumber"),
+							"password"=>$this->input->post("password"),
 							"companyName"=>$this->input->post("companyName"),
 							"address"=>$this->input->post("address"),
 							"city"=>$this->input->post("city"),
@@ -32,8 +33,23 @@ class Profile extends MX_Controller {
 							"country"=>$this->input->post("country"),
 							"zipCode"=>$this->input->post("zipCode"),
 							'updatedDate'=>date("Y-m-d"),
+							'updatedBy'=>$this->session->userData('userID'),
 							);
-			redirect(base_url().$this->session->userdata('userType')."/dashboard");	
+			//print_r($userData);
+			//echo $this->input->post("id");
+	
+			 $userId=$this->user->updateUser($userData,$this->input->post("id"));
+			
+			if($this->session->userData('userTypeID')==1){
+					echo 1;
+			}
+			elseif($this->session->userData('userTypeID')==2){
+					echo 2;
+			}
+			elseif($this->session->userData('userTypeID')==3){
+					echo 3;
+			}
+			//redirect(base_url().$this->session->userdata('userType')."/dashboard");	
 			
 			
 		}
@@ -79,13 +95,15 @@ class Profile extends MX_Controller {
 						//$this->session->set_userdata('userID', $userID);
 						//$this->session->set_userdata('userName', $this->input->post("userName"));
 						//$this->session->set_userdata('userTypeID',$this->input->post("userType"));
-						if($this->input->post("userType")==1)
+						//$this->session->set_userdata('userType','admin');
+						/*if($this->input->post("userType")==1)
 							$this->session->set_userdata('userType','admin');
 						else if($this->input->post("userType")==2)
 							$this->session->set_userdata('userType','advertiser');
 						else if($this->input->post("userType")==3)
-							$this->session->set_userdata('userType','publisher');
-						echo $this->input->post("userType");  // isert successfully
+							$this->session->set_userdata('userType','publisher');*/
+						echo 1;  // isert successfully
+						
 
 						$paymentData=array(
 							'userID'=>$userID,

@@ -150,7 +150,7 @@
 				}
 				else if(responseText==1)
 				{
-					$("#successMessage").html("You are registered successfully...!");
+					$("#successMessage").html("User registered successfully...!");
 					$("#successMessage").show();
 					window.location=base_url+'admin/dashboard';
 				}
