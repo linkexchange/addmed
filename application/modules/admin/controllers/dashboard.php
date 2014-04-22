@@ -133,4 +133,55 @@ class Dashboard extends MX_Controller {
 		$this->layout->view('dashboard_cronrun',$data);
 		
 	}
+	public function settings(){
+		if($this->input->post())
+		{
+			$this->load->model('publisher');
+			//echo $this->publisher->isExists($this->session->userData('userID'));
+			//exit;
+			$createdDate=date("Y-m-d");
+			$updatedDate=date("Y-m-d");
+			$createdBy=$this->session->userData('userID');
+			$updatedBy=$this->session->userData('userID');
+			if($this->publisher->isExists($this->session->userData('userID'))){
+				$user=$this->publisher->getDetails($this->session->userData('userID'));
+				$pubData=array(
+					'clientID'=>$this->input->post('clientID'),
+					'clientSecret'=>$this->input->post('clientSecret'),
+					'accessToken'=>$this->input->post('accessToken'),
+					'updatedBy'=>$updatedBy,
+					'updatedDate'=>$updatedDate
+				);
+				echo $this->publisher->updatePublisher($this->session->userData('userID'),$pubData);
+			}
+			else
+			{
+				
+				$pubData=array(
+					'clientID'=>$this->input->post('clientID'),
+					'clientSecret'=>$this->input->post('clientSecret'),
+					'accessToken'=>$this->input->post('accessToken'),
+					'userID'=>$this->session->userData('userID'),
+					'createdBy'=>$createdBy,
+					'createdDate'=>$createdDate
+				);
+				echo $this->publisher->addPublisher($pubData);
+			}
+		}
+		else
+		{
+			$this->load->model('publisher');
+			if($this->publisher->isExists($this->session->userData('userID'))){
+				$data['user']=$this->publisher->getDetails($this->session->userData('userID'));
+			}
+			else
+			{
+				$data[]="";
+			}
+			$this->layout->setLayout("layout/main");
+			$this->layout->view('dashboard_settings',$data);
+		}
+		
+
+	}
 }
