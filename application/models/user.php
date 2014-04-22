@@ -41,6 +41,16 @@ class User extends CI_Model {
 		else
 			return false;
 	}
+	function getUserByEmailId($email)
+	{
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where('email',$email);	
+		$this->db->limit(1);
+		$result = $this->db->get();
+		return $result->result_array();
+		
+	}
 	function getUserType()
 	{
 		$this->db->select("*");

@@ -32,7 +32,9 @@
 				<button class="button btn btn-success btn-large" id="btn_submit">Sign In</button>
 				
 			</div> <!-- .actions -->
-			
+			<div class="login-extra">
+				<a href="<?php echo base_url(); ?>user/login/forgotpassword">Forgot Password</a>
+			</div>
 			
 			
 		</form>

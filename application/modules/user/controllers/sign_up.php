@@ -76,7 +76,7 @@ class Sign_up extends MX_Controller {
 		else
 		{
 			$data['userType']=$this->user->getUserType();
-			$this->layout->setLayout("layout/main");
+			$this->layout->setLayout("layout/main_login");
 			$this->layout->view('sign_up',$data);
 		}
 	}

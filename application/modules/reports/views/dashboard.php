@@ -1,3 +1,46 @@
+<style>
+
+.input-group-addon {
+    background-color: #EEEEEE;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    color: #555555;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    padding: 6px 12px;
+    text-align: center;
+}
+.input-group-addon, .input-group-btn {
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 1%;
+}
+.glyphicon-calendar:before {
+    
+}
+.input-group.date .input-group-addon span {
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    width: 16px;
+}
+.input-group.date .input-group-addon span {
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    width: 16px;
+}
+.glyphicon {
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    position: relative;
+    top: 1px;
+}
+</style>
 <div class="widget">
 	<div class="widget-header"> 
 		<i class="icon-list-alt"></i>
@@ -14,8 +57,11 @@
 						<fieldset>
 							<div class="" style="float:left;">
 								<label for="startDate" class="control-label">Start Date</label>
-								<div class="controls">
-									<input type="text" class="validate[custom[date]]" placeholder="Start Date" name="startDate" id="startDate" value="<?php if($startDate!=0) echo $startDate; ?>">
+								<div class="controls" id='datetimepicker5' data-date-format="YYYY/MM/DD" >
+									<input type="text" class="form-control validate[custom[date]]" placeholder="Start Date" name="startDate" id="startDate" value="<?php if($startDate!=0) echo $startDate; ?>">
+									<!-- <span class="input-group-addon">
+										<span class="glyphicon glyphicon-time"></span>
+									</span> -->
 								</div> <!-- /controls -->	
 							</div>
 							<div class="" style="float:left;">
@@ -77,6 +123,13 @@
 						$("#frm_signup").validationEngine();
 					});
 				</script>
+				<!-- <script type="text/javascript">
+					$(function () {
+						$('#datetimepicker5').datetimepicker({
+							pickTime: false
+						});
+					});
+				</script> -->
 				<br/>
 				<div id="ajax-reports">
 					<table class="table table-striped table-bordered user-transactions">

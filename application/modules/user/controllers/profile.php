@@ -23,9 +23,7 @@ class Profile extends MX_Controller {
 		
 		if($this->input->post())
 		{
-			$userData=array("email"=>$this->input->post("email"),
-							"phoneNumber"=>$this->input->post("phoneNumber"),
-							"password"=>$this->input->post("password"),
+			$userData=array(																	"phoneNumber"=>$this->input->post("phoneNumber"),
 							"companyName"=>$this->input->post("companyName"),
 							"address"=>$this->input->post("address"),
 							"city"=>$this->input->post("city"),
@@ -35,6 +33,10 @@ class Profile extends MX_Controller {
 							'updatedDate'=>date("Y-m-d"),
 							'updatedBy'=>$this->session->userData('userID'),
 							);
+			if($this->input->post("password")!=NULL){
+				$userData=array("password"=>$this->input->post("password"));
+			}
+			
 			//print_r($userData);
 			//echo $this->input->post("id");
 	

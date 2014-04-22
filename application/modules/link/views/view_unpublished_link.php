@@ -1,5 +1,5 @@
 		<div id="loading" class="alert alert-success" style="display:none">Wait Data is loading</div>
-		
+		<?php //echo "<pre>"; print_r($unPublishedUrls); echo "</pre>"; ?>
 		<div class="widget widget-table action-table">
 			<div class="widget-header"> <i class="icon-th-list"></i>
 				<h3>

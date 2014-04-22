@@ -50,10 +50,50 @@ class Login extends MX_Controller {
 			}
 			else
 			{
-				$this->layout->setLayout("layout/main");
+				$this->layout->setLayout("layout/main_login");
 				$this->layout->view('login');
 			}
 		}
+	}
+	public function forgotpassword(){
+		$this->load->model('user');
+		if($this->input->post()){
+			if($this->user->isExistEmail($this->input->post("email"))){
+				$user=$this->user->getUserByEmailId($this->input->post("email"));
+				//print_r($user);
+				$this->load->library('email');
+				$this->email->clear();
+				$config['mailtype'] = 'html';
+				$this->email->initialize($config);
+				
+				$this->email->from('your@example.com', 'Your Name');
+				$this->email->to($user[0]['email']);
+				//$this->email->cc('another@another-example.com');
+				//$this->email->bcc('them@their-example.com');
+				
+				$this->email->subject('Forgot password request');
+				$msg="";
+				$msg.="<br/>Hello ".$user[0]['userName'].",";
+				$msg.="<br/><br/>Bellow are your profile details.Please check.<br/>";
+				$msg.="<br/>UserName: ".$user[0]['userName'];
+				$msg.="<br/>Password : ".$user[0]['password'];
+				$msg.="<br/><br/> Thanks,<br/>Regards,<br/>Admin Team.";
+				$this->email->message($msg);
+
+				echo $this->email->send();
+
+			}
+			else
+			{
+				echo 201;
+			}
+		}
+		else
+		{
+			$this->layout->setLayout("layout/main_login");
+			$this->layout->view('forgotpassword');
+		}
+		
 	}
 }
 /* End of file welcome.php */

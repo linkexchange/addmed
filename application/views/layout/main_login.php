@@ -1,10 +1,4 @@
-<?php
-if(!$this->session->userdata('loggedIn'))
-{
-	redirect(base_url());
-}
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -47,53 +41,11 @@ if(!$this->session->userdata('loggedIn'))
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span> 
 				</a>
-				<a class="brand" href="<?php if($this->session->userdata('userType') && $this->session->userdata('loggedIn')) echo base_url().$this->session->userdata('userType')."/dashboard"; else echo base_url(); ?>" >	
-				<?php if($this->session->userdata('loggedIn')) : ?>
-					<?php if($this->session->userData('userTypeID')==3) : ?> 
-						Link Exchange Publisher
-					<?php elseif($this->session->userData('userTypeID')==2) : ?>
-						Link Exchange Advertiser
-					<?php elseif($this->session->userData('userTypeID')==1) : ?>
-						Link Exchange Admin
-					<?php else : ?>
-						Link Exchange Dashboard
-					<?php endif; ?>
-				<?php else : ?>
+				<a class="brand" href="<?php echo base_url(); ?>" >	
 					Link Exchange Dashboard
-				<?php endif; ?>
 				</a>
 			<div class="nav-collapse">
-			<?php
-			if( $this->session->userdata('userID'))
-			{
-			?>
-			
 				<ul class="nav pull-right">
-				  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-cog"></i> Account <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-					  <li><a href="<?php echo base_url().$this->session->userdata('userType'); ?>/dashboard/settings">Settings</a></li>
-					  <li><a href="javascript:;">Help</a></li>
-					</ul>
-				  </li>
-				  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-									class="icon-user"></i> <?php echo $this->session->userdata('userName'); ?> <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-					  <li><a href="<?php echo base_url(); ?>user/profile/edit/<?php echo $this->session->userdata('userID');?>">Profile</a></li>
-					  <li><a href="<?php echo base_url(); ?>user/logout/">Logout</a></li>
-					</ul>
-				  </li>
-				</ul>
-				<form class="navbar-search pull-right">
-				  <input type="text" class="search-query" placeholder="Search">
-				</form>
-			 
-			  <?php
-			}
-			else
-			{
-			?>
-					<ul class="nav pull-right">
 					<?php
 					if($this->uri->segment(2)=="login" || !($this->uri->segment(2)))
 					{
@@ -119,9 +71,7 @@ if(!$this->session->userdata('loggedIn'))
 					}
 					?>
 					</ul>
-			<?php
-			}
-			?>
+			
 				 </div>
 			  <!--/.nav-collapse --> 
 			</div>
@@ -129,90 +79,16 @@ if(!$this->session->userdata('loggedIn'))
 		  </div>
 		  <!-- /navbar-inner --> 
 		</div>
-		<?php
-			if( $this->session->userdata('userID'))
-			{
-				$this->load->view("common/sub-nav");
-				?>
-				<div class="main">
-					<div class="main-inner">
-						<div class="container">
-							<div class="row">
-								<div class="span12">
-				<?
-			}
-		?>
+		
 		<?php echo $content_for_layout ?>
-		<?php
-			if( $this->session->userdata('userID'))
-			{	
-			?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			<!-- /bottom of the page -->
-			<div class="extra">
-			  <div class="extra-inner">
-				<div class="container">
-				  <div class="row">
-								<div class="span3">
-									<h4>
-										About Admin </h4>
-									<ul>
-										<li><a href="javascript:;">extra links</a></li>
-									</ul>
-								</div>
-								<!-- /span3 -->
-								<div class="span3">
-									<h4>
-										Support
-									</h4>							
-									<ul>
-										<li><a href="javascript:;">extra links</a></li
-									</ul>
-								</div>
-								<!-- /span3 -->
-								<div class="span3">
-									<h4>
-										Something Legal</h4>
-									<ul>
-										<li><a href="javascript:;">extra links</a></li>
-									</ul>
-								</div>
-								<!-- /span3 -->
-							</div>
-				  <!-- /row --> 
-				</div>
-				<!-- /container --> 
-			  </div>
-			  <!-- /extra-inner --> 
-			</div>
-			<!-- /extra -->
-		<?php
-			}
-			else
-			{
-				?>
-				<div class="login-extra">
-				<?
-				
-				?>	
-					<!-- <a href="#">Forgot Password</a> -->
-				<?php
-				
-				?>
-				</div>
-		<?php
-			}
-		?>
-
+		<div class="login-extra">
+			<!-- <a href="#">Forgot Password</a> -->
+		</div>
 		<div class="footer">
 		  <div class="footer-inner">
 			<div class="container">
 			  <div class="row">
-				<div class="span12"> &copy; 2013 <a href="http://www.egrappler.com/">Bootstrap Responsive Admin Template</a>. </div>
+				<div class="span12"> &copy; 2014 <a href="http://www.egrappler.com/">Bootstrap Responsive Admin Template</a>. </div>
 				<!-- /span12 --> 
 			  </div>
 			  <!-- /row --> 

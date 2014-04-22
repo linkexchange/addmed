@@ -9,7 +9,7 @@ class Dashboard extends MX_Controller {
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'));
 		
 		$data['publishedUrls']=$this->url->getPublishedUrls($this->session->userData('userID'),$page=1);
-		$data['unPublishedUrls']=$this->url->getUnPublishedUrls($this->session->userData('userID'),$page=1);
+		$data['unPublishedUrls']=$this->url->getUnPublishedUrls($page=1,$this->session->userData('userID'));
 		
 		$data['pubUrlCount']=$this->url->getPublishedUrlsCount($this->session->userData('userID'));
 		$data['unPubUrlCount']=$this->url->getUnPublishedUrlsCount($this->session->userData('userID'));

@@ -33,7 +33,7 @@
 												<div class="control-group">											
 													<label for="email" class="control-label">Email </label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['email']; ?>" id="email" name="email" class="span4 validate[required]">
+														<input type="text" value="<?php echo $user['email']; ?>" id="email" name="email" class="span4 validate[required]" disabled="">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">	
@@ -51,37 +51,38 @@
 												<div class="control-group">											
 													<label for="phoneNumber" class="control-label">Phone Number</label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['phoneNumber']; ?>" id="phoneNumber"  name="phoneNumber" class="span6">
+														<input type="text" value="<?php if($user['phoneNumber']!=0) echo $user['phoneNumber']; ?>" id="phoneNumber" 
+														placeholder="Phone Number" name="phoneNumber" class="span6">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">											
 													<label for="companyAddress" class="control-label">Company Address</label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['address']; ?>" id="address" name="address" class="span6">
+														<input type="text" value="<?php echo $user['address']; ?>" id="address" name="address"  placeholder="Company Address" class="span6">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">											
 													<label for="city" class="control-label">City</label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['city']; ?>" id="city" name="city" class="span6">
+														<input type="text" value="<?php echo $user['city']; ?>" id="city" name="city" placeholder="City" class="span6">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">											
 													<label for="state" class="control-label">State</label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['state']; ?>" id="state" name="state" class="span6">
+														<input type="text" value="<?php echo $user['state']; ?>" id="state" name="state" placeholder="State" class="span6">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">											
 													<label for="country" class="control-label">Country</label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['country']; ?>" id="country" name="country" class="span6">
+														<input type="text" value="<?php echo $user['country']; ?>" id="country" name="country" placeholder="Country" class="span6">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">											
 													<label for="zip" class="control-label">Zip</label>
 													<div class="controls">
-														<input type="text" value="<?php echo $user['zipCode']; ?>" id="zipCode" name="zipCode" class="span6">
+														<input type="text" value="<?php if($user['zipCode']!=0) echo $user['zipCode']; ?>" id="zipCode" name="zipCode"  placeholder="Zip Code" class="span6">
 													</div> <!-- /controls -->				
 												</div> <!-- /control-group -->
 												<div class="control-group">	
