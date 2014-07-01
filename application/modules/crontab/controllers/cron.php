@@ -1,7 +1,7 @@
 <?php 
 
 class Cron extends MX_Controller{
-
+	public $_accessToken = "27279045b4a6918ed646ba1f5028dd4882e33139";
 	public function cronbitly(){
 		$data="";
 		$this->load->model('url');
@@ -10,17 +10,24 @@ class Cron extends MX_Controller{
 		$this->load->model('payments');
 		$links=$this->url->getAllBitlyUrllinks();
 		//echo "<pre>"; print_r($links); echo "</pre>";
-		$adminPer=10;
-		$pubPer=100-$adminPer;
+	
 		$createdBy="3";
 		
 		foreach($links as $link) :
-			if($link['billyUrl'] && $link['accessToken']) :
-				$bitly_url=urlencode($link['billyUrl']);
-				$bitly_accessToken=$link['accessToken'];
+			if($link['bitlyURL'] && $this->_accessToken) :
+				$bitly_url=urlencode($link['bitlyURL']);
+				$bitly_accessToken=$this->_accessToken;
 				$bitly_response = json_decode(file_get_contents("https://api-ssl.bitly.com/v3/link/clicks?access_token={$bitly_accessToken}&link={$bitly_url}"));
-				$link_clicks=$bitly_response->data->link_clicks;
+				//echo "<pre>"; print_r($bitly_response); echo "</pre>"; exit;
+				if(isset($bitly_response->data->link_clicks)){
+					$link_clicks=$bitly_response->data->link_clicks;
+				}
+				else
+				{
+					$link_clicks=0;
+				}
 				$pastClicks=$this->clicksdetail->getTotalHitsByLinkIdNew($link['id']);
+
 				$curClicks=0;
 				$totalClicks=0;
 				$advertiserPaymen=0;
@@ -45,7 +52,8 @@ class Cron extends MX_Controller{
 					}
 						
 				}
-				
+				$adminPer=$link['percentage'];
+				$pubPer=100-$adminPer;
 				$advertiserPayment=$curClicks*$link['payPerLink'];
 				$publisherPayment=($advertiserPayment*$pubPer)/100;
 				$adminPayment=($advertiserPayment*$adminPer)/100;
@@ -54,7 +62,7 @@ class Cron extends MX_Controller{
 				if(!$this->clicksdetail->isExists($link['id'],$createdDate) && $curClicks)
 				{
 					$clickDetails=array(
-						'linkID'=>$link['id'],
+						'publishedLinkID'=>$link['id'],
 						'numberOfClicks'=>$curClicks,
 						'advertiserPaynment'=>$advertiserPayment,
 						'publisherPayment'=>$publisherPayment,
@@ -72,19 +80,36 @@ class Cron extends MX_Controller{
 		foreach($publishers as $user) : 
 			$totalpayments=$this->clicksdetail->getClickedLinksByUserID($user['id']);
 			$payPayments=$this->payments->getPaymentDetails($user['id']);
-			//echo "<pre>"; print_r($totalpayments); echo "</pre>";
-			//echo "<pre>"; print_r($payPayments); echo "</pre>";
-			$billableAmt=$totalpayments[0]['publisherPayment'];
-			$balanceAmt=$billableAmt-$payPayments[0]['paidAmount'];
-			$paidAmt=$payPayments[0]['paidAmount'];
-			$paymentsData=array(
-				'paidAmount'=>$paidAmt,
-				'billableAmount'=>$billableAmt,
-				'balanceAmount'=>$balanceAmt,
-				'updatedBy'=>'3',
-				'updatedDate'=>date("Y-m-d"),
-			);
-			echo $this->payments->updateBalance($paymentsData,$payPayments[0]['userID']);
+			if(count($payPayments)>0)
+			{
+				//echo "<pre>"; print_r($totalpayments); echo "</pre>";
+				//echo "<pre>"; print_r($payPayments); echo "</pre>";
+				$billableAmt=$totalpayments[0]['publisherPayment'];
+				$balanceAmt=$billableAmt-$payPayments[0]['paidAmount'];
+				$paidAmt=$payPayments[0]['paidAmount'];
+				$paymentsData=array(
+					'paidAmount'=>$paidAmt,
+					'billableAmount'=>$billableAmt,
+					'balanceAmount'=>$balanceAmt,
+					'updatedBy'=>'3',
+					'updatedDate'=>date("Y-m-d"),
+				);
+				echo $this->payments->updateBalance($paymentsData,$payPayments[0]['userID']);
+			}
+			else
+			{
+				$billableAmt=$totalpayments[0]['publisherPayment'];
+				$balanceAmt=$billableAmt-$payPayments[0]['paidAmount'];
+				$paidAmt=$payPayments[0]['paidAmount'];
+				$paymentsData=array(
+					'paidAmount'=>$paidAmt,
+					'billableAmount'=>$billableAmt,
+					'balanceAmount'=>$balanceAmt,
+					'updatedBy'=>'3',
+					'updatedDate'=>date("Y-m-d"),
+				);
+				echo $this->payments->updateBalance($paymentsData,$payPayments[0]['userID']);
+			}
 		endforeach;
 		
 		$totalpayments="";

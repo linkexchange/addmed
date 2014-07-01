@@ -4,12 +4,13 @@ class Dashboard extends MX_Controller {
 
 	public function index()
 	{
+		
 		$this->load->model("url");
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'));
 		
 		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'));
 		$data['unPublishedUrls']=$this->url->getUnPublishedUrls();
-		$data['unpublished_url_count']=$this->url->getUnPublishedUrlsCount();
+		$data['unpublished_url_count']=$this->url->getUnPublishedUrlsCount($this->session->userData('userID'));
 
 		//$data['published_url_count']=count($data['publishedUrls']);
 		//$data['unpublished_url_count']=count($data['unPublishedUrls']);

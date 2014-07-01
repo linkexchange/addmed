@@ -21,13 +21,14 @@
 							<th class="td-actions"> </th>
 						</tr>
 					</thead>
+					<?php $this->load->model("clicksdetail"); ?>
 					<tbody>
 					<?php
 						foreach($unPublishedUrls as $url)
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td><?php $str=$url['url']; echo wordwrap($str,35,"<br>\n",TRUE); ?></td>
 							<td><?php echo $url['payPerLink']; ?></td>
 							<td><?php echo $url['userName']; ?></td>
 							<td></td>

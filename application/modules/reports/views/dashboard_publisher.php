@@ -40,8 +40,8 @@
 									<?php if($urls) echo $urls; else echo "0"; ?>
 								</td>
 								<td>
-									<?php $clecks=$this->clicksdetail->getTotalHits($item['userID']); ?>
-									<?php if(isset($clecks[0]['numberOfClicks'])) echo $clecks[0]['numberOfClicks']; else echo "0"; ?>
+									<?php $clicks=$this->clicksdetail->getTotalHits($item['userID']); ?>
+									<?php if(isset($clicks[0]['numberOfClicks'])) echo $clicks[0]['numberOfClicks']; else echo "0"; ?>
 								</td>
 								<td><?php echo $item['paidAmount']?></td>
 								<td><?php echo $item['balanceAmount']?></td>
@@ -62,9 +62,9 @@
 										//echo $inc;
 									?>
 										<?php if($this->uri->segment('3')=='advertiser') : ?>
-											<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."reports/dashboard/publisher/".$inc."/".$startDate."/".$endDate; ?>" ><?php echo $inc; ?></a>
-										<?php else : ?>
-											<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."reports/dashboard/publisher/".$inc."/".$startDate."/".$endDate; ?>" ><?php echo $inc; ?></a>
+											<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."reports/dashboard/publisher/".$inc; ?>" ><?php echo $inc; ?></a>
+										<?php elseif($this->uri->segment('3')=='publisher') : ?>
+											<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."reports/dashboard/publisher/".$inc; ?>" ><?php echo $inc; ?></a>
 										<?php endif; ?>
 											
 										<?php

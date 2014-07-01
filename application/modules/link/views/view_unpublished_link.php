@@ -1,3 +1,11 @@
+	<style>
+		.btn-small{
+			margin-bottom:5px;
+		}
+		.unaccepted. .table thead:first-child tr:first-child th {
+			width:150px !important;
+		}
+	</style>	
 		<div id="loading" class="alert alert-success" style="display:none">Wait Data is loading</div>
 		<?php //echo "<pre>"; print_r($unPublishedUrls); echo "</pre>"; ?>
 		<div class="widget widget-table action-table">
@@ -17,12 +25,14 @@
 			</div>
 			<!-- /widget-header -->
 			<div class="widget-content unaccepted">
-				<table class="table table-striped table-bordered">
+				<table class="table table-striped table-bordered" style="max-width:100;">
 					<thead>
 						<tr>
-							<th>Link </th>
+							<th class="tr_link" width="150px">Link</th>
 							<th>Pay Per link</th>
-							<th class="td-actions"> </th>
+							<th>Title</th>
+                            <!--<th>Admin Commision <br/>(In %)</th>-->
+                            <th class="td-actions"> </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,8 +41,14 @@
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td class="tr_link">
+								<?php $str=$url['url']; echo wordwrap($str,35,"<br>\n",TRUE); ?>
+								<?php //echo $url['url']; ?>
+							</td>
 							<td><?php echo $url['payPerLink']; ?></td>
+                            <td><?php echo $url['title'];?></td>
+							<!--<td><?php echo $url['percentage']; ?></td>-->
+                         
 							<td class="td-actions">
 								<?php 
 								if($this->session->userdata("userTypeID")==2)
@@ -51,7 +67,7 @@
 								?>
 							</td>
 						</tr>
-						<?
+						<?php
 						}
 						?>
 					</tbody>
@@ -59,9 +75,20 @@
 				<?php if($this->session->userdata("userTypeID")==3) : ?>
 				<div class="widget-header navigation-un" style="text-align:right;">
 					<?php 
-						$mod=10; $inc=1;
+						$count=$unpublished_url_count;
+						$totalPages=(int)($count/50);
+						if($count%50)
+							$totalPages++;
+						$totalPages;
+						$first=1;
+						$last=$totalPages;
+						
+						$mod=50; $inc=1;
 						if($unpublished_url_count>$mod) :
 							echo "Pages:";
+							?>
+                           <!-- <a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==1) echo "page-active"; ?>" href="javascript:void(0)" onclick="ajaxPageNavUn(<?php echo $first; ?>)" ><<</a>-->
+                            <?php
 							for($i=0;$i<=$unpublished_url_count;$i++) :
 								if(($i%$mod)==0) :
 									//echo $inc;
@@ -72,13 +99,17 @@
 									$inc++;
 								endif;
 							endfor;
+							?>
+                            <!--<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$last) echo "page-active"; ?>" href="javascript:void(0)" onclick="ajaxPageNavUn(<?php echo $last; ?>)" >>></a>-->
+                            <?php
 						endif;
 					?> &nbsp;
 				</div>
 				<?php elseif($this->session->userdata("userTypeID")==2) : ?>
 				<div class="widget-header navigation-un" style="text-align:right;">
 					<?php 
-						$mod=10; $inc=1;
+						$mod=50; $inc=1;
+						//echo $unPubUrlCount;
 						if($unPubUrlCount>$mod) :
 							echo "Pages:";
 							for($i=0;$i<=$unPubUrlCount;$i++) :
@@ -102,6 +133,7 @@
 		<script>
 		function ajaxPageNavUn(pid){
 			//alert(pid);
+			
 			 $.ajax({
 				url:base_url+"publisher/dashboard/getunpublishedurls/"+pid,
 				beforeSend: loadStartUn,

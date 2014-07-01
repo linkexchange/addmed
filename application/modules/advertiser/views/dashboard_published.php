@@ -11,6 +11,7 @@
 								}
 							?> -->
 							<th>Pay Per link</th>
+							<th>Title</th>
 							<th>
 							<?php
 							if($this->session->userdata("userTypeID")==2)
@@ -27,13 +28,14 @@
 							<th class="td-actions"> </th>
 						</tr>
 					</thead>
+					<?php $this->load->model("clicksdetail"); ?>
 					<tbody>
 					<?php
 						foreach($publishedUrls as $url)
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td><?php $str=$url['url']; echo wordwrap($str,30,"<br>\n",TRUE); ?></td>
 							<!-- <?php 
 								if($this->session->userdata("userTypeID")==3) 
 								{
@@ -43,9 +45,40 @@
 								}
 							?> -->
 							<td><?php echo $url['payPerLink']; ?></td>
-							<td><?php echo $url['userName']; ?></td>
-							<td></td>
-							<td></td>
+							<td><?php echo $url['title']; ?></td>
+							<!-- <td><?php echo "asd".$url['userName']; ?></td> -->
+							<td><?php $this->load->model("user");
+									if($this->session->userdata("userTypeID")==2)
+									{
+										$users=$this->user->getPublishersByLinkID($url['id']);
+                                        $userName=""; 
+										$i=0;
+										foreach($users as $user)
+										{
+											if($i>0)
+												$userName .= ',<br/>'.$user['userName'];
+											else
+												$userName .= $user['userName'];
+											$i++;
+										}
+										echo $userName; 
+									}
+									else if($this->session->userdata("userTypeID")==3)
+									{
+										$users=$this->user->getUserByID($url['advertiserID']);
+										echo $users[0]['userName'];
+									}
+									?>
+							</td>	
+							<td><?php $clicks=$this->clicksdetail->getTotalHitsByLinkId($url['id']); ?>
+								<?php if(isset($clicks[0]['numberOfClicks'])) echo $clicks[0]['numberOfClicks']; else echo "0"; ?></td>
+							<td><?php if($this->session->userData('userTypeID')==3) : ?>
+									<?php $payment=$this->clicksdetail->getTotalPublisherPaymentForLinkId($url['id']);?>
+									<?php if(isset($payment[0]['publisherPayment']))  echo round($payment[0]['publisherPayment'], 2); else echo "0"; ?>
+								<?php elseif($this->session->userData('userTypeID')==2) : ?>
+									<?php $payment=$this->clicksdetail->getTotalAdvertiserPaymentForLinkId($url['id']);?>
+									<?php if(isset($payment[0]['advertiserPaynment']))  echo round($payment[0]['advertiserPaynment'], 2); else echo "0"; ?>
+								<?php endif; ?></td>
 							<td class="td-actions">
 							<?php
 							if($this->session->userdata("userTypeID")==2)

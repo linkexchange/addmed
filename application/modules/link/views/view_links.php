@@ -1,3 +1,33 @@
+
+<?php if($this->session->flashdata('message')) : ?>
+<script>
+$(document).ready(function(){
+	$("#successMessage").show();
+});
+</script>
+
+<?php endif; ?>
+<script>
+	function getCategoryLinks(cid){
+		//alert(cid);
+			if(cid){
+				 $.ajax({
+				url:base_url+"link/link/index/"+cid,
+				//beforeSend: loadStartPub,
+				//complete: loadStopPub,
+				success:function(result){
+					$(".setData").html(result);
+					$(".setData").show();
+				}});
+			 	
+			}
+			else
+			{
+				$(".setData").hide();
+			}
+	}
+</script>
+
 		<?php if($this->session->userdata("userTypeID")==2) : ?>
 		<div class="widget"> 
 			<div class="span12 offset10"> 
@@ -5,22 +35,56 @@
 			</div>
 		</div>
 		<?php endif; ?>
-		<div class="widget widget-table action-table">
-			<div class="widget-header"> <i class="icon-th-list"></i>
-				<h3>Links</h3>
-			</div>
+		<div class="widget widget-table action-table" >
+        	
+                <div class="widget-header"> <i class="icon-th-list"></i>
+                    <h3>Links</h3>
+                </div>
+                <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+                <div id="successMessage" class="alert alert-success" style="display:none"><?php echo $this->session->flashdata('message');?></div>
 				<?php //echo "<pre>"; print_r($urls); echo "</pre>"; ?>
 			<!-- /widget-header -->
-			<div class="widget-content">
+			<div class="widget-content" style="padding:25px;">
+            	<div class="big-stats-container">
+                <div class="widget-content" style="padding-bottom:25px;">
+                	<div id="formcontrols" class="tab-pane active" style="border: 1px solid #D6D6D6; padding-top:20px;">
+					<form class="form-horizontal" id="frm_getRecords" action="" method="POST">
+						<fieldset>
+                        	<!-- /control-group -->
+							<div class="control-group">											
+								<label for="cat_name" class="control-label">Select Category</label>
+								<div class="controls">
+									<select name="category" id="category" onchange="getCategoryLinks(this.value);">
+                                     <option value="">Please Select</option>
+									<?php foreach($categories as $cat){ ?>
+                                    	<?php if($cat['id']==$cur_cat_ID) : ?>
+                                        	<option value="<?php echo $cat['id']; ?>" selected="selected"><?php echo $cat['category_name']; ?></option>
+                                            <?php else : ?>
+                                            	<option value="<?php echo $cat['id']; ?>"><?php echo $cat['category_name']; ?></option>
+                                           	<?php endif; ?>
+										
+									<?php } ?>
+									</select>	
+								</div> <!-- /controls -->	
+								
+							</div> <!-- /control-group -->
+                        </fieldset>
+                    </form>
+                 </div>
+                </div>
+                
+                <div class="widget-content setData" style="border: 1px solid #D5D5D5;">
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
 							<th>Link </th>
+							<th>Category Name</th>
+							<th>Title</th>
 							<?php
-							if($this->session->userdata("userTypeID")==3 || $this->session->userdata("userTypeID")==1)
+							if($this->session->userdata("userTypeID")==3)
 							{
 							?>
-							<th>Billy Url</th>
+							<th>Bitly Url</th>
 							<?php
 							}
 							?>
@@ -31,41 +95,79 @@
 							<?php elseif($this->session->userdata("userTypeID")==2) : ?>
 							<th>Publisher</th>
 							<?php elseif($this->session->userdata("userTypeID")==1) : ?>
-							<th>Advertiser</th>
 							<th>Publisher</th>
+							<th>Advertiser</th>
 							<?php endif;?>
 							<th>Hits</th>
 							<th>Total Costing</th>
-							<th class="td-actions"> </th>
+                            <th>Admin Commision <br/>(In %)</th>
+                            <th class="td-actions"> </th>
 						</tr>
 					</thead>
-					<?php $this->load->model("clicksdetail"); ?>
-					<?php $this->load->model("user"); ?>
+					<?php $this->load->model("clicksdetail");
+						  $this->load->model("user");
+						  $this->load->model("url");?>
 					<tbody>
 					<?php
+						//echo "<pre>"; //print_R($urls); exit;
 						foreach($urls as $url)
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td><?php echo $url['url'];?></td>
+							<td><?php 
+									if($url['categoryID']==0)
+									{
+										echo "No category assigned";
+									}
+									else
+									{
+									$cat = $this->url->getcategoryNameById($url['categoryID']);
+									echo $cat[0]['category_name'];
+									}
+								?> 
+							</td>
+							<td> <?php echo $url['title'];?> </td>
 							<?php
-							if($this->session->userdata("userTypeID")==3 || $this->session->userdata("userTypeID")==1)
+							if($this->session->userdata("userTypeID")==3)
 							{
 							?>
-							<td><?php echo $url['billyUrl']; ?></td>
+							<td><?php echo $url['bitlyURL']; ?></td>
 							<?php
 							}
 							?>
 							<td><?php echo $url['payPerLink']; ?></td>
-							<td><?php if(isset($url['userName'])) echo $url['userName']; ?></td>
-							<?php if($this->session->userData('userTypeID')==1) : ?>
+							<?php if($this->session->userData('userTypeID')==1 || $this->session->userData('userTypeID')==2)  : ?>
 								<td>
-									<?php if($url['publisherID']!=0) : ?>
-										<?php $user=$this->user->getUserByID($url['publisherID']); ?>
-										<?php echo $user[0]['userName']; ?>
-									<?php endif; ?>
+									<?php $users=$this->user->getPublishersByLinkID($url['id']);
+                                        $userName=""; 
+										$i=0;
+										foreach($users as $user)
+										{
+											if($i>0)
+												$userName .= ",".$user['userName'];
+											else
+												$userName .= $user['userName'];
+											$i++;
+										}
+										 echo $userName;
+									?>
+								</td>
+							<?php endif;
+							if($this->session->userData('userTypeID')==3):
+							?>
+								<td>
+									<?php if(isset($url['userName'])) echo $url['userName']; ?>
+								</td>
+							<?
+							endif;
+							if($this->session->userData('userTypeID')==1) :
+								?>
+								<td>
+									<?php if(isset($url['userName'])) echo $url['userName']; ?>
 								</td>
 							<?php endif; ?>
+							
 							<td>
 								<?php if($this->session->userData('userTypeID')==3) : ?>
 									<?php if($url['userName']) : ?>
@@ -83,7 +185,6 @@
 										<?php if(isset($clicks[0]['numberOfClicks'])) echo $clicks[0]['numberOfClicks']; else echo "0"; ?>
 									<?php endif; ?>
 								<?php endif; ?>
-								
 							</td>
 							<td>
 								<?php if($this->session->userData('userTypeID')==3) : ?>
@@ -101,9 +202,10 @@
 									<?php endif; ?>
 								<?php endif; ?>
 							</td>
-							<td class="td-actions">
+                            <td><?php echo $url['percentage']; ?></td>
+                          	<td class="td-actions">
 							<?php
-							if($this->session->userdata("userTypeID")==2)
+							if($this->session->userdata("userTypeID")==2 || $this->session->userdata("userTypeID")==1)
 							{
 							?>
 									<a class="btn btn-small btn-success" href="<?php echo base_url()."link/edit/".$url['id']; ?>" ><i class="btn-icon-only icon-edit"> </i></a>
@@ -122,7 +224,7 @@
 							?> -->
 							</td>
 						</tr>
-						<?
+						<?php
 						}
 						?>
 						
@@ -131,7 +233,7 @@
 				<div class="widget-header" style="text-align:right;">
 					 
 					<?php 
-						$mod=10; $inc=1;
+						$mod=50; $inc=1;
 						if($url_count>$mod) :
 							echo "Pages:";
 							for($i=0;$i<=$url_count;$i++) :
@@ -139,7 +241,11 @@
 									//echo $inc;
 									
 									?>
-										<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(3))  echo "page-active"; else if(!($this->uri->segment(3)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."link/index/".$inc; ?>" ><?php echo $inc; ?></a>
+                                    <?php if($cur_cat_ID) : ?>
+										<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."link/index/".$cur_cat_ID."/".$inc; ?>" ><?php echo $inc; ?></a>
+                                    <?php else : ?>
+                                    	<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."link/index/0/".$inc; ?>" ><?php echo $inc; ?></a>
+                                    <?php endif; ?>
 									<?php
 									$inc++;
 								endif;
@@ -147,6 +253,11 @@
 						endif;
 					?> &nbsp;
 				</div>
-			</div>
-			<!-- /widget-content --> 
-		</div>
+                </div>
+         	</div>
+       	</div>
+	</div>
+	<!-- /widget-content --> 
+</div>
+        
+ 

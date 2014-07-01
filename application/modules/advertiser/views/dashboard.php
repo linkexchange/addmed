@@ -28,12 +28,12 @@
 <div class="row"> 
 	
 	
-	<div class="span6"> 
+	<div class="span7"> 
 		<?php 
 			$this->load->view('link/view_published_links');
 		?>
 	</div>
-	<div class="span6">
+	<div class="span5">
 		<?php
 			$this->load->view("link/view_unpublished_link")
 		?>

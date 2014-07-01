@@ -22,7 +22,7 @@
 							<div class="control-group">											
 								<label for="billyUrl" class="control-label">Billy URL</label>
 								<div class="controls">
-									<input type="text" value="<?php echo $url['billyUrl']; ?>" id="billyUrl" name="billyUrl" placeholder="Billy URL" class="span4 link-fields price-field validate[required,custom[url]]">
+									<input type="text" value="<?php echo $url['bitlyURL']; ?>" id="billyUrl" name="billyUrl" placeholder="Billy URL" class="span4 link-fields price-field validate[required,custom[url]]">
 								</div> <!-- /controls -->				
 							</div> <!-- /control-group -->
 							<div class="control-group">	

@@ -14,7 +14,7 @@
 						<thead>
 							<tr>
 								<th>Sr.</th>							
-								<th>Publisher Name</th>
+								<th>Advertiser Name</th>
 								<th>Published Links</th>
 								<th>Total Hits</th>
 								<th>Paid Amount</th>

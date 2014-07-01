@@ -3,6 +3,7 @@
 						<tr>
 							<th>Link </th>
 							<th>Pay Per link</th>
+                            <th>Title</th>
 							<th class="td-actions"> </th>
 						</tr>
 					</thead>
@@ -12,8 +13,9 @@
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td><?php $str=$url['url']; echo wordwrap($str,35,"<br>\n",TRUE); ?></td>
 							<td><?php echo $url['payPerLink']; ?></td>
+                             <td><?php echo $url['title'];?></td>
 							<td class="td-actions">
 								<?php 
 								if($this->session->userdata("userTypeID")==2)

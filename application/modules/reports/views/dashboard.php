@@ -1,3 +1,20 @@
+ <link rel="stylesheet" href="<?php echo base_url(); ?>css/datepicker.css">	
+  <script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
+  <script>
+		$(document).ready(function(){
+			$('#startDate').datepicker({
+				format: 'yyyy-mm-dd'
+				
+			}).on('changeDate', function(ev) {
+				 $('.datepicker ').hide();
+			});
+			$('#endDate').datepicker({
+				format: 'yyyy-mm-dd'
+			}).on('changeDate', function(ev) {
+				 $('.datepicker ').hide();
+			});;
+		});
+  </script>
 <style>
 
 .input-group-addon {
@@ -41,6 +58,7 @@
     top: 1px;
 }
 </style>
+
 <div class="widget">
 	<div class="widget-header"> 
 		<i class="icon-list-alt"></i>
@@ -57,7 +75,7 @@
 						<fieldset>
 							<div class="" style="float:left;">
 								<label for="startDate" class="control-label">Start Date</label>
-								<div class="controls" id='datetimepicker5' data-date-format="YYYY/MM/DD" >
+								<div class="controls" id='datetimepicker5' data-date="2014-05-20" data-date-format="yyyy-mm-dd">
 									<input type="text" class="form-control validate[custom[date]]" placeholder="Start Date" name="startDate" id="startDate" value="<?php if($startDate!=0) echo $startDate; ?>">
 									<!-- <span class="input-group-addon">
 										<span class="glyphicon glyphicon-time"></span>
@@ -66,7 +84,7 @@
 							</div>
 							<div class="" style="float:left;">
 								<label for="endDate" class="control-label">End Date</label>
-								<div class="controls">
+								<div class="controls" data-date="2014-05-20" data-date-format="yyyy-mm-dd">
 									<input type="text" class="validate[custom[date]]" placeholder="End Date" name="endDate" id="endDate" value="<?php if($endDate!=0) echo $endDate; ?>">
 								</div> <!-- /controls -->	
 							</div>
@@ -123,13 +141,7 @@
 						$("#frm_signup").validationEngine();
 					});
 				</script>
-				<!-- <script type="text/javascript">
-					$(function () {
-						$('#datetimepicker5').datetimepicker({
-							pickTime: false
-						});
-					});
-				</script> -->
+				
 				<br/>
 				<div id="ajax-reports">
 					<table class="table table-striped table-bordered user-transactions">
@@ -146,16 +158,16 @@
 								<th>Publisher</th>
 								<?php endif; ?>
 								<th>Pay Per Link</th>
-								<th>Bitly URL</th>
-								<th>Hits</th>
-								
+                                <th>Bitly URL</th>
+                                <th>Admin Commision <br/>(In %)</th>
+                                <th>Hits</th>
 								<?php if($this->session->userData('userTypeID')==1) : ?>
 								<th>Advertiser Amount</th>
 								<th>Publisher Amount</th>
 								<?php else : ?>
 								<th>Hit Amount</th>
 								<?php endif; ?>
-								<?php if($this->session->userData('userTypeID')==3 || $this->session->userData('userTypeID')==1) : ?>
+								<?php if($this->session->userData('userTypeID')==1) : ?>
 								<th>Admin Commision</th>
 								<?php endif; ?>
 								<th>Date</th>
@@ -177,11 +189,13 @@
 									<?php if($this->session->userData('userTypeID')==1) : ?>
 										<td>
 											<?php $user=$this->user->getUserByID($item['publisherID']); ?>
-											<?php echo $user[0]['userName']; ?>
+											<?php if(isset($user[0]['userName'])) echo $user[0]['userName']; ?>
 										</td>
 									<?php endif; ?>
 									<td><?php echo $item['payPerLink']; ?></td>
-									<td><?php echo $item['billyUrl']; ?></td>
+                                    <td><?php echo $item['bitlyURL']; ?></td>
+                                    <td><?php echo $item['percentage']; ?></td>
+                                    
 									<td><?php echo $item['numberOfClicks']; ?></td>
 									<?php if($this->session->userData('userTypeID')==3) : ?> 
 									<td><?php echo $item['publisherPayment']; ?></td>
@@ -192,9 +206,7 @@
 									<td><?php echo $item['publisherPayment']; ?></td>
 									<td><?php echo $item['commission']; ?></td>
 									<?php endif; ?>
-									<?php if($this->session->userData('userTypeID')==3) : ?>
-									<td><?php echo $item['commission']; ?></td>
-									<?php endif; ?>
+									
 									<td><?php echo $item['createdDate']; ?></td>
 								</tr>
 								<?php $sr++; ?>

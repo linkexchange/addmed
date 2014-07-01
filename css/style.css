@@ -111,6 +111,7 @@ textarea {
 .navbar-search .search-query { background:#008866; border:0; color:#fff; line-height:normal;}
 
 
+
 /*------------------------------------------------------------------
 [3. Subnavbar / .subnavbar]
 */
@@ -251,9 +252,7 @@ textarea {
 */
 
 .main {
-	padding-bottom: 2em;
 	
-	border-bottom: 1px solid #000;
 }
 
 
@@ -350,7 +349,7 @@ textarea {
 	
 	position: relative;
 	
-	height: 40px;
+	min-height: 40px;
 	line-height: 40px;
 	
 	background: #f9f6f1;
@@ -1283,4 +1282,7 @@ color: #333;
 	}
 	
 }
+
+
+
 

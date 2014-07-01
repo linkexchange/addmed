@@ -38,5 +38,9 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('TABLE_USER', "user");
 
+define('BLOG_IMAGE_PATH','uploads/blog_images/');
+define('ARTICLE_IMAGE_PATH','uploads/article_images/');
+define('WEBSITE_PATH','websites/');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

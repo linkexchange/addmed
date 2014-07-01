@@ -1,7 +1,25 @@
-
+<script>
+	function getCategoryCPC(cid){
+			if(cid){
+				 $.ajax({
+				url:base_url+"link/link/getCategoryCPC/"+cid,
+				//beforeSend: loadStartPub,
+				//complete: loadStopPub,
+				success:function(result){
+					$("#pricePerLink").val(result);
+					
+				}});
+			 	
+			}
+			else
+			{
+				$("#pricePerLink").val();
+			}
+	}
+</script>
 <div class="widget">
 	<div class="widget-header"> <i class="icon-list-alt"></i>
-		<h3>Add Links</h3>
+		<h3>Edit Link</h3>
 	</div>
 	<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 	<div id="successMessage" class="alert alert-success" style="display:none"></div>
@@ -20,11 +38,49 @@
 								</div> <!-- /controls -->				
 							</div> <!-- /control-group -->
 							<div class="control-group">											
+								<label for="category" class="control-label">Category Name</label>
+								<div class="controls">
+									<select name="category" class="validate[required]" onchange="getCategoryCPC(this.value);">
+										<?php
+										if($url['categoryID']==0)
+										{ ?>
+										<option value="0">No category assigned</option>
+										<?php } 
+										for($i=0;$i<count($categories);$i++){
+										if($categories[$i]['id']==$url['categoryID'])
+										{ ?>
+										<option value="<?php echo $categories[$i]['id']?>" selected="selected">
+										<?php echo $categories[$i]['category_name'];?>
+										</option>
+										<?php } else {?>
+										<option value="<?php echo $categories[$i]['id']?>">
+										<?php echo $categories[$i]['category_name'];?>
+										</option>	
+										<?php } }?>
+									</select>	
+								</div> <!-- /controls -->				
+							</div>
+							<div class="control-group">											
+								<label for="title" class="control-label">Title</label>
+								<div class="controls">
+									<input type="text" 
+									placeholder="title" name="title" id="title" value="<?php echo $url['title'];?>">
+								</div> <!-- /controls -->				
+							</div>
+							<div class="control-group">											
 								<label for="pricePerLink" class="control-label">Pay Per Click </label>
 								<div class="controls">
-									<input type="text" value="<?php echo $url['payPerLink']; ?>" id="pricePerLink" name="payPerLink" placeholder="Pay Per Click" class="span4 link-fields price-field validate[required]">
+									<input type="text" value="<?php echo $url['payPerLink']; ?>" data-type="decimal" id="pricePerLink" name="payPerLink" placeholder="Pay Per Click" class="span4 link-fields price-field validate[required,custom[number]]">
 								</div> <!-- /controls -->				
 							</div> <!-- /control-group -->
+                            <?php if($this->session->userdata("userTypeID")==1) : ?>
+                            <div class="control-group">											
+								<label for="percentage" class="control-label">Admin Commision % </label>
+								<div class="controls">
+									<input type="text" value="<?php echo $url['percentage']; ?>" id="percentage" name="percentage" placeholder="Pay Per Click" class="span4 link-fields price-field validate[required,custom[number]]" data-type="decimal">
+								</div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+                            <?php endif; ?>
 							<div class="control-group">	
 								<div class="controls">
 									<button id="btn_submit" class="btn btn-primary" type="submit">Save</button> 
@@ -58,11 +114,10 @@
 			},
 			success :  function(responseText, statusText, xhr, $form){
 				$("#btn_submit").button("reset");
-				$("#successMessage").html("You link Added successfully...!");
+				$("#successMessage").html("You link edited successfully...!");
 				$("#successMessage").show();
 				window.location=base_url+"link";
 			}
 		});
-		$("#frm_signup").validationEngine();
-	});
+		});
 </script>

@@ -31,7 +31,7 @@
 									<td><?php echo $item['url']; ?></td>
 									<td><?php echo $item['userName']; ?></td>
 									<td><?php echo $item['payPerLink']; ?></td>
-									<td><?php echo $item['billyUrl']; ?></td>
+									<td><?php echo $item['bitlyURL']; ?></td>
 									<td><?php echo $item['numberOfClicks']; ?></td>
 									<?php if($this->session->userData('userTypeID')==3) : ?> 
 									<td><?php echo $item['publisherPayment']; ?></td>

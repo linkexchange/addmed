@@ -20,9 +20,11 @@ class Sign_up extends MX_Controller {
 	public function index()
 	{
 		$this->load->model("user");
-			
+		
 		if($this->input->post())
 		{
+			//echo $this->input->post("phoneNumber");
+			
 			if(!$this->user->isExistUser($this->input->post("userName")))
 			{
 				if(!$this->user->isExistEmail($this->input->post("email")))
@@ -36,6 +38,8 @@ class Sign_up extends MX_Controller {
 									"userTypeID"=>$this->input->post("userType"),
 									'createdDate'=>date("Y-m-d"),
 								);
+					//echo "<pre>"; print_r($userData);
+					//exit;
 					$userID = $this->user->createUser($userData);
 					if($userID)
 					{
@@ -48,7 +52,9 @@ class Sign_up extends MX_Controller {
 							$this->session->set_userdata('userType','advertiser');
 						else if($this->input->post("userType")==3)
 							$this->session->set_userdata('userType','publisher');
-						echo $this->input->post("userType");  // isert successfully
+						
+
+						$this->session->set_userdata('loggedIn',TRUE);
 
 						$paymentData=array(
 							'userID'=>$userID,
@@ -57,6 +63,8 @@ class Sign_up extends MX_Controller {
 						);
 						$this->load->model('payments');
 						$payId=$this->payments->add($paymentData);
+
+						echo $this->input->post("userType");  // isert successfully
 					}
 					else
 					{

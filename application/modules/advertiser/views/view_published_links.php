@@ -27,9 +27,16 @@
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td><?php $str=$url['url']; echo wordwrap($str,35,"<br>\n",TRUE); ?></td>
 							<td><?php echo $url['payPerLink']; ?></td>
-							<td><?php echo $url['userName']; ?></td>
+							<td>
+								<?php 
+									//$users=expload(",",$url['userName']);  echo $url['userName']; 
+									/*foreach($users as $user){
+										echo $user; echo "<br/>";
+									}*/
+								?>
+							</td>
 							<td></td>
 							<td></td>
 							<td class="td-actions">

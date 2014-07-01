@@ -30,7 +30,7 @@
 				</div> <!-- /field -->
 				
 				<div class="field">
-					<label for="phone">First Name:</label>	
+					<label for="phoneNumber">Phone Number:</label>	
 					<input type="text" class="login validate[required,custom[integer]]" placeholder="Phone Number" value="" name="phoneNumber" id="phoneNumber">
 				</div> <!-- /field -->
 				

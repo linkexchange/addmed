@@ -1,4 +1,23 @@
-
+<?php $n = count($categories);?>
+<script>
+	function getCategoryCPC(cid){
+			if(cid){
+				 $.ajax({
+				url:base_url+"link/link/getCategoryCPC/"+cid,
+				//beforeSend: loadStartPub,
+				//complete: loadStopPub,
+				success:function(result){
+					$("#pricePerLink").val(result);
+					
+				}});
+			 	
+			}
+			else
+			{
+				$("#pricePerLink").val();
+			}
+	}
+</script>
 <div class="widget">
 	<div class="widget-header"> <i class="icon-list-alt"></i>
 		<h3>Add Links</h3>
@@ -19,9 +38,29 @@
 								</div> <!-- /controls -->				
 							</div> <!-- /control-group -->
 							<div class="control-group">											
+								<label for="title" class="control-label">Title</label>
+								<div class="controls">
+							    	<input type="text" class="validate[required]" 
+									placeholder="Title"  name="title" id="title">
+								</div> <!-- /controls -->				
+							</div>
+							<div class="control-group">											
+								<label for="category" class="control-label">Select Category</label>
+								<div class="controls">
+							    	<select name="category" class="validate[required]" onchange="getCategoryCPC(this.value);">
+                                    	<option value="">Please Select</option>
+										<?php for($i=0;$i<$n;$i++) { ?>
+										<option value="<?php echo $categories[$i]['id'];?>">
+											<?php echo $categories[$i]['category_name'];?>
+										</option>
+										<?php } ?>	
+									</select>
+								</div> <!-- /controls -->				
+							</div>
+							<div class="control-group">											
 								<label for="pricePerLink" class="control-label">Pay Per Click </label>
 								<div class="controls">
-									<input type="text" value="" id="pricePerLink" name="payPerLink" placeholder="Pay Per Click" class="span4 link-fields price-field validate[required]">
+									<input type="text" value="" id="pricePerLink" name="payPerLink" placeholder="Pay Per Click" class="span4 link-fields price-field validate[required,custom[number]]" data-type="decimal">
 								</div> <!-- /controls -->				
 							</div> <!-- /control-group -->
 							<div class="control-group">	
@@ -59,12 +98,13 @@
 				$("#btn_submit").button("reset");
 				if(responseText>0)
 				{
-					$("#successMessage").html(responseText);
+					$("#successMessage").html("Link added successfully");
 					$("#successMessage").show();
 					window.location=base_url+"link";
 				}
 				else
 				{
+					//alert(responseText);
 					$("#errorMessage").html("Link already exist...!");
 					$("#errorMessage").show();
 				}

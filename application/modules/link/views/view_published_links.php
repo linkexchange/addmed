@@ -4,23 +4,23 @@
 				<h3>
 					<?php
 						if($this->session->userdata("userTypeID")==3)
-							{
-								echo "Accepted Links";
-							}
-							else if($this->session->userdata("userTypeID")==2)
-							{
-								echo "Published Links";
-							}
+						{
+							echo "Accepted Links";
+						}
+						else if($this->session->userdata("userTypeID")==2)
+						{
+							echo "Published Links";
+						}
 					?>
 				</h3>
 			</div>
 			<!-- /widget-header -->
 			<?php //echo "<pre>"; print_r($publishedUrls); echo "</pre>"; ?>
 			<div class="widget-content accepted">
-				<table class="table table-striped table-bordered">
+				<table class="table table-striped table-bordered table-style " >
 					<thead>
 						<tr>
-							<th>Link </th>
+							<th class="link">Link </th>
 							<!-- <?php 
 								if($this->session->userdata("userTypeID")==3) 
 								{
@@ -30,6 +30,7 @@
 								}
 							?> -->
 							<th>Pay Per link</th>
+							<th>Title</th>
 							<th>
 							<?php
 							if($this->session->userdata("userTypeID")==2)
@@ -53,7 +54,10 @@
 						{
 						?>
 						<tr>
-							<td><?php echo $url['url']; ?></td>
+							<td>
+								<?php $str=$url['url']; echo wordwrap($str,30,"<br>\n",TRUE); ?>
+								<?php //echo $url['url']; ?>
+							</td>
 							<!-- <?php 
 								if($this->session->userdata("userTypeID")==3) 
 								{
@@ -63,7 +67,31 @@
 								}
 							?> -->
 							<td><?php echo $url['payPerLink']; ?></td>
-							<td><?php echo $url['userName']; ?></td>
+							<td><?php echo $url['title']; ?></td>
+							
+							<td><?php $this->load->model("user");
+									if($this->session->userdata("userTypeID")==2)
+									{
+										$users=$this->user->getPublishersByLinkID($url['id']);
+                                        $userName=""; 
+										$i=0;
+										foreach($users as $user)
+										{
+											if($i>0)
+												$userName .= ',<br/>'.$user['userName'];
+											else
+												$userName .= $user['userName'];
+											$i++;
+										}
+										echo $userName; 
+									}
+									else if($this->session->userdata("userTypeID")==3)
+									{
+										$users=$this->user->getUserByID($url['advertiserID']);
+										echo $users[0]['userName'];
+									}
+									?>
+							</td>			
 							<td>
 								<?php $clicks=$this->clicksdetail->getTotalHitsByLinkId($url['id']); ?>
 								<?php if(isset($clicks[0]['numberOfClicks'])) echo $clicks[0]['numberOfClicks']; else echo "0"; ?>
@@ -86,17 +114,17 @@
 							<?php
 							}
 							elseif($this->session->userdata("userTypeID")==3 ){
-								if(!($url['billyUrl'])){
+								if(!($url['bitlyURL'])){
 							?>
-								<a class="btn btn-success btn-small" href="<?php echo base_url()."link/edit_pub/".$url['id']; ?>"><i class="icon-anchor btn-icon-only" title="Add Bitly URL"> </i></a>
-								<a class="btn btn-danger btn-small" href="<?php echo base_url()."link/pubremove/".$url['id']; ?>"><i class="btn-icon-only icon-remove" title="Remove"> </i></a>
+								<a class="btn btn-success btn-small" href="<?php echo base_url()."link/edit_pub/".$url['publishedID']; ?>"><i class="icon-anchor btn-icon-only" title="Add Bitly URL"> </i></a>
+								<a class="btn btn-danger btn-small" href="<?php echo base_url()."link/pubremove/".$url['publishedID']; ?>"><i class="btn-icon-only icon-remove" title="Remove"> </i></a>
 								<?php 
 								}
 								else
 								{
 								?>
-								<a class="btn btn-small btn-success" href="<?php echo base_url()."link/edit_pub/".$url['id']; ?>" ><i class="btn-icon-only icon-edit" title="Edit Bitly Link"> </i></a>
-								<a class="btn btn-danger btn-small" href="<?php echo base_url()."link/pubremove/".$url['id']; ?>"><i class="btn-icon-only icon-remove" title="Remove"> </i></a>
+								<a class="btn btn-small btn-success" href="<?php echo base_url()."link/edit_pub/".$url['publishedID']; ?>" ><i class="btn-icon-only icon-edit" title="Edit Bitly Link"> </i></a>
+								<a class="btn btn-danger btn-small" href="<?php echo base_url()."link/pubremove/".$url['publishedID']; ?>"><i class="btn-icon-only icon-remove" title="Remove"> </i></a>
 								<?php 
 									}
 								?>
@@ -105,7 +133,7 @@
 							?>
 							</td>
 						</tr>
-						<?
+						<?php
 						}
 						?>
 					</tbody>
@@ -113,7 +141,7 @@
 				<?php if($this->session->userdata("userTypeID")==3) : ?>
 				<div class="widget-header navigation" style="text-align:right;">
 					<?php 
-						$mod=10; $inc=1;
+					 	$mod=50; $inc=1;
 						if($url_count>$mod) :
 							echo "Pages:";
 							for($i=0;$i<=$url_count;$i++) :
@@ -131,8 +159,9 @@
 				</div>
 				<?php elseif($this->session->userdata("userTypeID")==2) : ?>
 				<div class="widget-header navigation" style="text-align:right;">
-					<?php 
-						$mod=10; $inc=1;
+					<?php
+					
+						$mod=50; $inc=1;
 						if($pubUrlCount>$mod) :
 							echo "Pages:";
 							for($i=0;$i<=$pubUrlCount;$i++) :
