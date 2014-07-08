@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://192.168.1.80/stc_api/';
+$config['base_url']	= 'http://192.168.1.80/addmed/stc_api/';
 //$config['base_url']	= 'http://www.socialtrafficcenter.com/phaseII/';
 /*
 |--------------------------------------------------------------------------

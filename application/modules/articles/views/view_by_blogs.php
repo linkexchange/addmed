@@ -32,7 +32,7 @@ $(document).ready(function(){
                 	<div class="widget">
                     	<div class="widget-header"> 
 								<i class="icon-list-alt"></i>
-								<h3>View Gallery Items</h3>
+								<h3>View Gallery Items </h3>
 						</div>
                         <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 						<div id="successMessage" class="alert alert-success" style="display:none"><?php echo $this->session->flashdata('message');?></div>
@@ -70,11 +70,14 @@ $(document).ready(function(){
                                                         <th>Sr. </th>
                                                         <th>Gallery Item Title</th>
                                                         <th>Gallery Item Image</th>
-                                                        <th>Gallery Item Description</th>
+                                                        <th>Gallery Item Video</th>
                                                         <th>Post Name</th>
                                                         <th>Website Name</th>
                                                         <th>Created Date</th>
                                                         <th>Last Updated On</th>
+                                                        <?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
+                                                        <th>Sort Order</th>
+                                                        <?php endif; ?>
                                                         <th class="td-actions">Actions</th>
                                                     </tr>
                                                 </thead>
@@ -95,7 +98,7 @@ $(document).ready(function(){
                                                                 <img src="<?php echo base_url().ARTICLE_IMAGE_PATH.$article['articleImage']; ?>" width="100px" height="auto" />
                                                             <?php endif; ?>
                                                         </td>
-                                                        <td><?php echo $article['articleDescription']; ?></td>
+                                                        <td><div class="article_videos"><?php echo $article['articleVideo']; ?></div></td>
                                                         <td><?php echo $article['title']; ?></td>
                                                         <td><?php echo $article['name']; ?></td>
                                                         <td><?php echo $article['createdDate']; ?></td>
@@ -104,6 +107,19 @@ $(document).ready(function(){
                                                                 <?php echo $article['updatedDate']; ?>
                                                             <?php endif; ?>
                                                         </td>
+                                                        <?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
+                                                         <td>
+                                                            <select id="sortOrder" name="sortOrder" onchange="sort_order_change(<?php echo $article['id']; ?>, this.value);">
+                                                                <?php for($i=1;$i<=$count;$i++): ?>
+                                                                    <?php if($i==$article['sortOrder']) : ?>
+                                                                        <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
+                                                                    <?php else : ?>
+                                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                                    <?php endif; ?>
+                                                                <?php endfor; ?>
+                                                            </select>                                                     
+                                                        </td>
+                                                        <?php endif; ?>
                                                         <td class="td-actions">
                                                             <a class="btn btn-small btn-success" href="<?php echo base_url()."articles/dashboard/edit/".$article['id']; ?>" title="Edit : <?php echo $article['articleTitle']; ?>" style="margin-bottom:5px;">
                                                                 <i class="btn-icon-only icon-edit"> </i>
@@ -186,4 +202,20 @@ $(document).ready(function(){
 		}
 		
 	}
+        function sort_order_change(aid, sort_order){
+            $.ajax({
+		url:base_url+"articles/dashboard/setSortOreder/"+aid+"/"+sort_order,
+		//beforeSend: loadStartPub,
+		//complete: loadStopPub,
+		success:function(result){
+                    if(result==1){
+                        $("#successMessage").html("Sort Oredr updated successfully for article ID "+aid+".");
+			$("#successMessage").show();
+                    }
+                    else if(result==0){
+                         $("#errorMessage").html("Sort Order updation failed for article ID "+aid+".");
+			$("#errorMessage").show();
+                    }
+            }});
+        }
 </script>

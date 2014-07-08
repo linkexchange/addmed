@@ -14,8 +14,7 @@ class Dashboard extends MX_Controller {
 			$data['count']=$this->blog->getBlogsCount($this->session->userData('userID'),$templateID);
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
-			$this->layout->setLayout("layout/main");
-			$this->layout->view('view_by_templates',$data);
+			
 		}
 		else
 		{
@@ -24,15 +23,16 @@ class Dashboard extends MX_Controller {
 			$data['count']=$this->blog->getBlogsCount($this->session->userData('userID'));
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
-			$this->layout->setLayout("layout/main");
-			$this->layout->view('view_by_templates',$data);
-		}
-    }
-	public function add(){
-		$data[]="";
-		if($this->input->post())
-		{
 			
+		}
+                $this->layout->setLayout("layout/main");
+		$this->layout->view('view_by_templates',$data);
+    }
+    
+    public function addPost(){
+        if($this->input->post())
+		{
+			//echo "<pre>"; print_r($_POST); echo "</pre>"; exit;
 			if($_FILES["image"]) : 
 				$config['upload_path'] = './uploads/blog_images/';
 				$config['allowed_types'] = 'gif|jpg|png';
@@ -82,15 +82,18 @@ class Dashboard extends MX_Controller {
 			else :
 				echo 101;
 			endif;
-			
+			exit;
 		}
-		else
-		{
+    }
+	public function add(){
+		$data[]="";
+		
+		
 			$this->load->model('template');
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_blog',$data);
-		}
+		
 		
 	}
 	public function delete($id){
@@ -106,12 +109,13 @@ class Dashboard extends MX_Controller {
 		}
 	}
 
-	public function edit($id){
+	public function edit($id=0){
 		if($this->input->post()){
 			$this->load->model("blog");
 			 //$id=$_FILES["image"]['name'];
 			$blogData=array();
 			$err=1;
+                        $id=$this->input->post('id');
 			if(isset($_FILES["image"]['name'])) : 
 				$config['upload_path'] = './uploads/blog_images/';
 				$config['allowed_types'] = 'gif|jpg|png';
@@ -214,7 +218,8 @@ class Dashboard extends MX_Controller {
 		$this->layout->setLayout("layout/main");
 		$this->load->view('ajax_blogs_by_template',$data);
 	}
-
+        
+       
 	
 
 }

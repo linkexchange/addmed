@@ -138,6 +138,7 @@ class Api extends CI_Model{
 		$this->db->select($this->config->item('table_articles').".*,");
 		$this->db->from($this->config->item('table_articles'));
 		$this->db->where('blogID',$postID);
+                $this->db->order_by('sortOrder asc'); 
 		$result = $this->db->get();
 		return $result->result_array();
 	}

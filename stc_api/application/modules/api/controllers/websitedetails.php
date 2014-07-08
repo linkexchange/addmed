@@ -199,8 +199,14 @@ class Websitedetails extends MX_Controller{
 						$galleryItemDetails['galleryItemID']=$gallery[$item]['id'];
 						$galleryItemDetails['galleryItemTitle']=$gallery[$item]['articleTitle'];
 						$galleryItemDetails['galleryItemSlug']=$gallery[$item]['slug'];
-						$galleryItemDetails['galleryItemDescription']=$gallery[$item]['articleDescription'];
-						$galleryItemDetails['galleryItemImage']=ARTICLE_IMAGE_PATH."".$gallery[$item]['articleImage'];
+                                                $galleryItemDetails['galleryItemDescription']=$gallery[$item]['articleDescription'];
+                                                
+                                                if($gallery[$item]['articleVideo'])
+                                                    $galleryItemDetails['galleryItemVideo']=$gallery[$item]['articleVideo'];
+                                                                                             
+                                                if($gallery[$item]['articleImage'])
+                                                    $galleryItemDetails['galleryItemImage']=ARTICLE_IMAGE_PATH."".$gallery[$item]['articleImage'];
+                                                
 						$pre=$item-1;
 						if($pre<0)
 							$pre=$arrayCount-1;
@@ -243,8 +249,12 @@ class Websitedetails extends MX_Controller{
 				$galleryItemDetails['galleryItemID']=$gallery[0]['id'];
 				$galleryItemDetails['galleryItemTitle']=$gallery[0]['articleTitle'];
 				$galleryItemDetails['galleryItemSlug']=$gallery[0]['slug'];
-				$galleryItemDetails['galleryItemDescription']=$gallery[0]['articleDescription'];
-				$galleryItemDetails['galleryItemImage']=ARTICLE_IMAGE_PATH."".$gallery[0]['articleImage'];
+                                $galleryItemDetails['galleryItemDescription']=$gallery[0]['articleDescription'];
+                                if($gallery[0]['articleVideo'])
+                                    $galleryItemDetails['galleryItemVideo']=$gallery[0]['articleVideo'];
+				
+                                if($gallery[0]['articleImage'])
+                                    $galleryItemDetails['galleryItemImage']=ARTICLE_IMAGE_PATH."".$gallery[0]['articleImage'];
 			}
 
 			if($arrayCount==1){

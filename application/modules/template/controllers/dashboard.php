@@ -9,8 +9,8 @@ class Dashboard extends MX_Controller{
     	$this->layout->setLayout("layout/main");
 		$this->layout->view('dashboard',$data);
     }
-	public function add(){
-		if($this->input->post()){
+    public function addTemplate(){
+      if($this->input->post()){
 			$uid=$this->session->userData('userID');
 			$this->load->model("template");
 			$this->input->post('name');
@@ -26,14 +26,16 @@ class Dashboard extends MX_Controller{
 			//print_r($templateData);
 			echo $this->template->add($templateData);
 
-		}
-		else
-		{
+		}  
+    }
+	public function add(){
+		
+		
 			$data[]="";
 			
 			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_template',$data);
-		}
+	
 	}
 
 	public function getUniqueApiKey(){

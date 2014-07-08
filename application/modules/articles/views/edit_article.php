@@ -1,39 +1,37 @@
 <?php //echo "<pre>"; print_r($articles); echo "</pre>"; ?>
-
 <div class="main">
-	<div class="main-inner">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-                	<div class="widget">
+    <div class="main-inner">
+	<div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div class="widget">
                     	<div class="widget-header"> 
-								<i class="icon-list-alt"></i>
-								<h3>Edit Gallery Item</h3>
-						</div>
+                            <i class="icon-list-alt"></i>
+                            <h3>Edit Gallery Item</h3>
+			</div>
                         <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-						<div id="successMessage" class="alert alert-success" style="display:none"></div>
+			<div id="successMessage" class="alert alert-success" style="display:none"></div>
                     	<div class="widget-content">
-                        	<div class="big-stats-container">
+                            <div class="big-stats-container">
                             	<div class="widget-content inner">
-                                	<!-- article foreach #start -->
-                                	<?php foreach($articles as $article) : ?>
+                                    <!-- article foreach #start -->
+                                    <?php foreach($articles as $article) : ?>
                                     <script>
-										$(document).ready(function(){
-											var tid=<?php echo $article['templateID']; ?>;
-											var bid=<?php echo $article['blogID']; ?>;
-											 $.ajax({
-													url:base_url+"articles/dashboard/getTemplateBlogs/"+tid+"/"+bid,
-													//beforeSend: loadStartPub,
-													//complete: loadStopPub,
-													success:function(result){
-														$(".setBlogData").html(result);
-												}});
-											
-										});
-									</script>
-                     				<?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
+                                        $(document).ready(function(){
+                                            var tid=<?php echo $article['templateID']; ?>;
+                                            var bid=<?php echo $article['blogID']; ?>;
+                                            $.ajax({
+                                                url:base_url+"articles/dashboard/getTemplateBlogs/"+tid+"/"+bid,
+						//beforeSend: loadStartPub,
+						//complete: loadStopPub,
+						success:function(result){
+                                                    $(".setBlogData").html(result);
+                                            }});
+                                        });
+                                    </script>
+                                    <?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
                                     <form class="form-horizontal" id="frm_editArticle" action="" method="POST" enctype="multipart/form-data" >
-                            			<fieldset>
+                            		<fieldset>
                              				<div class="control-group">
                                                 <label for="template" class="control-label">Select Website</label>
                                                 <div class="controls">
@@ -55,6 +53,7 @@
                                             	<div class="control-group">											
                                                     <label for="articleTitle" class="control-label">Gallery Item Title</label>
                                                     <div class="controls">
+                                                        <input type="hidden" id="id" name="id" value="<?php echo $article['id']; ?>" />
                                                         <input type="text" class="validate[required]" placeholder="Gallery Item Title" value="<?php echo $article['articleTitle']; ?>" name="articleTitle" id="articleTitle">
                                                     </div> <!-- /controls -->				
 												</div> <!-- /control-group -->
@@ -65,11 +64,23 @@
                                                             <img src="<?php echo base_url().ARTICLE_IMAGE_PATH.$article['articleImage']; ?>" width="100px" height="auto" />
                                                             <input type="file" class="" name="articleImage" id="articleImage" size="20" >
                                                         <?php else : ?>
-                                                            <input type="file" class="validate[required]" name="articleImage" id="articleImage" size="20" >
+                                                            <input type="file" class="" name="articleImage" id="articleImage" size="20" >
                                                         <?php endif; ?>	
                                                         <p class="help-block">Maximum allwoed image size is 10MB.</p>	
                                                     </div>	
                                                	</div> <!-- /control-group -->
+                                                <div class="control-group">
+                                                    <label class="control-label"></label>
+                                                    <div class="controls">
+                                                        <p>OR</p>
+                                                    </div>
+                                                </div> <!-- /control-group -->
+                                                <div class="control-group">
+                                                    <label for="articleVideo" class="control-label">Gallery Item Video</label>
+                                                    <div class="controls">
+                                                        <textarea name="articleVideo"><?php echo $article['articleVideo']; ?></textarea>
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
                                                 <div class="control-group">											
                                                     <label for="articleDescription" class="control-label">Gallery Item Description</label>
                                                     <div class="controls">
@@ -127,8 +138,21 @@
 				$("#errorMessage").hide();
 				if($("#frm_editArticle").validationEngine('validate'))
 				{
-					$("#btn_submit").button('loading');
-					return true;
+					var msg="";
+                                        if(($('#articleImage').val()=="") && ($('#articleVideo').val()=="")){
+                                            msg+="Gallery item image or video is required for gallery item.";
+                                        }
+                                        if(msg==""){
+                                            $("#btn_submit").button('loading');
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            $("#errorMessage").html(msg);
+                                            $("#errorMessage").show();
+                                            $("#btn_submit").button('reset');
+                                            return false; 
+                                        }
 				}
 				else
 				{

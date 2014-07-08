@@ -10,7 +10,7 @@
 		<div class="big-stats-container">
 			<div class="widget-content">
 				<div id="formcontrols" class="tab-pane active">
-					<form class="form-horizontal" id="frm_addTemplate" action="" method="POST">
+					<form class="form-horizontal" id="frm_addTemplate" action="<?php echo base_url(); ?>template/dashboard/addTemplate" method="POST">
 						<fieldset>
 							<div class="control-group">											
 								<label for="name" class="control-label">Name</label>
@@ -59,7 +59,7 @@
 				}
 				else
 				{
-					$("#errorMessage").html("Website creation failed! Please try again...");
+					$("#errorMessage").html(responseText);
 					$("#errorMessage").show();
 				}
 			}

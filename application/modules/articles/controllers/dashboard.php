@@ -110,69 +110,79 @@ class Dashboard extends MX_Controller{
 			$this->layout->view('add_article',$data);
 		}
 	}
-
+        
 	// add multiple gallery items
-	public function addmultiple($tid=0,$bid=0,$page="ALL"){
-		$data[]="";
-		$msg="";
-		if($this->input->post())
+        public function addMultipleItems($tid=0,$bid=0,$page="ALL"){
+            $msg="";
+            if($this->input->post())
 		{
-			$gitems=$this->input->post('galleryItems');
+			$gitems=$this->input->post('galleryItems');// exit;
+                        
 			$galleryItemIds=explode(',',$gitems);
+                        
 			//echo "<pre>"; print_r($galleryItemIds); echo "</pre>";
 			foreach($galleryItemIds as $item){
+                            $articleData=array();
 				// Check blog id present #start.
 				if($this->input->post('blogID')) :
 					// Check articleImage present #start.
-					if($_FILES["articleImage_".$item]) : 
-						$config['upload_path'] = './uploads/article_images/';
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['max_size']	= '100000';
-						//$config['max_width']  = '1024';
-						//$config['max_height']  = '768';
-
-						$this->load->library('upload', $config);
-
-						if ( ! $this->upload->do_upload("articleImage_".$item))
-						{
+                                       
+					if(array_key_exists('articleImage_'.$item,$_FILES) || $this->input->post("articleVideo_".$item)) : 
+                                                if(array_key_exists('articleImage_'.$item,$_FILES)) :
+                                                    $config['upload_path'] = './uploads/article_images/';
+                                                    $config['allowed_types'] = 'gif|jpg|png';
+                                                    $config['max_size']	= '100000';
+                                                    //$config['max_width']  = '1024';
+                                                    //$config['max_height']  = '768';
+                                                    $this->load->library('upload', $config);
+                                                    if ( ! $this->upload->do_upload("articleImage_".$item))
+                                                    {
 							//echo $this->upload->display_errors();
 							$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. ".$this->upload->display_errors()."<br/>";
-						}
-						else
-						{
-							$data['image_data'] = array('upload_data' => $this->upload->data());
-							$uploaded_file=$data['image_data']['upload_data']['file_name'];
-							$slug = url_title($this->input->post('articleTitle_'.$item), 'dash', TRUE);
-							$articleData=array(
-								"articleTitle"=>$this->input->post('articleTitle_'.$item),
-								"slug"=>$slug,
-								"articleDescription"=>$this->input->post('articleDescription_'.$item),
-								"articleImage"=>$uploaded_file,
-								"blogID"=>$this->input->post('blogID'),
-								"createdBy"=>$this->session->userData('userID'),
-								"createdDate"=>date('Y-m-d'),
-							);
-							//echo "<pre>"; print_r($articleData); echo "</pre>";
-							$this->load->model('article');
-							$insert_id=$this->article->add($articleData);
-							if($insert_id){
-								if($this->input->post('templateID')){
-									$this->load->model("template");
-									$tid=$this->input->post('templateID');
-									$templateData=array(
-										"htmlCreated"=>"Update",
-										"updatedBy"=>$this->session->userData('userID'),
-										"updatedDate"=>date('Y-m-d'),
-									);	
-									$this->template->update($templateData,$tid);
-								}
-								$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." added successfully.<br/>";
-							}
-							else
-							{
-								$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please try again.<br/>";
-							}
-						}
+                                                    }
+                                                    else
+                                                    {
+                                                            $data['image_data'] = array('upload_data' => $this->upload->data());
+                                                            $uploaded_file=$data['image_data']['upload_data']['file_name'];
+                                                            $articleData['articleImage']=$uploaded_file;
+                                                    }                                                    
+                                                endif;
+                                                
+                                                if($this->input->post("articleVideo_".$item)) : 
+                                                    $articleData['articleVideo']=$this->input->post('articleVideo_'.$item);
+                                                endif;
+                                                //echo "item:".$this->input->post('articleVideo_'.$item)."<br/>";  
+                                                
+						$slug = url_title($this->input->post('articleTitle_'.$item), 'dash', TRUE);
+                                                $articleData['articleTitle']=$this->input->post('articleTitle_'.$item);
+                                                $articleData['slug']=$slug;
+                                                $articleData['articleDescription']=$this->input->post('articleDescription_'.$item);
+                                                $articleData['blogID']=$this->input->post('blogID');
+                                                $articleData['createdBy']=$this->session->userData('userID');
+                                                $articleData['createdDate']=date('Y-m-d');
+                                                
+						 //echo "<pre>"; print_r($articleData); echo "</pre>"; exit;
+                                                 $this->load->model('article');
+                                                 $insert_id=$this->article->add($articleData);
+                                                 if($insert_id){
+                                                    if($this->input->post('templateID')){
+                                                        $this->load->model("template");
+                                                        $tid=$this->input->post('templateID');
+                                                        $templateData=array(
+                                                            "htmlCreated"=>"Update",
+                                                            "updatedBy"=>$this->session->userData('userID'),
+                                                            "updatedDate"=>date('Y-m-d'),
+                                                        );	
+                                                        $this->template->update($templateData,$tid);
+                                                    }
+                                                    $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." added successfully.<br/>";
+                                                }
+                                                else
+                                                {
+                                                     $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please try again.<br/>";
+                                                }
+						
+						
 					else :
 						$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please upload gallery item image.<br/>";
 					endif;
@@ -181,14 +191,17 @@ class Dashboard extends MX_Controller{
 					$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please select Post.<br/>";
 				endif;
 				// Check blog id present #end.
-
-				
 			}
+                         //echo "br:".$item; echo "<pre>"; print_r($_POST); echo "</pre>"; exit;
 			echo $msg;
+                        
 		}
-		else
-		{
-			$this->load->model('template');
+        }
+	public function addmultiple($tid=0,$bid=0,$page="ALL"){
+		$data[]="";
+		$msg="";
+		
+		$this->load->model('template');
 			$this->load->model('blog');
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 			if($tid and $bid){
@@ -198,7 +211,7 @@ class Dashboard extends MX_Controller{
 			}
 			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_multiple_article',$data);
-		}
+		
 	}
 
 	public function getGalleryItemBlocks($hint="0"){
@@ -235,10 +248,12 @@ class Dashboard extends MX_Controller{
 	}
 
 	// edit article.
-	public function edit($aid){
+	public function edit($aid=0){
+               
 		$data[]="";
 		if($this->input->post())
 		{
+                     $aid=$this->input->post('id');
 			$articleData=array();
 			$err=1;
 			// Check blog id present #start.
@@ -268,6 +283,7 @@ class Dashboard extends MX_Controller{
 					$slug = url_title($this->input->post('articleTitle'), 'dash', TRUE);
 					$articleData["articleTitle"]=$this->input->post('articleTitle');
 					$articleData["slug"]=$slug;
+                                        $articleData["articleVideo"]=$this->input->post('articleVideo');
 					$articleData["articleDescription"]=$this->input->post('articleDescription');
 					$articleData["blogID"]=$this->input->post('blogID');
 					$articleData["updatedBy"]=$this->session->userData('userID');
@@ -366,5 +382,18 @@ class Dashboard extends MX_Controller{
 			$this->load->view('ajax_view_by_blogs',$data);
 		}
 	}
+         public function setSortOreder($articleID=0,$sort_order=0){
+            $articleData=array();
+            $articleData['sortOrder']=$sort_order;
+            $this->load->model('article');
+            $updated_id=$this->article->update($articleData,$articleID);
+            if($updated_id){
+                echo 1;
+            }
+            else {
+                echo 0;
+            }
+            exit;
+        }
 }
 ?>

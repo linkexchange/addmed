@@ -11,7 +11,7 @@
 			<div class="widget-content">
 				<div id="formcontrols" class="tab-pane active">
                 	 <?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
-					<form class="form-horizontal" id="frm_addBlog" action="" method="POST" enctype="multipart/form-data" >
+					<form class="form-horizontal" id="frm_addBlog" action="<?php echo base_url(); ?>blogs/dashboard/addPost" method="POST" enctype="multipart/form-data" >
 						<fieldset>
 							<div class="control-group">
                             	<label for="template" class="control-label">Select Website</label>
@@ -99,6 +99,7 @@
 				}
 				else
 				{
+                                    alert(responseText);
 					$("#errorMessage").html(responseText);
 					$("#errorMessage").show();
 				}

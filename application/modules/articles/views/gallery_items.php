@@ -23,6 +23,15 @@
 					<p class="help-block">Maximum allwoed image size is 10MB.</p>
 				</div> <!-- /controls -->				
 			</div> <!-- /control-group -->
+                        <div class="control-group or-class">											
+                            <p>OR</p>			
+                        </div> <!-- /control-group -->
+                        <div class="control-group">
+                            <label for="articleVideo_<?php echo $i; ?>" class="control-label">Gallery Item Video</label>
+                            <div class="controls">
+                                <textarea name="articleVideo_<?php echo $i; ?>" id="articleVideo_<?php echo $i; ?>" disabled="true"></textarea>
+                            </div> <!-- /controls -->				
+                        </div> <!-- /control-group -->
 			<div class="control-group">		
 				<label for="articleDescription_<?php echo $i; ?>" class="control-label">Gallery Item Description</label>
 				<div class="controls">
