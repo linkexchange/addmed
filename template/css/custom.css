@@ -252,6 +252,9 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 .one_fifth div.high-bx-caption{
 	top: 77%;
 }
+.article-description p iframe{
+	width:100% !important;
+}
 #container{
 }
 .category-article{

@@ -25,8 +25,13 @@
 												</tr>
 												</tbody>
                                     		</table><!-- table -->
-										<a href="#" id="post" class="btn btn-primary">Post a Comment</a><br/>	
-                                    	<div id="post_desc" style="display:none;">
+										<?php if($this->session->userdata('ForumUserID')){ ?>
+										<a href="#" id="post" class="btn btn-primary">Post a Comment</a>	
+                                    	<?php } else { 
+										$actual_link = urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");?>
+										<a href="<?php echo base_url();?>user/login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post a Comment</a>
+										<?php } ?> <br/>
+										<div id="post_desc" style="display:none;">
 												<form class="form-horizontal" id="frm_Post" action="" method="POST" enctype="multipart/form-data" >
 												<fieldset>
 												<div class="control-group">
@@ -37,22 +42,6 @@
 														<textarea name="post_description" class="validate[required]"></textarea>
 													</div>
 												</div>
-												<div class="control-group">
-													<label for="template" class="control-label">
-													Your Name:
-													</label>
-													<div class="controls">
-													<input type="text" name="name" class="validate[required]">	
-													</div>
-												</div>
-												<div class="control-group">
-													<label for="template" class="control-label">
-													Your Email:
-													</label>
-													<div class="controls">
-													<input type="text" name="email" class="validate[required,custom[email]]">	
-													</div>
-												</div>	
 												<input type="hidden" name="topicid" value="<?php echo $id;?>">
 												<div class="control-group">	
 													<div class="controls">
@@ -64,7 +53,7 @@
 												</form>	
 										</div> <br/>
 										<?php if($post){
-												if($this->session->userdata('userID')){
+												if($this->session->userdata('ForumUserID')){
 													$cnt = count($post);
 												}
 												else{ 
@@ -112,7 +101,7 @@ $(document).ready(function(){
 			$("#btn_post").button('loading');
 			$("#successMessage").hide();
 			$("#errorMessage").hide();
-			if($("#frm_Comment").validationEngine('validate'))
+			if($("#frm_Post").validationEngine('validate'))
 			{
 				$("#btn_post").button('loading');
 				return true;

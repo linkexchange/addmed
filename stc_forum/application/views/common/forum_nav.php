@@ -3,21 +3,21 @@
 	<div class="subnavbar-inner">
 		<div class="container">
 			<ul class="mainnav">
-				<li class="<?php if(($this->uri->segment('2')=="forum")) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
+				<li class="<?php if(($this->uri->segment('1')=="forum")) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     	<i class="icon-shield"></i>
                         <span>Forum</span> 
                     </a>
 					<ul class="dropdown-menu">
 						<?php if($this->session->userdata("ForumUserID")){ ?>
-						<li><a href="<?php echo base_url().'forum_articles/forum/add'; ?>">Add topic</a></li>
+						<li><a href="<?php echo base_url().'forum/add'; ?>">Add topic</a></li>
                     	<?php }?>
-						<li><a href="<?php echo base_url().'forum_articles/forum'; ?>">View topics</a></li>
+						<li><a href="<?php echo base_url().'forum'; ?>">View topics</a></li>
                     </ul>
                 	<!--<a href="<?php //echo base_url().'forum_articles/forum'; ?>"></a>-->
                 </li>
-				<li class="<?php if(($this->uri->segment('2')=="listing")&&($this->uri->segment('3')!="show_bookmarks")) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
-                	<a href="<?php echo base_url().'forum_articles/listing'; ?>">
+				<li class="<?php if(($this->uri->segment('1')=="articles")&&($this->uri->segment('3')!="show_bookmarks")) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
+                	<a href="<?php echo base_url().'articles'; ?>">
                     	<i class="icon-tasks"></i>
                         <span>Articles</span> 
                     </a>

@@ -38,7 +38,12 @@
 |
 */
 
-$route['default_controller'] = "user/login";
+$route['default_controller'] = "forum_articles/forum";
+$route['forum'] = "forum_articles/forum";
+$route['forum/add'] = "forum_articles/forum/add";
+$route['forum/view/(:num)'] = "forum_articles/forum/view/$1";
+$route['articles'] = "forum_articles/listing";
+$route['articles/view/(:num)'] = "forum_articles/listing/view/$1";
 $route['404_override'] = '';
 
 

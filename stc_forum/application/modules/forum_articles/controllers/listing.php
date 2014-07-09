@@ -18,8 +18,8 @@ class Listing extends MX_Controller{
 		if($this->input->post('comment_description'))
 		{
 			$data['description'] = $this->input->post('comment_description');
-			$data['name'] = $this->input->post('name');
-			$data['email'] = $this->input->post('email');	
+			$data['name']  = $this->session->userdata('ForumUserFullName');
+			$data['email'] = $this->session->userdata('ForumUserName');	
 			$data['articleid'] = $this->input->post('articleid');	
 			$data['status'] = '1';
 			$data['created_date'] = date('Y-m-d');
@@ -40,8 +40,8 @@ class Listing extends MX_Controller{
 			//echo "hi"; exit;
 			$data['parent_id'] = $this->input->post('commentid');
 			$data['description'] = $this->input->post('reply_description');
-			$data['name'] = $this->input->post('name2');
-			$data['email'] = $this->input->post('email2');	
+			$data['name']  = $this->session->userdata('ForumUserFullName');
+			$data['email'] = $this->session->userdata('ForumUserName');	
 			$data['articleid'] = $this->input->post('articleid');	
 			$data['status'] = '1';
 			$data['created_date'] = date('Y-m-d');
@@ -62,8 +62,8 @@ class Listing extends MX_Controller{
 			//echo "hi"; exit;
 			$data['parent_id'] = $this->input->post('replyid');
 			$data['description'] = $this->input->post('reply_description2');
-			$data['name'] = $this->input->post('name3');
-			$data['email'] = $this->input->post('email3');	
+			$data['name']  = $this->session->userdata('ForumUserFullName');
+			$data['email'] = $this->session->userdata('ForumUserName');	
 			$data['articleid'] = $this->input->post('articleid');	
 			$data['status'] = '1';
 			$data['created_date'] = date('Y-m-d');
@@ -83,7 +83,7 @@ class Listing extends MX_Controller{
 			$bookmarkData = array('name'=>$this->input->post('bookmark'),
 								  'url'=>$this->input->post('bookmarkUrl'),
 								  'articleid'=>$this->input->post('articleid'),
-								  'created_by'=>$this->session->userdata("userID"),
+								  'created_by'=>$this->session->userdata("ForumUserID"),
 								  'created_date'=>date('Y-m-d'));
 			$insert_id=$this->article->add_Bookmark($bookmarkData);
 			if($insert_id){
@@ -132,7 +132,7 @@ class Listing extends MX_Controller{
 	}
 	public function show_bookmarks()
 	{
-		if(!$this->session->userdata('userID'))
+		if(!$this->session->userdata('ForumUserID'))
 		{
 			redirect(base_url().'forum_articles/forum');
 		}

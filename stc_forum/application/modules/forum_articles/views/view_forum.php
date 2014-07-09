@@ -26,7 +26,7 @@
 						
 						<?php if($this->session->userdata("ForumUserID")){?>
 						<div class="" style="margin:0px 0px 15px 0px; text-align:right;"> 
-						<button onclick="javascript:goto('forum_articles/forum/add')" class="btn btn-primary btn-large  icon-anchor"> Add Topic</button>
+						<button onclick="javascript:goto('forum/add')" class="btn btn-primary btn-large  icon-anchor"> Add Topic</button>
 						</div>
 						<?php } ?>
 						<div class="widget">
@@ -79,7 +79,7 @@
 															<?php echo $topics[$i]['no_of_posts'];?>
 														</td>
 														<td>
-															<a target="_blank" href="<?php echo base_url();?>forum_articles/forum/view/<?php echo $topics[$i]['id']?>">
+															<a href="<?php echo base_url();?>forum/view/<?php echo $topics[$i]['id']?>">
 															View</a>
 														</td>	
 													</tr>
@@ -187,7 +187,7 @@
 				<?php for($i=0;$i<count($articles);$i++){?>
 				<tr> 
 				<td>
-				<a target="_blank" href="<?php echo base_url();?>forum_articles/listing/view/<?php echo $articles[$i]['id'];?>">
+				<a href="<?php echo base_url();?>articles/view/<?php echo $articles[$i]['id'];?>">
 				<h3><?php echo $articles[$i]['topic'];?></h3>
 				</a>
 				<img src="<?php echo base_url().'uploads/forum_article_images/'.$articles[$i]['image'];?>" width="70px" height="70px" style="float:left;margin-right:3px;">	
@@ -196,7 +196,7 @@
 					$str = substr(strip_tags($articles[$i]['description']),0,500);
 					echo "&nbsp;&nbsp;".substr($str,0,strrpos($str,'.'))."...";
 				?>
-				<a target="_blank" href="<?php echo base_url();?>forum_articles/listing/view/<?php echo $articles[$i]['id'];?>">[Read more]</a>
+				<a href="<?php echo base_url();?>articles/view/<?php echo $articles[$i]['id'];?>">[Read more]</a>
 				</p>	
 				</td>
 				</tr>

@@ -37,7 +37,7 @@
 															 <?php echo $bookmarks[$i]['name'];?>  
 														</td>
 														<td>
-															<a target="_blank" href="<?php echo $bookmarks[$i]['url'];?>">
+															<a href="<?php echo $bookmarks[$i]['url'];?>">
 															<?php echo $bookmarks[$i]['url'];?></a>
 														</td>
 														<td>

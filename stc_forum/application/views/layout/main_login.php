@@ -2,7 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Link Exchange Phase II</title>
+		<?php if(isset($topic[0]['name'])){?>
+		<title><?php echo $topic[0]['name'];?>||Social Traffic Center</title>
+		<?php } else if(isset($article[0]['topic'])){ ?>
+		<title><?php echo $article[0]['topic'];?>||Social Traffic Center</title>
+		<?php } else {?>
+		<title>Social Traffic Center</title>
+		<?php } ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet">

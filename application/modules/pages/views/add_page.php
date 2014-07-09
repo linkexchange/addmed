@@ -115,6 +115,26 @@
 <script src="<?php echo base_url(); ?>js/froala_editor.min.js"></script> 
 <script>
       jQuery(function($){
-          $('#description').editable({inlineMode: false, height: 500})
+          $('#description').editable({inlineMode: false, height: 500,
+              imageUploadParam: "userfile",
+              imageUploadURL: "<?php echo base_url() ?>image/upload/index",
+                // Set the image error callback.
+              imageErrorCallback: function (data) {
+                    // Bad link.
+                    if (data.errorCode == 1) {
+                      console.log(data);
+                    }
+
+                    // No link in upload response.
+                    else if (data.errorCode == 2) {
+                      console.log(data);
+                    }
+
+                    // Error during file upload.
+                    else if (data.errorCode == 3) {
+                      console.log(data);
+                    }
+              }
+        })
       });
 </script>

@@ -95,9 +95,22 @@
                                                                 <input type="text" class="" placeholder="Gallery Item Title" value="" name="articleTitle_<?php echo $i; ?>" id="articleTitle_<?php echo $i; ?>" onclick="checkGalleryItem(<?php echo $i; ?>)" disabled="true">
                                                             </div> <!-- /controls -->				
 							</div> <!-- /control-group -->
-                                                        
-                                                        
-                                                        
+                                                        <div class="control-group">											
+                                                            <label for="articleImage_<?php echo $i; ?>" class="control-label">Gallery Item Image</label>
+                                                            <div class="controls">
+                                                                <input type="file" class="" name="articleImage_<?php echo $i; ?>" id="articleImage_<?php echo $i; ?>" size="20" disabled="true">
+                                                                <p class="help-block">Maximum allwoed image size is 10MB.</p>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                        <div class="control-group or-class">											
+                                                            <p>OR</p>			
+                                                        </div> <!-- /control-group -->
+                                                        <div class="control-group">
+                                                            <label for="articleVideo_<?php echo $i; ?>" class="control-label">Gallery Item Video</label>
+                                                            <div class="controls">
+                                                               <textarea name="articleVideo_<?php echo $i; ?>" id="articleVideo_<?php echo $i; ?>" disabled="true"></textarea>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
 						        <div class="control-group">
                                                             <label for="articleDescription_<?php echo $i; ?>" class="control-label">Gallery Item Description</label>
                                                             <div class="controls">
@@ -323,27 +336,7 @@
 </script>
 <script>
       jQuery(function($){
-          $('.articleDescription').editable({inlineMode: false, height: 300,
-              imageUploadParam: "userfile",
-              imageUploadURL: "<?php echo base_url() ?>image/upload/index",
-                // Set the image error callback.
-              imageErrorCallback: function (data) {
-                    // Bad link.
-                    if (data.errorCode == 1) {
-                      console.log(data);
-                    }
-
-                    // No link in upload response.
-                    else if (data.errorCode == 2) {
-                      console.log(data);
-                    }
-
-                    // Error during file upload.
-                    else if (data.errorCode == 3) {
-                      console.log(data);
-                    }
-              }
-        })
+          $('.articleDescription').editable({inlineMode: false, height: 500})
       });
 </script>
 <!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> -->

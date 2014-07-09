@@ -59,9 +59,30 @@
                                                         <input type="text" class="validate[required]" placeholder="Gallery Item Title" value="<?php echo $article['articleTitle']; ?>" name="articleTitle" id="articleTitle">
                                                     </div> <!-- /controls -->				
 												</div> <!-- /control-group -->
-                                                
-                                                
-                                                
+                                                <div class="control-group">	
+                                                	 <label for="articleImage" class="control-label">Article Image</label>	
+                                                     <div class="controls">									
+														<?php if($article['articleImage']) : ?>
+                                                            <img src="<?php echo base_url().ARTICLE_IMAGE_PATH.$article['articleImage']; ?>" width="100px" height="auto" />
+                                                            <input type="file" class="" name="articleImage" id="articleImage" size="20" >
+                                                        <?php else : ?>
+                                                            <input type="file" class="" name="articleImage" id="articleImage" size="20" >
+                                                        <?php endif; ?>	
+                                                        <p class="help-block">Maximum allwoed image size is 10MB.</p>	
+                                                    </div>	
+                                               	</div> <!-- /control-group -->
+                                                <div class="control-group">
+                                                    <label class="control-label"></label>
+                                                    <div class="controls">
+                                                        <p>OR</p>
+                                                    </div>
+                                                </div> <!-- /control-group -->
+                                                <div class="control-group">
+                                                    <label for="articleVideo" class="control-label">Gallery Item Video</label>
+                                                    <div class="controls">
+                                                        <textarea name="articleVideo"><?php echo $article['articleVideo']; ?></textarea>
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
                                                 <div class="control-group">											
                                                     <label for="articleDescription" class="control-label">Gallery Item Description</label>
                                                     <div class="controls">
@@ -179,27 +200,7 @@
 </script>
 <script>
       jQuery(function($){
-          $('#articleDescription').editable({inlineMode: false, height: 500,
-              imageUploadParam: "userfile",
-              imageUploadURL: "<?php echo base_url() ?>image/upload/index",
-                // Set the image error callback.
-              imageErrorCallback: function (data) {
-                    // Bad link.
-                    if (data.errorCode == 1) {
-                      console.log(data);
-                    }
-
-                    // No link in upload response.
-                    else if (data.errorCode == 2) {
-                      console.log(data);
-                    }
-
-                    // Error during file upload.
-                    else if (data.errorCode == 3) {
-                      console.log(data);
-                    }
-              }
-        })
+          $('#articleDescription').editable({inlineMode: false, height: 500})
       });
 </script>
 <!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> -->

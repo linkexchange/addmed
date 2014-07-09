@@ -36,8 +36,7 @@ class Dashboard extends MX_Controller{
 		}
 	}
 	
-/*	
-// add article.
+	// add article.
 	public function add(){
 		$data[]="";
 		if($this->input->post())
@@ -111,7 +110,6 @@ class Dashboard extends MX_Controller{
 			$this->layout->view('add_article',$data);
 		}
 	}
-        
         
 	// add multiple gallery items
         public function addMultipleItems($tid=0,$bid=0,$page="ALL"){
@@ -199,63 +197,6 @@ class Dashboard extends MX_Controller{
                         
 		}
         }
-  */
- 
-        // add multiple gallery items
-        public function addMultipleItems($tid=0,$bid=0,$page="ALL"){
-            $msg="";
-            if($this->input->post())
-		{
-			$gitems=$this->input->post('galleryItems');// exit;
-                        
-			$galleryItemIds=explode(',',$gitems);
-                        
-			//echo "<pre>"; print_r($galleryItemIds); echo "</pre>";
-			foreach($galleryItemIds as $item){
-                            $articleData=array();
-				// Check blog id present #start.
-				if($this->input->post('blogID')) :
-					// Check articleImage present #start.
-                                        $slug = url_title($this->input->post('articleTitle_'.$item), 'dash', TRUE);
-                                                $articleData['articleTitle']=$this->input->post('articleTitle_'.$item);
-                                                $articleData['slug']=$slug;
-                                                $articleData['articleDescription']=$this->input->post('articleDescription_'.$item);
-                                                $articleData['blogID']=$this->input->post('blogID');
-                                                $articleData['createdBy']=$this->session->userData('userID');
-                                                $articleData['createdDate']=date('Y-m-d');
-                                                
-						 //echo "<pre>"; print_r($articleData); echo "</pre>"; exit;
-                                                 $this->load->model('article');
-                                                 $insert_id=$this->article->add($articleData);
-                                                 if($insert_id){
-                                                    if($this->input->post('templateID')){
-                                                        $this->load->model("template");
-                                                        $tid=$this->input->post('templateID');
-                                                        $templateData=array(
-                                                            "htmlCreated"=>"Update",
-                                                            "updatedBy"=>$this->session->userData('userID'),
-                                                            "updatedDate"=>date('Y-m-d'),
-                                                        );	
-                                                        $this->template->update($templateData,$tid);
-                                                    }
-                                                    $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." added successfully.<br/>";
-                                                }
-                                                else
-                                                {
-                                                     $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please try again.<br/>";
-                                                }
-					
-				else :
-					$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please select Post.<br/>";
-				endif;
-				// Check blog id present #end.
-			}
-                         //echo "br:".$item; echo "<pre>"; print_r($_POST); echo "</pre>"; exit;
-			echo $msg;
-                        
-		}
-        }
-        
 	public function addmultiple($tid=0,$bid=0,$page="ALL"){
 		$data[]="";
 		$msg="";

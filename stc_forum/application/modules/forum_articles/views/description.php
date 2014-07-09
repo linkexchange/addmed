@@ -2,10 +2,10 @@
 	$(document).ready(function(){
 		$("#comment_desc").hide();
 		$("#reply_desc").hide();
-		$("#successMessage").hide();
 	});
 </script>
 <!DOCTYPE html>
+<?php $actual_link = urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");?>
 <html lang="en">
 <head>
 <script type="text/javascript">var switchTo5x=true;</script>
@@ -34,6 +34,10 @@
                         	<div class="big-stats-container">
                             	<div class="widget-content inner">
                              		<div class="widget-content inner">
+											<span style="float:left;"><i class="icon-user"></i> Created By: 
+											 <?php echo $article[0]['userName'];?></span> 
+											<span style="float:right;"><i class="icon-time"></i>Created Date: 
+											 <?php echo $article[0]['created_date'];?></span>
                                     	<table class="table table-striped table-bordered">
                                                 <tbody>	
 													<tr>	
@@ -63,21 +67,21 @@
 														{
 															var bid = result;
 															$("#bkmark").attr('src','<?php echo base_url();?>img/Star.png');
-															$("#bkmark").attr('title','Remove this article');		
+															$("#bkmark").attr('title','Remove Bookmark');		
 														} }
 													});	
 											});
 											</script>
-											<?php if($this->session->userdata('userID')) { ?>
+											<?php if($this->session->userdata('ForumUserID')) { ?>
 											<a href='#' id="bookmark">
 												<img id='bkmark' style='width:3%;margin-bottom:26px;'>
 											</a>
 											<?php } ?>
 											<span class='st_facebook_large' displayText='Facebook' title="share"></span>
-											<span class='st_twitter_large' displayText='Tweet' title="share"></span>
+											<span class='st_twitter_large' displayText='Tweet' title="tweet"></span>
 											<span class='st_linkedin_large' displayText='LinkedIn' title="share"></span>
-											<span class='st_pinterest_large' displayText='Pinterest' title="share"></span>
-											<span class='st_email_large' displayText='Email'></span>
+											<span class='st_pinterest_large' displayText='Pinterest' title="pin it"></span>
+											<!--<span class='st_email_large' displayText='Email'></span>-->
 										</div>
 										<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" 
 											aria-labelledby="basicModal" aria-hidden="true">
@@ -119,11 +123,13 @@
 											  </form>
 											</div>
 										  </div>
-										</div>
-										
-										<a href="#" id="comment">Comment</a> 
-										
-										
+										</div> 
+										<?php if($this->session->userdata('ForumUserID')){ ?>
+										<a href="#" id="comment" class="btn btn-primary">Post a Comment</a>	
+                                    	<?php } else { ?>
+										<a href="<?php echo base_url();?>user/login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post a Comment</a>
+										<?php } ?> <br/>
+										<br/>
 										<div id="comment_desc">
 												<form class="form-horizontal" id="frm_Comment" action="" method="POST" enctype="multipart/form-data" >
 												<fieldset>
@@ -135,22 +141,6 @@
 														<textarea name="comment_description" class="validate[required]"></textarea>
 													</div>
 												</div>
-												<div class="control-group">
-													<label for="template" class="control-label">
-													Your Name:
-													</label>
-													<div class="controls">
-													<input type="text" name="name" class="validate[required]">	
-													</div>
-												</div>
-												<div class="control-group">
-													<label for="template" class="control-label">
-													Your Email:
-													</label>
-													<div class="controls">
-													<input type="text" name="email" class="validate[required,custom[email]]">	
-													</div>
-												</div>	
 												<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(4);?>">
 												<div class="control-group">	
 													<div class="controls">
@@ -165,18 +155,37 @@
 										<div id="user_comments">
 												<div id="new_comment" style="display:none;">
 												</div>
-												<?php for($i=0;$i<count($comments);$i++){ ?>
+												<?php 
+												if($comments){
+												if($this->session->userdata('ForumUserID')){
+													$cnt = count($comments);
+												}
+												else{ 
+														if(count($comments)<3)
+														{	
+															$cnt = count($comments);
+														}
+														else
+														{	
+															$cnt = 3;
+														}
+													}	
+												for($i=0;$i<$cnt;$i++){ ?>
 												<h4>Comment</h4>
 												<div style="width:100%;border: 1px solid #dddddd; border-radius:5px; background-color:#f5f5f5;"><hr>&nbsp; &nbsp; 
 												<b><?php echo $comments[$i]['name'];?></b>&nbsp; &nbsp; 
 												<?php echo $comments[$i]['created_date'];?>
 												<br/> &nbsp; &nbsp;
 												<?php echo $comments[$i]['description'];?><br/>&nbsp; &nbsp;
-												
+												<?php 
+												if($this->session->userdata('ForumUserID')){?>
 												<a href="#" onclick="display(<?php echo $i;?>);return false;">Reply</a>
-												<form class="form-horizontal" id="frm_Reply" action="" method="POST" enctype="multipart/form-data">
+												<?php } else { ?>
+												<a href="<?php echo base_url();?>user/login/index?link=<?php echo $actual_link;?>">Login to Reply</a>
+												<?php } ?>
 												<div id="number_<?php echo $i;?>">	
 												<div id="reply_desc_<?php echo $i;?>" style="display:none;">
+												<form class="form-horizontal" id="frm_Reply_<?php echo $i?>" action="" method="POST" enctype="multipart/form-data">
 												<fieldset>
 												<div class="control-group">
 													<label for="template" class="control-label">
@@ -186,22 +195,7 @@
 														<textarea name="reply_description" class="validate[required]"></textarea>
 													</div>
 												</div>
-												<div class="control-group">
-													<label for="template" class="control-label">
-													Your Name:
-													</label>
-													<div class="controls">
-													<input type="text" name="name2" class="validate[required]">	
-													</div>
-												</div>
-												<div class="control-group">
-													<label for="template" class="control-label">
-													Your Email:
-													</label>
-													<div class="controls">
-													<input type="text" name="email2" class="validate[required,custom[email]]">	
-													</div>
-												</div>	
+												
 												<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(4);?>">
 												<input type="hidden" name="commentid" value="<?php echo $comments[$i]['id'];?>">
 
@@ -224,9 +218,14 @@
 														<?php echo $replies[$j]['created_date'];?>
 														<br/> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
 														<?php echo $replies[$j]['description'];?>
-														&nbsp; <a href="#" onclick="display2(<?php echo $j;?>);return false;">Reply</a>
+														&nbsp; 
+														<?php if($this->session->userdata('ForumUserID')){?>
+														<a href="#" onclick="display2(<?php echo $j;?>);return false;">Reply</a>
+														<?php } else { ?>
+														<a href="<?php echo base_url();?>user/login/index?link=<?php echo $actual_link;?>">Login to Reply</a>
+														<?php } ?>
 														<div id="reply_<?php echo $j;?>"  style="display:none;">
-															<form class='form-horizontal' id='frm_Reply2' action=''  method='POST' enctype='multipart/form-data'><fieldset><div class='control-group'><label for='template' class='control-label'>Reply:</label><div class='controls'><textarea name='reply_description2' class='validate[required]'></textarea></div></div><div class='control-group'><label for='template' class='control-label'>Your Name:</label><div class='controls'><input type='text' name='name3' class='validate[required]'></div></div><div class='control-group'><label for='template' class='control-label'>Your Email:</label><div class='controls'><input type='text' name='email3' class='validate[required,custom[email]]'></div></div><input type='hidden' name='articleid' value='<?php echo $this->uri->segment(4);?>'><input type='hidden' name='replyid' value='<?php echo $replies[$j]['id']?>'><div class='control-group'><div class='controls'><button id='btn_submit3' onclick='submitData2(<?php echo $j;?>);' class='btn btn-primary' type='submit'>Save</button>&nbsp;<a href='#' onclick='hide2(<?php echo $j;?>);return false;' class='btn'>Cancel</a></div></div></fieldset></form>
+															<form class='form-horizontal' id='frm_Reply2_<?php echo $j;?>' action=''  method='POST' enctype='multipart/form-data'><fieldset><div class='control-group'><label for='template' class='control-label'>Reply:</label><div class='controls'><textarea name='reply_description2' class='validate[required]'></textarea></div></div><input type='hidden' name='articleid' value='<?php echo $this->uri->segment(4);?>'><input type='hidden' name='replyid' value='<?php echo $replies[$j]['id']?>'><div class='control-group'><div class='controls'><button id='btn_submit3' onclick='submitData2(<?php echo $j;?>);' class='btn btn-primary' type='submit'>Save</button>&nbsp;<a href='#' onclick='hide2(<?php echo $j;?>);return false;' class='btn'>Cancel</a></div></div></fieldset></form>
 														</div>
 														
 														<script>
@@ -252,7 +251,7 @@
 												</div>
 												</div>
 											<hr>	
-											<?php } ?>
+											<?php } }?>
 										</div>	
                                     	<!-- setArticles  -->
                                     <!-- widget-content  -->
@@ -284,7 +283,7 @@
 	{
 		$("#reply_desc_"+no).show();
 	}
-	function display2(no,id)
+	function display2(no)
 	{
 		$("#reply_"+no).show();
 	}
@@ -369,10 +368,10 @@ $(document).ready(function(){
 </script>
 <script>
 	function submitData(no){
-		$('#frm_Reply').ajaxForm({
+		$('#frm_Reply_'+no).ajaxForm({
 			beforeSubmit : function(){
 				$("#btn_submit_"+no).button('loading');
-				if($("#frm_Reply").validationEngine('validate'))
+				if($("#frm_Reply_"+no).validationEngine('validate'))
 				{
 					$("#btn_submit_"+no).button('loading');
 					return true;
@@ -405,10 +404,10 @@ $(document).ready(function(){
 </script>
 <script>
 	function submitData2(no){
-		$('#frm_Reply2').ajaxForm({
+		$('#frm_Reply2_'+no).ajaxForm({
 			beforeSubmit : function(){
 				$("#btn_submit3").button('loading');
-				if($("#frm_Reply2").validationEngine('validate'))
+				if($('#frm_Reply2_'+no).validationEngine('validate'))
 				{
 					$("#btn_submit3").button('loading');
 					return true;
@@ -436,7 +435,7 @@ $(document).ready(function(){
 				}
 
 				}
-			})
+			});
 		}
 </script>
 <script type="text/javascript">

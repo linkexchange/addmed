@@ -109,8 +109,8 @@ else{
 									<h4><?php if(isset($article->galleryItemTitle)) echo $article->galleryItemTitle; ?></h4>
 								</div>
 								<div class="article-description">
-									<img src="<?php if(isset($article->galleryItemImage)) echo $article->galleryItemImage; ?>" />
-									<p class="video_para"><?php if(isset($article->galleryItemVideo)) echo $article->galleryItemVideo; ?></p>
+									<!-- <img src="<?php if(isset($article->galleryItemImage)) echo $article->galleryItemImage; ?>" />
+									<p class="video_para"><?php if(isset($article->galleryItemVideo)) echo $article->galleryItemVideo; ?></p> -->
 									<p><?php if(isset($article->galleryItemDescription)) echo $article->galleryItemDescription; ?></p>
 								</div>
 								<div class="page-nav page-nav-post">

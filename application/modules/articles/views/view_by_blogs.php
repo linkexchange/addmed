@@ -69,8 +69,8 @@ $(document).ready(function(){
                                                     <tr>
                                                         <th>Sr. </th>
                                                         <th>Gallery Item Title</th>
-                                                        <th>Gallery Item Image</th>
-                                                        <th>Gallery Item Video</th>
+                                                        <!-- <th>Gallery Item Image</th>
+                                                        <th>Gallery Item Video</th> -->
                                                         <th>Post Name</th>
                                                         <th>Website Name</th>
                                                         <th>Created Date</th>
@@ -93,12 +93,12 @@ $(document).ready(function(){
                                                     <tr>
                                                         <td><?php echo $sr; $sr++; ?></td>
                                                         <td><?php echo $article['articleTitle']; ?></td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <?php if($article['articleImage']) : ?>
                                                                 <img src="<?php echo base_url().ARTICLE_IMAGE_PATH.$article['articleImage']; ?>" width="100px" height="auto" />
                                                             <?php endif; ?>
                                                         </td>
-                                                        <td><div class="article_videos"><?php echo $article['articleVideo']; ?></div></td>
+                                                        <td><div class="article_videos"><?php echo $article['articleVideo']; ?></div></td> -->
                                                         <td><?php echo $article['title']; ?></td>
                                                         <td><?php echo $article['name']; ?></td>
                                                         <td><?php echo $article['createdDate']; ?></td>

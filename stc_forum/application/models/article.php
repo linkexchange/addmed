@@ -147,9 +147,10 @@ class Article extends CI_Model{
 		return $result->result_array();
 	}
 	public function getForumArticleByID($id){
-		$this->db->select("*");
+		$this->db->select($this->config->item('table_f_articles').".*,".$this->config->item('table_user').".userName");
 		$this->db->from($this->config->item('table_f_articles'));
-		$this->db->where('id',$id);
+		$this->db->join($this->config->item('table_user'),$this->config->item('table_user').".id = ".$this->config->item('table_f_articles').".created_by","INNER");
+		$this->db->where($this->config->item('table_f_articles').'.id',$id);
 		$result = $this->db->get();
 		return $result->result_array();
 	}
@@ -224,6 +225,7 @@ class Article extends CI_Model{
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
 		$this->db->where('articleid',$id);
+		$this->db->where('created_by',$this->session->userdata('ForumUserID'));
 		$result = $this->db->get();
 		return $result->result_array();
 	}
@@ -249,7 +251,8 @@ class Article extends CI_Model{
 	{
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
-		$this->db->where('created_by',$this->session->userdata("userID"));
+		$this->db->where('created_by',$this->session->userdata("ForumUserID"));
+		$this->db->order_by('id','desc');
 		$result = $this->db->get();
 		return $result->result_array();
 	}
@@ -257,7 +260,7 @@ class Article extends CI_Model{
 	{
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
-		$this->db->where('created_by',$this->session->userdata("userID"));
+		$this->db->where('created_by',$this->session->userdata("ForumUserID"));
 		return $this->db->count_all_results();
 	}
 	// delete article by id.
