@@ -195,6 +195,12 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	display:block;
 	overflow:hidden;
 }
+.categories li a div.bx-caption{
+	
+}
+.categories li a div.bx-caption-large{
+	top: 85%; 
+}
 .categories li a div span{
 	color: white;
 	font-size:13px;
@@ -204,7 +210,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
   	padding: 2%;
 	z-index:999;
 	float:left;
-	width:100%;
+	width:96%;
 }
 .one_fifth a{
 	width:100%;
@@ -241,7 +247,10 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
   	padding: 3%;
 	z-index:999;
 	float:left;
-	width:100%;
+	width:94%;
+}
+.one_fifth div.high-bx-caption{
+	top: 77%;
 }
 #container{
 }
@@ -384,7 +393,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 		min-height:118px;
 	}
 	.categories li a div {
-		top: 82%;
+		top: 80%;
 	}
 	.one_fifth a img{
 		min-height:217px;
@@ -401,6 +410,76 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	}
 	
 }
+/*
+	# div.high-bx-caption media quries
+	# Start
+*/
+@media screen and (min-width:600px) and (max-width:1400px){
+	.one_fifth a div.high-bx-caption   {
+		top:77%;
+	}
+}
+@media screen and (min-width:450px) and (max-width:599px){
+	.one_fifth a div.high-bx-caption   {
+		top:80%;
+	}
+}
+@media screen and (min-width:385px) and (max-width:449px){
+	.one_fifth a div.high-bx-caption   {
+		top:75%;
+	}
+}
+@media screen and (min-width:380px) and (max-width:384px){
+	.one_fifth a div.high-bx-caption   {
+		top:83%;
+	}
+}
+@media screen and (min-width:338px) and (max-width:379px){
+	.one_fifth a div.high-bx-caption   {
+		top:87%;
+	}
+}
+@media screen and (min-width:185px) and (max-width:337px){
+	.one_fifth a div.high-bx-caption   {
+		top:81%;
+	}
+}
+
+/*
+	# div.high-bx-caption media quries 
+	# End
+*/
+
+/*
+	# sidebar div.bx-caption-large media quries
+	# Start
+*/
+@media screen and (min-width:1011px) and (max-width:1800px){
+	.categories li a div.bx-caption-large   {
+		top:74%;
+	}
+}
+@media screen and (min-width:960px) and (max-width:1010px){
+	.categories li a div.bx-caption-large   {
+		top:70%;
+	}
+}
+@media screen and (min-width:822px) and (max-width:959px){
+	.categories li a div.bx-caption-large   {
+		top:67%;
+	}
+}
+@media screen and (min-width:750px) and (max-width:821px){
+	.categories li a div.bx-caption-large   {
+		top:49%;
+	}
+}
+
+/*
+	# sidebar div.bx-caption-large media quries
+	# End
+*/
+
 @media screen and (min-width:550px) and (max-width:614px){
 	.one_fifth a img{
 		min-height:275px;

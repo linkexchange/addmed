@@ -60,7 +60,8 @@
 					
 					<a href="<?php echo $siteUrl; ?>/<?php echo $post->postSlug; ?>/<?php echo $website->id; ?>/<?php echo $post->postID; ?>">
 						<img src="<?php echo $post->postImage; ?>" alt="">
-						<div class="bx-caption"> 
+						<?php $title_len=strlen($post->postTitle); ?>
+						<div class="<?php if($title_len>43) : ?>high-bx-caption <?php else : ?>bx-caption<?php endif; ?> "> 
 							<span><?php echo $post->postTitle; ?></span>
 						</div>
 					</a>
