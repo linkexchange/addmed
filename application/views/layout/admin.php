@@ -156,9 +156,9 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="<?php //echo base_url().'reports/dashboard'; ?>"><span class="submenu-label">Report of Links</span></a></li>
-								<li><a href="<?php //echo base_url().'reports/dashboard/publisher';?>"><span class="submenu-label">Report of Publishers</span></a></li>
-								<li><a href="<?php //echo base_url().'reports/dashboard/advertiser';?>"><span class="submenu-label">Report of Advertisers</span></a></li>
+								<li><a href="<?php echo base_url().'reports/dashboard'; ?>"><span class="submenu-label">Report of Links</span></a></li>
+								<li><a href="<?php echo base_url().'reports/dashboard/publisher';?>"><span class="submenu-label">Report of Publishers</span></a></li>
+								<li><a href="<?php echo base_url().'reports/dashboard/advertiser';?>"><span class="submenu-label">Report of Advertisers</span></a></li>
 							</ul>
 						</li>
 						<li class="openable <?php if($this->uri->segment(2)=="adLinkCategory"){ echo "class='active'";}?>">
@@ -190,8 +190,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'template/dashboard/add'; ?>"><span class="submenu-label">Create Website</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'template/dashboard';?>"><span class="submenu-label">View websites</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'template/dashboard/add'; ?>"><span class="submenu-label">Create Website</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'template/dashboard';?>"><span class="submenu-label">View websites</span></a></li>
 							</ul>
 						</li>
 

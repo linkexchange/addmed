@@ -1,4 +1,4 @@
-<div id="main-container" style="background:#E0F2F7;">
+<div id="main-container">
 	<div class="main-header clearfix">
 		<div class="page-title">
 			<h3 class="no-margin"><b>Welcome to Social traffic center</b></h3>
@@ -8,22 +8,13 @@
 	<div class="padding-md">
 		<div class="row">
 			<div class="col-lg-9">
-				<div class="panel panel-default" >
-					<div class="panel-heading">
-						<h4><i class="fa fa-list-alt fa-lg"></i> Forum Topics</h4>
+				<div class="panel panel-default">
+					<div class="panel-heading" style="border:1px solid #D6E9F3;">
+						<h4><b><i class="fa fa-file-text fa-lg"></i> Forum</b>
+						<span class="badge badge-info pull-right"><?php echo count($topics);?> topics</span></h4>
 					</div>
 					
 					<table class="table table-bordered table-condensed table-hover table-striped">
-						<thead>
-							<tr>
-								<th>Sr.No.</th>
-								<th>Topic</th>
-								<th>Author</th>
-								<th>Replies</th>
-								<th>Created Date</th>
-								<th>View</th>
-							</tr>
-						</thead>
 						<tbody>	
 							<?php 
 							if($topics){  
@@ -36,38 +27,42 @@
 									$count = 5;
 								  }
 						   for($i=0;$i<5;$i++) { ?>
-							<tr>	
-								<td><?php $c=$i+1; echo $c;?></td>
-								<td>
-									<?php echo $topics[$i]['name'];?>
-								</td>
-								<td>
-									<?php echo $topics[$i]['author'];?>
-								</td>
-								<td>
-									<?php echo $topics[$i]['no_of_posts'];?>
-								</td>
-								<td><?php echo $topics[$i]['created_date'];?></td>
-								<td>
-									<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
+							<tr style="border:1px solid #D6E9F3;">	
+								<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
+								<td><?php //$c=$i+1; echo $c;?>
+									<span class="badge" style="min-width:60px;border:1px solid LightGray;float:left;background-color:green;color:white;">
+									<h5><?php echo $topics[$i]['no_of_posts'];?></h5><h6>replies</h6></span>&nbsp;
+									<span style="float:center;"><br/>&nbsp;
 									<a href="<?php echo base_url();?>forum/<?php echo $title."/".$topics[$i]['id'];?>">
-									View</a>
-								</td>	
+									<b><font size="4" color="#0869BD"><?php echo $topics[$i]['name'];?></font></b></a>
+									</span><br/><br/>
+									<span style="float:right;">
+										&nbsp;&nbsp;created by&nbsp;&nbsp;<span class="badge"><b><u><?php echo $topics[$i]['author'];?></u></b> </span> |
+										created date&nbsp;&nbsp;<span class="badge"><b><u><?php echo date('dS F,Y',strtotime($topics[$i]['created_date']));?></u></b></span>
+									</span>
+								</td>
 							</tr>
 							<?php } }?>
+							<?php if(!$this->session->userdata('ForumUserID')){?>
+							<tr style="border:1px solid #D6E9F3;">
+								<td>
+									<h4 style="font-family:verdana;"><strong>&nbsp;To access the full forum please 
+									<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Log in</a> or  
+									<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Sign up</a></strong></h4> 
+								</td>
+							</tr>
+							<?php } ?>		
 						</tbody>
 					</table>
-					<?php if(!$this->session->userdata('ForumUserID')){?>
-					<h4>&nbsp;To access the full forum please 
-					<a href="#">Log in </a>or 
-					<a href="#">Sign up</a></h4> 
-					<?php } ?>
+					
+					
+					
 				</div><!-- /panel -->
 			</div><!-- /.col -->
 			<div class="col-lg-3">
 				<div class="panel panel-default" >
-					<div class="panel-heading">
-						<h4><i class="fa fa-trophy fa-lg"></i> Leaderboard</h4>
+					<div class="panel-heading" style="border:1px solid #D6E9F3;">
+						<h4><b><i class="fa fa-trophy fa-lg"></i> Leaderboard</b></h4>
 					</div>
 					<!--
 					<div class="panel-body">
@@ -78,7 +73,7 @@
 					</div>-->
 					<table class="table table-bordered table-condensed table-hover table-striped">
 						<thead>
-									<tr>
+									<tr style="border:1px solid #D6E9F3;">
 										<th>Rank</th>
 										<th>User</th>
 										<th>Hits</th>
@@ -87,7 +82,7 @@
 								</thead>
 								<tbody>
 									<?php $sr=1; foreach($users as $user) : ?>
-										<tr>
+										<tr style="border:1px solid #D6E9F3;">
 											<td><?php echo $sr; ?></td>
 											<td><?php echo $user['userName']; ?></td>
 											<td><?php echo $user['totalHits']; ?></td>
@@ -99,50 +94,53 @@
 				</div><!-- /panel -->
 			</div><!-- /.col -->
 		</div><!-- /.row -->
-	<div class="panel panel-default table-responsive">
+	
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
-			<div id="dataTable_length" class="dataTables_length">
-				<h4>&nbsp;<i class="fa fa-list-alt fa-lg"></i> Articles</h4>
+			<div class="panel-heading" style="border:1px solid #D6E9F3;">
+				<h4><b><i class="fa fa-file-text fa-lg"></i> Articles</b> <span class="badge badge-danger"><?php echo count($articles);?> articles</span>
+				<input type="text" class="form-control input-sm pull-right" id="search2" placeholder="search here..." style="width:200px;"></span>
+				</h4>
 			</div>
-			<div class="dataTables_filter" id="dataTable_filter">
-			<label> 
-				<div class="input-group pull-right" style="width:200px;">
-					<input type="text" class="form-control input-sm" id="search2" placeholder="search here..."><span class="input-group-btn"><button class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i></button></span>
-				</div>
-			</label>
-			</div>
-		</div>
+		</div><br/>
 		<div id="articleTable">
-			<table class="table table-striped" id="responsiveTable">
-				<tbody>
-					<?php for($i=0;$i<count($articles);$i++){?>
-					<tr> 
-						<?php $art = url_title($articles[$i]['topic'],'underscore',TRUE);?>
-						<td>
-						<a href="<?php echo base_url();?>article/<?php echo $art."/".$articles[$i]['id'];?>">
-						<h3><?php echo $articles[$i]['topic'];?></h3>
-						</a>
-						<img src="<?php echo base_url().'uploads/forum_article_images/'.$articles[$i]['image'];?>" width="70px" height="70px" style="float:left;margin-right:3px;">	
-						<p style="text-align:justify">
-						<?php 
-							$str = substr(strip_tags($articles[$i]['description']),0,500);
-							echo "&nbsp;&nbsp;".substr($str,0,strrpos($str,'.'))."...";
-						?>
-						<a href="<?php echo base_url();?>article/<?php echo $art."/".$articles[$i]['id'];?>">[Read more]</a>
-						</p>	
-						</td>
-					</tr>
-					<tr>
-						<td>
-						<span style="float:left;"><i class="icon-user"></i> Created By: 
-						 <?php echo $articles[$i]['userName'];?></span> 
-						<span style="float:right;"><i class="icon-time"></i>Created Date: 
-						 <?php echo $articles[$i]['created_date'];?></span></td>
-					</tr>
-					
-					<?php } ?>
-				</tbody>
-			</table>
+			<?php 
+			if($articles){
+				for($i=0;$i<5;$i++){?>
+				<div class="panel panel-default" style="border:2px solid #D6E9F3">
+					<div class="panel-body">
+						<div class="search-header">
+							<?php $art = url_title($articles[$i]['topic'],'underscore',TRUE);?>
+							<a href="<?php echo base_url();?>article/<?php echo $art;?>/<?php echo $articles[$i]['id'];?>" class="h3 inline-block" style="color:#0869BD;">
+							<?php echo $articles[$i]['topic'];?>
+							</a>
+							<div class="text-muted">
+								<strong>
+									<span class="pull-left">
+										<i class="icon-user"></i> Created By: 
+										<?php echo $articles[$i]['userName'];?> 
+										&nbsp;&nbsp;&nbsp;
+										<i class="icon-time"></i> Created On: 
+										<?php echo date('dS F,Y',strtotime($articles[$i]['created_date']));?>
+									</span>	
+								</strong>
+							</div>
+						</div><hr>
+						<img src="<?php echo base_url().'uploads/forum_article_images/'.$articles[$i]['image'];?>" width="100px" height="100px" style="float:left;margin-right:12px;">
+						<p class="m-top-sm" style="font-family:Georgia,serif;text-align:justify;font-size:15px;">
+							<strong>
+							<?php 
+								$str = substr(strip_tags($articles[$i]['description']),0,500);
+								echo "&nbsp;&nbsp;".substr($str,0,strrpos($str,'.'))."...";
+							?>
+							</strong>
+						</p>
+						
+						<div class="text-right">
+							<a class="btn btn-sm btn-success" href="<?php echo base_url();?>article/<?php echo $art;?>/<?php echo $articles[$i]['id'];?>"><i class="fa fa-star"></i>Continue reading</a>
+						</div>
+					</div>
+				</div>
+			<?php } } ?>
 		</div>
 	<!--<div class="panel-footer clearfix">
 		<ul class="pagination pagination-xs m-top-none pull-right">
@@ -155,7 +153,7 @@
 			<li><a href="#">Next</a></li>
 		</ul>
 	</div>-->
-	</div><!-- /panel -->
+	
 	</div><!-- /.padding-md -->
 </div>
 <script>

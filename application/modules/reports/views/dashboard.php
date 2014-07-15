@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="<?php echo base_url(); ?>css/datepicker.css">	
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/datepicker.css">	
   <script src="<?php echo base_url(); ?>js/bootstrap-datepicker.js"></script>
   <script>
 		$(document).ready(function(){
@@ -58,95 +58,81 @@
     top: 1px;
 }
 </style>
-
-<div class="widget">
-	<div class="widget-header"> 
-		<i class="icon-list-alt"></i>
-		<h3>View Reports</h3>
-	</div>
-	<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-	<div id="successMessage" class="alert alert-success" style="display:none"></div>
-	<div class="widget-content">
-		<div class="big-stats-container">
-			<div class="widget-content">
-			<?php //echo "<pre>"; print_r($Urls); echo "</pre>";?>
-				<div id="formcontrols" class="tab-pane active" style="border: 1px solid #D6D6D6; padding-top:20px;">
-					<form class="form-horizontal" id="frm_getRecords" action="" method="POST">
-						<fieldset>
-							<div class="" style="float:left;">
-								<label for="startDate" class="control-label">Start Date</label>
-								<div class="controls" id='datetimepicker5' data-date="2014-05-20" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control validate[custom[date]]" placeholder="Start Date" name="startDate" id="startDate" value="<?php if($startDate!=0) echo $startDate; ?>">
-									<!-- <span class="input-group-addon">
-										<span class="glyphicon glyphicon-time"></span>
-									</span> -->
-								</div> <!-- /controls -->	
+<div id="main-container">
+			<div class="padding-md">
+				<div class="row">
+					<div class="col-md-12">
+						
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3><b><i class="icon-th-list"></i> View Report</b></h3>
 							</div>
-							<div class="" style="float:left;">
-								<label for="endDate" class="control-label">End Date</label>
-								<div class="controls" data-date="2014-05-20" data-date-format="yyyy-mm-dd">
-									<input type="text" class="validate[custom[date]]" placeholder="End Date" name="endDate" id="endDate" value="<?php if($endDate!=0) echo $endDate; ?>">
-								</div> <!-- /controls -->	
+							<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+							<div id="successMessage" class="alert alert-success" style="display:none"></div>
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<form class="form-inline no-margin" id="frm_getRecords" action="" method="POST">
+										<div class="form-group">
+											<label>Start Date : </label>
+											<input type="text" class="form-control validate[custom[date]]" placeholder="Start Date" name="startDate" id="startDate" value="<?php if($startDate!=0) echo $startDate; ?>">
+										</div><!-- /form-group -->&nbsp; &nbsp;
+										<div class="form-group">
+											<label>End Date : </label>
+											<input type="text" class="form-control validate[custom[date]]" placeholder="End Date" name="endDate" id="endDate" value="<?php if($endDate!=0) echo $endDate; ?>">
+										</div><!-- /form-group -->
+										<button id="btn_submit" class="btn btn-sm btn-success" type="submit">Show Records </button> 
+									</form>
+								</div>
 							</div>
-							<div class="" style="float:left;">
-								<label for="endDate" class="control-label"></label>
-								<button id="btn_submit" class="btn btn-primary" type="submit">Show Records </button> 
-								<!-- <a href="<?php echo base_url(); ?>transaction/payment" class="btn">Cancel</a> -->
-							</div>
-						</fieldset>
-					</form>
-				</div>
-				<script>
-					$(document).ready(function(){
-						$('#frm_getRecords').ajaxForm({
-							beforeSubmit : function(){
-								$("#btn_submit").button('loading');
-								$("#successMessage").hide();
-								$("#errorMessage").hide();
-								if($("#frm_getRecords").validationEngine('validate'))
-								{
-									$("#btn_submit").button('loading');
-									var startDate=0;
-									var endDate=0;
-									if($("#startDate").val())
-										startDate=$("#startDate").val();
-									if($("#endDate").val())
-										endDate=$("#endDate").val();
-									window.location=base_url+"reports/dashboard/index/1/"+startDate+"/"+endDate;
-									return true;
-								}
-								else
-								{
-									$("#btn_submit").button('reset');
-									return false;
-								}
-							},
-							success :  function(responseText, statusText, xhr, $form){
-								$("#btn_submit").button("reset");
-								//alert(responseText);
-								if(responseText==4)
-								{
-									$("#errorMessage").html("End Date is not less than Start Date");
-									//$("#errorMessage").show();
-									$("#ajax-reports").html("");
-								}
-								else
-								{
-									$("#ajax-reports").html(responseText);
-									//$("#successMessage").show();
-									//window.location=base_url+"transaction/payment";
-								}
-							}
-						});
-						$("#frm_signup").validationEngine();
-					});
-				</script>
-				
-				<br/>
-				<div id="ajax-reports">
-					<table class="table table-striped table-bordered user-transactions">
-						<thead>
-							<tr>
+							<script>
+								$(document).ready(function(){
+									$('#frm_getRecords').ajaxForm({
+										beforeSubmit : function(){
+											$("#btn_submit").button('loading');
+											$("#successMessage").hide();
+											$("#errorMessage").hide();
+											if($("#frm_getRecords").validationEngine('validate'))
+											{
+												$("#btn_submit").button('loading');
+												var startDate=0;
+												var endDate=0;
+												if($("#startDate").val())
+													startDate=$("#startDate").val();
+												if($("#endDate").val())
+													endDate=$("#endDate").val();
+												window.location=base_url+"reports/dashboard/index/1/"+startDate+"/"+endDate;
+												return true;
+											}
+											else
+											{
+												$("#btn_submit").button('reset');
+												return false;
+											}
+										},
+										success :  function(responseText, statusText, xhr, $form){
+											$("#btn_submit").button("reset");
+											//alert(responseText);
+											if(responseText==4)
+											{
+												$("#errorMessage").html("End Date is not less than Start Date");
+												//$("#errorMessage").show();
+												$("#ajax-reports").html("");
+											}
+											else
+											{
+												$("#ajax-reports").html(responseText);
+												//$("#successMessage").show();
+												//window.location=base_url+"transaction/payment";
+											}
+										}
+									});
+									$("#frm_signup").validationEngine();
+								});
+							</script> <br/>
+							<div id="ajax-reports">
+							<table class="table table-bordered table-condensed table-hover table-striped">
+								<thead>
+									<tr>
 								<th>Sr.</th>							
 								<th>Link</th>
 								<?php if($this->session->userData('userTypeID')==3) : ?> 
@@ -212,32 +198,12 @@
 								<?php $sr++; ?>
 							<?php endforeach; ?>
 						</thead>
-					</table>
-					<div class="widget-header" style="text-align:right;">
-						<?php 
-							$mod=10; $inc=1;
-							//echo "$total_records";
-							if($UrlCount>$mod) :
-								echo "Pages:";
-								for($i=0;$i<$UrlCount;$i++) :
-									if(($i%$mod)==0) :
-										//echo $inc;
-									?>
-										<?php if($this->uri->segment('3')=='advertiser') : ?>
-											<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."reports/dashboard/index/".$inc."/".$startDate."/".$endDate; ?>" ><?php echo $inc; ?></a>
-										<?php else : ?>
-											<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(4))  echo "page-active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."reports/dashboard/index/".$inc."/".$startDate."/".$endDate; ?>" ><?php echo $inc; ?></a>
-										<?php endif; ?>
-											
-										<?php
-										$inc++;
-									endif;
-								endfor;
-							endif;
-						?> &nbsp;
-					</div>
-				</div>
-			</div>
-		</div>
-	<div>
-</div>
+								
+							</table>
+						</div><!-- /panel -->
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			
+			
+			</div><!-- /.padding-md -->
+		</div>	

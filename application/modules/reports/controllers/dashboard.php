@@ -1,6 +1,22 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Dashboard extends MX_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+		if($this->session->userdata("userType")=="advertiser")
+		{
+			$this->layout->setLayout("layout/advertiser");
+		}
+		else if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+	}
 	public function index($page=1,$startDate=0,$endDate=0){
 		//$startDate=0;
 		//$endDate=0;
@@ -51,19 +67,14 @@ class Dashboard extends MX_Controller {
 			$data['Urls']=$this->clicksdetail->getClickRecords($this->session->userdata('userID'),$startDate,$endDate,$page);
 			$data['UrlCount']=$this->clicksdetail->getClickRecordsCount($this->session->userdata('userID'),$startDate,$endDate);
 			
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('dashboard',$data);
 		}
-
-		
-
 	}
 	public function publisher($page=1){
 		$data="";
 		$this->load->model("payments");
 		$data['Users']=$this->payments->getPublishers($page);
 		$data['UrlCount']=$this->payments->getPublishersCount();
-		$this->layout->setLayout("layout/main");
 		$this->layout->view('dashboard_publisher',$data);
 	}
 	public function advertiser($page=1){
@@ -71,7 +82,6 @@ class Dashboard extends MX_Controller {
 		$this->load->model("payments");
 		$data['Users']=$this->payments->getAdvertiser($page);
 		$data['UrlCount']=$this->payments->getAdvertiserCount();
-		$this->layout->setLayout("layout/main");
 		$this->layout->view('dashboard_adverstiser',$data);
 	}
 }
