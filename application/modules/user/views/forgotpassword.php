@@ -1,31 +1,44 @@
-<div class="account-container">
-	<div class="content clearfix">
-		<form method="post" action="" id="frm_forgotpassword">
-			<h1>Forgot Password</h1>		
-			<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-			<div id="successMessage" class="alert alert-success" style="display:none"></div>
-			<div class="login-fields">
-				
-				<p>Please provide your details</p>
-				
-				<div class="field">
-					<label for="email">Email ID</label>
-					<input type="text" class="login username-field validate[required,custom[email]]" placeholder="Email ID" value="<?php if($this->input->post()) echo ""; ?>" name="email" id="email">
-				</div> <!-- /field -->
-				<div class="login-actions">
-					<button class="button btn btn-success btn-large" id="btn_submit">Request Password</button>
-					
-				</div> <!-- .actions -->
-				<div class="login-extra">
-					<a class="" href="<?php echo base_url(); ?>user/login">
-						Back To Login
-					</a>
+<div class="login-wrapper">
+		<div class="text-center">
+			<h2 class="fadeInUp animation-delay8" style="font-weight:bold">
+				<span class="text-success">Forgot</span> <span style="color:#ccc; text-shadow:0 1px #fff">Password</span>
+			</h2>
+		</div>
+		<div class="login-widget animation-delay1">	
+			<div class="panel panel-default">
+				<div class="panel-heading clearfix">
+					<div class="pull-left">
+						<i class="fa fa-lock fa-lg"></i> Login
+					</div>
+
+					<div class="pull-right">
+						<span style="font-size:11px;"><p>Please provide your details</p></span>
+					</div>
 				</div>
-								
-			</div> <!-- /login-fields -->
-		</form>
-	</div>
-</div>
+				<div class="panel-body">
+					<form method="post" action="#" id="frm_forgotpassword">
+						<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+						<div id="successMessage" class="alert alert-success" style="display:none"></div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="text" class="form-control input-sm bounceIn animation-delay2 username-field validate[required,custom[email]]" placeholder="Email ID" value="<?php if($this->input->post()) echo ""; ?>" name="email" id="email">
+						</div>
+						
+						
+		
+						<div class="seperator"></div>
+						<div class="form-group">
+							<a class="" href="<?php echo base_url(); ?>user/login">Back To Login</a>
+						</div>
+
+						<hr/>
+						<button class="button btn btn-success btn-large" id="btn_submit">Request Password</button>	
+						<!--<button type="submit" id="btn_submit" class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right"><i class="fa fa-sign-in"></i> Sign in</button>-->
+					</form>
+				</div>
+			</div><!-- /panel -->
+		</div><!-- /login-widget -->
+	</div><!-- /login-wrapper -->
 <script>
 	$(document).ready(function(){
 		$('#frm_forgotpassword').ajaxForm({

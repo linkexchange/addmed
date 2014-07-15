@@ -454,5 +454,40 @@ class Dashboard extends MX_Controller{
             }
             exit;
         }
+        
+        public function updateDescription(){
+            $this->load->model('article');
+            $articles=$this->article->getAllAticles();
+            foreach($articles as $item){
+                $articleData=array();
+                $msg="";
+                $newmsg="";
+                $newmsg=strip_tags($item['articleDescription'], '<p>');
+                if($item['articleImage']){
+                    $msg.='<img src="'.  base_url().'uploads/article_images/'.$item['articleImage'].'" /> <br/>';
+                }
+                if($item['articleVideo']){
+                    $msg.=$item['articleVideo']."<br/>";
+                }
+                /*if($item['articleDescription']){
+                    $msg.=$item['articleDescription'];
+                }*/
+                if($msg!="")
+                    $articleData['articleDescription']=$msg.$newmsg;
+                else
+                    $articleData['articleDescription']=$newmsg;
+                
+                echo $updated_id=$this->article->update($articleData,$item['id']);
+            }
+        }
+        public function removeDescription(){
+             $this->load->model('article');
+            $articles=$this->article->getAllAticles();
+            foreach($articles as $item){
+                 $articleData=array();
+                 $msg=strip_tags($item['articleDescription'], '<p>');
+                 //strip_tags($item['articleDescription'], '<p>');
+            }
+        }
 }
 ?>

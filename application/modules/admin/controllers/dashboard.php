@@ -13,7 +13,7 @@ class Dashboard extends MX_Controller {
 		$data['totalPaidPayment']=$this->payments->getTotalPaidPayment();
 		$data['totalPayingPayment']=$this->payments->getTotalPayingPayment();
 
-		$this->layout->setLayout("layout/main");
+		$this->layout->setLayout("layout/admin");
 		$this->layout->view('dashboard',$data);
 	}
 	public function cronrun(){

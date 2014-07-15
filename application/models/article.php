@@ -126,5 +126,13 @@ class Article extends CI_Model{
 		$result = $this->db->get();
 		return $result->result_array();
 	}
+        public function getAllAticles(){
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_articles'));
+                $this->db->limit(100,401);
+		$result = $this->db->get();
+                
+		return $result->result_array();
+	}
 }
 ?>

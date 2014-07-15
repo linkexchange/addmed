@@ -29,7 +29,7 @@ class Dashboard extends MX_Controller {
 		
 		
 
-		$this->layout->setLayout("layout/main");
+		$this->layout->setLayout("layout/advertiser");
 		$this->layout->view('dashboard',$data);
 	}
 	public function getpublishedurls($page=1){

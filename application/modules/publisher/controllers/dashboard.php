@@ -2,10 +2,21 @@
 
 class Dashboard extends MX_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
+		$this->load->model("url");
+		$this->load->model("payments");
+		$this->load->model("clicksdetail");
+		$this->load->model('publisher');
+		$this->layout->setLayout("layout/publisher");
+	}
 	public function index()
 	{
-		
-		$this->load->model("url");
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'));
 		
 		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'));
@@ -15,7 +26,6 @@ class Dashboard extends MX_Controller {
 		//$data['published_url_count']=count($data['publishedUrls']);
 		//$data['unpublished_url_count']=count($data['unPublishedUrls']);
 		
-		$this->load->model("payments");
 		$data['totalPaidPayment']=$this->payments->getTotalPaidByAdvertiser($this->session->userData('userID'));
 
 		$paymentDetails=$this->payments->getTotalPaymentRemainingByAdvertiser($this->session->userData('userID'));
@@ -29,14 +39,12 @@ class Dashboard extends MX_Controller {
 				$data['TotalRamainingPayment']=0;
 			}
 		}
-		$this->load->model("clicksdetail");
 		$data['totalHits']=$this->clicksdetail->getTotalHits($this->session->userData('userID'));
 
-		$this->layout->setLayout("layout/main");
 		$this->layout->view('dashboard',$data);
 	}
 	public function getpublisherurls($page=1){
-		$this->load->model("url");
+		
 		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'),$page);
 		//$this->layout->setLayout("layout/main");
 		$this->load->view('dashboard_publisher',$data);
@@ -50,7 +58,6 @@ class Dashboard extends MX_Controller {
 	public function settings(){
 		if($this->input->post())
 		{
-			$this->load->model('publisher');
 			//echo $this->publisher->isExists($this->session->userData('userID'));
 			//exit;
 			if($this->publisher->isExists($this->session->userData('userID'))){
@@ -77,7 +84,6 @@ class Dashboard extends MX_Controller {
 		}
 		else
 		{
-			$this->load->model('publisher');
 			if($this->publisher->isExists($this->session->userData('userID'))){
 				$data['user']=$this->publisher->getDetails($this->session->userData('userID'));
 			}
@@ -85,7 +91,6 @@ class Dashboard extends MX_Controller {
 			{
 				$data[]="";
 			}
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('dashboard_settings',$data);
 		}
 		

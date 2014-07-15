@@ -14,9 +14,10 @@
 | path to your installation.
 |
 */
-//$config['base_url']	= 'http://localhost/addmed/';
-$config['base_url']	= 'http://192.168.1.80/addmed/';
+$config['base_url']	= 'http://192.168.1.80/addmed/demo';
+//$config['base_url']	= 'http://192.168.1.80/stc_final/';
 //$config['base_url']	= 'http://www.socialtrafficcenter.com/';
+//$config['base_url']	= 'http://www.demo.socialtrafficcenter.com/';
 
 /*
 |--------------------------------------------------------------------------

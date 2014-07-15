@@ -7,7 +7,23 @@ class Link extends MX_Controller {
 		//  Call parent Controller
 		parent::__construct();
 		$this->load->model( 'url' );
-	}	
+		if($this->session->userdata("userType")=="advertiser")
+		{
+			$this->layout->setLayout("layout/advertiser");
+		}
+		else if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}		
 	public function index($cat="",$page=1)
 	{
 		
@@ -36,7 +52,7 @@ class Link extends MX_Controller {
 			$this->load->view('view_links_by_cat',$data);
 		}
 		else{
-			$this->layout->setLayout("layout/main");
+			//$this->layout->setLayout("layout/main");
 			$this->layout->view('view_links',$data);
 		}
 	}
@@ -68,7 +84,7 @@ class Link extends MX_Controller {
 		else
 		{
 			$data['categories'] = $this->url->get_all_categories();
-			$this->layout->setLayout("layout/main");
+			//$this->layout->setLayout("layout/main");
 			$this->layout->view('add_link',$data);
 		}
 	}
@@ -105,7 +121,7 @@ class Link extends MX_Controller {
 			$data['url']=$result[0];
 			$data['categories'] = $this->url->get_all_categories();
 			//echo "<pre>"; print_r($data); exit;
-			$this->layout->setLayout("layout/main");
+			//$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_link',$data);
 		}
 	}

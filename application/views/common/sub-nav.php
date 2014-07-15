@@ -11,7 +11,11 @@ $(document).ready(function(){
 	<div class="subnavbar-inner">
 		<div class="container">
 			<ul class="mainnav">
+				<!--<?php if($this->session->userdata('userTypeID')==3) { ?>
+				<li id="frontend"><a href="<?php echo base_url()."publisher/frontend"; ?>"><i class="icon-tasks"></i><span>Frontend</span> </a> </li>
+				<?php } ?>-->
 				<li class="<?php if($this->uri->segment('2')=="dashboard" && ($this->uri->segment('1')=="publisher" || $this->uri->segment('1')=="advertiser" || $this->uri->segment('1')=="admin")){ echo "active"; } ?>" id="dashboard"><a href="<?php echo base_url().$this->session->userdata('userType')."/dashboard"; ?>"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
+				
 				<li class="<?php if($this->uri->segment('1')=="link"){ echo "active"; } ?> dropdown subnavbar-open-right">					
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="icon-anchor"></i>
@@ -116,6 +120,28 @@ $(document).ready(function(){
                     <ul class="dropdown-menu">
 						<li><a href="<?php echo base_url().'pages/dashboard/add'; ?>">Add Page</a></li>
                     	<li><a href="<?php echo base_url().'pages/dashboard/'; ?>">View Pages</a></li>
+                    </ul>  
+                </li>
+				<?php if($this->session->userData('userTypeID')==1) { ?>
+				<li class="<?php if(($this->uri->segment('2')=="forum")) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    	<i class="icon-shield"></i>
+                        <span>Forum</span> 
+                    </a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php echo base_url().'forum/dashboard'; ?>">View topics</a></li>
+                    	<li><a href="<?php echo base_url().'forum/dashboard/users'; ?>">View users</a></li>
+					</ul>
+                </li>
+				<?php } ?>
+				<li class="<?php if($this->uri->segment('1')=="article") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="pages" >
+                	<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    	<i class="icon-tasks"></i>
+                        <span>Articles</span> 
+                    </a>
+                    <ul class="dropdown-menu">
+						<li><a href="<?php echo base_url().'article/dashboard/add'; ?>">Add Article</a></li>
+                    	<li><a href="<?php echo base_url().'article/dashboard/'; ?>">View Articles</a></li>
                     </ul>  
                 </li>
 				<?php endif; ?>

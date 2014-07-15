@@ -1477,27 +1477,3 @@ a .icon-flip-vertical:before {
 .icon-renren:before {
   content: "\f18b";
 }
-
-.page-active{
-	background-color:#DB3325;
-}
-/* .table-style{
-	width:100% !important;
-}
-.table-style thead{
-	width:100% !important;
-	display:block !important;
-}
-.table-style thead tr{
-	width:100% !important;
-	display:inline-block !important;
-}
-.table-style thead tr th,.table-style tr td{
-	width:20% !important;
-	display:block !important;
-	overflow:hidden;
-}
-.link{
-	width:150px !important;
-}
-*/
