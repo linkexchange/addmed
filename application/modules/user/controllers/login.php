@@ -17,7 +17,7 @@ class Login extends MX_Controller {
 	 */
 	public function __construct()
 	{
-		$this->layout->setLayout("layout/normal");
+		$this->layout->setLayout("layout/login");
 	}	
 	public function index()
 	{

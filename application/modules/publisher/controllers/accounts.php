@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Frontend extends MX_Controller {
+class Accounts extends MX_Controller {
 	public function __construct()
 	{
 		parent::__construct();
@@ -17,7 +17,7 @@ class Frontend extends MX_Controller {
                 $this->load->model('smaaccount');
 		$this->layout->setLayout('layout/publisher');
 	}
-	public function index($page=1)
+	/*public function index($page=1)
 	{
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'));
 		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'));
@@ -38,8 +38,8 @@ class Frontend extends MX_Controller {
 		$data['totalHits']=$this->clicksdetail->getTotalHits($this->session->userData('userID'));
 		$data["communities"] = $this->community->getAllCommunities();
 		$this->layout->view('publisher',$data);
-    }
-	public function accounts($page=0)
+    }*/
+	public function index($page=0)
 	{
             
             $data="";
