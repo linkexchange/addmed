@@ -35,7 +35,7 @@
 									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['image'];?>" alt="Photo of article">
 								</div><!-- /image-wrapper -->
 																
-								<p class="m-top-sm m-bottom-sm" style="text-align:justify;">
+								<p style="text-align:justify;">
 									<?php echo $article[0]['description'];?>
 								</p>
 							</div>
@@ -147,6 +147,8 @@
 						
 						<ul class="media-list comment-list">
 							<?php for($i=0;$i<count($comments);$i++) {?>
+							<div class="panel blog-container" style="border:1px solid lightgray;">
+							<div class="panel-body">
 							<li class="media">
 								<span class="pull-left">
 									<img class="media-object img-circle" src="<?php echo base_url();?>img/user.jpg" alt="User Avatar" style="width: 40px; height: 40px;">
@@ -202,6 +204,8 @@
 									<?php }?>
 								</div>
 							</li>
+							</div>
+							</div>
 						<?php } ?>	
 						</ul><!-- /media-list -->					
 						<?php } ?>

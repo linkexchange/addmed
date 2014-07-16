@@ -10,7 +10,7 @@ class Forum extends MX_Controller{
 		$this->load->model("leaderboard");
 		$this->load->helper('url');
 		$this->load->library('session');
-		$this->layout->setLayout('layout/publisher');
+		$this->layout->setLayout('layout/normal');
 	}
 	public function index($page=1)
 	{

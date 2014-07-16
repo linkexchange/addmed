@@ -7,7 +7,7 @@
 	<?php } else if(isset($article[0]['topic'])){ ?>
 	<title><?php echo $article[0]['topic'];?>||Social Traffic Center</title>
 	<?php } else {?>
-	<title>Advertiser || Social Traffic Center</title>
+	<title>Publisher || Social Traffic Center</title>
 	<?php } ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -128,10 +128,37 @@
 									<i class="fa fa-dashboard fa-lg"></i> 
 								</span>
 								<span class="text">
-									Dashborad
+									Dashboard
 								</span>
 								<span class="menu-hover"></span>
 							</a>
+						</li>
+						<li>
+							<a href="<?php echo base_url();?>publisher/frontend/accounts">
+								<span>
+									<i class="fa fa-cog fa-lg"></i> 
+								</span>
+								<span class="text">
+									Accounts
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+						<li class="openable">
+							<a href="#">
+								<span class="menu-icon">
+									<i class="fa fa-file-text fa-lg"></i> 
+								</span>
+								<span class="text">
+									Communities
+								</span>
+								<span class="badge badge-success bounceIn animation-delay5">2</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<li><a href="<?php echo base_url();?>publisher/frontend/add"><span class="submenu-label">Add community</span></a></li>
+								<li><a href="<?php echo base_url();?>publisher/frontend"><span class="submenu-label">View Communities</span></a></li>
+							</ul>
 						</li>
 						<li <?php if($this->uri->segment(1)=="link"){ echo "class='active'";}?>>
 							<a href="<?php echo base_url().'link';?>">

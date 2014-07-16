@@ -1,16 +1,31 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Dashboard extends MX_Controller{
+	public function __construct()
+	{		
+		//  Call parent Controller
+		parent::__construct();
+		$this->load->model('template');
+		if($this->session->userdata("userType")=="advertiser")
+		{
+			$this->layout->setLayout("layout/advertiser");
+		}
+		else if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+	}
 	public function index($page=1)
 	{
-		
-		$this->load->model('template');
 		$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page);
 		$data['count']=$this->template->getTemplatesCount($this->session->userData('userID'));
-    	$this->layout->setLayout("layout/main");
-		$this->layout->view('dashboard',$data);
+    	$this->layout->view('dashboard',$data);
     }
-    public function addTemplate(){
-      if($this->input->post()){
+	public function add(){
+		if($this->input->post()){
 			$uid=$this->session->userData('userID');
 			$this->load->model("template");
 			$this->input->post('name');
@@ -26,16 +41,12 @@ class Dashboard extends MX_Controller{
 			//print_r($templateData);
 			echo $this->template->add($templateData);
 
-		}  
-    }
-	public function add(){
-		
-		
+		}
+		else
+		{
 			$data[]="";
-			
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_template',$data);
-	
+		}
 	}
 
 	public function getUniqueApiKey(){
@@ -57,11 +68,11 @@ class Dashboard extends MX_Controller{
 		if($id){
 			$this->template->delete($id);
 			$this->session->set_flashdata('message', 'Website deleted successfully!');
-			redirect(base_url()."publisher/dashboard");
+			redirect(base_url()."template/dashboard");
 		}
 		else
 		{
-			redirect(base_url()."publisher/dashboard");
+			redirect(base_url()."template/dashboard");
 		}
 	}
 
@@ -82,7 +93,6 @@ class Dashboard extends MX_Controller{
 		else
 		{	$this->load->model('template');
 			$data['template']=$this->template->getTemplate($id);
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_template',$data);
 		}
 	}

@@ -25,7 +25,15 @@ class Forums extends CI_Model{
 		$this->db->where('id',$id);
 		$this->db->update($this->config->item('table_topic'));
 	}
-	public function getAllTopics($limit=0)
+	public function getAllTopics()
+	{
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_topic'));
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getAllApprovedTopics($limit=0)
 	{
 		$numberofrecords=10;
 		if($limit>0)
@@ -33,24 +41,18 @@ class Forums extends CI_Model{
 		$startRecord=$limit*$numberofrecords;
 		$this->db->select('*');
 		$this->db->from($this->config->item('table_topic'));
+		$this->db->where('approved',1);
 		$this->db->limit($numberofrecords,$startRecord);
 		$this->db->order_by('id','desc');
 		$result = $this->db->get();
 		return $result->result_array();
 	}
-	public function getAllTopicsCount(){
+	public function getAllApprovedTopicsCount()
+	{
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_topic'));
-		return $this->db->count_all_results();
-	}
-	public function getAllApprovedTopics()
-	{
-		$this->db->select('*');
-		$this->db->from($this->config->item('table_topic'));
 		$this->db->where('approved',1);
-		$this->db->order_by('id','desc');
-		$result = $this->db->get();
-		return $result->result_array();
+		return $this->db->count_all_results();
 	}
 	public function getTopicById($id)
 	{
@@ -60,22 +62,22 @@ class Forums extends CI_Model{
 		$result = $this->db->get();
 		return $result->result_array();
 	}
-	public function getAllForumUsers($limit=0)
+	public function getAllForumUsers()
+	{
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_forum_user'));
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getAllForumUsersCount($limit=0)
 	{
 		$numberofrecords=10;
 			if($limit>0)
 				$limit=$limit-1;	
-		$startRecord=$limit*$numberofrecords;
+			$startRecord=$limit*$numberofrecords;
 		$this->db->select('*');
 		$this->db->from($this->config->item('table_forum_user'));
 		$this->db->limit($numberofrecords,$startRecord);
-		$result = $this->db->get();
-		return $result->result_array();
-	}
-	public function getAllForumUsersCount()
-	{
-		$this->db->select('*');
-		$this->db->from($this->config->item('table_forum_user'));
 		return $this->db->count_all_results();
 	}
 	public function spamUser($id,$data)

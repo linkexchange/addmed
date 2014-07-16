@@ -6,7 +6,7 @@ class Listing extends MX_Controller{
 		parent::__construct();
 		$this->load->model('article');
 		$this->load->helper('url');
-		$this->layout->setLayout('layout/publisher');
+		$this->layout->setLayout('layout/normal');
 	}
 	public function index($page=1){
 		$data['articles'] = $this->article->getAllForumArticles($page);

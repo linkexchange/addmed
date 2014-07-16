@@ -17,8 +17,8 @@ $(document).ready(function(){
 				</div>
                 <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 				<div id="successMessage" class="alert alert-success" style="display:none"><?php echo $this->session->flashdata('message');?></div>
-                <?php //echo "<pre>"; print_r($blogs); echo "</pre>"; ?>
-                	<table class="table table-striped table-bordered">
+				
+					<table class="table table-striped table-bordered">
                     	<thead>
 							<tr>
 								<th>Sr. </th>

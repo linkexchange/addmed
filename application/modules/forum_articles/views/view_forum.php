@@ -7,16 +7,26 @@
 	
 	<div class="padding-md">
 		<div class="row">
-			<div class="col-lg-9">
+			<div class="col-md-9">
 				<div class="panel panel-default">
 					<div class="panel-heading" style="border:1px solid #D6E9F3;">
 						<h4><b><i class="fa fa-file-text fa-lg"></i> Forum</b>
-						<span class="badge badge-info pull-right"><?php echo count($topics);?> topics</span></h4>
+						<span class="badge badge-info"><?php echo count($topics);?> topics</span>
+						<?php if($this->session->userdata('ForumUserID')){?>
+						<span class="pull-right">
+							<a class="btn btn-sm btn-success" href="<?php echo base_url();?>forum/add">
+							<i class="fa fa-anchor"></i> Add topic</a>
+						</span>
+						<?php } ?>
+						</h4>
 					</div>
-					
-					<table class="table table-bordered table-condensed table-hover table-striped">
-						<tbody>	
-							<?php 
+					<?php if($this->session->flashdata('topicmsg')){ ?>
+					<div class="alert alert-success">
+					<?php echo $this->session->flashdata('topicmsg');?>	
+					</div>		
+					<?php } ?>
+					<table class="table table-hover table-striped">
+						<?php 
 							if($topics){  
 								  if($this->session->userdata('ForumUserID'))
 								  {
@@ -24,41 +34,56 @@
 								  }
 								  else 
 								  { 
-									$count = 5;
+									$count = count($topics);
 								  }
-						   for($i=0;$i<5;$i++) { ?>
-							<tr style="border:1px solid #D6E9F3;">	
-								<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
-								<td><?php //$c=$i+1; echo $c;?>
-									<span class="badge" style="min-width:60px;border:1px solid LightGray;float:left;background-color:green;color:white;">
-									<h5><?php echo $topics[$i]['no_of_posts'];?></h5><h6>replies</h6></span>&nbsp;
-									<span style="float:center;"><br/>&nbsp;
-									<a href="<?php echo base_url();?>forum/<?php echo $title."/".$topics[$i]['id'];?>">
-									<b><font size="4" color="#0869BD"><?php echo $topics[$i]['name'];?></font></b></a>
-									</span><br/><br/>
-									<span style="float:right;">
-										&nbsp;&nbsp;created by&nbsp;&nbsp;<span class="badge"><b><u><?php echo $topics[$i]['author'];?></u></b> </span> |
-										created date&nbsp;&nbsp;<span class="badge"><b><u><?php echo date('dS F,Y',strtotime($topics[$i]['created_date']));?></u></b></span>
-									</span>
-								</td>
-							</tr>
-							<?php } }?>
+						   for($i=0;$i<5;$i++) { ?>	
+						<tr style="border:1px solid LightGray;">
+							<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
+							<td>
+								<span class="badge" style="min-width:50px;height:50px;border:1px solid LightGray;background-color:#EFF5FB;">
+									<h4><b><?php echo $topics[$i]['no_of_posts'];?></b></h4>
+								</span>
+								<h5><b>replies</b></h5>
+							</td>
+							<td>
+								<!--<img src="<?php echo base_url();?>img/bulb.jpg" height="21" width="21">-->
+								<a href="<?php echo base_url();?>forum/<?php echo $title."/".$topics[$i]['id'];?>">
+								<b><font size="4" color="#0869BD"><u>
+								<?php echo $topics[$i]['name'];?></u></font></b></a><br/>
+								<p class="m-top-sm" style="font-family:Georgia,serif;text-align:justify;font-size:12px;">
+									<?php 
+										$str = strip_tags($topics[$i]['description']);
+										echo "&nbsp;&nbsp;".substr($str,0,200)."...";
+									?>
+								<a href="<?php echo base_url();?>forum/<?php echo $title."/".$topics[$i]['id'];?>"><i class="fa fa-star"></i>[Read more]</a>
+								</p>
+								<span style="float:right;">
+									<strong>
+										created by&nbsp;&nbsp;<span class="badge"><b><i class="icon-user"></i> 
+										<?php echo $topics[$i]['author'];?></b></span>  |
+										on&nbsp;&nbsp;<span class="badge"><b><i class="icon-time"></i> 
+										<?php echo date('dS F,Y',strtotime($topics[$i]['created_date']));?></b></span>
+									</strong>
+								</span>
+							</td>
+						</tr>
+						<?php } }?>
+						
+						<tr style="border:1px solid #D6E9F3;">
 							<?php if(!$this->session->userdata('ForumUserID')){?>
-							<tr style="border:1px solid #D6E9F3;">
-								<td>
-									<h4 style="font-family:verdana;"><strong>&nbsp;To access the full forum please 
-									<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Log in</a> or  
-									<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Sign up</a></strong></h4> 
-								</td>
-							</tr>
-							<?php } ?>		
-						</tbody>
+							<td><br/><span class="badge badge-danger">Access</span></td>
+							<td>
+								<h4 style="font-family:verdana;"><strong>&nbsp;To access the full forum please 
+								<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Log in</a> or  
+								<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Sign up</a></strong></h4> 
+							</td>
+							<?php } ?>	
+							
+						</tr>	
+						
 					</table>
-					
-					
-					
 				</div><!-- /panel -->
-			</div><!-- /.col -->
+			</div>
 			<div class="col-lg-3">
 				<div class="panel panel-default" >
 					<div class="panel-heading" style="border:1px solid #D6E9F3;">

@@ -1,0 +1,57 @@
+//Create table for publishedlinks
+
+CREATE TABLE IF NOT EXISTS `publishedlinks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `linkID` int(11) NOT NULL,
+  `biltyURL` varchar(255) NOT NULL,
+  `publisherID` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `crearedDate` date NOT NULL,
+  `updatedID` int(11) NOT NULL,
+  `updatedDate` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `linkID` (`linkID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+Add data in published links 
+
+INSERT INTO publishedlinks( linkID, biltyURL, publisherID ) (
+
+SELECT id, billyUrl, publisherID
+FROM links
+WHERE publisherID !=0
+);
+
+Modify data of the clickdetails
+
+UPDATE clicksdetail SET linkID = ( SELECT id
+FROM publishedlinks
+WHERE clicksdetail.linkID = publishedlinks.linkID );
+
+Alter table query
+
+ALTER TABLE `clicksdetail` CHANGE `linkID` `publishedLinkID` INT( 11 ) NOT NULL ;
+
+
+ALTER TABLE `links`
+  DROP `billyUrl`,
+  DROP `publisherID`;
+
+  ALTER TABLE `publishedlinks` CHANGE `biltyURL` `bitlyURL` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ;
+
+
+  CREATE TABLE IF NOT EXISTS `clicksdetail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `linkID` int(11) NOT NULL,
+  `numberOfClicks` int(11) NOT NULL,
+  `advertiserPaynment` double NOT NULL,
+  `publisherPayment` double NOT NULL,
+  `commission` double NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` date NOT NULL,
+  `updatedBy` int(11) NOT NULL,
+  `updatedDate` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 

@@ -1,6 +1,26 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Dashboard extends MX_Controller {
+	
+	public function __construct()
+	{		
+		//  Call parent Controller
+		parent::__construct();
+		$this->load->model('template');
+		if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userType"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}
+
 	public function index($templateID=0,$page=1)
 	{
 		$data[]="";
@@ -25,8 +45,7 @@ class Dashboard extends MX_Controller {
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 			
 		}
-                $this->layout->setLayout("layout/main");
-		$this->layout->view('view_by_templates',$data);
+        $this->layout->view('view_by_templates',$data);
     }
     
     public function addPost(){
@@ -91,7 +110,6 @@ class Dashboard extends MX_Controller {
 		
 			$this->load->model('template');
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_blog',$data);
 		
 		
@@ -176,7 +194,6 @@ class Dashboard extends MX_Controller {
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 			$this->load->model('blog');
 			$data['blog']=$this->blog->getBlog($id);
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_blog',$data);
 		}
 	}
@@ -193,7 +210,6 @@ class Dashboard extends MX_Controller {
 			$data['count']=$this->blog->getBlogsCount($this->session->userData('userID'));
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_by_templates',$data);
 		}
 		else
@@ -203,7 +219,6 @@ class Dashboard extends MX_Controller {
 			$data['count']=$this->blog->getBlogsCount($this->session->userData('userID'));
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_by_templates',$data);
 		}
 		
@@ -215,7 +230,6 @@ class Dashboard extends MX_Controller {
 		$data['blogs']=$this->blog->getBlogsByTemplate($this->session->userData('userID'),$tempID,$page);
 		$data['count']=$this->blog->getBlogsCountByTemplate($this->session->userData('userID'),$tempID);
 		$data['tempID']=$tempID;
-		$this->layout->setLayout("layout/main");
 		$this->load->view('ajax_blogs_by_template',$data);
 	}
         

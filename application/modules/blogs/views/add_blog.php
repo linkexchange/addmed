@@ -1,62 +1,66 @@
-
-<div class="widget">
-	<div class="widget-header"> <i class="icon-list-alt"></i>
-		<h3>Add Post</h3>
-	</div>
-	<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-	<div id="successMessage" class="alert alert-success" style="display:none"></div>
-	<!-- /widget-header -->
-	<div class="widget-content">
-		<div class="big-stats-container">
-			<div class="widget-content">
-				<div id="formcontrols" class="tab-pane active">
-                	 <?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
-					<form class="form-horizontal" id="frm_addBlog" action="<?php echo base_url(); ?>blogs/dashboard/addPost" method="POST" enctype="multipart/form-data" >
-						<fieldset>
-							<div class="control-group">
-                            	<label for="template" class="control-label">Select Website</label>
-								<div class="controls">
-									<select id="templateID" name="templateID" class="validate[required]" onchange="getDetails(this.value); ">
+<div id="main-container">
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3> <i class="fa fa-file-text fa-lg"></i> Add Post </h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_addBlog" action="<?php echo base_url();?>blogs/dashboard/addPost" method="POST" enctype="multipart/form-data">
+							
+							<div class="form-group">
+								<label for="Name" class="col-lg-2 control-label">Select Website</label>
+								<div class="col-lg-10">
+									<select id="templateID" name="templateID" class="form-control validate[required]" onchange="getDetails(this.value); ">
 										<option value="">Please Select</option>
 										<?php foreach($templates as $item) : ?>
 										<option value="<?php echo $item['id']; ?>"><?php echo $item['name']; ?></option>
 										<?php endforeach; ?>
 									</select>
-								</div> <!-- /controls -->				
-							</div> <!-- /control-group -->
-							<div class="setData" style="border:0px solid red;">
-								<div class="control-group">											
-                                    <label for="title" class="control-label">Post Title</label>
-                                    <div class="controls">
-                                        <input type="text" class="validate[required]" placeholder="Post Title" value="" name="title" id="title">
-                                    </div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-                                <div class="control-group">											
-                                    <label for="image" class="control-label">Post Image</label>
-                                    <div class="controls">
-                                        <input type="file" class="validate[required]" name="image" id="image" size="20" >
-                                        <p class="help-block">Maximum allwoed image size is 10MB.</p>
-                                    </div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-                                 <div class="control-group">											
-                                    <label for="description" class="control-label">Post Description</label>
-                                    <div class="controls">
-                                        <!--<input type="file" class="validate[required]" placeholder="Blog Image" value="" name="image" id="image">-->							<textarea name="description" id="description"></textarea>
-                                    </div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-							</div>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="Name" class="col-lg-2 control-label">Post Title</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control validate[required]" placeholder="Post Title" value="" name="title" id="title">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
 							
-							<div class="control-group">	
-								<div class="controls">
-									<button id="btn_submit" class="btn btn-primary" type="submit">Save</button> 
-									<a href="<?php echo base_url()?>blogs/dashboard" class="btn">Cancel</a>								</div>
-							</div> <!-- /control-group -->
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+							<div class="form-group">
+								<label for="Name" class="col-lg-2 control-label">Post Image</label>
+								<div class="col-lg-10">
+									 <input type="file" class="form-contrl validate[required]" name="image" id="image" size="20" >
+                                        <p class="help-block">Maximum allwoed image size is 10MB.</p>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Name" class="col-lg-2 control-label">Post Description</label>
+								<div class="col-lg-10">
+									<textarea name="description" id="description" class="form-control validate[required]"></textarea>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+									<a href="<?php echo base_url();?>blogs/dashboard" class="btn btn-primary">Cancel</a>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
+					</div>
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
 </div>
 <script>
 	$(document).ready(function(){

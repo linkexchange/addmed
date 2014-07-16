@@ -207,8 +207,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'blogs/dashboard/add'; ?>"><span class="submenu-label">Add Post</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'blogs/dashboard';?>"><span class="submenu-label">View posts</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'blogs/dashboard/add'; ?>"><span class="submenu-label">Add Post</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'blogs/dashboard';?>"><span class="submenu-label">View posts</span></a></li>
 							</ul>
 						</li>
 						<li class="openable">

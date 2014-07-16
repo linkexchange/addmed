@@ -38,7 +38,17 @@
 |
 */
 
-$route['default_controller'] = "user/login";
+$route['default_controller'] = "forum_articles/forum";
+$route['forum'] = "forum_articles/forum";
+$route['forum/index/(:num)'] = "forum_articles/forum/index/$1";
+$route['forum/add'] = "forum_articles/forum/add";
+$route['articles'] = "forum_articles/listing";
+$route['forum/(:any)/(:num)'] = "forum_articles/forum/view/$1/$2";
+$route['topics'] = "forum_articles/forum/view_forum";
+$route['topics/index/(:num)'] = "forum_articles/forum/view_forum/$1";
+$route['topics/(:num)'] = "forum_articles/forum/view_forum/$1";
+$route['articles'] = "forum_articles/listing";
+$route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
 $route['404_override'] = '';
 
 
