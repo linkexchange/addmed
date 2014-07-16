@@ -143,7 +143,7 @@ class Twitter extends CI_Controller
 		if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
 		{
                     $this->reset_session();
-                    redirect(base_url('/publisher/frontend/accounts'));
+                    redirect(base_url('/publisher/accounts'));
 		}
 		else
 		{
@@ -161,7 +161,7 @@ class Twitter extends CI_Controller
 			}
 			else
 			{
-                            redirect(base_url('/publisher/frontend/accounts'));
+                            redirect(base_url('/publisher/accounts'));
 			}
 		}
 	}
@@ -170,7 +170,7 @@ class Twitter extends CI_Controller
 		if($this->input->get('denied')){
                         $this->session->set_flashdata('error', 'Access denied....!');
 			$this->reset_session();
-			redirect(base_url('/publisher/frontend/accounts'));
+			redirect(base_url('/publisher/accounts'));
 		}
 			if($this->input->get('oauth_token') && $this->session->userdata('request_token') !== $this->input->get('oauth_token'))
 			{
@@ -204,7 +204,7 @@ class Twitter extends CI_Controller
 				{
 					//echo "Error";// An error occured. Add your notification code here.
 					$this->reset_session();
-					redirect(base_url('/publisher/frontend/accounts'));
+					redirect(base_url('/publisher/accounts'));
 				}
 			}
 		
@@ -306,7 +306,7 @@ class Twitter extends CI_Controller
                 $this->reset_session();
                 $isExists=$this->smaaccount->addRecord($userData);
                 $this->session->set_flashdata('succ', 'Twitter account connected successfully....!');
-                redirect(base_url().'publisher/frontend/accounts');
+                redirect(base_url().'publisher/accounts');
                 //print_r($this->session->userdata); 
             endif;
           

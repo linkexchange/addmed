@@ -6,7 +6,7 @@ ob_start();
  */
 ?>
 
-
+<link href="<?php echo base_url(); ?>/css/custom_sunil.css" rel="stylesheet" />
 
 <div id="main-container">
     <div id="breadcrumb">
@@ -27,7 +27,7 @@ ob_start();
                     Connect Your Social Media Accounts : 
                     <a class="btn btn-twitter btn-social-media" href="<?php echo base_url(); ?>twitter/twitter/connectTwitter"><i class="fa fa-twitter fa-lg"></i></a>
                     <a class="btn btn-facebook btn-social-media"><i class="fa fa-facebook fa-lg"></i></a>
-                    <a class="btn btn-tumblr btn-social-media"><i class="fa fa-tumblr fa-lg"></i></a>
+                    <a class="btn btn-tumblr btn-social-media" href="<?php echo base_url(); ?>tumblr/dashboard/connect"><i class="fa fa-tumblr fa-lg"></i></a>
                     <a class="btn btn-instagram btn-social-media"><i class="fa fa-instagram fa-lg"></i></a>
                 </div>
             </div> 
