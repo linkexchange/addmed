@@ -19,9 +19,14 @@ class Link extends MX_Controller {
 		{
 			$this->layout->setLayout("layout/admin");
 		}
-	}	
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}		
 	public function index($cat="",$page=1)
 	{
+		
 		$this->load->model("url");
 		$data['cur_cat_ID']=$cat;
 		$data['categories']=$this->url->getAllCategories("ALL");
@@ -47,6 +52,7 @@ class Link extends MX_Controller {
 			$this->load->view('view_links_by_cat',$data);
 		}
 		else{
+			//$this->layout->setLayout("layout/main");
 			$this->layout->view('view_links',$data);
 		}
 	}
@@ -78,13 +84,15 @@ class Link extends MX_Controller {
 		else
 		{
 			$data['categories'] = $this->url->get_all_categories();
+			//$this->layout->setLayout("layout/main");
 			$this->layout->view('add_link',$data);
 		}
 	}
 	public function adLinkCategory()
 	{
+		$this->layout->setLayout("layout/main");
 		//echo "<pre>"; print_R($data); exit;
-		$this->load->view('add_link_category');
+		$this->layout->view('add_link_category');
 	}
 	public function edit()
 	{
@@ -113,6 +121,7 @@ class Link extends MX_Controller {
 			$data['url']=$result[0];
 			$data['categories'] = $this->url->get_all_categories();
 			//echo "<pre>"; print_r($data); exit;
+			//$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_link',$data);
 		}
 	}
@@ -128,12 +137,14 @@ class Link extends MX_Controller {
 			$data['msg'] = "Category updated successfully";
 			$data['cats']=$this->url->getAllCategories($page=1);
 			$data['cats_count']=$this->url->getCatCount();
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_categories',$data);
 		}	
 		else
 		{
 			$result = $this->url->getCatById($this->uri->segment(3));
 			$data['cats']=$result[0];
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_category',$data);
 		}
 	}
@@ -170,6 +181,7 @@ class Link extends MX_Controller {
 		if($this->url->isExistCategory($data))
 		{
 			$data['msg'] = "Category name already exists.";
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_link_category',$data);	
 		}
 		else
@@ -178,6 +190,7 @@ class Link extends MX_Controller {
 			$data['msg'] = "Category added successfully";
 			$data['cats']=$this->url->getAllCategories($page=1);
 			$data['cats_count']=$this->url->getCatCount();
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_categories',$data);
 		}
 	}
@@ -196,6 +209,7 @@ class Link extends MX_Controller {
 		{
 			$result = $this->url->getUrlByIdForPub($this->uri->segment(3));
 			$data['url']=$result[0];
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_link_pub',$data);
 		}
 	}
@@ -213,12 +227,14 @@ class Link extends MX_Controller {
 		$this->load->model("url");
 		$data['cats']=$this->url->getAllCategories($page);
 		$data['cats_count']=$this->url->getCatCount();
+		$this->layout->setLayout("layout/main");
 		//echo "<pre>"; print_R($data); exit;
 		$this->layout->view('view_categories',$data);
 	}
 	public function setCPC()
 	{
 		$data['categories'] = $this->url->get_all_categories();
+		$this->layout->setLayout("layout/main");
 		$this->layout->view('set_cpc',$data);	
 	}
 	public function setCPCValue()
@@ -249,6 +265,7 @@ class Link extends MX_Controller {
 		
 		$data['cats']=$this->url->getAllCategories($page=1);
 		$data['cats_count']=$this->url->getCatCount();
+		$this->layout->setLayout("layout/main");
 		$this->layout->view('view_categories',$data);
 	}
 

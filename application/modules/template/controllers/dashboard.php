@@ -20,6 +20,7 @@ class Dashboard extends MX_Controller{
 	}
 	public function index($page=1)
 	{
+		
 		$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page);
 		$data['count']=$this->template->getTemplatesCount($this->session->userData('userID'));
     	$this->layout->view('dashboard',$data);

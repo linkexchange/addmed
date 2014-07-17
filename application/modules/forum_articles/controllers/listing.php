@@ -6,7 +6,14 @@ class Listing extends MX_Controller{
 		parent::__construct();
 		$this->load->model('article');
 		$this->load->helper('url');
-		$this->layout->setLayout('layout/normal');
+		if($this->session->userdata('ForumUserName'))
+		{
+			$this->layout->setLayout('layout/login');
+		}
+		else
+		{
+			$this->layout->setLayout('layout/normal');
+		}
 	}
 	public function index($page=1){
 		$data['articles'] = $this->article->getAllForumArticles($page);
@@ -51,8 +58,8 @@ class Listing extends MX_Controller{
 			if($insert_id){
 				//$data['replies']  = $this->article->getRepliesByID($insert_id);
 				//echo $this->load->view('ajax_reply',$data);
-				echo 100;
-				//redirect(base_url('forum_articles/listing/view/'.$this->input->post('articleid')),'refresh');
+				//echo 100;
+				redirect(base_url('article/'.$this->input->post('articlename').'/'.$this->input->post('articleid')),'refresh');
 			} else{
 				echo 102;
 			}
@@ -133,7 +140,7 @@ class Listing extends MX_Controller{
 	{
 		if(!$this->session->userdata('ForumUserID'))
 		{
-			redirect(base_url().'forum_articles/forum');
+			redirect(base_url().'user/login');
 		}
 		else
 		{	
@@ -144,6 +151,10 @@ class Listing extends MX_Controller{
 	}
 	public function edit($id)
 	{
+		if(!$this->session->userdata('ForumUserID'))
+		{
+			redirect(base_url().'user/login');
+		}
 		if($this->input->post('bookmark'))
 		{
 			$bookmarkdata = array('name'=>$this->input->post('bookmark'),
@@ -167,7 +178,8 @@ class Listing extends MX_Controller{
 	public function delete($id)
 	{
 		$this->article->removeBookmark($id);
-		redirect(base_url('forum_articles/listing/show_bookmarks'));
+		$this->session->set_flashdata("del","Bookmark removed successfully");
+		redirect(base_url().'bookmarks');
 	}
 }
 ?>

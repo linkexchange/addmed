@@ -128,13 +128,13 @@
 									<i class="fa fa-dashboard fa-lg"></i> 
 								</span>
 								<span class="text">
-									Dashboard
+									Dashborad
 								</span>
 								<span class="menu-hover"></span>
 							</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url();?>publisher/frontend/accounts">
+							<a href="<?php echo base_url();?>publisher/accounts">
 								<span>
 									<i class="fa fa-cog fa-lg"></i> 
 								</span>

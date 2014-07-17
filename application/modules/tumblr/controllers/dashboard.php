@@ -117,6 +117,11 @@ class Dashboard extends CI_Controller{
                                         echo "<pre>"; print_r( $this->session->userdata); echo "</pre>";
                                         echo "<pre>"; print_r($user_Data); echo "</pre>"; exit;
                                         
+					$this->session->set_userdata('twitter_name', $user_Data->name);
+                                        $this->session->set_userdata('twitter_followers', $user_Data->followers_count);
+                                        $this->session->set_userdata('twitter_posts', $user_Data->statuses_count);
+                                        $this->session->set_userdata('twitter_profile_image_url', $user_Data->profile_image_url);
+                                        
 					//print_r($this->session->userdata); exit;
 					$this->session->unset_userdata('request_token');
 					$this->session->unset_userdata('request_token_secret');

@@ -1,61 +1,27 @@
-
-<div class="main">
-	<div class="main-inner">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-                	<div class="widget">
-                    	<div class="widget-header"> 
-								<i class="icon-list-alt"></i>
-								<h3>Edit Bookmark</h3>
-						</div>
-                        <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-						<div id="successMessage" class="alert alert-success" style="display:none"></div>
-                    	<div class="widget-content">
-                        	<div class="big-stats-container">
-                            	<div class="widget-content inner">
-                                	<!-- article foreach #start -->
-                                	<?php foreach($bookmark as $bkmark) : ?>
-                                    
-                     				<?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
-                                    <form class="form-horizontal" id="frm_editBookmark" action="" method="POST" enctype="multipart/form-data" >
-                            			<fieldset>
-                             				
-                                            <div class="setArticleData">
-                                            	<div class="control-group">											
-                                                    <label for="articleTitle" class="control-label">Name</label>
-                                                    <div class="controls">
-                                                        <input type="text" class="validate[required]" 
-														value="<?php echo $bkmark['name']; ?>" name="bookmark" id="bookmark">
-                                                    </div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												
-												<div class="control-group">	   
-													<label for="articleDescription" class="control-label">Url</label>
-                                                    <div class="controls">
-                                                      <input type="text" class="validate[required]"  value="<?php echo $bkmark['url']; ?>" name="url" id="url" readonly>
-                                                    </div> <!-- /controls -->				
-                                                </div> <!-- /control-group -->
-                                            </div>
-                                             <div class="control-group">	
-                                                <div class="controls">
-                                                    <button id="edit_bkmark" class="btn btn-primary" type="submit">Save</button> 
-                                                    <a href="<?php echo base_url();?>forum_articles/listing/show_bookmarks" class="btn">Cancel</a>						
-												</div>
-                                            </div> <!-- /control-group -->
-                                        </fieldset>
-                                    </form>
-                                    <?php endforeach; ?>
-                                    <!-- article foreach #end -->
-                                </div><!-- widget-content inner-->
-                            </div><!-- big-stats-container -->
-                    	</div><!-- widget-content -->
-                    </div><!-- widget -->
-                </div><!-- span12 -->
-            </div><!-- row -->
-        </div><!-- container -->
-    </div><!-- main-inner -->
-</div> <!-- main -->
+<div id="main-container">
+<br/>
+<div class="col-md-6">
+		<div class="panel panel-default"  style="border:1px solid LightGray;">
+			<div class="panel-heading"><h4><i class="icon-star fa-lg"></i> Edit Bookmark</h4></div>
+			<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+			<div id="successMessage" class="alert alert-success" style="display:none"></div>
+			<div class="panel-body">
+				 <form class="form-horizontal" id="frm_editBookmark" action="" method="POST" enctype="multipart/form-data" >
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" class="form-control input-sm validate[required]" value="<?php echo $bookmark[0]['name']; ?>" placeholder="Enter name" name="bookmark" id="bookmark">
+					</div><!-- /form-group -->
+					<div class="form-group">
+						<label for="url">Url</label>
+						<input type="text" class="form-control input-sm validate[required]"  value="<?php echo $bookmark[0]['url']; ?>" name="url" id="url" readonly>
+					</div><!-- /form-group -->
+					<button id="edit_bkmark" type="submit" class="btn btn-success btn-sm">Submit</button>
+					<a href="<?php echo base_url();?>bookmarks" class="btn">Cancel</a>
+				</form>
+			</div>
+		</div><!-- /panel -->
+	</div>
+</div>
 
 <script>
 	$(document).ready(function(){

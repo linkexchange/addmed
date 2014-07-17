@@ -35,7 +35,7 @@
 									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['image'];?>" alt="Photo of article">
 								</div><!-- /image-wrapper -->
 																
-								<p style="text-align:justify;">
+								<p class="m-top-sm m-bottom-sm" style="text-align:justify;">
 									<?php echo $article[0]['description'];?>
 								</p>
 							</div>
@@ -66,7 +66,7 @@
 											});	
 										});
 									</script>
-											
+											<div id="successMessage2" class="alert alert-success" style="display:none"></div>
 											<?php if($this->session->userdata("ForumUserID")){?>
 											<a href='#' id="bookmark">
 												<img id='bkmark' style='width:5%;margin-bottom:26px;'>
@@ -86,6 +86,8 @@
 												<h4 class="modal-title" id="myModalLabel"><img src='<?php echo base_url();?>img/Star.png' style='width:3%;'>Add new bookmark
 												</h4>
 											  </div>
+											  <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+											  <div id="successMessage" class="alert alert-success" style="display:none"></div>
 											  <div class="modal-body">
 													<form class="form-horizontal" id="frm_bookmark" action="" method="POST">
 													<fieldset>
@@ -105,7 +107,7 @@
 																<input type="text" class="form-control" value="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";?>" name="bookmarkUrl" readonly>
 															</div>
 														</div>
-														<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(4);?>">	
+														<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(3);?>">	
 													</fieldset>		
 												
 											  </div>
@@ -123,7 +125,7 @@
 						<?php if($this->session->userdata('ForumUserID')) { ?>
 						<a href="#" id="comment" class="btn btn-primary">Post a Comment</a>	
 						<?php } else {?>
-						<a href="#" class="btn btn-primary">Login to Post Comment</a>	
+						<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post Comment</a>	
 						<?php } ?>
 						<div id="comment_desc">
 							<h4 class="headline">
@@ -131,10 +133,11 @@
 								<span class="line"></span>
 							</h4>
 							<form action="" method="post" id="post_comment" class="form-horizontal">
-								<textarea class="form-control validate[required]" rows="10" name="comment"></textarea>
+								<textarea class="form-control validate[required]" rows="10" name="comment_description"></textarea>
+								<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(3);?>">
 								<div class="seperator"></div>
 								<div class="text-right m-bottom-md">
-									<button type="submit" class="btn btn-success">Post Comment</button>
+									<button type="submit" id="btn_comment" class="btn btn-success">Post Comment</button>
 									<a href="#" id="cancel" class="btn">Cancel</a>
 								</div>
 							</form>
@@ -157,10 +160,15 @@
 									<div class="media-heading">
 										<?php echo $comments[$i]["name"];?>
 										<small class="text-muted">
-											<?php echo $comments[$i]["created_date"];?> / <a onclick="display('<?php echo $i;?>');return false;">Reply</a>
+											<?php echo $comments[$i]["created_date"];?> 
 										</small>
 									</div>
 									<p><?php echo $comments[$i]["description"];?></p>
+									<?php if($this->session->userdata('ForumUserID')) { ?>
+									<a href="#" onclick="display(<?php echo $i;?>);return false;" class="btn btn-primary">Post a Reply</a>	
+									<?php } else {?>
+									<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post Reply</a>	
+									<?php } ?>
 									<div id="reply_<?php echo $i;?>" style="display:none;">
 										<h4 class="headline">
 											Add Reply
@@ -168,12 +176,14 @@
 										</h4>
 										<form action="" method="post" id="frm_Reply_<?php echo $i?>" 
 										class="form-horizontal">
-											<textarea class="form-control validate[required]" rows="10" name="reply"></textarea>
+											<textarea class="form-control validate[required]" rows="10" name="reply_description"></textarea>
 											<input type="hidden" name="commentid" value="<?php echo $comments[$i]["id"];?>">
+											<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(3);?>">
+											<input type="hidden" name="articlename" value="<?php echo $this->uri->segment(2);?>">
 											<div class="seperator"></div>
 											<div class="text-right m-bottom-md">
 												<button type="submit" class="btn btn-success">Post Reply</button>
-												<a class="btn" onclick="close_reply('<?php echo $i;?>');return false;">Cancel</a>
+												<a class="btn" onclick="hide('<?php echo $i;?>');return false;">Cancel</a>
 											</div>
 										</form>
 										<script>
@@ -184,6 +194,8 @@
 									</div>
 									<?php if($replies){ ?>
 									<!-- Nested media object -->
+									<h4 class="headline">Replies
+									<span class="line"></span></h4>
 									<div class="media">
 										<?php for($j=0;$j<count($replies);$j++) {
 												if($replies[$j]['parent_id']==$comments[$i]['id']){ ?>
@@ -278,7 +290,7 @@
 <script>
 	function display(no)
 	{
-		$("#reply_desc_"+no).show();
+		$("#reply_"+no).show();
 	}
 	function display2(no)
 	{
@@ -286,7 +298,7 @@
 	}
 	function hide(no)
 	{
-		$("#reply_desc_"+no).hide();
+		$("#reply_"+no).hide();
 	}
 	function hide2(no)
 	{
@@ -294,76 +306,87 @@
 	}
 </script>
 <script>
-jQuery(document).ready(function($){
-	$("#frm_bookmark").validationEngine();
-	$("#post_comment").validationEngine();
-});
-</script>
-<script>
-	function submitData(no){
-		$('#frm_Reply_'+no).ajaxForm({
+	$(document).ready(function(){
+		$('#post_comment').ajaxForm({
 			beforeSubmit : function(){
-				
-				if($("#frm_Reply_"+no).validationEngine('validate'))
+				$("#btn_comment").button('loading');
+				$("#successMessage").hide();
+				$("#errorMessage").hide();
+				if($("#post_comment").validationEngine('validate'))
 				{
+					$("#btn_comment").button('loading');
 					return true;
 				}
 				else
 				{
+					$("#btn_comment").button('reset');
 					return false;
 				}
 			},
 			success :  function(responseText, statusText, xhr, $form){
-				if(responseText==102)
+				$("#save_bookmark").button("reset");
+				if(responseText==100)
+				{
+					window.location.reload();
+				}
+				else if(responseText==102)
 				{
 					$("#errorMessage").html("Please try again..");
 					$("#errorMessage").show();
 					//window.location=base_url+"publisher/dashboard";
 				}
-				else if(responseText==100)
+				else
 				{
-					//alert(responseText);
-					//$("#reply_desc_"+no).hide();
-					//$("#new_reply_"+no).html(responseText);
-					//$("#new_reply_"+no).show();
-					window.location.reload();				
+					$("#errorMessage").html(responseText);
+					$("#errorMessage").show();
 				}
 			}
 		});
-	}
+		//$("#frm_signup").validationEngine();
+	});
 </script>
 <script>
-	function submitData2(no){
-		$('#frm_Reply2_'+no).ajaxForm({
+	$(document).ready(function(){
+		$('#frm_bookmark').ajaxForm({
 			beforeSubmit : function(){
-				
-				if($('#frm_Reply2_'+no).validationEngine('validate'))
+				$("#save_bookmark").button('loading');
+				$("#successMessage").hide();
+				$("#errorMessage").hide();
+				if($("#frm_bookmark").validationEngine('validate'))
 				{
+					$("#save_bookmark").button('loading');
 					return true;
 				}
 				else
 				{
+					$("#save_bookmark").button('reset');
 					return false;
 				}
 			},
 			success :  function(responseText, statusText, xhr, $form){
-				if(responseText==102)
+				$("#save_bookmark").button("reset");
+				if(responseText==100)
+				{
+					$("#successMessage").html("Bookmark added successfully.");
+					$("#successMessage").show();
+					window.location.reload();
+				}
+				else if(responseText==102)
 				{
 					$("#errorMessage").html("Please try again..");
 					$("#errorMessage").show();
 					//window.location=base_url+"publisher/dashboard";
 				}
-				else if(responseText==100)
+				else
 				{
-					//alert(responseText);
-					//$("#reply_"+no).hide();
-					//$("#setReplies_"+no).prepend(responseText);
-					window.location.reload();				
+					$("#errorMessage").html(responseText);
+					$("#errorMessage").show();
 				}
+			}
+		});
+		//$("#frm_signup").validationEngine();
+	});
 
-				}
-			});
-		}
 </script>
 <script type="text/javascript">
 $('a#bookmark').click(function(e){
@@ -384,6 +407,8 @@ e.preventDefault();
 			$("#bkmark").attr('title','Bookmark this article');	
 			$("#bookmark").attr('data-toggle','modal');
 			$("#bookmark").attr('data-target','#basicModal');
+			$("#successMessage2").html("Bookmark removed successfully");
+			$("#successMessage2").show();
 			}})
 		}
 		}

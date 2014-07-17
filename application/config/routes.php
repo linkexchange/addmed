@@ -48,6 +48,7 @@ $route['topics'] = "forum_articles/forum/view_forum";
 $route['topics/index/(:num)'] = "forum_articles/forum/view_forum/$1";
 $route['topics/(:num)'] = "forum_articles/forum/view_forum/$1";
 $route['articles'] = "forum_articles/listing";
+$route['bookmarks'] = "forum_articles/listing/show_bookmarks";
 $route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
 $route['404_override'] = '';
 

@@ -1,3 +1,4 @@
+
 <?php if($this->session->flashdata('flashError')) : ?>
 	<script>
 		$(document).ready(function(){
@@ -84,7 +85,7 @@
   function checkUserByID(email,profileType,firstName,lastName){
 	 $.ajax({
 		type: "POST",
-		url: base_url+"user/login/checkUserByID",
+		url: base_url+"user/forum_login/checkUserByID",
 		data: { email: email, type: profileType }
 	})
 	.done(function( responseText ) {
@@ -97,12 +98,12 @@
 			$('#myModal').modal('show');
 		}
 		else if(responseText=="-1"){
-			$("#errorMessage").html("This user is marked as spam. Please contact to website admin!.");
-			$("#errorMessage").show();
+			$("#errorMessage2").html("This user is marked as spam. Please contact to website admin!.");
+			$("#errorMessage2").show();
 		}
 		else if(responseText>0){
-			$("#successMessage").html("You are logged in successfully...!");
-			$("#successMessage").show();
+			$("#successMessage2").html("You are logged in successfully...!");
+			$("#successMessage2").show();
 			if(backUrl!=''){
 				window.location=backUrl;
 			}
@@ -118,7 +119,7 @@
   function addRecord(firstName,lastName,email,profileType){
 	$.ajax({
 		type: "POST",
-		url: base_url+"user/login/setUserData",
+		url: base_url+"user/forum_login/setUserData",
 		data: { firstName: firstName, lastName: lastName, email: email, type:profileType}
 	})
 	.done(function( responseText ) {
@@ -172,7 +173,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '680602588661749',
+    appId      : '1448115485456019',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -222,11 +223,7 @@
   }
 </script>
 <div id="main-container">
-	<div class="main-header clearfix">
-		<!--<div class="page-title">
-			<h3 class="no-margin"><b>Welcome to Social traffic center</b></h3>
-		</div><!-- /page-title -->
-	</div>	
+	
 	<div class="padding-md">
 		<div class="row">
 			<div class="col-lg-5">
@@ -294,7 +291,8 @@
 						<div class="pull-left">
 							<i class="fa fa-lock fa-lg"></i> Login
 						</div>
-
+						<div id="errorMessage2" class="alert alert-danger" style="display:none"></div>
+						<div id="successMessage2" class="alert alert-success" style="display:none"></div>
 						
 					</div>
 					<div class="panel-body">
@@ -307,7 +305,7 @@
                      <div class="g-signin"
                       data-callback="loginFinishedCallback"
                       data-approvalprompt="force"
-                      data-clientid="851356399609-1v49v5ggmkiijt1101ri2tbqrodaple2.apps.googleusercontent.com"
+                      data-clientid="545725806105-3omj6rnbsn9m28ued76t64elt1fhjic0.apps.googleusercontent.com"
                       data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
                       data-height="standard"
                       data-cookiepolicy="single_host_origin"
@@ -324,9 +322,9 @@
 				</div>
 				<div id="sign-in-twitter" style="float:none; margin:10px auto;">
 					<?php if(isset($backUrl)) : ?>
-						<a href="<?php echo $this->config->item('base_url'); ?>twitter/twitter/auth?link=<?php echo $backUrl ?>"><img alt="Sign in with Twitter" src="<?php echo $this->config->item('base_url'); ?>img/darker.png" width="177px" height="25px"></a>
+						<a href="<?php echo $this->config->item('base_url'); ?>twitter/twitter/auth?link=<?php echo $backUrl ?>&type=social"><img alt="Sign in with Twitter" src="<?php echo $this->config->item('base_url'); ?>img/darker.png" width="177px" height="25px"></a>
 					<?php else : ?>
-						<a href="<?php echo $this->config->item('base_url'); ?>twitter/twitter/auth"><img alt="Sign in with Twitter" src="<?php echo $this->config->item('base_url'); ?>img/darker.png" width="177px" height="25px"></a>
+						<a href="<?php echo $this->config->item('base_url'); ?>twitter/twitter/auth?type=social"><img alt="Sign in with Twitter" src="<?php echo $this->config->item('base_url'); ?>img/darker.png" width="177px" height="25px"></a>
 					<?php endif; ?>
 					
 				</div>
@@ -411,3 +409,4 @@
 		$("#frm_login").validationEngine();
 	});
 </script>
+

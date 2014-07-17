@@ -290,7 +290,7 @@ class Twitter extends CI_Controller
                 $isUpdated=$this->smaaccount->updateRecord($isExists,$userData);
                 $this->session->set_flashdata('succ', 'Account is already connected with your account...!');
                 $this->reset_session();
-                redirect(base_url().'publisher/frontend/accounts');
+                redirect(base_url().'publisher/accounts');
                 
             else :
                 $userData=array();

@@ -1,3 +1,4 @@
+<?php $actual_link = urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");?>
 <div id="main-container">
 			<div class="padding-md">
 				<div class="row">
@@ -19,19 +20,21 @@
 										</p>
 									</div>
 								</div><!-- /panel -->
-								<?php if($this->session->userdata("userID")){?>
+								<?php if($this->session->userdata("ForumUserID")){?>
 									<a href="#" id="post" class="btn btn-primary">Post a Comment</a>
 									<?php } else {?>
-									<a href="#" class="btn btn-primary">Login to Post a Comment</a>
+									<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" 
+									class="btn btn-primary">Login to Post a Comment</a>
 								<?php } ?>
 								<div id="post_desc" style="display:none;">
 									<form class="form-horizontal" id="frm_Post" action="" method="POST" enctype="multipart/form-data">
 									<h4 class="headline">Add Comment
 									<span class="line"></span></h4>
-									<textarea class="form-control" rows="10"></textarea>
+									<textarea class="form-control validate[required]" rows="10" name="post_description"></textarea>
+									<input type="hidden" name="topicid" value="<?php echo $topic[0]["id"];?>">
 									<div class="seperator"></div>
 									<div class="text-right m-bottom-md">
-										<button class="btn btn-success">Post Comment</button>
+										<button class="btn btn-success" id="post_button">Post Comment</button>
 										<a href="#" id="cancel" class="btn">Cancel</a>
 									</div>
 									</form>
@@ -91,5 +94,42 @@ $("#cancel").click(function(e){
 	e.preventDefault();
 	$("#post_desc").attr('style','display:none;');
 });
-
+</script>
+<script>
+	$(document).ready(function(){
+		$('#frm_Post').ajaxForm({
+			beforeSubmit : function(){
+				$("#post_button").button('loading');
+				if($("#frm_Post").validationEngine('validate'))
+				{
+					$("#post_button").button('loading');
+					return true;
+				}
+				else
+				{
+					$("#post_button").button('reset');
+					return false;
+				}
+			},
+			success :  function(responseText, statusText, xhr, $form){
+				$("#post_button").button("reset");
+				if(responseText==100)
+				{
+					window.location.reload();
+				}
+				else if(responseText==102)
+				{
+					$("#errorMessage").html("Please try again..");
+					$("#errorMessage").show();
+					//window.location=base_url+"publisher/dashboard";
+				}
+				else
+				{
+					$("#errorMessage").html(responseText);
+					$("#errorMessage").show();
+				}
+			}
+		});
+		$("#frm_Post").validationEngine();
+	});
 </script>		

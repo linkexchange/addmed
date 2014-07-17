@@ -2,11 +2,6 @@
 
 class Dashboard extends MX_Controller {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->layout->setLayout('layout/advertiser');
-	}
 	public function index($page=1)
 	{
 		$this->load->model("url");
@@ -34,6 +29,7 @@ class Dashboard extends MX_Controller {
 		
 		
 
+		$this->layout->setLayout("layout/advertiser");
 		$this->layout->view('dashboard',$data);
 	}
 	public function getpublishedurls($page=1){

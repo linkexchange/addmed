@@ -27,7 +27,7 @@ class Login extends MX_Controller {
 		}
 		else if($this->session->userdata("ForumUserID"))
 		{
-			redirect(base_url());
+			redirect(base_url().'topics');
 		}
 		else
 		{

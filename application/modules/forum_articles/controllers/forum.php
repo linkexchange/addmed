@@ -4,13 +4,21 @@ class Forum extends MX_Controller{
 	public function __construct()
 	{
 		parent::__construct();
+		
 		$this->load->model('forums');
 		$this->load->model('article');
 		$this->load->model("user");
 		$this->load->model("leaderboard");
 		$this->load->helper('url');
 		$this->load->library('session');
-		$this->layout->setLayout('layout/normal');
+		if($this->session->userdata('ForumUserName'))
+		{
+			$this->layout->setLayout('layout/login');
+		}
+		else
+		{
+			$this->layout->setLayout('layout/normal');
+		}
 	}
 	public function index($page=1)
 	{
@@ -62,6 +70,10 @@ class Forum extends MX_Controller{
 	}
 	public function add()
 	{
+		if(!$this->session->userdata("ForumUserID"))
+		{
+			redirect(base_url().'user/login');
+		}
 		if($this->input->post('author'))
 		{
 			$data = array('name'=>$this->input->post('topic'),
