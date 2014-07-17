@@ -35,20 +35,22 @@
 							<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
 							<td>
 								<span class="badge" style="min-width:50px;height:50px;border:1px solid LightGray;background-color:#EFF5FB;">
-									<h4><b><?php echo $topics[$i]['no_of_posts'];?></b></h4>
+									<h4 style="color:green;"><b><?php echo $topics[$i]['no_of_posts'];?></b></h4>
 								</span>
-								<h5><b>replies</b></h5>
+								<h5 style="color:green;"><b>replies</b></h5>
 							</td>
 							<td>
 								<!--<img src="<?php echo base_url();?>img/bulb.jpg" height="21" width="21">-->
 								<a href="<?php echo base_url();?>forum/<?php echo $title."/".$topics[$i]['id'];?>">
 								<b><font size="4" color="#0869BD"><u>
 								<?php echo $topics[$i]['name'];?></u></font></b></a><br/>
-								<p class="m-top-sm" style="font-family:Georgia,serif;text-align:justify;font-size:12px;">
+								<p class="m-top-sm" style="text-align:justify;font-size:12px;">
+									<strong>
 									<?php 
 										$str = strip_tags($topics[$i]['description']);
 										echo "&nbsp;&nbsp;".substr($str,0,300)."...";
 									?>
+									</strong>
 								<a href="<?php echo base_url();?>forum/<?php echo $title."/".$topics[$i]['id'];?>"><i class="fa fa-star"></i>[Read more]</a>
 								</p>
 								<span style="float:right;">

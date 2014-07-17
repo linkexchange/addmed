@@ -1,16 +1,16 @@
 <table class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>Sr. </th>
-                                                        <th>Gallery Item Title</th>
+                                                        <th><br/>Sr. </th>
+                                                        <th><br/>Gallery Item Title</th>
                                                         <!-- <th>Gallery Item Image</th>
                                                         <th>Gallery Item Video</th> -->
-                                                        <th>Post Name</th>
-                                                        <th>Website Name</th>
-                                                        <th>Created Date</th>
-                                                        <th>Last Updated On</th>
-                                                        <th>Sort Order</th>
-                                                        <th class="td-actions">Actions</th>
+                                                        <th><br/>Post Name</th>
+                                                        <th><br/>Website Name</th>
+                                                        <th><br/>Created Date</th>
+                                                        <th><br/>Last Updated On</th>
+                                                        <th><br/>Sort Order</th>
+                                                        <th class="td-actions"><br/>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

@@ -20,11 +20,11 @@ if($articles){
 					</strong>
 				</div>
 			</div><hr>
-			<img src="<?php echo base_url().'uploads/forum_article_images/'.$articles[$i]['image'];?>" width="100px" height="100px" style="float:left;margin-right:12px;">
-			<p class="m-top-sm" style="font-family:Georgia,serif;text-align:justify;font-size:15px;">
+			<img src="<?php echo base_url().'uploads/forum_article_images/'.$articles[$i]['image'];?>" width="100px" style="float:left;margin-right:12px;">
+			<p class="m-top-sm" style="text-align:justify;font-size:13px;">
 				<strong>
 				<?php 
-					$str = substr(strip_tags($articles[$i]['description']),0,500);
+					$str = substr(strip_tags($articles[$i]['description']),0,600);
 					echo "&nbsp;&nbsp;".substr($str,0,strrpos($str,'.'))."...";
 				?>
 				</strong>

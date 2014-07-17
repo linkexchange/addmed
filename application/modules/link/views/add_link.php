@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3> <i class="icon-list-alt"></i> Add Link </h3></div>
+					<div class="panel-heading"><h3><b><i class="icon-th-list"></i>  Add Link </b> </h3></div>
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none"></div>
 					<div class="panel-body">

@@ -37,7 +37,7 @@
 								</div>
 								<div class="panel-footer text-right">
 									<button type="submit" class="btn btn-success">Submit</button>
-									<a href="<?php echo base_url();?>" class="btn">Cancel</a>
+									<a href="<?php echo base_url();?>publisher/frontend" class="btn">Cancel</a>
 								</div>
 							</form>
 						</div><!-- /panel -->

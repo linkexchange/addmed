@@ -223,8 +223,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'articles/dashboard/addmultiple'; ?>"><span class="submenu-label">Add Gallery Item(s)</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'articles/dashboard';?>"><span class="submenu-label">View Gallery Item(s)</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'articles/dashboard/addmultiple'; ?>"><span class="submenu-label">Add Gallery Item(s)</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'articles/dashboard';?>"><span class="submenu-label">View Gallery Item(s)</span></a></li>
 							</ul>
 						</li>
 						<li class="openable">

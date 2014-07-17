@@ -36,15 +36,16 @@ $(document).ready(function(){
 		</ul>
 	</div><!--breadcrumb-->
 	<div class="padding-md">
-		<a class="btn btn-success btn-large  icon-anchor pull-right" href="<?php echo base_url();?>blogs/dashboard/add"> Add Post</a> <br/><br/><br/>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
+		<div class="panel panel-default table-responsive">
 					<div class="panel-heading">
-						<h3><i class="icon-list-alt"></i> View Posts</h3>
+						<h3><b><i class="icon-th-list"></i> View Posts</b>
+						<span class="pull-right">
+							<a class="btn btn-success btn-large icon-anchor" href="<?php echo base_url();?>blogs/dashboard/add"> Add Post</a> 
+						</span></h3>
 					</div>
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-					<div id="successMessage" class="alert alert-success" style="display:none"><?php echo $this->session->flashdata('message');?></div>
+					<div id="successMessage" class="alert alert-success" style="display:none">
+					<?php echo $this->session->flashdata('message');?></div>
 					<div class="panel-body">
 						<form class="form-inline no-margin" id="frm_editBlog" action="" method="POST">
 							<div class="form-group">
@@ -62,21 +63,23 @@ $(document).ready(function(){
 							</div><!-- /form-group -->&nbsp; &nbsp;
 						</form>
 					</div>
-				<div class="setData">	
-					<table class="table table-bordered table-condensed table-hover table-striped">
-						 <thead>
+					<div class="padding-md clearfix">
+						<div class="setData">
+						<table class="table table-bordered table-striped dataTable">
+							<thead>
 								<tr>
-									<th>Sr. </th>
-									<th>Post Title</th>
-									<th>Post Image</th>
+									<th><br/>Sr. </th>
+									<th><br/>Post Title</th>
+									<th><br/>Post Image</th>
 									<!--<th>Blog Description</th>-->
-									<th>Website Name</th>
-									<th>Gallery Item Count</th>
-									<th>Created Date</th>
-									<th class="td-actions">Actions</th>
+									<th><br/>Website Name</th>
+									<th><br/>Gallery Item Count</th>
+									<th><br/>Created Date</th>
+									<th class="td-actions"><br/>Actions</th>
 								</tr>
-						</thead>
-						<tbody>
+							</thead>
+							
+							<tbody>
 							<?php 
 								//echo $this->uri->segment(4);
 								$sr=1;
@@ -115,9 +118,9 @@ $(document).ready(function(){
 									</td>
 								</tr>
 							<?php endforeach; ?>
-						</tbody>
-					</table>&nbsp;&nbsp;
-					<?php if($count>10): ?>
+							</tbody>
+						</table>
+						<?php if($count>10): ?>
 						<ul class="pagination pagination-split m-bottom-md">
 							<li><a href="#">Pages</a></li>
 							<?php 
@@ -135,11 +138,10 @@ $(document).ready(function(){
 								endif;
 							?>
 						</ul>	
-					<?php endif; ?>	
+						<?php endif; ?>	
 				</div>
-				</div><!-- /panel -->
-			</div>
-		</div><!-- /.row -->
+			</div><!-- /.padding-md -->
+		</div>
 	</div><!-- /.padding-md -->
 </div>
 <script>
