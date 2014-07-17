@@ -48,7 +48,7 @@ class Dashboard extends CI_Controller{
 	}
         public function connect()
 	{
-		
+		//$this->reset_session();
                 if(isset($_GET['type'])){
 			$this->type=$_GET['type'];
                         //echo $this->type;
@@ -62,11 +62,13 @@ class Dashboard extends CI_Controller{
 		else
 		{
 			// Making a request for request_token
-			$request_token = $this->connection->getRequestToken(base_url('tumblr/dashboard/callback'));
+			$request_token = $this->connection->getRequestToken(base_url('tumblr/dashboard/callback/'));
+                        //echo "<pre>"; print_r( $request_token); echo "</pre>"; exit;
 			
-			$this->session->set_userdata('request_token', $request_token['oauth_token']);
-			$this->session->set_userdata('request_token_secret', $request_token['oauth_token_secret']);
-			
+                            $this->session->set_userdata('request_token', $request_token['oauth_token']);
+                            $this->session->set_userdata('request_token_secret', $request_token['oauth_token_secret']);
+                        
+			//echo "<pre>"; print_r( $request_token); echo "</pre>"; exit;
 			if($this->connection->http_code == 200)
 			{
 				$url = $this->connection->getAuthorizeURL($request_token);
@@ -89,12 +91,12 @@ class Dashboard extends CI_Controller{
 			if($this->input->get('oauth_token') && $this->session->userdata('request_token') !== $this->input->get('oauth_token'))
 			{
 				$this->reset_session();
-				redirect(base_url('publisher/dashboard/connect'));
+				redirect(base_url('/tumblr/dashboard/connect'));
 			}
 			else
 			{
 				$access_token = $this->connection->getAccessToken($this->input->get('oauth_verifier'));
-			
+                                
 				if ($this->connection->http_code == 200)
 				{
 					$this->session->set_userdata('access_token', $access_token['oauth_token']);
@@ -114,24 +116,21 @@ class Dashboard extends CI_Controller{
                                         $this->session->set_userdata('tumblr_followers', $followers);
                                         $this->session->set_userdata('tumblr_blogs', $totalBlog);
                                         $this->session->set_userdata('tumblr_likes', $user_Data->response->user->likes);
-                                        echo "<pre>"; print_r( $this->session->userdata); echo "</pre>";
-                                        echo "<pre>"; print_r($user_Data); echo "</pre>"; exit;
-                                        
-					$this->session->set_userdata('twitter_name', $user_Data->name);
-                                        $this->session->set_userdata('twitter_followers', $user_Data->followers_count);
-                                        $this->session->set_userdata('twitter_posts', $user_Data->statuses_count);
-                                        $this->session->set_userdata('twitter_profile_image_url', $user_Data->profile_image_url);
+                                        //echo "<pre>"; print_r( $this->session->userdata); echo "</pre>";
+                                        //echo "<pre>"; print_r($user_Data); echo "</pre>"; exit;
                                         
 					//print_r($this->session->userdata); exit;
 					$this->session->unset_userdata('request_token');
 					$this->session->unset_userdata('request_token_secret');
-					redirect(base_url('/twitter/addTwitterDetails'));
+					redirect(base_url('/tumblr/dashboard/addTumblrDetails'));
                                 }
 				else
 				{
-					//echo "Error";// An error occured. Add your notification code here.
-					$this->reset_session();
-					redirect(base_url('/publisher/accounts'));
+                                    //echo "Error";// An error occured. Add your notification code here.
+                                    //echo "<pre>"; print_r( $access_token); echo "</pre>"; exit;
+                                    $this->session->set_flashdata('error', 'Access denied.....!');
+                                    $this->reset_session();
+                                    redirect(base_url('/publisher/accounts'));
 				}
 			}
 		
@@ -150,6 +149,47 @@ class Dashboard extends CI_Controller{
 		//$this->session->unset_userdata('twitter_screen_name');
                 //$this->session->unset_userdata('twitter_profile_image_url');
 	}
+        public function addTumblrDetails(){
+             //echo "<pre>"; print_r( $this->session->userdata); echo "</pre>";
+            $userData=array();
+            $userData['userID']=$this->session->userdata('userID');
+            $userData['accountName']=$this->session->userdata('tumblr_user_name');
+            $userData['accountTypeID']='3';
+            $this->load->model('smaaccount');
+            $isExists=$this->smaaccount->isAccountExists($userData);
+            if($isExists) :
+                $userData=array();
+                $userData['smaAccountBlogs']=$this->session->userdata('tumblr_blogs');
+                $userData['smaAccountName']=$this->session->userdata('tumblr_user_name');
+                $userData['smaAccountFollowers']=$this->session->userdata('tumblr_followers');
+                $userData['smaAccountPosts']=$this->session->userdata('tumblr_posts');
+                $userData['smaAccountLikes']=$this->session->userdata('tumblr_likes');
+                $userData['updatedBy']=$this->session->userdata('userID');
+                $userData['updatedDate']=date("Y-m-d");
+                $isUpdated=$this->smaaccount->updateRecord($isExists,$userData);
+                $this->session->set_flashdata('succ', 'Account is already connected with your account...!');
+                $this->reset_session();
+                redirect(base_url().'publisher/accounts');
+                
+            else :
+                $userData=array();
+                $userData['smaAccountFollowers']=$this->session->userdata('tumblr_followers');
+                $userData['smaAccountPosts']=$this->session->userdata('tumblr_posts');
+                $userData['smaAccountBlogs']=$this->session->userdata('tumblr_blogs');
+                $userData['smaAccountLikes']=$this->session->userdata('tumblr_likes');
+                $userData['smaAccountTypeID']=3;
+                $userData['smaAccountName']=$this->session->userdata('tumblr_user_name');
+                //$userData['smaAccountProfileImageUrl']=$this->session->userdata('twitter_profile_image_url');
+                $userData['createdBy']=$this->session->userdata('userID');
+                $userData['createdDate']=date("Y-m-d");
+                $userData['publisherID']=$this->session->userdata('userID');
+                $this->reset_session();
+                $isExists=$this->smaaccount->addRecord($userData);
+                $this->session->set_flashdata('succ', 'Tumblr account connected successfully....!');
+                redirect(base_url().'publisher/accounts');
+                //print_r($this->session->userdata); 
+            endif;
+        }
         
 }
 
