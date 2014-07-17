@@ -16,7 +16,11 @@ class Smaaccount extends CI_Model {
 	$this->db->select('*');
 	$this->db->from($this->config->item('table_sma_account_details'));
 	$this->db->where('publisherID',$userData['userID']);
-        $this->db->where('smaAccountID',$userData['accountID']);
+        if($userData['accountTypeID']==1)
+            $this->db->where('smaAccountID',$userData['accountID']);
+        elseif ($userData['accountTypeID']==3) 
+            $this->db->where('smaAccountName',$userData['accountName']);
+        
         $this->db->where('smaAccountTypeID',$userData['accountTypeID']);
         $this->db->where('smaConnected','Yes');
         $this->db->limit(1);

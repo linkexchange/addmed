@@ -6,6 +6,39 @@ ob_start();
  */
 ?>
 
+
+<?php 
+    if(($this->session->flashdata('succ'))): ?>
+        <script> 
+            $(document).ready(function(){
+                 $("#successMessage").html('<?php echo $this->session->flashdata('succ'); ?>');
+                 $("#successMessage").show();
+                //runEffect();
+            });
+        </script>
+<?php
+    endif;
+?>
+
+<?php 
+    if(($this->session->flashdata('error'))): ?>
+        <script> 
+            $(document).ready(function(){
+               $("#errorMessage").html('<?php echo $this->session->flashdata('error'); ?>');
+               $("#errorMessage").show();
+               //runEffect();
+            });
+        </script>
+<?php
+    endif;
+?>
+<script>
+    function runEffect() {
+       var selectedEffect = 'blind';
+       var options = {};
+       $("#successMessage").hide(selectedEffect, options, 5000);
+    };
+</script>
 <link href="<?php echo base_url(); ?>/css/custom_sunil.css" rel="stylesheet" />
 
 <div id="main-container">
@@ -68,11 +101,11 @@ ob_start();
                     <i class="fa fa-tumblr"></i>
                     <ul>
                         <li>
-                            <strong>500+</strong>
+                            <strong id="tumblr-followers"><?php echo $totalTumblrFollowers[0]['smaAccountFollowers']; ?></strong>
                             <span>Followers</span>
 			</li>
 			<li>
-                            <strong>292</strong>
+                           <strong id="tumblr-posts"><?php echo $totalTumblrPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Posts</span>
 			</li>
                     </ul>
@@ -256,60 +289,71 @@ ob_start();
                         <div id="tumblr" class="tab-pane fade">
                             <table class="table table-hover table-striped">
                                 <tbody>
-                                    <?php for($i=1;$i<=10;$i++) : ?>
-                                        <tr>
-                                        
-                                            <td class="acc_image">
+                                    <?php foreach($tumblrProfiles as $accRecord) : ?>
+                                    <tr id="sma-acc-<?php echo $accRecord['id']; ?>">
+                                            <!-- <td class="acc_image">
                                                 <span class="img-demo">
-                                                    IMAGE <?php echo $i; ?>
+                                                    <img src="<?php echo $accRecord['smaAccountProfileImageUrl']; ?>" />
                                                 </span>
-                                            </td>  
+                                            </td> -->  
                                             <td class="acc_name">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <h4><strong>Tumblr <?php echo $i; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span>
-                                                    <span class="text-muted block">$360</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountName']; ?></strong></h4>
+                                                </div>
+                                            </td>
+                                            <td class="acc_blogs">
+                                                <div class="pull-left m-left-sm m-top-sm ">
+                                                    <h4><strong><?php echo $accRecord['smaAccountBlogs']; ?></strong></h4>
+                                                    <span class="text-muted block">Blogs</span> 
                                                 </div>
                                             </td>
                                             <td class="acc_followers">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <h4><strong><?php echo $i*1000; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountFollowers']; ?></strong></h4>
                                                     <span class="text-muted block">Followers</span> 
                                                 </div>
                                             </td>
                                             <td class="acc_posts">
                                                 <div class="pull-left m-left-sm m-top-sm">
-                                                    <h4><strong><?php echo $i*100; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountPosts']; ?></strong></h4>
                                                     <span class="text-muted block">Posts</span> 
                                                 </div>
                                             </td>
-                                            <td class="acc_posts">
+                                            <td class="acc_likes">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <h4><strong><?php echo $accRecord['smaAccountLikes']; ?></strong></h4>
+                                                    <span class="text-muted block">Likes</span> 
+                                                </div>
+                                            </td>
+                                            <td class="acc_actions">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <a href="#">
-                                                    <h4><strong>Disconnect</strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <a href="javascript:void(0);" title="Disconnect" alt="Disconnect" onclick="removeRecord(<?php echo $accRecord['id']; ?>,1,'<?php echo 'Tumblr'; ?>');">
+                                                        <h4><strong> <i class="fa fa-ban"></i></strong></h4> 
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endfor; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <ul class="pagination pagination-split m-bottom-md">
-				<li><a href="#">Previous</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">6</a></li>
-				<li><a href="#">7</a></li>
-				<li><a href="#">8</a></li>
-				<li><a href="#">9</a></li>
-				<li><a href="#">Next</a></li>
-                            </ul>
+                            <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?>
+                            <?php if($tumblrProfileCount>$mod) : ?>
+                                <ul class="pagination pagination-split m-bottom-md">
+                                    <!-- <li><a href="#">Previous</a></li> -->
+                                    <?php for($i=1;$i<=$tumblrProfileCount;$i++) : ?>
+                                        <?php if(($i%$mod)==0) : ?>
+                                            <?php if($inc==1) : ?>
+                                    <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
+                                                <?php $next=$inc+1; ?>
+                                            <?php else : ?>
+                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
+                                            <?php endif; ?>
+                                            <?php $inc++; ?>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Tumblr'; ?>');">Next</a></li>          
+                                </ul>     
+                            <?php endif; ?>
 			</div><!-- /tab-pane -->
 			<div id="instagram" class="tab-pane fade">
                             <table class="table table-hover table-striped">
@@ -375,29 +419,7 @@ ob_start();
                 </div>
             </div>
         </diV>
-<?php 
-    if(($this->session->flashdata('succ'))): ?>
-        <script> 
-            $(document).ready(function(){
-                 $("#successMessage").html('<?php echo $this->session->flashdata('succ'); ?>');
-                $("#successMessage").show();
-                runEffect();
-            });
-        </script>
-<?php
-    endif;
-?>
-<?php 
-    if(($this->session->flashdata('error'))): ?>
-        <script> 
-            $(document).ready(function(){
-                $("#errorMessage").html('<?php echo $this->session->flashdata('error'); ?>');
-                $("#errorMessage").show();
-            });
-        </script>
-<?php
-    endif;
-?>
+
 <script>
     function getRecords(pageNum,type){
         $.ajax({
@@ -409,6 +431,10 @@ ob_start();
                 if(type=='Twitter'){
                     $('#twitter').html(result);
                 }
+                if(type=='Tumblr'){
+                    $('#tumblr').html(result);
+                }
+                
             	//$(".accepted table").html(result);
          }});
             //pageactive(pid);
@@ -448,6 +474,9 @@ ob_start();
                 if(type=='Twitter'){
                     $('#twitter-followers').html(result);
                 }
+                if(type=='Tumblr'){
+                    $('#tumblr-followers').html(result);
+                }
             	//$(".accepted table").html(result);
          }});
     }
@@ -461,12 +490,11 @@ ob_start();
                 if(type=='Twitter'){
                     $('#twitter-posts').html(result);
                 }
+                if(type=='Tumblr'){
+                    $('#tumblr-posts').html(result);
+                }
             	//$(".accepted table").html(result);
          }});
     }
-    function runEffect() {
-       var selectedEffect = 'blind';
-       var options = {};
-       $("#successMessage").hide(selectedEffect, options, 500);
-    };
+    
 </script>

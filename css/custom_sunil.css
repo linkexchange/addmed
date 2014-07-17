@@ -9,21 +9,31 @@
     # Publisher accounts page css
     # Start
 */
-  .acc_name{
-        width: 35%;
-    }
-    .acc_followers{
-        width:15%;
-    }
-    .acc_posts{
-        width:15%;
-    }
-    .img-demo{
-        margin-top: 10px;
-    }
-    .acc_image{
-        width: 10%;
-    }
+
+#twitter .acc_actions{
+    width: 15%;
+}
+#twitter .acc_posts, #twitter .acc_followers{
+    width: 20%;
+}
+#twitter .acc_name{
+    width: 35%;
+}
+#twitter .acc_image{
+    width: 10%;
+}
+
+#tumblr .acc_actions{
+    width: 14%;
+}
+#tumblr .acc_posts, #tumblr .acc_followers, #tumblr .acc_blogs, #tumblr .acc_likes{
+    width: 14%;
+}
+#tumblr .acc_name{
+    width: 30%;
+}
+
+
     .social-box {
     background: none repeat scroll 0 0 white;
     border: 1px solid #d4d4d4;

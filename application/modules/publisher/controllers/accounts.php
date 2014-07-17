@@ -47,6 +47,12 @@ class Accounts extends MX_Controller {
             $data['totalTwitterPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Twitter');
             $data['twitterProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Twitter',$page);
             $data['twitterProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Twitter');
+            
+            $data['totalTumblrFollowers']=$this->smaaccount->getTotalFollowers($this->session->userData('userID'),'Tumblr');
+            $data['totalTumblrPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Tumblr');
+            $data['tumblrProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Tumblr',$page);
+            $data['tumblrProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Tumblr');
+            
             $this->layout->view('accounts_new',$data);
 	}
 	public function add()
