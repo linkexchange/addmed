@@ -61,7 +61,7 @@
 				{
 					$("#successMessage").html("Website created successfully.");
 					$("#successMessage").show();
-					window.location=base_url+"template/dashboard";
+					window.location=base_url+"website/dashboard";
 				}
 				else
 				{

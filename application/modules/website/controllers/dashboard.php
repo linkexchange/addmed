@@ -23,8 +23,8 @@ class Dashboard extends MX_Controller{
 		
 		$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page);
 		$data['count']=$this->template->getTemplatesCount($this->session->userData('userID'));
-    	$this->layout->view('dashboard',$data);
-    }
+                $this->layout->view('dashboard',$data);
+        }
 	public function add(){
 		if($this->input->post()){
 			$uid=$this->session->userData('userID');
@@ -69,11 +69,11 @@ class Dashboard extends MX_Controller{
 		if($id){
 			$this->template->delete($id);
 			$this->session->set_flashdata('message', 'Website deleted successfully!');
-			redirect(base_url()."template/dashboard");
+			redirect(base_url()."website/dashboard");
 		}
 		else
 		{
-			redirect(base_url()."template/dashboard");
+			redirect(base_url()."website/dashboard");
 		}
 	}
 

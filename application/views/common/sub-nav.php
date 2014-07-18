@@ -75,8 +75,8 @@ $(document).ready(function(){
                         <span>Websites</span> 
                     </a>
                     <ul class="dropdown-menu">
-						<li><a href="<?php echo base_url().'template/dashboard/add'; ?>">Create Website</a></li>
-                    	<li><a href="<?php echo base_url().'template/dashboard'; ?>">View Website</a></li>
+						<li><a href="<?php echo base_url().'website/dashboard/add'; ?>">Create Website</a></li>
+                    	<li><a href="<?php echo base_url().'website/dashboard'; ?>">View Website</a></li>
                     </ul>  
                 </li>
 				<li class="<?php if($this->uri->segment('1')=="blogs") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="blocks" >

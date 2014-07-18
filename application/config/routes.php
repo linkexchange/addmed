@@ -53,5 +53,6 @@ $route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
 $route['404_override'] = '';
 
 
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

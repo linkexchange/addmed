@@ -5,7 +5,7 @@
 						<h3><b><i class="icon-globe"></i> Websites</b>
 						<span class="pull-right">
 							<?php if($this->session->userdata("userTypeID")==3) : ?>
-								<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>template/dashboard/add"> Add Website</a>
+								<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>website/dashboard/add"> Add Website</a>
 							<?php endif; ?>
 						</span></h3>
 					</div>
@@ -54,10 +54,10 @@
 										<td><?php if(isset($item['updatedDate']) && $item['updatedDate']!="0000-00-00") : echo $item['updatedDate']; endif; ?></td>
 										<td><?php if(isset($item['htmlCreatedDate']) && $item['htmlCreatedDate']!="0000-00-00") : echo $item['htmlCreatedDate']; endif; ?></td>
 										<td>
-											<a class="btn btn-small btn-success" href="<?php echo base_url()."template/dashboard/edit/".$item['id']; ?>" title="Edit Website : <?php echo $item['name']; ?>">
+											<a class="btn btn-small btn-success" href="<?php echo base_url()."website/dashboard/edit/".$item['id']; ?>" title="Edit Website : <?php echo $item['name']; ?>">
 												<i class="btn-icon-only icon-edit"> </i>
 											</a>
-											<a class="btn btn-danger btn-small" href="<?php echo base_url()."template/dashboard/delete/".$item['id']; ?>">
+											<a class="btn btn-danger btn-small" href="<?php echo base_url()."website/dashboard/delete/".$item['id']; ?>">
 												<i class="btn-icon-only icon-remove"></i>
 											</a>
 											<?php if($item['htmlCreated']!="Done") : ?>
@@ -81,7 +81,7 @@
 										if(($i%$mod)==0) :
 							?>
 							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active"; ?>">
-								<a href="<?php echo base_url()."template/dashboard/index/".$inc; ?>"><?php echo $inc;?></a>
+								<a href="<?php echo base_url()."website/dashboard/index/".$inc; ?>"><?php echo $inc;?></a>
 							</li>
 							<?php
 											$inc++;
@@ -101,7 +101,7 @@ function createHtml(tid){
 	alert(tid);
 	if(tid){
 		$.ajax({
-			url:base_url+"template/dashboard/createHtml/"+tid,
+			url:base_url+"website/dashboard/createHtml/"+tid,
 			//beforeSend: loadStartPub,
 			//complete: loadStopPub,
 			success:function(result){

@@ -13,9 +13,9 @@
 		public function getPublishedLinks($uid){
 			$this->db->select('numberOfClicks,publisherPayment');
 			$this->db->from($this->config->item('table_clicksdetail'));
-			$this->db->join($this->config->item('table_publishedlinks'),$this->config->item('table_clicksdetail').".publishedLinkID = ".$this->config->item('table_publishedlinks').".id");
+			$this->db->join($this->config->item('table_published_url'),$this->config->item('table_clicksdetail').".publishedLinkID = ".$this->config->item('table_published_url').".id");
 
-			$this->db->where($this->config->item('table_publishedlinks').'.publisherID',$uid);
+			$this->db->where($this->config->item('table_published_url').'.publisherID',$uid);
 
 			//$this->db->limit($limit);
 			$result = $this->db->get();

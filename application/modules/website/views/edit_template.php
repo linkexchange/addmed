@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-10">
 									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
-									<a href="<?php echo base_url(); ?>template/dashboard" class="btn btn-primary">Cancel</a>
+									<a href="<?php echo base_url(); ?>website/dashboard" class="btn btn-primary">Cancel</a>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 						</form>
@@ -58,7 +58,7 @@
 				$("#btn_submit").button("reset");
 				$("#successMessage").html("Website edited successfully...!");
 				$("#successMessage").show();
-				window.location=base_url+"template/dashboard";
+				window.location=base_url+"website/dashboard";
 			}
 		});
 		//$("#frm_signup").validationEngine();

@@ -194,8 +194,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'template/dashboard/add'; ?>"><span class="submenu-label">Create Website</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'template/dashboard';?>"><span class="submenu-label">View websites</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'website/dashboard/add'; ?>"><span class="submenu-label">Create Website</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'website/dashboard';?>"><span class="submenu-label">View websites</span></a></li>
 							</ul>
 						</li>
 						<li class="openable">
