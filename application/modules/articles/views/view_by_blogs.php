@@ -204,11 +204,11 @@ $(document).ready(function(){
 		//complete: loadStopPub,
 		success:function(result){
                     if(result==1){
-                        $("#successMessage").html("Sort Oredr updated successfully for article ID "+aid+".");
+                        $("#successMessage").html("Sort order updated successfully for article ID "+aid+".");
 			$("#successMessage").show();
                     }
                     else if(result==0){
-                         $("#errorMessage").html("Sort Order updation failed for article ID "+aid+".");
+                         $("#errorMessage").html("Sort order updation failed for article ID "+aid+".");
 			$("#errorMessage").show();
                     }
             }});
