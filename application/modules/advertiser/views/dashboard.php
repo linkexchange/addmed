@@ -73,7 +73,7 @@
 								<h4><b> <i class="icon-th-list"></i> Published Links</b> </h4>
 							</div>
 							
-							<table class="table table-hover table-striped">
+							<table class="table table-hover table-bordered table-striped">
 								<thead>
 									<tr>
 										<th class="link">Link </th>
@@ -204,7 +204,7 @@
 							<!--<div class="panel-body" style="border:1px solid lightgray;">
 								Some default panel content here.
 							</div>-->
-							<table class="table table-hover table-striped">
+							<table class="table table-hover table-striped table-bordered">
 								<thead>
 									<tr>
 										<th class="tr_link" width="150px">Link</th>

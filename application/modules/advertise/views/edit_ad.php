@@ -1,102 +1,96 @@
-<?php //echo "<pre>"; print_r($ad); echo "</pre>"; ?>
 <?php foreach($ad as $item) : ?>
-<div class="main">
-	<div class="main-inner">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-                	
-                    <div class="widget">
-                    	<div class="widget-header"> 
-								<i class="icon-list-alt"></i>
-								<h3>Edit Ad</h3>
-						</div>
-                        <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-						<div id="successMessage" class="alert alert-success" style="display:none"></div>
-                    	<div class="widget-content">
-                        	<div class="big-stats-container">
-                            	<div class="widget-content inner">
-                                	<form class="form-horizontal" id="frm_editAdvertise" action="" method="POST" enctype="multipart/form-data" >
-										<fieldset>
-                                        	<div class="control-group">
-                                                <label for="template" class="control-label">Website Title</label>
-                                                <div class="controls">
-                                                	<input name="adID" id="adID" type="hidden" value="<?php echo $item['id']; ?>" />
-                                                    <input name="templateID" id="templateID" type="hidden" value="<?php echo $item['templateID']; ?>" />
-                                                	<input type="text" id="template" name="template" value="<?php echo $item['name'];?>" placeholder="" class="validate[required]" disabled="disabled">
-                                               	</div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                        	
-                                            <div class="control-group">											
-                                                <label for="adUnit1" class="control-label">Ad Unit 1 <br/>(728x100 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adUnit1" id="adUnit1" class="validate[required]" cols="100" rows="3" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adUnit1'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adUnit2" class="control-label">Ad Unit 2<br/>(728x100 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adUnit2" id="adUnit2" class="validate[required]" cols="100" rows="3" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adUnit2'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adUnit3" class="control-label">Ad Unit 3<br/>(728x300 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adUnit3" id="adUnit3" class="validate[required]" cols="100" rows="10" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adUnit3'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adUnit4" class="control-label">Ad Unit 4<br/>(728x400 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adUnit4" id="adUnit4" class="validate[required]" cols="100" rows="10" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adUnit4'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adUnit5" class="control-label">Ad Unit 5<br/>(300x300 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adUnit5" id="adUnit5" class="validate[required]" cols="50" rows="10" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adUnit5'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adUnit6" class="control-label">Ad Unit 6<br/>(300x300 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adUnit6" id="adUnit6" class="validate[required]" cols="50" rows="10" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adUnit6'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adMobile1" class="control-label">Ad Mobile 1<br/>(300x100 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adMobile1" id="adMobile1" class="validate[required]" cols="50" rows="3" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adMobile1'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adMobile2" class="control-label">Ad Mobile 2<br/>(300x100 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adMobile2" id="adMobile2" class="validate[required]" cols="50" rows="3" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adMobile2'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">											
-                                                <label for="adMobile3" class="control-label">Ad Mobile 3<br/>(300x100 px)</label>
-                                                <div class="controls">
-                                                    <textarea name="adMobile3" id="adMobile3" class="validate[required]" cols="50" rows="3" placeholder="Ad Size XXX x XXX" style="width:auto;"><?php echo $item['adMobile3'];?></textarea>
-                                                </div> <!-- /controls -->				
-                                            </div> <!-- /control-group -->
-                                            <div class="control-group">	
-                                                <div class="controls">
-                                                    <button id="btn_submit" class="btn btn-primary" type="submit">Save</button> 
-                                                    <a href="<?php echo base_url()?>advertise/dashboard" class="btn">Cancel</a>								 												</div>
-                                            </div> <!-- /control-group -->
-                                        </fieldset>
-                                    </form>
-                                </div><!--widget-content inner-->
-                           	</div><!--big-stats-container-->
-                       	</div><!--widget-content-->
-                   	</div><!--widget-->
-                </div><!--span12-->
-            </div><!--row-->
-       	</div><!--container-->
-   	</div><!--main-inner-->
-</div><!--main-->
+<div id="main-container">
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3> <i class="icon-building"></i> Edit Ad </h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_editAdvertise" action="" method="POST" enctype="multipart/form-data" >
+							<div class="form-group">
+								<label for="template" class="col-lg-2 control-label">Website Title</label>
+								<div class="col-lg-10">
+									<input name="adID" id="adID" type="hidden" value="<?php echo $item['id']; ?>" />
+									<input name="templateID" id="templateID" type="hidden" value="<?php echo $item['templateID']; ?>" />
+									<input type="text" id="template" name="template" value="<?php echo $item['name'];?>" placeholder="" class="form-control validate[required]" style="width:60%;" disabled="disabled">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="adUnit1" class="col-lg-2 control-label">Ad Unit 1 <br/>(728x100 px)</label>
+								<div class="col-lg-10">
+									<textarea name="adUnit1" id="adUnit1" class="form-control validate[required]" cols="100" rows="3" placeholder="Ad Size 728px x 100px" style="width:auto;"><?php echo $item['adUnit1'];?></textarea>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="adUnit2" class="col-lg-2 control-label">Ad Unit 2 <br/>(728x100 px)</label>
+								<div class="col-lg-10">
+									<textarea name="adUnit2" id="adUnit2" class="form-control validate[required]" cols="100" rows="3" placeholder="Ad Size 728px x 100px" style="width:auto;"><?php echo $item['adUnit2'];?></textarea>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="adUnit3" class="col-lg-2 control-label">Ad Unit 3 <br/>(728x300 px)</label>
+								<div class="col-lg-10">
+									<textarea name="adUnit3" id="adUnit3" class="form-control validate[required]" cols="100" rows="10" placeholder="Ad Size 728px x 300px" style="width:auto;"><?php echo $item['adUnit3'];?></textarea>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">											
+                            	<label for="adUnit4" class="col-lg-2 control-label">Ad Unit 4<br/>(728x400 px)</label>
+                               	<div class="col-lg-10">
+                                	<textarea name="adUnit4" id="adUnit4" class="form-control validate[required]" cols="100" rows="10" placeholder="Ad Size 728px x 400px" style="width:auto;"><?php echo $item['adUnit4'];?></textarea>
+                                </div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+							<div class="form-group">											
+                            	<label for="adUnit5" class="col-lg-2 control-label">Ad Unit 5<br/>(300x300 px)</label>
+                               	<div class="col-lg-10">
+                                	<textarea name="adUnit5" id="adUnit5" class="form-control validate[required]" cols="50" rows="10" placeholder="Ad Size 300px x 300px" style="width:auto;"><?php echo $item['adUnit5'];?></textarea>
+                                </div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+							<div class="form-group">											
+                            	<label for="adUnit6" class="col-lg-2 control-label">Ad Unit 6<br/>(300x300 px)</label>
+                               	<div class="col-lg-10">
+                                	<textarea name="adUnit6" id="adUnit6" class="form-control validate[required]" cols="50" rows="10" placeholder="Ad Size 300px x 300px" style="width:auto;"><?php echo $item['adUnit6'];?></textarea>
+                                </div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+							<div class="form-group">											
+                            	<label for="adMobile1" class="col-lg-2 control-label">Ad Mobile 1<br/>(300x100 px)</label>
+                               	<div class="col-lg-10">
+                                	<textarea name="adMobile1" id="adMobile1" class="form-control validate[required]" cols="50" rows="3" placeholder="Ad Size 300px x 100px" style="width:auto;"><?php echo $item['adMobile1'];?></textarea>
+                                </div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+							<div class="form-group">											
+                            	<label for="adMobile1" class="col-lg-2 control-label">Ad Mobile 2<br/>(300x100 px)</label>
+                               	<div class="col-lg-10">
+                                	<textarea name="adMobile2" id="adMobile2" class="form-control validate[required]" cols="50" rows="3" placeholder="Ad Size 300px x 100px" style="width:auto;"><?php echo $item['adMobile2'];?></textarea>
+                                </div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+							<div class="form-group">											
+                            	<label for="adMobile1" class="col-lg-2 control-label">Ad Mobile 3<br/>(300x100 px)</label>
+                               	<div class="col-lg-10">
+                                	<textarea name="adMobile3" id="adMobile3" class="form-control validate[required]" cols="50" rows="3" placeholder="Ad Size 300px x 100px" style="width:auto;"><?php echo $item['adMobile3'];?></textarea>
+                                </div> <!-- /controls -->				
+							</div> <!-- /control-group -->
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+									<a href="<?php echo base_url();?>advertise/dashboard" class="btn btn-primary">Cancel</a>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
+					</div>
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
+</div>
 <script>
 	$(document).ready(function(){
 		$(".setData").hide();

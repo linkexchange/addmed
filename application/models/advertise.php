@@ -47,7 +47,6 @@ class Advertise extends CI_Model{
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->num_rows();
-
 	}
 	
 	public function getAd($id){

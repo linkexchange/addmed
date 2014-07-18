@@ -209,7 +209,6 @@ class Link extends MX_Controller {
 		{
 			$result = $this->url->getUrlByIdForPub($this->uri->segment(3));
 			$data['url']=$result[0];
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_link_pub',$data);
 		}
 	}

@@ -1,28 +1,47 @@
 <div id="main-container">
-<br/>
-<div class="col-md-6">
-		<div class="panel panel-default"  style="border:1px solid LightGray;">
-			<div class="panel-heading"><h4><i class="icon-star fa-lg"></i> Edit Bookmark</h4></div>
-			<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-			<div id="successMessage" class="alert alert-success" style="display:none"></div>
-			<div class="panel-body">
-				 <form class="form-horizontal" id="frm_editBookmark" action="" method="POST" enctype="multipart/form-data" >
-					<div class="form-group">
-						<label for="name">Name</label>
-						<input type="text" class="form-control input-sm validate[required]" value="<?php echo $bookmark[0]['name']; ?>" placeholder="Enter name" name="bookmark" id="bookmark">
-					</div><!-- /form-group -->
-					<div class="form-group">
-						<label for="url">Url</label>
-						<input type="text" class="form-control input-sm validate[required]"  value="<?php echo $bookmark[0]['url']; ?>" name="url" id="url" readonly>
-					</div><!-- /form-group -->
-					<button id="edit_bkmark" type="submit" class="btn btn-success btn-sm">Submit</button>
-					<a href="<?php echo base_url();?>bookmarks" class="btn">Cancel</a>
-				</form>
-			</div>
-		</div><!-- /panel -->
-	</div>
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+				<div style="width:50%">
+					<div class="panel-heading"><h3> <i class="icon-globe"></i> Edit Bookmark</h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_editBookmark" action="" method="POST" enctype="multipart/form-data" >
+							<div class="form-group">
+								<label for="Name" class="col-lg-2 control-label">Name</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control input-sm validate[required]" value="<?php echo $bookmark[0]['name']; ?>" placeholder="Enter name" name="bookmark" id="bookmark">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="Url" class="col-lg-2 control-label">Url</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control input-sm validate[required]"  value="<?php echo $bookmark[0]['url']; ?>" name="url" id="url" readonly>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="edit_bkmark" class="btn btn-success" type="submit">Save</button> 
+									<a href="<?php echo base_url(); ?>bookmarks" class="btn btn-primary">Cancel</a>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
+					</div>
+				</div>	
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
 </div>
-
 <script>
 	$(document).ready(function(){
 		$('#frm_editBookmark').ajaxForm({

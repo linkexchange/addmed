@@ -19,7 +19,7 @@
 			<ul class="nav-notification clearfix">
 				<li class="profile dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<strong><?php echo $this->session->userdata("userName");?></strong>
+						<strong><?php echo $this->session->userdata("ForumuserName");?></strong>
 						<span><i class="fa fa-chevron-down"></i></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -58,7 +58,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<?php if($this->session->userdata("userID")) {?>
+					<?php if($this->session->userdata("ForumUserID")) {?>
 					<a class="btn btn-sm pull-right logoutConfirm_open"  href="#logoutConfirm">
 						<i class="fa fa-power-off"></i>
 					</a>

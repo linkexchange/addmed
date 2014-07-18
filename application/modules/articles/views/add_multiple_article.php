@@ -24,13 +24,13 @@
 <div class="padding-md">
 	<form class="form-horizontal" id="frm_addArticle" action="<?php echo base_url();?>articles/dashboard/addMultipleItems" method="POST" enctype="multipart/form-data">
 	<div class="row" style="margin-left:0px;margin-right:0px;">
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3><i class="icon-list-alt"></i> Add Gallery Items</h3></div>
 				<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 				<div id="successMessage" class="alert alert-success" style="display:none"></div>
 				<div class="panel-body">
-	
+					<div style="width:50%">	
 						<div class="form-group">
 							<label for="Select Website" class="col-lg-2 control-label">Select Website</label>
 							<div class="col-lg-10">
@@ -46,6 +46,7 @@
 									</select>
 							</div><!-- /.col -->
 						</div><!-- /form-group -->
+					
 						<div class="setBlogData">
 							<div class="form-group">
 								<?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
@@ -76,6 +77,7 @@
 								<a href="<?php echo base_url()?>articles/dashboard" class="btn btn-primary">Cancel</a>	
                             </div>
 						</div><!-- /form-group -->
+					</div>	
 				</div>
 			</div><!-- /panel -->
 		</div><!-- /.col -->
@@ -112,10 +114,10 @@
 			</div>
 		</div>	
 	<?php endfor; ?>
-	<div style="text-align:right;">
+	</div>
+	<div class="actions" style="text-align:right;">
 		<button id="btn_add_more" class="btn btn-success" type="button">Add More Gallery Items</button> 
 	</div>	
-	</div>
 	<input type="hidden" id="add_more_count" name="add_more_count" value="0"/>
     <input type="hidden" id="galleryItems" name="galleryItems" value="1"/>	
 	</form>
@@ -226,8 +228,8 @@
 			$("#add_more_count").val(hint);
 			$.ajax({
 				url:base_url+"articles/dashboard/getGalleryItemBlocks/"+hint,
-				//beforeSend: loadStartPub,
-				//complete: loadStopPub,
+				//beforeSend: $("#btn_add_more").button('loading');
+				//complete:   $("#btn_add_more").button('reset');
 				success:function(result){
 					$(".setArticleData").append(result);
 			}});

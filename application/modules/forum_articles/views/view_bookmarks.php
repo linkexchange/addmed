@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Bookmarks</title>
-</head>
 <div id="main-container">
 	<div class="main-header clearfix">
 		<div class="page-title">
@@ -13,16 +8,16 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading" style="border:1px solid LightGray;">
-						<h4><i class="fa fa-star fa-lg"></i> Bookmarks
-						<span class="badge badge-info pull-right"><?php echo count($bookmarks);?> bookmarks</span></h4>
+					<div class="panel-heading" style="border:1px solid #D6E9F3;">
+						<h4><b><i class="fa fa-star fa-lg"></i> Bookmarks</b>
+						<span class="badge badge-info"><?php echo count($bookmarks);?> bookmarks</span> </h4>
 					</div>
 					<?php if($this->session->flashdata("del")) { ?>
 					<div id="successMessage" class="alert alert-success">	
 						<?php echo $this->session->flashdata("del");?>
 					</div>
 					<?php } ?>
-					<table class="table table-bordered table-condensed table-hover table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr style="border:1px solid LightGray;">
 								<th><h4>Name</h4></th>
@@ -51,34 +46,36 @@
 							</tr>
 							<?php } ?>
 						</tbody>
-					</table>
-					<!-- setArticles  -->
-			<!-- widget-content  -->
-			<?php if($count>10) : ?>
-					<div class="widget-header navigation" style="text-align:right;">
-						<?php 
-							$mod=10; $inc=1;
-							if($count>$mod) :
-								echo "Pages:";
-								for($i=0;$i<=$count;$i++) :
-									if(($i%$mod)==0) :
-										//echo $inc;
-									?>
-								   
-										 <a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(6))  echo "page-active"; else if(!($this->uri->segment(6)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."forum_articles/listing/index/".$inc; ?>" ><?php echo $inc; ?></a>
-									
-								   
+						<?php if($count>10) : ?>
+						<tfoot>
+							<tr>
+								<td colspan="4">
+									<ul class="pagination pagination-split m-bottom-md">
+										<li><a href="#">Pages</a></li>
+										<?php 
+											$mod=10; $inc=1;
+											if($tcount>$mod) :
+												for($i=0;$i<=$tcount;$i++) :
+													if(($i%$mod)==0) :
+										?>
+										<li class="<?php if($inc==$this->uri->segment(3))  echo "active"; else if(!($this->uri->segment(3)) && $inc==1)  echo "active"; ?>">
+											<a href="<?php echo base_url()."topics/index/".$inc; ?>"><?php echo $inc;?></a>
+										</li>
 										<?php
-										$inc++;
-									endif;
-								endfor;
-							endif;
-						?> &nbsp;
-					</div><!-- widget-header pagination -->
-					<?php endif; ?>	
+														$inc++;
+													endif;
+												endfor;
+											endif;
+											?>
+									</ul>
+								</td>
+							</tr>
+						</tfoot>
+						<?php endif; ?>		
+					</table>
 				</div><!-- /panel -->
 			</div><!-- /.col -->
+		
 		</div><!-- /.row -->
 	</div>
-</div>
-
+</div>	

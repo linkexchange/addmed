@@ -122,7 +122,7 @@
 				<!--</div><!-- /search-block -->
 				<div class="main-menu">
 					<ul>
-						<li <?php if($this->uri->segment(1)=="dashboard"){ echo "class='active'";}?>>
+						<li <?php if($this->uri->segment(2)=="dashboard"){ echo "class='active'";}?>>
 							<a href="<?php echo base_url()."advertiser/dashboard"; ?>">
 								<span class="menu-icon">
 									<i class="fa fa-dashboard fa-lg"></i> 
@@ -136,7 +136,7 @@
 						<li class="openable">
 							<a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-file-text fa-lg"></i> 
+									<i class="fa fa-anchor fa-lg"></i> 
 								</span>
 								<span class="text">
 									Links
@@ -144,7 +144,7 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(2)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'link/add'; ?>"><span class="submenu-label">Add link</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'link/add'; ?>"><span class="submenu-label">Add link</span></a></li>
 								<li <?php if($this->uri->segment(2)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'link/';?>"><span class="submenu-label">View Links</span></a></li>
 							</ul>
 						</li>	
@@ -152,7 +152,7 @@
 						<li <?php if($this->uri->segment(1)=="reports"){ echo "class='active'";}?>>
 							<a href="<?php echo base_url().'reports/dashboard';?>">
 								<span class="menu-icon">
-									<i class="fa fa-list fa-lg"></i> 
+									<i class="fa fa-file-text fa-lg"></i> 
 								</span>
 								<span class="text">
 									Reports

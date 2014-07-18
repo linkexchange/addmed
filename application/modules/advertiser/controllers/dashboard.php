@@ -2,6 +2,13 @@
 
 class Dashboard extends MX_Controller {
 
+	public function __construct()
+	{
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}
 	public function index($page=1)
 	{
 		$this->load->model("url");

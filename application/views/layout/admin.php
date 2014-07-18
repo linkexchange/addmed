@@ -239,8 +239,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'advertise/dashboard/add'; ?>"><span class="submenu-label">Add Ads</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'advertise/dashboard';?>"><span class="submenu-label">View Ads</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard/add'; ?>"><span class="submenu-label">Add Ads</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard';?>"><span class="submenu-label">View Ads</span></a></li>
 							</ul>
 						</li>
 						<li class="openable">

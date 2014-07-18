@@ -1,97 +1,85 @@
-<link href="<?php echo base_url(); ?>css/font-awesome.min_1.css" rel="stylesheet" type="text/css">
-<link href="<?php echo base_url(); ?>css/froala_editor.min.css" rel="stylesheet" type="text/css"> 
-<?php //echo "<pre>"; print_r($articles); echo "</pre>"; ?>
-<div class="main">
-    <div class="main-inner">
-	<div class="container">
-            <div class="row">
-                <div class="span12">
-                    <div class="widget">
-                    	<div class="widget-header"> 
-                            <i class="icon-list-alt"></i>
-                            <h3>Edit Gallery Item</h3>
-			</div>
-                        <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-			<div id="successMessage" class="alert alert-success" style="display:none"></div>
-                    	<div class="widget-content">
-                            <div class="big-stats-container">
-                            	<div class="widget-content inner">
-                                    <!-- article foreach #start -->
-                                    <?php foreach($articles as $article) : ?>
-                                    <script>
-                                        $(document).ready(function(){
-                                            var tid=<?php echo $article['templateID']; ?>;
-                                            var bid=<?php echo $article['blogID']; ?>;
-                                            $.ajax({
-                                                url:base_url+"articles/dashboard/getTemplateBlogs/"+tid+"/"+bid,
-						//beforeSend: loadStartPub,
-						//complete: loadStopPub,
-						success:function(result){
-                                                    $(".setBlogData").html(result);
-                                            }});
-                                        });
-                                    </script>
-                                    <?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
-                                    <form class="form-horizontal" id="frm_editArticle" action="" method="POST" enctype="multipart/form-data" >
-                            		<fieldset>
-                             				<div class="control-group">
-                                                <label for="template" class="control-label">Select Website</label>
-                                                <div class="controls">
-                                                	
-                                                    <select id="templateID" name="templateID" class="validate[required]" onchange="getBlogs(this.value);">
-                                                        <option value="">Please Select</option>
-                                                        <?php foreach($templates as $template) : ?>
-                                                            <?php if($template['id']==$article['templateID']) : ?>
-                                                                <option value="<?php echo $template['id']; ?>" selected="selected"><?php echo $template['name']; ?></option>
-                                                            <?php else : ?>
-                                                                <option value="<?php echo $template['id']; ?>"><?php echo $template['name']; ?></option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div> <!-- /controls -->
-                                          	</div> <!-- /control-group -->	
-                                            <div class="setBlogData"></div>
-                                			<div class="setArticleData">
-                                            	<div class="control-group">											
-                                                    <label for="articleTitle" class="control-label">Gallery Item Title</label>
-                                                    <div class="controls">
-                                                        <input type="hidden" id="id" name="id" value="<?php echo $article['id']; ?>" />
-                                                        <input type="text" class="validate[required]" placeholder="Gallery Item Title" value="<?php echo $article['articleTitle']; ?>" name="articleTitle" id="articleTitle">
-                                                    </div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-                                                
-                                                
-                                                
-                                                <div class="control-group">											
-                                                    <label for="articleDescription" class="control-label">Gallery Item Description</label>
-                                                    <div class="controls">
-                                                       <textarea name="articleDescription" id="articleDescription"><?php echo $article['articleDescription']; ?></textarea>
-                                                    </div> <!-- /controls -->				
-                                                </div> <!-- /control-group -->
-                                            </div>
-                                             <div class="control-group">	
-                                                <div class="controls">
-                                                    <button id="btn_submit" class="btn btn-primary" type="submit" >Save</button> 
-                                                    <a href="<?php echo base_url()?>articles/dashboard" class="btn">Cancel</a>								</div>
-                                            </div> <!-- /control-group -->
-                                        </fieldset>
-                                    </form>
-                                    <?php endforeach; ?>
-                                    <!-- article foreach #end -->
-                                </div><!-- widget-content inner-->
-                            </div><!-- big-stats-container -->
-                    	</div><!-- widget-content -->
-                    </div><!-- widget -->
-                </div><!-- span12 -->
-            </div><!-- row -->
-        </div><!-- container -->
-    </div><!-- main-inner -->
-</div> <!-- main -->
+<div id="main-container">
+<!--<div id="breadcrumb">
+	<ul class="breadcrumb">
+		 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+		 <li>Form</li>	 
+		 <li class="active">Form Element</li>	 
+	</ul>
+</div><!--breadcrumb-->
+<div class="padding-md">
+	<div class="row" style="margin-left:0px;margin-right:0px;">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3><i class="icon-list-alt"></i> Edit Gallery Item</h3></div>
+				<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+				<div id="successMessage" class="alert alert-success" style="display:none"></div>
+				 <?php foreach($articles as $article) : ?>
+					<script>
+						$(document).ready(function(){
+							var tid=<?php echo $article['templateID']; ?>;
+							var bid=<?php echo $article['blogID']; ?>;
+							$.ajax({
+								url:base_url+"articles/dashboard/getTemplateBlogs2/"+tid+"/"+bid,
+								//beforeSend: loadStartPub,
+								//complete: loadStopPub,
+								success:function(result){
+									$(".setBlogData").html(result);
+							}});
+						});
+					</script>
+				<form class="form-horizontal" id="frm_editArticle" action="" method="POST" enctype="multipart/form-data" >	
+				<div class="panel-body">
+					<div style="width:50%">	
+						<div class="form-group">
+							<label for="Select Website" class="col-lg-2 control-label">Select Website</label>
+							<div class="col-lg-10">
+									<select id="templateID" name="templateID" class="form-control validate[required]" onchange="getBlogs(this.value);">
+										<option value="">Please Select</option>
+										<?php foreach($templates as $template) : ?>
+											<?php if($template['id']==$article['templateID']) : ?>
+												<option value="<?php echo $template['id']; ?>" selected="selected"><?php echo $template['name']; ?></option>
+											<?php else : ?>
+												<option value="<?php echo $template['id']; ?>"><?php echo $template['name']; ?></option>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									</select>
+							</div><!-- /.col -->
+						</div><!-- /form-group -->
+					
+						<div class="setBlogData"> </div><!-- // .setBlogData -->	
+						<div class="form-group">
+							<label for="articleTitle" class="col-lg-2 control-label">Gallery Item Title</label>
+							<div class="col-lg-10">
+								<input type="hidden" id="id" name="id" value="<?php echo $article['id']; ?>" />
+								<input type="text" class="form-control validate[required]" placeholder="Gallery Item Title" value="<?php echo $article['articleTitle']; ?>" name="articleTitle" id="articleTitle">
+							</div><!-- /.col -->
+						</div><!-- /form-group --><br/><br/>
+						<div class="form-group">
+							<label for="articleDescription" class="col-lg-2 control-label">Gallery Item Description</label>
+							<div class="col-lg-10">
+								<textarea name="articleDescription" id="articleDescription"><?php echo $article['articleDescription']; ?></textarea>
+							</div><!-- /.col -->
+						</div><!-- /form-group -->
+						<div class="form-group">
+							<div class="col-lg-offset-2 col-lg-10">
+								<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+								<a href="<?php echo base_url()?>articles/dashboard" class="btn btn-primary">Cancel</a>	
+                            </div>
+						</div><!-- /form-group -->
+					</div>	
+				</div>
+				</form>	
+			<?php endforeach; ?>
+			</div><!-- /panel -->
+		</div><!-- /.col -->
+	</div>
+</div><!-- /.padding-md -->
+</div>
 <script>
 	function getBlogs(bid){
 			if(bid){
 			 $.ajax({
-				url:base_url+"articles/dashboard/getTemplateBlogs/"+bid,
+				url:base_url+"articles/dashboard/getTemplateBlogs2/"+bid,
 				//beforeSend: loadStartPub,
 				//complete: loadStopPub,
 				success:function(result){
@@ -202,5 +190,4 @@
         })
       });
 </script>
-<!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="<?php echo base_url(); ?>js/froala_editor.min.js"></script> 

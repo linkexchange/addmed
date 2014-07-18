@@ -8,11 +8,12 @@
 	</div><!--breadcrumb-->
 	<div class="padding-md">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading"><h3> <i class="icon-globe"></i> Add Website </h3></div>
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div style="width:50%;">
 					<div class="panel-body">
 						<form class="form-horizontal" id="frm_addTemplate" action="" method="POST">
 							
@@ -31,6 +32,7 @@
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 						</form>
+					</div>
 					</div>
 				</div><!-- /panel -->
 			</div><!-- /.col -->

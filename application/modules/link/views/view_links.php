@@ -31,7 +31,7 @@ $(document).ready(function(){
 	<div class="padding-md">
 		<div class="panel panel-default table-responsive">
 					<div class="panel-heading">
-						<h3><b><i class="icon-th-list"></i> Links</b>
+						<h3><b><i class="icon-anchor"></i> Links</b>
 						<span class="pull-right">
 							<?php if($this->session->userdata("userTypeID")==2) : ?>
 								<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>link/add"> Add Link</a>
@@ -214,9 +214,36 @@ $(document).ready(function(){
 								<?php
 								}
 								?>
-								
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					<?php if($url_count>10) : ?>
+					<div class="panel-footer clearfix">
+						<ul class="pagination pagination-split m-bottom-md">
+							<li><a href="#">Pages</a></li>
+							<?php 
+								$mod=10; $inc=1;
+								if($url_count>$mod) :
+									for($i=0;$i<=$url_count;$i++) :
+										if(($i%$mod)==0) :
+							?>
+							<?php if($cur_cat_ID) : ?>
+							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active";  ?>">
+								<a href="<?php echo base_url()."link/index/".$cur_cat_ID."/".$inc; ?>"><?php echo $inc;?></a>
+							</li>
+							<?php else : ?>
+							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active";  ?>">
+								<a href="<?php echo base_url()."link/index/0/".$inc; ?>"><?php echo $inc;?></a>
+							</li>
+							<?php endif; ?>
+							<?php
+											$inc++;
+										endif;
+									endfor;
+								endif;
+								?>
+						</ul>
+					</div>
+					<?php endif; ?>	
 				</div>
 			</div><!-- /.padding-md -->
 		</div>	

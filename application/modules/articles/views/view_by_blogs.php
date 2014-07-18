@@ -204,7 +204,7 @@ $(document).ready(function(){
 		//complete: loadStopPub,
 		success:function(result){
                     if(result==1){
-                        $("#successMessage").html("Sort Oredr updated successfully for article ID "+aid+".");
+                        $("#successMessage").html("Sort Order updated successfully for article ID "+aid+".");
 			$("#successMessage").show();
                     }
                     else if(result==0){

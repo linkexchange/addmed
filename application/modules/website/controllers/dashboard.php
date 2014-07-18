@@ -17,14 +17,17 @@ class Dashboard extends MX_Controller{
 		{
 			$this->layout->setLayout("layout/admin");
 		}
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
 	}
 	public function index($page=1)
 	{
-		
 		$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page);
 		$data['count']=$this->template->getTemplatesCount($this->session->userData('userID'));
-                $this->layout->view('dashboard',$data);
-        }
+        $this->layout->view('dashboard',$data);
+    }
 	public function add(){
 		if($this->input->post()){
 			$uid=$this->session->userData('userID');

@@ -1,12 +1,33 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Dashboard extends MX_Controller {
+	
+	public function __construct()
+	{		
+		//  Call parent Controller
+		parent::__construct();
+		$this->load->model('advertise');
+		if($this->session->userdata("userType")=="advertiser")
+		{
+			$this->layout->setLayout("layout/advertiser");
+		}
+		else if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}
 	public function index($page=1,$msg=0){
 		$data[]="";
-		$this->load->model('advertise');
 		$data['ads']=$this->advertise->getAds($this->session->userData('userID'),$page);
 		$data['count']=$this->advertise->getAdsCount($this->session->userData('userID'));
-		$this->layout->setLayout("layout/main");
 		$this->layout->view("dashboard",$data);
 	}
 	
@@ -58,7 +79,6 @@ class Dashboard extends MX_Controller {
 		}
 		else
 		{
-			$this->layout->setLayout("layout/main");
 			$this->layout->view("add_advertise",$data);
 		}
 	}
@@ -66,7 +86,6 @@ class Dashboard extends MX_Controller {
 	public function view($id){
 		$this->load->model('advertise');
 		$data['ad']=$this->advertise->getAd($id);
-		$this->layout->setLayout("layout/main");
 		$this->layout->view('view_ad',$data);
 
 	}
@@ -112,7 +131,6 @@ class Dashboard extends MX_Controller {
 		else
 		{
 			$data['ad']=$this->advertise->getAd($id);
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_ad',$data);
 		}
 	}

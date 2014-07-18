@@ -1,47 +1,51 @@
-
-<div class="widget">
-	<div class="widget-header"> <i class="icon-list-alt"></i>
-		<h3>Add Billy Links</h3>
-	</div>
-	<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-	<div id="successMessage" class="alert alert-success" style="display:none"></div>
-	<!-- /widget-header -->
-	<div class="widget-content">
-		<div class="big-stats-container">
-			<div class="widget-content">
-				<div id="formcontrols" class="tab-pane active">
-					<form class="form-horizontal" id="frm_addLink" action="" method="POST">
-						<fieldset>
-							<div class="control-group">											
-								<label for="link" class="control-label">URl to Publish</label>
-								<div class="controls">
+<div id="main-container">
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3> <i class="icon-globe"></i> Add bitly link</h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div style="width:50%;">
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_addLink" action="" method="POST">
+							<div class="form-group">
+								<label for="link" class="col-lg-2 control-label">URl to Publish</label>
+								<div class="col-lg-10">
 									<input type="hidden" value="<?php echo $url['id']; ?>" name="id">
-							    	<input type="text" class="validate[required,custom[url]]" placeholder="URL" value="<?php echo $url['url']; ?>" name="url" id="url" readonly="">
-								</div> <!-- /controls -->				
-							</div> <!-- /control-group -->
-							<div class="control-group">											
-								<label for="billyUrl" class="control-label">Billy URL</label>
-								<div class="controls">
-									<input type="text" value="<?php echo $url['bitlyURL']; ?>" id="billyUrl" name="billyUrl" placeholder="Billy URL" class="span4 link-fields price-field validate[required,custom[url]]">
-								</div> <!-- /controls -->				
-							</div> <!-- /control-group -->
-							<div class="control-group">	
-								<div class="controls">
-									<button id="btn_submit" class="btn btn-primary" type="submit">Save</button> 
+							    	<input type="text" class="form-control validate[required,custom[url]]" placeholder="URL" value="<?php echo $url['url']; ?>" name="url" id="url" readonly="">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="bitlyUrl" class="col-lg-2 control-label">Bitly URL</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php echo $url['bitlyURL']; ?>" id="billyUrl" name="billyUrl" placeholder="Billy URL" class="form-control validate[required,custom[url]]">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
 									<?php if($this->session->userdata("userTypeID")==3) : ?>
-										<a href="<?php echo base_url(); ?>publisher/dashboard" class="btn">Cancel</a>
+										<a href="<?php echo base_url(); ?>publisher/dashboard" class="btn btn-primary">Cancel</a>
 									<?php else : ?>
-										<a href="<?php echo base_url(); ?>/link" class="btn">Cancel</a>
+										<a href="<?php echo base_url(); ?>/link" class="btn btn-primary">Cancel</a>
 									<?php endif; ?>
-									
-								</div>
-							</div> <!-- /control-group -->
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
+					</div>
+					</div>
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
 </div>
 <script>
 	$(document).ready(function(){
@@ -72,6 +76,5 @@
 				<?php endif; ?>
 			}
 		});
-		$("#frm_signup").validationEngine();
 	});
 </script>
