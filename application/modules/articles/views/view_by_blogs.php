@@ -204,11 +204,15 @@ $(document).ready(function(){
 		//complete: loadStopPub,
 		success:function(result){
                     if(result==1){
+<<<<<<< HEAD
                         $("#successMessage").html("Sort Order updated successfully for article ID "+aid+".");
+=======
+                        $("#successMessage").html("Sort order updated successfully for article ID "+aid+".");
+>>>>>>> fdad8b1456a2a538ae1fe1588c676c950cc3a07e
 			$("#successMessage").show();
                     }
                     else if(result==0){
-                         $("#errorMessage").html("Sort Order updation failed for article ID "+aid+".");
+                         $("#errorMessage").html("Sort order updation failed for article ID "+aid+".");
 			$("#errorMessage").show();
                     }
             }});
