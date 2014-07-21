@@ -16,6 +16,8 @@ class Accounts extends MX_Controller {
 		$this->load->model("clicksdetail");
                 $this->load->model('smaaccount');
 		$this->layout->setLayout('layout/publisher');
+                $config = $this->config->item('facebook');
+                $this->load->library('Facebook', $config);  
 	}
 	/*public function index($page=1)
 	{
@@ -41,8 +43,11 @@ class Accounts extends MX_Controller {
     }*/
 	public function index($page=0)
 	{
-            
             $data="";
+           
+            //$this->facebook->destroySession();
+            $data['facebookUrl']=$this->facebook->getLoginUrl(array('scope'=>'email'));
+            
             $data['totalTwitterFollowers']=$this->smaaccount->getTotalFollowers($this->session->userData('userID'),'Twitter');
             $data['totalTwitterPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Twitter');
             $data['twitterProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Twitter',$page);
@@ -149,5 +154,33 @@ class Accounts extends MX_Controller {
 			$this->layout->view('description',$data);
 		}	
 	}
+        public function facebookConnect(){
+            echo "0"; exit;
+            // Try to get the user's id on Facebook
+            $userId = $this->facebook->getUser();
+           // $user = $this->facebook->api('/me');
+            //print_r($_SESSION);
+            //echo "<pre>"; print_r($user); echo "</pre>";
+
+            //$userId = 0;
+            // If user is not yet authenticated, the id will be zero
+            if($userId == 0){
+                // Generate a login url
+                //$data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email,picture,likes')); 
+                //$this->load->view('facebook_connect', $data);
+                //redirect(base_url('/publisher/accounts'));
+            } else {
+                // Get user's data and print it
+                $user = $this->facebook->api('/me');
+                print_r($_SESSION);
+                echo "<pre>"; print_r($user); echo "</pre>";
+            }
+            
+            //$this->facebook->destroySession();
+    }
+    public function resetFacebook(){
+        $this->facebook->destroySession();
+        redirect(base_url('/publisher/accounts'));
+    }
 }
 ?>

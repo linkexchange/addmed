@@ -18,10 +18,10 @@ class Dashboard extends MX_Controller{
 	//$CI = & get_instance();
         //$CI->config->load("facebook",TRUE);
         $config = $this->config->item('facebook');
-        
         $this->load->library('Facebook', $config);
     }
     function index(){
+        //echo "0"; exit;
 	// Try to get the user's id on Facebook
 	$userId = $this->facebook->getUser();
        // $user = $this->facebook->api('/me');
@@ -32,15 +32,20 @@ class Dashboard extends MX_Controller{
         // If user is not yet authenticated, the id will be zero
 	if($userId == 0){
             // Generate a login url
-            $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email,picture,likes')); 
-            $this->load->view('main_index', $data);
+           $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email,public_profile,user_friends')); 
+           $this->load->view('main_index', $data);
+            //redirect(base_url('/publisher/accounts'));
 	} else {
             // Get user's data and print it
-            $user = $this->facebook->api('/me');
+            $user = $this->facebook->api('v2.0/me');
             print_r($_SESSION);
             echo "<pre>"; print_r($user); echo "</pre>";
 	}
         //$this->facebook->destroySession();
+    }
+    public function resetFacebook(){
+        $this->facebook->destroySession();
+        redirect(base_url('/publisher/accounts'));
     }
 }
 
