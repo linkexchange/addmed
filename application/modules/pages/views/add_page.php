@@ -1,62 +1,55 @@
-<link href="<?php echo base_url(); ?>css/font-awesome.min_1.css" rel="stylesheet" type="text/css">
-<link href="<?php echo base_url(); ?>css/froala_editor.min.css" rel="stylesheet" type="text/css"> 
-
-<div class="widget">
-	<div class="widget-header"> <i class="icon-list-alt"></i>
-		<h3>Add Page</h3>
-	</div>
-	<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-	<div id="successMessage" class="alert alert-success" style="display:none"></div>
-	<!-- /widget-header -->
-	<div class="widget-content">
-		<div class="big-stats-container">
-			<div class="widget-content">
-				<div id="formcontrols" class="tab-pane active">
-                	 <?php //echo "<pre>"; print_r($templates); echo "</pre>"; ?>
-					<form class="form-horizontal" id="frm_addPage" action="" method="POST" enctype="multipart/form-data" >
-						<fieldset>
-							<div class="control-group">
-                            	<label for="template" class="control-label">Select Website</label>
-								<div class="controls">
-									<select id="templateID" name="templateID" class="validate[required]" onchange="getDetails(this.value); ">
+<div id="main-container">
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3> <i class="icon-paperclip"></i> Add Page </h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_addPage" action="" method="POST" enctype="multipart/form-data" >
+							<div class="form-group">
+								<label for="template" class="col-lg-2 control-label">Select Website</label>
+								<div class="col-lg-10">
+									<select id="templateID" name="templateID" class="form-control validate[required]" onchange="getDetails(this.value);" style="width:50%;">
 										<option value="">Please Select</option>
 										<?php foreach($templates as $item) : ?>
 										<option value="<?php echo $item['id']; ?>"><?php echo $item['name']; ?></option>
 										<?php endforeach; ?>
 									</select>
-								</div> <!-- /controls -->				
-							</div> <!-- /control-group -->
-							<div class="setData" style="border:0px solid red;">
-								<div class="control-group">	   										
-                                    <label for="title" class="control-label">Page Title</label>
-                                    <div class="controls">
-                                        <input type="text" class="validate[required]" placeholder="Page Title" name="title" id="title">
-                                    </div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-                                
-                                <div class="control-group">	   
-									<label for="description" class="control-label">Page Description</label>
-                                    <div class="controls">
-                                        <!--<input type="file" class="validate[required]" placeholder="Blog Image" value="" name="image" id="image">-->							
-										<textarea style="height:300px; width:500px;" cols="200" 
-										name="description" id="description"></textarea>
-										
-									</div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-							</div>
-							
-							<div class="control-group">	
-								<div class="controls">
-									<button id="btn_submit" class="btn btn-primary" type="submit">Save</button> 
-									<a href="<?php echo base_url()?>pages/dashboard" class="btn">Cancel</a>								
-								</div>
-							</div> <!-- /control-group -->
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="Title" class="col-lg-2 control-label">Page Title</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control validate[required]" placeholder="Page Title" name="title" id="title" style="width:50%;">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="Description" class="col-lg-2 control-label">Page Description</label>
+								<div class="col-lg-10">
+									<textarea class="form-control validate[required]" name="description" id="description"></textarea>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+									<a href="<?php echo base_url();?>pages/dashboard" class="btn btn-primary">Cancel</a>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
+					</div>
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
 </div>
 <script>
 	jQuery(document).ready(function($){

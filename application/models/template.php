@@ -3,20 +3,20 @@ class Template extends CI_Model{
 
 	//returns all templates and its details details by user ID
 	public function getTemplates($uid=1,$limit=0){
-		if($limit!="All"){
+		
 			$numberofrecords=10;
 			if($limit>0)
 				$limit=$limit-1;	
 			$startRecord=$limit*$numberofrecords;
-		}
+		
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_templates'));
 		if($this->session->userdata('userType')!="admin")
 			$this->db->where('userID',$uid);
 
-		if($limit!="All"){
+		
 			$this->db->limit($numberofrecords,$startRecord);
-		}
+		
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->result_array();

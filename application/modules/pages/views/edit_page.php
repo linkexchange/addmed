@@ -1,63 +1,66 @@
-<link href="<?php echo base_url(); ?>css/font-awesome.min_1.css" rel="stylesheet" type="text/css">
-<link href="<?php echo base_url(); ?>css/froala_editor.min.css" rel="stylesheet" type="text/css"> 
-<div class="widget">
-	<div class="widget-header"> <i class="icon-list-alt"></i>
-		<h3>Edit Page</h3>
-	</div>
-	<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-	<div id="successMessage" class="alert alert-success" style="display:none"></div>
-	<!-- /widget-header -->
-	<div class="widget-content">
-		<div class="big-stats-container">
-			<div class="widget-content">
-				<div id="formcontrols" class="tab-pane active">
-                	<?php foreach($page as $item) : ?>
-					<form class="form-horizontal" id="frm_editPage" action="" method="POST" enctype="multipart/form-data" >
-						<fieldset>
-							<div class="control-group">
-                            	<label for="template" class="control-label">Select Website</label>
-								<div class="controls">
-                                	<input type="hidden" value="<?php echo $item['id']; ?>" name="id">
-									<select id="templateID" name="templateID" class="validate[required]" >
-										<option value="">Please Select</option>
-										<?php foreach($templates as $template) : ?>
-											<?php if($template['name']==$item['name']) : ?>
-                                                <option value="<?php echo $template['id']; ?>" selected="selected"><?php echo $template['name']; ?></option>
-                                            <?php else : ?>
-                                                <option value="<?php echo $template['id']; ?>"><?php echo $template['name']; ?></option>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-									</select>
-								</div> <!-- /controls -->				
-							</div> <!-- /control-group -->
-							<div class="setData" style="border:0px solid red;">
-								<div class="control-group">											
-                                    <label for="title" class="control-label">Page Title</label>
-                                    <div class="controls">
-                                        <input type="text" class="validate[required]" placeholder="Post Title" value="<?php echo $item['title']; ?>" name="title" id="title">
-                                    </div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-                               
-                                 <div class="control-group">											
-                                    <label for="description" class="control-label">Page Description</label>
-                                    <div class="controls">
-                                       	<textarea name="description" id="description"><?php echo $item['description']; ?></textarea>
-                                    </div> <!-- /controls -->				
-								</div> <!-- /control-group -->
-							</div>
-							
-							<div class="control-group">	
-								<div class="controls">
-									<button id="btn_submit" class="btn btn-primary" type="submit">Save</button> 
-									<a href="<?php echo base_url()?>pages/dashboard/" class="btn">Back</a>								</div>
-							</div> <!-- /control-group -->
-						</fieldset>
-					</form>
-                    <?php endforeach; ?>
+<div id="main-container">
+<!--<div id="breadcrumb">
+	<ul class="breadcrumb">
+		 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+		 <li>Form</li>	 
+		 <li class="active">Form Element</li>	 
+	</ul>
+</div><!--breadcrumb-->
+<div class="padding-md">
+	<div class="row" style="margin-left:0px;margin-right:0px;">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3><i class="icon-paperclip"></i> Edit Page</h3></div>
+				<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+				<div id="successMessage" class="alert alert-success" style="display:none"></div>
+				<?php foreach($page as $item) : ?>
+				<form class="form-horizontal" id="frm_editPage" action="" method="POST" enctype="multipart/form-data" >
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="Select Website" class="col-lg-2 control-label">Select Website</label>
+						<div class="col-lg-10">
+								<input type="hidden" value="<?php echo $item['id']; ?>" name="id">
+								<select id="templateID" name="templateID" class="form-control validate[required]" style="width:50%;">
+									<option value="">Please Select</option>
+									<?php foreach($templates as $template) : ?>
+										<?php if($template['name']==$item['name']) : ?>
+											<option value="<?php echo $template['id']; ?>" selected="selected"><?php echo $template['name']; ?></option>
+										<?php else : ?>
+											<option value="<?php echo $template['id']; ?>"><?php echo $template['name']; ?></option>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</select>
+						</div><!-- /.col -->
+					</div><!-- /form-group -->
+				
+					<div class="setData">
+						<div class="form-group">
+							<label for="title" class="col-lg-2 control-label">Page Title</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control validate[required]" placeholder="Post Title" value="<?php echo $item['title']; ?>" name="title" id="title" style="width:50%;">
+							</div><!-- /.col -->
+						</div><!-- /form-group -->
+					</div><!-- // .setBlogData -->	
+					<div class="form-group">
+						<label for="Page Description" class="col-lg-2 control-label">Page Description</label>
+						<div class="col-lg-10">
+							<textarea name="description" id="description"><?php echo $item['description']; ?></textarea>
+						</div><!-- /.col -->
+					</div><!-- /form-group --><br/><br/>
+					
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+							<a href="<?php echo base_url()?>pages/dashboard" class="btn btn-primary">Cancel</a>	
+						</div>
+					</div><!-- /form-group -->
 				</div>
-			</div>
-		</div>
+				</form>	
+			<?php endforeach; ?>
+			</div><!-- /panel -->
+		</div><!-- /.col -->
 	</div>
+</div><!-- /.padding-md -->
 </div>
 <script>
 	jQuery(document).ready(function($){
@@ -144,3 +147,4 @@
 </script>
 <!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="<?php echo base_url(); ?>js/froala_editor.min.js"></script> 
+

@@ -244,7 +244,7 @@
 
 						<div class="pull-right">
 							<span style="font-size:11px;">Don't have any account?</span>
-							<a class="btn btn-default btn-xs login-link" href="register.html" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i> Sign up</a>
+							<a class="btn btn-default btn-xs login-link" href="<?php echo base_url();?>user/sign_up" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i> Sign up</a>
 						</div>
 					</div>
 					<div class="panel-body">
@@ -291,10 +291,9 @@
 						<div class="pull-left">
 							<i class="fa fa-lock fa-lg"></i> Login
 						</div>
-						<div id="errorMessage2" class="alert alert-danger" style="display:none"></div>
-						<div id="successMessage2" class="alert alert-success" style="display:none"></div>
-						
 					</div>
+					<div id="errorMessage2" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage2" class="alert alert-success" style="display:none"></div>
 					<div class="panel-body">
 						<form method="post" action="#" id="">
 					

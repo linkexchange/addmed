@@ -17,6 +17,28 @@ class Profile extends MX_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+	{		
+		//  Call parent Controller
+		parent::__construct();
+		$this->load->model('advertise');
+		if($this->session->userdata("userType")=="advertiser")
+		{
+			$this->layout->setLayout("layout/advertiser");
+		}
+		else if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}
 	public function edit()
 	{
 		$this->load->model("user");
@@ -62,7 +84,6 @@ class Profile extends MX_Controller {
 			}
 			$result=$this->user->getUser($this->uri->segment(4));
 			$data['user']=$result[0];
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_profile',$data);
 		}	
 	}
@@ -133,7 +154,6 @@ class Profile extends MX_Controller {
 		else
 		{
 			$data['userType']=$this->user->getUserType();
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('profile_add',$data);
 		}
 	}

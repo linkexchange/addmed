@@ -1,107 +1,112 @@
-<div class="main">
-	<div class="main-inner">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-					<div class="widget">
-						<div class="widget-header"> <i class="icon-list-alt"></i>
-							<h3>Profile</h3>
-						</div>
-						<!-- /widget-header -->
-						<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-						<div id="successMessage" class="alert alert-success" style="display:none"></div>
-						<div class="widget-content">
-							<div class="big-stats-container">
-								<div class="widget-content">
-									<div id="formcontrols" class="tab-pane active">
-										<form class="form-horizontal" id="frm_editprofile" action="" method="POST">
-											<fieldset>
-												<div class="control-group">											
-													<label for="username" class="control-label">Username</label>
-													<div class="controls">
-														<input type="hidden"  value="<?php echo $user['id']; ?>" id="id" name="id" class="span6" >
-														<input type="text"  disabled="" value="<?php echo $user['userName']; ?>" id="username" class="span6 disabled" name="userName">
-														<p class="help-block">Your username is for logging in and cannot be changed.</p>
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="companyName" class="control-label">Company Name</label>
-													<div class="controls">
-														<input type="text" value="<?php echo $user['companyName']; ?>" id="companyName" name="companyName" class="span6 validate[required]">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="email" class="control-label">Email </label>
-													<div class="controls">
-														<input type="text" value="<?php echo $user['email']; ?>" id="email" name="email" class="span4 validate[required]" disabled="">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">	
-													<label for="password" class="control-label">Password:</label>
-													<div class="controls">
-														<input type="password" class="login" placeholder="Password" value="" name="password" id="password">
-													</div> <!-- /controls -->
-												</div> <!-- /control-group -->
-												<div class="control-group">	
-													<label for="confirm_password" class="control-label">Confirm Password:</label>
-													<div class="controls">
-														<input type="password" class="login validate[equals[password]]" placeholder="Confirm Password" value="" name="confirm_password" id="confirm_password">
-													</div> <!-- /controls -->
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="phoneNumber" class="control-label">Phone Number</label>
-													<div class="controls">
-														<input type="text" value="<?php if($user['phoneNumber']!=0) echo $user['phoneNumber']; ?>" id="phoneNumber" 
-														placeholder="Phone Number" name="phoneNumber" class="span6">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="companyAddress" class="control-label">Company Address</label>
-													<div class="controls">
-														<input type="text" value="<?php echo $user['address']; ?>" id="address" name="address"  placeholder="Company Address" class="span6">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="city" class="control-label">City</label>
-													<div class="controls">
-														<input type="text" value="<?php echo $user['city']; ?>" id="city" name="city" placeholder="City" class="span6">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="state" class="control-label">State</label>
-													<div class="controls">
-														<input type="text" value="<?php echo $user['state']; ?>" id="state" name="state" placeholder="State" class="span6">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="country" class="control-label">Country</label>
-													<div class="controls">
-														<input type="text" value="<?php echo $user['country']; ?>" id="country" name="country" placeholder="Country" class="span6">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="zip" class="control-label">Zip</label>
-													<div class="controls">
-														<input type="text" value="<?php if($user['zipCode']!=0) echo $user['zipCode']; ?>" id="zipCode" name="zipCode"  placeholder="Zip Code" class="span6">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">	
-													<div class="controls">
-														<button class="btn btn-primary" type="submit">Save</button> 
-														<a href="<?php echo base_url().$this->session->userdata('userType').'/dashboard' ?>" class="btn">Cancel</a>
-													</div>
-												</div> <!-- /control-group -->
-											</fieldset>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
+<div id="main-container">
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3> <i class="fa fa-user fa-lg"></i> Edit Profile </h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div style="width:70%;">
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_editprofile" action="" method="POST">
+							<div class="form-group">
+								<label for="username" class="col-lg-2 control-label">Username</label>
+								<div class="col-lg-10">
+									<input type="hidden"  value="<?php echo $user['id']; ?>" id="id" name="id" class="span6" >
+									<input type="text"  disabled="" value="<?php echo $user['userName']; ?>" id="username" class="form-control disabled" name="userName">
+									<p class="help-block">Your username is for logging in and cannot be changed.</p>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="companyName" class="col-lg-2 control-label">Company Name</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php echo $user['companyName']; ?>" id="companyName" name="companyName" class="form-control validate[required]">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="email" class="col-lg-2 control-label"> Email</label>
+								<div class="col-lg-10">
+									 <input type="text" value="<?php echo $user['email']; ?>" id="email" name="email" class="form-control validate[required]" disabled="">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Password" class="col-lg-2 control-label">Password</label>
+								<div class="col-lg-10">
+									<input type="password" class="form-control login" placeholder="Password" value="" name="password" id="password">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Confirm Password" class="col-lg-2 control-label">Confirm Password</label>
+								<div class="col-lg-10">
+									<input type="password" class="form-control login validate[equals[password]]" placeholder="Confirm Password" value="" name="confirm_password" id="confirm_password">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Phone Number" class="col-lg-2 control-label">Phone Number</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php if($user['phoneNumber']!=0) echo $user['phoneNumber']; ?>" id="phoneNumber" placeholder="Phone Number" name="phoneNumber" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Company Address" class="col-lg-2 control-label">Company Address</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php echo $user['address']; ?>" id="address" name="address"  placeholder="Company Address" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="City" class="col-lg-2 control-label">City</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php echo $user['city']; ?>" id="city" name="city" placeholder="City" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="State" class="col-lg-2 control-label">State</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php echo $user['state']; ?>" id="state" name="state" placeholder="State" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Country" class="col-lg-2 control-label">Country</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php echo $user['country']; ?>" id="country" name="country" placeholder="Country" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Zip" class="col-lg-2 control-label">Zip</label>
+								<div class="col-lg-10">
+									<input type="text" value="<?php if($user['zipCode']!=0) echo $user['zipCode']; ?>" id="zipCode" name="zipCode" placeholder="Zip Code" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+									<a href="<?php echo base_url().$this->session->userdata('userType').'/dashboard' ?>" class="btn btn-primary">Cancel</a>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+					</div>
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
 </div>
 <script>
 	$(document).ready(function(){

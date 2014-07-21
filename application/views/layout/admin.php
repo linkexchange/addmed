@@ -80,6 +80,7 @@
 							</a>
 						</li>
 						<li class="divider"></li>
+						<li><a href="<?php echo base_url();?>user/profile/edit/<?php echo $this->session->userdata("userID");?>"><i class="fa fa-user fa-lg"></i> Profile</a></li>
 						<li><a tabindex="-1" class="main-link logoutConfirm_open" href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
 					</ul>
 				</li>
@@ -255,8 +256,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'pages/dashboard/add'; ?>"><span class="submenu-label">Add Page</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'pages/dashboard';?>"><span class="submenu-label">View Pages</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'pages/dashboard/add'; ?>"><span class="submenu-label">Add Page</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'pages/dashboard';?>"><span class="submenu-label">View Pages</span></a></li>
 							</ul>
 						</li>
 						<li class="openable">

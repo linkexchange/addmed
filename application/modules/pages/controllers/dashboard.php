@@ -8,7 +8,18 @@ class Dashboard extends MX_Controller {
 		$this->load->model('template');
 		$this->load->model('page');
 		$this->load->model('blog');
-		$this->layout->setLayout("layout/main");
+		if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userType"))
+		{
+			redirect(base_url().'user/login');
+		}
 	}
 	public function index($templateID=0,$page=1)
 	{
@@ -30,7 +41,6 @@ class Dashboard extends MX_Controller {
 			$data['count']=$this->page->getpagesCount($this->session->userData('userID'));
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_by_templates',$data);
 		}
     }

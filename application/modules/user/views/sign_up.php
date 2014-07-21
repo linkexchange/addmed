@@ -1,81 +1,95 @@
-<div class="account-container register">
-	
-	<div class="content clearfix">
-		
-		<form method="post" action="" id="frm_signup">
-		
-			<h1>Signup for Free Account</h1>			
-			<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-			<div id="successMessage" class="alert alert-success" style="display:none"></div>
-			<div class="login-fields">
-				
-				<p>Create your free account:</p>
-				<div class="field">
-					<label for="company name">Company Name:</label>	
-					<input type="text" class="login validate[required]" placeholder="Company Name" value="" name="companyName" id="companyName">
-				</div> <!-- /field -->
-				<div class="field">
-					<label for="username">User Name:</label>	
-					<input type="text" class="login validate[required]" placeholder="User Name" value="" name="userName" id="userName">
-				</div> <!-- /field -->
-				
-				
-				<div class="field">
-					<label for="email">Email Address:</label>
-					<input type="text" class="login validate[required,custom[email]]"  
-						data-errormessage-value-missing="Email is required!" 
-						data-errormessage-custom-error="Let me give you a hint: someone@nowhere.com" 
-						data-errormessage="This is the fall-back error message." 
-						placeholder="Email" value="" name="email" id="email">
-				</div> <!-- /field -->
-				
-				<div class="field">
-					<label for="phoneNumber">Phone Number:</label>	
-					<input type="text" class="login validate[required,custom[integer]]" placeholder="Phone Number" value="" name="phoneNumber" id="phoneNumber">
-				</div> <!-- /field -->
-				
 
-				<div class="field">
-					<label for="password">Password:</label>
-					<input type="password" class="login validate[required]" placeholder="Password" value="" name="password" id="password">
-				</div> <!-- /field -->
+
+<div id="main-container">
+	
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-lg-5">
 				
-				<div class="field">
-					<label for="confirm_password">Confirm Password:</label>
-					<input type="password" class="login validate[required,equals[password]]" placeholder="Confirm Password" value="" name="confirm_password" id="confirm_password">
-				
-				</div> <!-- /field -->
-				<div class="field">
-					<label for="userType">User Type:</label>
-					<select class="userType form-control validate[required]"  name="userType" id="userType">
-						<option value="">select user type</option>
-						<?php 
-						print_r($userType);
-							foreach($userType as $type)
-							{
-							?>
-								<option value="<?php echo $type['id']; ?>"><?php echo $type['type']; ?> </option>	
-							<?
-							}
-						?>
-					</select>
-				</div> <!-- /field -->
-				
-			</div> <!-- /login-fields -->
+					<div class="panel-heading">
+						<div class="text-center">
+							<h2 class="fadeInUp animation-delay8" style="font-weight:bold">
+								<span class="text-success">Linkexchange</span> <span style="color:#ccc; text-shadow:0 1px #fff">Sign-Up</span>
+							</h2>
+						</div>
+					</div>
+					<div class="login-widget animation-delay1">	
+				<div class="panel panel-default">
+					<div class="panel-heading clearfix">
+						<div class="pull-left">
+							<i class="fa fa-lock fa-lg"></i> Login
+						</div>
+
+						<div class="pull-right">
+							<span style="font-size:11px;">Don't have any account?</span>
+							<a class="btn btn-default btn-xs login-link" href="<?php echo base_url();?>user/sign_up" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i> Sign up</a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<form method="post" action="#" id="frm_signup">
+							<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+							<div id="successMessage" class="alert alert-success" style="display:none"></div>
+							
+							<div class="form-group">
+								<label>Company Name</label>
+								<input type="text" placeholder="Company Name" class="form-control input-sm bounceIn animation-delay2 validate[required]" name="companyName" id="companyName">
+							</div>
+							<div class="form-group">
+								<label>Username</label>
+								<input type="text" placeholder="Username" class="form-control input-sm bounceIn animation-delay2 validate[required]" value="" name="userName" id="userName">
+							</div>
+							<div class="form-group">
+								<label>Email Address</label>
+								<input type="text" class="form-control input-sm bounceIn animation-delay2 validate[required,custom[email]]" data-errormessage-value-missing="Email is required!" data-errormessage-custom-error="Let me give you a hint: someone@nowhere.com" 
+								data-errormessage="This is the fall-back error message." 
+								placeholder="Email" value="" name="email" id="email">
+							</div>
+							<div class="form-group">
+								<label>Phone Number</label>
+								<input type="text"  class="form-control input-sm bounceIn animation-delay2 validate[required,custom[integer]]" placeholder="Phone Number" value="" 
+								name="phoneNumber" id="phoneNumber">
+							</div>
+							<div class="form-group">
+								<label>Password</label>
+								<input type="password" placeholder="Password" class="form-control input-sm bounceIn animation-delay4 validate[required]" placeholder="Password" value="" name="password" id="password">
+							</div>
+							<div class="form-group">
+								<label>Confirm Password</label>
+								<input type="password" placeholder="Confirm Password" class="form-control input-sm bounceIn animation-delay4 validate[required]" value="" name="confirm_password" id="confirm_password">
+							</div>
+							<div class="form-group">
+								<label>User Type</label>
+								<select class="userType form-control input-sm bounceIn animation-delay4 validate[required]"  name="userType" id="userType">
+								<option value="">select user type</option>
+								<?php 
+								print_r($userType);
+									foreach($userType as $type)
+									{
+									?>
+										<option value="<?php echo $type['id']; ?>"><?php echo $type['type']; ?> </option>	
+									<?php
+									}
+								?>
+								</select>
+							</div>
+							<div class="seperator"></div>
+							<hr/>
+							<button class="button btn btn-success btn-large" id="btn_submit"><i class="fa fa-sign-in"></i> Sign In</button>	
+							<!--<button type="submit" id="btn_submit" class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right"><i class="fa fa-sign-in"></i> Sign in</button>-->
+						</form>
+					</div>
+						
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+			</div>
 			
-			<div class="login-actions">
-				<span class="login-checkbox">
-					<input type="checkbox" tabindex="4" value="First Choice" class="field login-checkbox validate[required]" name="Field" id="Field">
-					<label for="Field" class="choice">Agree with the Terms &amp; Conditions.</label>
-				</span>
-				<input type="hidden" name="submit" value="submit" >			
-				<button id="btn_submit" class="button btn btn-primary btn-large" data-loading-text="Loading..." data-toggle="buttons"> Register</button>
-			</div> <!-- .actions -->
-		</form>
-	</div> <!-- /content -->
+		</div><!-- /.row -->
+	
+	
 </div>
+	
 <script>
-	$(document).ready(function(){
+	$(function	()	{
 		$('#frm_signup').ajaxForm({
 			beforeSubmit : function(){
 				$("#btn_submit").button('loading');
@@ -130,6 +144,6 @@
 				}
 			}
 		});
-		$("#frm_signup").validationEngine();
+		//$("#frm_signup").validationEngine();
 	});
 </script>

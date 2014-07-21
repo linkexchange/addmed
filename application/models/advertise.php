@@ -9,12 +9,11 @@ class Advertise extends CI_Model{
 	}
 
 	public function getAds($uid=0,$limit=0){
-		if($limit!="All"){
 			$numberofrecords=10;
 			if($limit>0)
 				$limit=$limit-1;	
 			$startRecord=$limit*$numberofrecords;
-		}
+		
 		$this->db->select($this->config->item('table_advertises').".*,".$this->config->item('table_templates').".name");
 		$this->db->from($this->config->item('table_advertises'));
 		$this->db->join($this->config->item('table_templates'),$this->config->item('table_advertises').".templateID = ".$this->config->item('table_templates').".id",'left');
@@ -24,9 +23,8 @@ class Advertise extends CI_Model{
 		
 
 		$this->db->order_by($this->config->item('table_advertises').".templateID", "ASC"); 
-		if($limit!="All"){
-			$this->db->limit($numberofrecords,$startRecord);
-		}
+		$this->db->limit($numberofrecords,$startRecord);
+		
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->result_array();
