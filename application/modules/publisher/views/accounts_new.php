@@ -4,8 +4,7 @@ ob_start();
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-$config = $this->config->item('facebook');
-$this->load->library('Facebook', $config);
+
 ?>
 
 
@@ -61,7 +60,7 @@ $this->load->library('Facebook', $config);
                 <div class="panel-heading" style="text-align:right;">
                     Connect Your Social Media Accounts : 
                     <a class="btn btn-twitter btn-social-media" href="<?php echo base_url(); ?>twitter/twitter/connectTwitter"><i class="fa fa-twitter fa-lg"></i></a>
-                    <a class="btn btn-facebook btn-social-media" href="<?php echo $this->facebook->getLoginUrl(array('scope'=>'email,picture,likes')); ?>"><i class="fa fa-facebook fa-lg"></i></a>
+                    <a class="btn btn-facebook btn-social-media" href="<?php echo $facebookUrl; ?>"><i class="fa fa-facebook fa-lg"></i></a>
                     <a class="btn btn-tumblr btn-social-media" href="<?php echo base_url(); ?>tumblr/dashboard/connect"><i class="fa fa-tumblr fa-lg"></i></a>
                     <a class="btn btn-instagram btn-social-media"><i class="fa fa-instagram fa-lg"></i></a>
                 </div>

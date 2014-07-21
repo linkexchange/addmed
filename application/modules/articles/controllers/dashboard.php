@@ -1,33 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Dashboard extends MX_Controller{
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('template');
-		$this->load->model('article');
-		if($this->session->userdata("userType")=="admin")
-		{
-			$this->layout->setLayout("layout/admin");
-		}
-		else if($this->session->userdata("userType")=="publisher")
-		{
-			$this->layout->setLayout("layout/publisher");
-		}
-		if(!$this->session->userdata("userType"))
-		{
-			redirect(base_url().'user/login');
-		}
-	}
 	// view article dashboard.
 	public function index($tid=0,$bid=0,$page=1){
 		$data[]="";
 		if($tid==0 && $bid==0){
+			$this->load->model('template');
+			$this->load->model('article');
 			$data['articles']=$this->article->getArticles($this->session->userData('userID'),$page);
 			$data['count']=$this->article->getArticlesCount($this->session->userData('userID'));
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_by_blogs',$data);
 		}
 		else
@@ -46,6 +31,7 @@ class Dashboard extends MX_Controller{
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_by_blogs',$data);
 		}
 	}
@@ -282,6 +268,7 @@ class Dashboard extends MX_Controller{
 				$data['currentBlogID']=$bid;
 				$data['blogs']=$this->blog->getBlogsByTemplate($this->session->userData('userID'),$tid,$page);
 			}
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_multiple_article',$data);
 		
 	}
@@ -289,6 +276,7 @@ class Dashboard extends MX_Controller{
 	public function getGalleryItemBlocks($hint="0"){
 		if($hint){
 			$data['hint']=$hint;
+			$this->layout->setLayout("layout/main");
 			$this->load->view('gallery_items',$data);
 		}
 	}
@@ -300,17 +288,10 @@ class Dashboard extends MX_Controller{
 
 		$this->load->model('blog');
 		$data['blogs']=$this->blog->getBlogsByTemplate($this->session->userData('userID'),$tempID,$page);
+		$this->layout->setLayout("layout/main");
 		$this->load->view('ajax_blogs_by_template',$data);
 	}
-	public function getTemplateBlogs2($tempID,$bid=0,$page="ALL"){
-		$data[]="";
-		if($bid!=0)
-			$data['cur_blog_id']=$bid;
 
-		$this->load->model('blog');
-		$data['blogs']=$this->blog->getBlogsByTemplate($this->session->userData('userID'),$tempID,$page);
-		$this->load->view('add_article_ajax_post',$data);
-	}
 	// Delete article by id.
 	public function delete($id){
 		$this->load->model('article');
@@ -400,6 +381,7 @@ class Dashboard extends MX_Controller{
 			$this->load->model('template');
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 			
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_article',$data);
 		}
 	}
@@ -415,6 +397,7 @@ class Dashboard extends MX_Controller{
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 
+			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_by_blogs',$data);
 		}
 		else
@@ -454,6 +437,7 @@ class Dashboard extends MX_Controller{
 
 			$data['templates']=$this->template->getTemplates($this->session->userData('userID'),$page="All");
 
+			$this->layout->setLayout("layout/main");
 			$this->load->view('ajax_view_by_blogs',$data);
 		}
 	}
