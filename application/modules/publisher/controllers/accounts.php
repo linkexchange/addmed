@@ -16,8 +16,13 @@ class Accounts extends MX_Controller {
 		$this->load->model("clicksdetail");
                 $this->load->model('smaaccount');
 		$this->layout->setLayout('layout/publisher');
-                $config = $this->config->item('facebook');
+                $config = $this->config->item('facebook'); 
                 $this->load->library('Facebook', $config);  
+                $instagramConfig['apiKey'] = $this->config->item('instagram_apiKey'); 
+                $instagramConfig['apiSecret'] = $this->config->item('instagram_apiSecret'); 
+                $instagramConfig['apiCallback'] = $this->config->item('instagram_apiCallback');
+                //print_r($instagramConfig); exit;
+                $this->load->library('Instagram', $instagramConfig);  
 	}
 	/*public function index($page=1)
 	{
@@ -47,6 +52,7 @@ class Accounts extends MX_Controller {
            
             //$this->facebook->destroySession();
             $data['facebookUrl']=$this->facebook->getLoginUrl(array('scope'=>'email'));
+            $data['instagramUrl']=$this->instagram->getLoginUrl();
             
             $data['totalTwitterFollowers']=$this->smaaccount->getTotalFollowers($this->session->userData('userID'),'Twitter');
             $data['totalTwitterPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Twitter');

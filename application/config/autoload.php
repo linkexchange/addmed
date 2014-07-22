@@ -80,7 +80,7 @@ $autoload['helper'] = array('url');
 |
 */
 
-$autoload['config'] = array('table');
+$autoload['config'] = array('table', 'facebook', 'instagram');
 
 
 /*
