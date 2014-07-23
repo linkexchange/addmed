@@ -45,15 +45,15 @@ ob_start();
 <div id="main-container">
     <div id="breadcrumb">
         <ul class="breadcrumb">
-            <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
-            <li class="active">Blank page</li>	 
+            <li><i class="fa fa-home"></i><a href="<?php echo base_url(); ?>"> Home</a></li>
+            <li class="active">Accounts</li>	 
 	</ul>
     </div>
+    <?php //echo "<pre>"; print_r($this->session->all_userdata()); echo "</pre>"; ?>
     <?php //echo "<pre>"; print_r($twitterProfileCount); echo "</pre>"; ?>     
     <div class="padding-md">
         <div class="row">
-            <!-- <?php if(($this->session->flashdata('error'))): ?><div id="errorMessage" class="alert alert-danger"><?php  echo $this->session->flashdata('error'); ?></div><?php endif; ?>
-            <?php if(($this->session->flashdata('succ'))): ?><div id="successMessage" class="alert alert-success"><?php echo $this->session->flashdata('succ'); ?></div><?php endif; ?> -->
+            
             <div id="successMessage" class="alert alert-success" style="display:none;"></div>
             <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
             <div class="panel panel-default">
@@ -116,12 +116,12 @@ ob_start();
                 <div class="social-box instagram">
                     <i class="fa fa-instagram"></i>
                     <ul>
-                        <li>
-                            <strong>894</strong>
-                            <span>followers</span>
+                       <li>
+                            <strong id="tumblr-followers"><?php echo $totalInstagramFollowers[0]['smaAccountFollowers']; ?></strong>
+                            <span>Followers</span>
 			</li>
 			<li>
-                            <strong>92</strong>
+                           <strong id="tumblr-posts"><?php echo $totalInstagramPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Posts</span>
 			</li>
                     </ul>
@@ -359,60 +359,66 @@ ob_start();
 			<div id="instagram" class="tab-pane fade">
                             <table class="table table-hover table-striped">
                                 <tbody>
-                                    <?php for($i=1;$i<=10;$i++) : ?>
-                                    <tr id="">
-                                        
+                                    <?php foreach($instagramProfiles as $accRecord) : ?>
+                                    <tr id="sma-acc-<?php echo $accRecord['id']; ?>">
                                             <td class="acc_image">
                                                 <span class="img-demo">
-                                                    IMAGE <?php echo $i; ?>
+                                                    <img src="<?php echo $accRecord['smaAccountProfileImageUrl']; ?>" />
                                                 </span>
-                                            </td>  
+                                            </td>   
                                             <td class="acc_name">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <h4><strong>Instagram <?php echo $i; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span>
-                                                    <span class="text-muted block">$360</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountName']; ?></strong></h4>
                                                 </div>
                                             </td>
+                                            
                                             <td class="acc_followers">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <h4><strong><?php echo $i*1000; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountFollowers']; ?></strong></h4>
                                                     <span class="text-muted block">Followers</span> 
                                                 </div>
                                             </td>
                                             <td class="acc_posts">
                                                 <div class="pull-left m-left-sm m-top-sm">
-                                                    <h4><strong><?php echo $i*100; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountPosts']; ?></strong></h4>
                                                     <span class="text-muted block">Posts</span> 
                                                 </div>
                                             </td>
-                                            <td class="acc_posts">
+                                            <!-- <td class="acc_likes">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <h4><strong><?php echo $accRecord['smaAccountLikes']; ?></strong></h4>
+                                                    <span class="text-muted block">Likes</span> 
+                                                </div>
+                                            </td> -->
+                                            <td class="acc_actions">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <a href="">
-                                                    <h4><strong>Disconnect</strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <a href="javascript:void(0);" title="Disconnect" alt="Disconnect" onclick="removeRecord(<?php echo $accRecord['id']; ?>,1,'<?php echo 'Instagram'; ?>');">
+                                                        <h4><strong> <i class="fa fa-ban"></i></strong></h4> 
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endfor; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <ul class="pagination pagination-split m-bottom-md">
-				<li><a href="#">Previous</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">6</a></li>
-				<li><a href="#">7</a></li>
-				<li><a href="#">8</a></li>
-				<li><a href="#">9</a></li>
-				<li><a href="#">Next</a></li>
-                            </ul>
+                            <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?>
+                            <?php if($instagramProfileCount>$mod) : ?>
+                                <ul class="pagination pagination-split m-bottom-md">
+                                    <!-- <li><a href="#">Previous</a></li> -->
+                                    <?php for($i=1;$i<=$instagramProfileCount;$i++) : ?>
+                                        <?php if(($i%$mod)==0) : ?>
+                                            <?php if($inc==1) : ?>
+                                    <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Instagram'; ?>');"><?php echo $inc; ?></a></li>
+                                                <?php $next=$inc+1; ?>
+                                            <?php else : ?>
+                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Instagram'; ?>');"><?php echo $inc; ?></a></li>
+                                            <?php endif; ?>
+                                            <?php $inc++; ?>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Instagram'; ?>');">Next</a></li>          
+                                </ul>     
+                            <?php endif; ?>
 			</div><!-- /tab-pane -->
 			</div><!-- /tab-content -->
                         </div>
@@ -434,6 +440,9 @@ ob_start();
                 }
                 if(type=='Tumblr'){
                     $('#tumblr').html(result);
+                }
+                if(type=='Instagram'){
+                    $('#instagram').html(result);
                 }
                 
             	//$(".accepted table").html(result);

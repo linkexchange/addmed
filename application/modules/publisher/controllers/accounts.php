@@ -50,6 +50,7 @@ class Accounts extends MX_Controller {
 	{
             $data="";
            
+          
             //$this->facebook->destroySession();
             $data['facebookUrl']=$this->facebook->getLoginUrl(array('scope'=>'email'));
             $data['instagramUrl']=$this->instagram->getLoginUrl();
@@ -63,6 +64,11 @@ class Accounts extends MX_Controller {
             $data['totalTumblrPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Tumblr');
             $data['tumblrProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Tumblr',$page);
             $data['tumblrProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Tumblr');
+            
+            $data['totalInstagramFollowers']=$this->smaaccount->getTotalFollowers($this->session->userData('userID'),'Instagram');
+            $data['totalInstagramPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Instagram');
+            $data['instagramProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Instagram',$page);
+            $data['instagramProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Instagram');
             
             $this->layout->view('accounts_new',$data);
 	}
@@ -188,5 +194,6 @@ class Accounts extends MX_Controller {
         $this->facebook->destroySession();
         redirect(base_url('/publisher/accounts'));
     }
+    
 }
 ?>
