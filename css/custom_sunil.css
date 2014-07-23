@@ -32,7 +32,9 @@
 #tumblr .acc_name{
     width: 30%;
 }
-
+.table thead tr th{
+vertical-align : middle;
+}
 
     .social-box {
     background: none repeat scroll 0 0 white;

@@ -5,11 +5,23 @@ class Dashboard extends MX_Controller{
 	public function __construct()
 	{
 		parent::__construct();
+		
+		if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
 		$this->load->model('article');
 		$this->load->model('blog');
 		$this->load->model('page');
 		$this->load->model('template');
-		$this->layout->setLayout("layout/main");
 	}
 	public function index($page=1){
 		
@@ -26,7 +38,7 @@ class Dashboard extends MX_Controller{
 		if($this->input->post())
 		{
 			if($_FILES["image"]) : 
-				$config['upload_path'] = './stc_forum/uploads/forum_article_images/';
+				$config['upload_path'] = './uploads/forum_article_images/';
 				$config['allowed_types'] = 'gif|jpg|png';
 				$config['max_size']	= '20000';
 				$this->load->library('upload', $config);
@@ -52,6 +64,7 @@ class Dashboard extends MX_Controller{
 				$insert_id=$this->article->add_forum_article($articleData);
 				if($insert_id)
 				{
+					$this->session->set_flashdata('edit', 'Article added successfully!');
 					echo 100;
 				}
 				else
@@ -101,7 +114,7 @@ class Dashboard extends MX_Controller{
 	public function delete($id){
 		if($id){
 			$this->article->deleteForumArticle($id);
-			$this->session->set_flashdata('message', 'Article deleted successfully!');
+			$this->session->set_flashdata('edit', 'Article deleted successfully!');
 			redirect(base_url()."article/dashboard");
 		}
 		else
@@ -115,34 +128,34 @@ class Dashboard extends MX_Controller{
 		$data[]="";
 		if($this->input->post())
 		{
-				if(isset($_FILES["image"])) { 
-				$config['upload_path'] = './stc_forum/uploads/forum_article_images/';
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['max_size']	= '20000';
-				$this->load->library('upload', $config);
+			if(isset($_FILES["image"])) { 
+			$config['upload_path'] = './uploads/forum_article_images/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '20000';
+			$this->load->library('upload', $config);
 
-					if ( ! $this->upload->do_upload("image"))
-					{
-						echo $this->upload->display_errors();
-						exit;
-					}
-					else
-					{
-						$data['image_data'] = array('upload_data' => $this->upload->data());
-						$uploaded_file=$data['image_data']['upload_data']['file_name'];
-					}
-				}	
-					$slug = url_title($this->input->post('articleTopic'), 'dash', TRUE);
-					$articleData["topic"]=$this->input->post('articleTopic');
-					$articleData["slug"]=$slug;
-					if(isset($uploaded_file)){
-					$articleData["image"]=$uploaded_file; 
-					}
-					$articleData["description"]=$this->input->post('articleDescription');
-					$articleData["updated_by"]=$this->session->userData('userID');
-					$articleData["updated_date"]= date('Y-m-d');
-					$updated_id=$this->article->updateForumArticle($articleData,$aid);
-					echo 100;
+				if ( ! $this->upload->do_upload("image"))
+				{
+					echo $this->upload->display_errors();
+					exit;
+				}
+				else
+				{
+					$data['image_data'] = array('upload_data' => $this->upload->data());
+					$uploaded_file=$data['image_data']['upload_data']['file_name'];
+				}
+			}	
+				$slug = url_title($this->input->post('articleTopic'), 'dash', TRUE);
+				$articleData["topic"]=$this->input->post('articleTopic');
+				$articleData["slug"]=$slug;
+				if(isset($uploaded_file)){
+				$articleData["image"]=$uploaded_file; 
+				}
+				$articleData["description"]=$this->input->post('articleDescription');
+				$articleData["updated_by"]=$this->session->userData('userID');
+				$articleData["updated_date"]= date('Y-m-d');
+				$updated_id=$this->article->updateForumArticle($articleData,$aid);
+				echo 100;
 						
 		}
 		else

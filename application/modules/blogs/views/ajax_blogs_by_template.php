@@ -2,14 +2,14 @@
 <table class="table table-bordered table-striped dataTable">
 	<thead>
 		<tr>
-			<th><br/>Sr. </th>
-			<th><br/>Post Title</th>
-			<th><br/>Post Image</th>
+			<th>Sr. </th>
+			<th>Post Title</th>
+			<th>Post Image</th>
 			<!--<th>Blog Description</th>-->
-			<th><br/>Website Name</th>
-			<th><br/>Gallery Item Count</th>
-			<th><br/>Created Date</th>
-			<th class="td-actions"><br/>Actions</th>
+			<th>Website Name</th>
+			<th>Gallery Item Count</th>
+			<th>Created Date</th>
+			<th class="td-actions">Actions</th>
 		</tr>
 	</thead>
 	

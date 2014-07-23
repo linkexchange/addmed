@@ -20,13 +20,13 @@
 						<table class="table table-bordered table-striped dataTable">
 							<thead>
 								<tr>
-									<th><br/>Sr. </th>
-									<th><br/>Website Name</th>
-									<th><br/>API Key</th>
+									<th>Sr. </th>
+									<th>Website Name</th>
+									<th>API Key</th>
 									<!-- <th>View</th> -->
-									<th><br/>Website Created Date</th>
-									<th><br/>Last Updated On</th>
-									<th><br/>HTML Created Date</th>
+									<th>Website Created Date</th>
+									<th>Last Updated On</th>
+									<th>HTML Created Date</th>
 									<th class="td-actions">Actions</th>
 								</tr>
 							</thead>

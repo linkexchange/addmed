@@ -22,11 +22,11 @@ $(document).ready(function(){
 						<table class="table table-bordered table-striped dataTable">
 							<thead>
 								<tr>
-									<th><br/>Sr. </th>
-									<th><br/>Website Title</th>
-									<th><br/>Created Date</th>
-									<th><br/>Updated Date</th>
-									<th class="td-actions"><br/>Actions</th>
+									<th>Sr. </th>
+									<th>Website Title</th>
+									<th>Created Date</th>
+									<th>Updated Date</th>
+									<th class="td-actions">Actions</th>
 								</tr>
 							</thead>
 							<tbody>

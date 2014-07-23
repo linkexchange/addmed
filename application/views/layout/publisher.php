@@ -27,6 +27,7 @@
 	
 	<!-- Endless -->
 	<link href="<?php echo base_url();?>css/endless.min.css" rel="stylesheet">
+	<link href="<?php echo base_url();?>css/custom_sunil.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>css/endless-skin.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>css/font-awesome.min_1.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo base_url(); ?>css/froala_editor.min.css" rel="stylesheet" type="text/css">

@@ -9,7 +9,18 @@ class Listing extends MX_Controller{
 		$this->load->model('page');
 		$this->load->model('template');
 		$this->load->helper('url');
-		$this->layout->setLayout('layout/main_login');
+		if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userID"))
+		{
+			redirect(base_url().'user/login');
+		}
 	}
 	public function index($page=1){
 		$data['articles'] = $this->article->getAllForumArticles($page);
@@ -84,6 +95,7 @@ class Listing extends MX_Controller{
 			$data['article']  =	$this->article->getForumArticleByID($id);
 			$data['comments'] = $this->article->getAllComments($id);
 			$data['replies']  = $this->article->getAllReplies($id);
+			$data["popular_articles"] = $this->article->getPopularArticles();
 			$this->layout->view('description',$data);	
 		}
 	}

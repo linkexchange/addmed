@@ -65,18 +65,18 @@ $(document).ready(function(){
 						<table class="table table-bordered table-striped dataTable">
 							<thead>
 								<tr>
-									<th><br/>Sr. </th>
-									<th><br/>Gallery Item Title</th>
+									<th>Sr. </th>
+									<th>Gallery Item Title</th>
 									<!-- <th>Gallery Item Image</th>
 									<th>Gallery Item Video</th> -->
-									<th><br/>Post Name</th>
-									<th><br/>Website Name</th>
-									<th><br/>Created Date</th>
-									<th><br/>Last Updated On</th>
+									<th>Post Name</th>
+									<th>Website Name</th>
+									<th>Created Date</th>
+									<th>Last Updated On</th>
 									<?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
-									<th><br/>Sort Order</th>
+									<th>Sort Order</th>
 									<?php endif; ?>
-									<th class="td-actions"><br/>Actions</th>
+									<th class="td-actions">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -204,15 +204,11 @@ $(document).ready(function(){
 		//complete: loadStopPub,
 		success:function(result){
                     if(result==1){
-<<<<<<< HEAD
                         $("#successMessage").html("Sort Order updated successfully for article ID "+aid+".");
-=======
-                        $("#successMessage").html("Sort order updated successfully for article ID "+aid+".");
->>>>>>> fdad8b1456a2a538ae1fe1588c676c950cc3a07e
 			$("#successMessage").show();
                     }
                     else if(result==0){
-                         $("#errorMessage").html("Sort order updation failed for article ID "+aid+".");
+                         $("#errorMessage").html("Sort Order updation failed for article ID "+aid+".");
 			$("#errorMessage").show();
                     }
             }});

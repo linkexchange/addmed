@@ -17,12 +17,12 @@
 				<div class="panel panel-default">
 					<div class="panel-heading clearfix">
 						<div class="pull-left">
-							<i class="fa fa-lock fa-lg"></i> Login
+							<i class="fa fa-lock fa-lg"></i> Sign-Up
 						</div>
 
 						<div class="pull-right">
-							<span style="font-size:11px;">Don't have any account?</span>
-							<a class="btn btn-default btn-xs login-link" href="<?php echo base_url();?>user/sign_up" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i> Sign up</a>
+							<span style="font-size:11px;">Back to login</span>
+							<a class="btn btn-default btn-xs login-link" href="<?php echo base_url();?>user/login" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i> Login</a>
 						</div>
 					</div>
 					<div class="panel-body">
@@ -74,7 +74,7 @@
 							</div>
 							<div class="seperator"></div>
 							<hr/>
-							<button class="button btn btn-success btn-large" id="btn_submit"><i class="fa fa-sign-in"></i> Sign In</button>	
+							<button class="button btn btn-success btn-large" id="btn_submit"><i class="fa fa-sign-in"></i> Sign Up</button>	
 							<!--<button type="submit" id="btn_submit" class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right"><i class="fa fa-sign-in"></i> Sign in</button>-->
 						</form>
 					</div>

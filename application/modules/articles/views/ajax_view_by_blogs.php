@@ -1,18 +1,18 @@
 <table class="table table-bordered table-striped dataTable">
 	<thead>
 		<tr>
-			<th><br/>Sr. </th>
-			<th><br/>Gallery Item Title</th>
+			<th>Sr. </th>
+			<th>Gallery Item Title</th>
 			<!-- <th>Gallery Item Image</th>
 			<th>Gallery Item Video</th> -->
-			<th><br/>Post Name</th>
-			<th><br/>Website Name</th>
-			<th><br/>Created Date</th>
-			<th><br/>Last Updated On</th>
+			<th>Post Name</th>
+			<th>Website Name</th>
+			<th>Created Date</th>
+			<th>Last Updated On</th>
 			<?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
-			<th><br/>Sort Order</th>
+			<th>Sort Order</th>
 			<?php endif; ?>
-			<th class="td-actions"><br/>Actions</th>
+			<th class="td-actions">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
