@@ -95,7 +95,7 @@ $(document).ready(function(){
 										if(($i%$mod)==0) :
 							?>
 							
-							<li class="<?php if($inc==$this->uri->segment(6))  echo "active"; else if(!($this->uri->segment(6)) && $inc==1)  echo "active";  ?>">
+							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active";  ?>">
 								<a href="<?php echo base_url()."article/dashboard/index/".$inc; ?>"><?php echo $inc;?></a>
 							</li>
 							

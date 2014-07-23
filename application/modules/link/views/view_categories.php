@@ -1,33 +1,25 @@
-<?php if($this->session->flashdata('message')) : ?>
-<script>
-$(document).ready(function(){
-	$("#successMessage").show();
-});
-</script>
-<?php endif; ?>
 
-		<?php if($this->session->userdata("userTypeID")==1) : ?>
-		<div class="widget"> 
-			<div class="span12 offset10"> 
-				<button class="btn btn-primary btn-large  icon-anchor" onclick="javascript:goto('link/adLinkCategory')">Add Category</button>
+
+<div id="main-container">
+	<div class="padding-md">
+		<div class="panel panel-default table-responsive">
+			<div class="panel-heading">
+				<h3><b><i class="icon-anchor"></i> View Link Categories</b>
+				<span class="pull-right">
+					<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>link/adLinkCategory"> Add Link Category</a>
+				</span></h3>
 			</div>
-		</div>
-		<?php endif; ?>
-		<div class="widget widget-table action-table">
-			<div class="widget-header"> <i class="icon-th-list"></i>
-				<h3>Categories</h3>
-			</div>
-            <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-            <?php if(isset($msg)){?>
+			<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+			<?php if(isset($msg)){?>
 			<div id="successMessage" class="alert alert-success">
 				<?php echo $msg;?>
-			</div><?php } else {?>	
-			<div id="successMessage" class="alert alert-success" style="display:none">
-			<?php } ?>
+			</div>
+			<?php } else if($this->session->flashdata('message')){?>	
+			<div id="successMessage" class="alert alert-success">
 			<?php echo $this->session->flashdata('message');?></div>
-				<?php //echo "<pre>"; print_r($urls); echo "</pre>"; ?>
-			<!-- /widget-header -->
-			<div class="widget-content">
+			<?php } ?>
+			
+			<div class="padding-md clearfix">
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
@@ -82,7 +74,8 @@ $(document).ready(function(){
 							endfor;
 						endif;
 					?> &nbsp;
-				</div>
-			</div>
-			<!-- /widget-content --> 
-		</div>
+				</div>		
+			</div><!-- /.padding-md -->
+		</div>	
+	</div><!-- /.padding-md -->
+</div>

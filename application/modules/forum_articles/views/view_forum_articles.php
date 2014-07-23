@@ -54,6 +54,28 @@
 					</div>
 				</div>
 			<?php } } ?>
+			<?php if($count>10) : ?>
+				<div class="panel-footer clearfix">
+					<ul class="pagination pagination-split m-bottom-md">
+						<li><a href="#">Pages</a></li>
+						<?php 
+							$mod=10; $inc=1;
+							if($count>$mod) :
+								for($i=0;$i<=$count;$i++) :
+									if(($i%$mod)==0) :
+						?>
+						<li class="<?php if($inc==$this->uri->segment(3))  echo "active"; else if(!($this->uri->segment(3)) && $inc==1)  echo "active";  ?>">
+							<a href="<?php echo base_url()."articles/index/".$inc; ?>"><?php echo $inc;?></a>
+						</li>
+						<?php
+										$inc++;
+									endif;
+								endfor;
+							endif;
+							?>
+					</ul>
+				</div>
+			<?php endif; ?>	
 		</div>
 	<!--<div class="panel-footer clearfix">
 		<ul class="pagination pagination-xs m-top-none pull-right">

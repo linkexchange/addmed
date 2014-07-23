@@ -2,6 +2,22 @@
 
 class Dashboard extends MX_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		if($this->session->userdata("userType")=="publisher")
+		{
+			$this->layout->setLayout("layout/publisher");
+		}
+		else if($this->session->userdata("userType")=="admin")
+		{
+			$this->layout->setLayout("layout/admin");
+		}
+		if(!$this->session->userdata("userType"))
+		{
+			redirect(base_url().'user/login');
+		}
+	}
 	public function index()
 	{
 		$this->load->model("user");
@@ -15,6 +31,12 @@ class Dashboard extends MX_Controller {
 
 		$this->layout->setLayout("layout/admin");
 		$this->layout->view('dashboard',$data);
+	}
+	public function user()
+	{
+		$this->load->model("user");
+		$data['users']=$this->user->getAllUser();
+		$this->layout->view('users',$data);
 	}
 	public function cronrun(){
 			$data="";

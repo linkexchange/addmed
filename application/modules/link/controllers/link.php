@@ -90,8 +90,6 @@ class Link extends MX_Controller {
 	}
 	public function adLinkCategory()
 	{
-		$this->layout->setLayout("layout/main");
-		//echo "<pre>"; print_R($data); exit;
 		$this->layout->view('add_link_category');
 	}
 	public function edit()
@@ -128,7 +126,7 @@ class Link extends MX_Controller {
 	public function editCategory()
 	{
 		$this->load->model("url");
-		if($this->input->post('save'))
+		if($this->input->post())
 		{
 			$data = array('category_name'=>$this->input->post('category'),
 						  'updated_date' =>date('Y-m-d'),
@@ -137,14 +135,12 @@ class Link extends MX_Controller {
 			$data['msg'] = "Category updated successfully";
 			$data['cats']=$this->url->getAllCategories($page=1);
 			$data['cats_count']=$this->url->getCatCount();
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_categories',$data);
 		}	
 		else
 		{
 			$result = $this->url->getCatById($this->uri->segment(3));
 			$data['cats']=$result[0];
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('edit_category',$data);
 		}
 	}
@@ -181,7 +177,6 @@ class Link extends MX_Controller {
 		if($this->url->isExistCategory($data))
 		{
 			$data['msg'] = "Category name already exists.";
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('add_link_category',$data);	
 		}
 		else
@@ -190,7 +185,6 @@ class Link extends MX_Controller {
 			$data['msg'] = "Category added successfully";
 			$data['cats']=$this->url->getAllCategories($page=1);
 			$data['cats_count']=$this->url->getCatCount();
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('view_categories',$data);
 		}
 	}
@@ -226,14 +220,11 @@ class Link extends MX_Controller {
 		$this->load->model("url");
 		$data['cats']=$this->url->getAllCategories($page);
 		$data['cats_count']=$this->url->getCatCount();
-		$this->layout->setLayout("layout/main");
-		//echo "<pre>"; print_R($data); exit;
 		$this->layout->view('view_categories',$data);
 	}
 	public function setCPC()
 	{
 		$data['categories'] = $this->url->get_all_categories();
-		$this->layout->setLayout("layout/main");
 		$this->layout->view('set_cpc',$data);	
 	}
 	public function setCPCValue()
@@ -241,9 +232,8 @@ class Link extends MX_Controller {
 		$this->load->model("url");
 		$result=0;
 		$data = array('cost_per_click' =>$this->input->post('cpc'),
-						'updated_date'=>date('Y-m-d'),
-						'updated_by'=>$this->session->userData('userID')
-				);
+					  'updated_date'=>date('Y-m-d'),
+				      'updated_by'=>$this->session->userData('userID'));
 		$catid = $this->input->post('category');
 		$result=$this->url->addCPC($catid,$data);
 		if($result){
@@ -253,19 +243,10 @@ class Link extends MX_Controller {
 				);
 
 			if($this->url->updateUrlPPCByCategory($catid,$urldata)){
-				$data['msg'] = "CPC added successfully";
+				echo 102;
 			}
-			else
-			{
-
-			}
-
 		}
 		
-		$data['cats']=$this->url->getAllCategories($page=1);
-		$data['cats_count']=$this->url->getCatCount();
-		$this->layout->setLayout("layout/main");
-		$this->layout->view('view_categories',$data);
 	}
 
 	public function getCategoryCPC($catID=""){

@@ -124,18 +124,29 @@
 				<!--</div><!-- /search-block -->
 				<div class="main-menu">
 					<ul>
-						<li <?php if($this->uri->segment(1)=="admin"){ echo "class='active'";}?>>
+						<li <?php if(($this->uri->segment(1)=="admin")&&(!$this->uri->segment(3)=="user")){ echo "class='active'";}?>>
 							<a href="<?php echo base_url()."admin/dashboard"; ?>">
 								<span class="menu-icon">
 									<i class="fa fa-dashboard fa-lg"></i> 
 								</span>
 								<span class="text">
-									Dashborad
+									Dashboard
 								</span>
 								<span class="menu-hover"></span>
 							</a>
 						</li>
-						<li <?php if($this->uri->segment(1)=="link"){ echo "class='active'";}?>>
+						<li <?php if($this->uri->segment(3)=="user"){ echo "class='active'";}?>>
+							<a href="<?php echo base_url()."admin/dashboard/user"; ?>">
+								<span class="menu-icon">
+									<i class="fa fa-user fa-lg"></i> 
+								</span>
+								<span class="text">
+									Users
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+						<li <?php if(($this->uri->segment(1)=="link")&&($this->uri->segment(2)=="")){ echo "class='active'";}?>>
 							<a href="<?php echo base_url().'link';?>">
 								<span class="menu-icon">
 									<i class="fa fa-anchor fa-lg"></i> 
@@ -146,7 +157,7 @@
 								<span class="menu-hover"></span>
 							</a>
 						</li>	
-						<li class="openable <?php if($this->uri->segment(1)=="reports"){ echo "class='active'";}?>">
+						<li class="openable <?php if($this->uri->segment(1)=="reports"){ echo "open active";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-list-alt fa-lg"></i> 
@@ -158,12 +169,15 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="<?php echo base_url().'reports/dashboard'; ?>"><span class="submenu-label">Report of Links</span></a></li>
-								<li><a href="<?php echo base_url().'reports/dashboard/publisher';?>"><span class="submenu-label">Report of Publishers</span></a></li>
-								<li><a href="<?php echo base_url().'reports/dashboard/advertiser';?>"><span class="submenu-label">Report of Advertisers</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>>
+								<a href="<?php echo base_url().'reports/dashboard'; ?>"><span class="submenu-label">Report of Links</span></a></li>
+								<li <?php if($this->uri->segment(3)=="publisher"){ echo "class='active'";}?>>
+								<a href="<?php echo base_url().'reports/dashboard/publisher';?>"><span class="submenu-label">Report of Publishers</span></a></li>
+								<li <?php if($this->uri->segment(3)=="advertiser"){ echo "class='active'";}?>>
+								<a href="<?php echo base_url().'reports/dashboard/advertiser';?>"><span class="submenu-label">Report of Advertisers</span></a></li>
 							</ul>
 						</li>
-						<li class="openable <?php if($this->uri->segment(2)=="adLinkCategory"){ echo "class='active'";}?>">
+						<li class="openable <?php if(($this->uri->segment(1)=="link")&&($this->uri->segment(2)!="")){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-anchor fa-lg"></i> 
@@ -175,12 +189,15 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li><a href="<?php //echo base_url().'link/adLinkCategory'; ?>"><span class="submenu-label">Add Link Category</span></a></li>
-								<li><a href="<?php //echo base_url().'link/viewCategories';?>"><span class="submenu-label">View Link Categories</span></a></li>
-								<li><a href="<?php //echo base_url().'link/setCPC';?>"><span class="submenu-label">set CPC for category</span></a></li>
+								<li <?php  if(($this->uri->segment(1)=="link")&&($this->uri->segment(2)=="adLinkCategory")){ echo "class='active'";}?>>
+								<a href="<?php echo base_url().'link/adLinkCategory'; ?>"><span class="submenu-label">Add Link Category</span></a></li>
+								<li <?php if(($this->uri->segment(1)=="link")&&($this->uri->segment(2)=="viewCategories")){ echo "class='active'";}?>>
+								<a href="<?php echo base_url().'link/viewCategories';?>"><span class="submenu-label">View Link Categories</span></a></li>
+								<li <?php if(($this->uri->segment(1)=="link")&&($this->uri->segment(2)=="setCPC")){ echo "class='active'";}?>>
+								<a href="<?php echo base_url().'link/setCPC';?>"><span class="submenu-label">set CPC for category</span></a></li>
 							</ul>
 						</li>
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="website"){ echo "open active";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-globe fa-lg"></i> 
@@ -197,7 +214,7 @@
 							</ul>
 						</li>
 
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="blogs"){ echo "open active";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-file-text fa-lg"></i> 
@@ -213,7 +230,7 @@
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'blogs/dashboard';?>"><span class="submenu-label">View posts</span></a></li>
 							</ul>
 						</li>
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="articles"){ echo "open active";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-sitemap fa-lg"></i> 
@@ -229,7 +246,7 @@
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'articles/dashboard';?>"><span class="submenu-label">View Gallery Item(s)</span></a></li>
 							</ul>
 						</li>
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="advertise"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-building fa-lg"></i> 
@@ -245,7 +262,7 @@
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard';?>"><span class="submenu-label">View Ads</span></a></li>
 							</ul>
 						</li>
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="pages"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-paperclip fa-lg"></i> 
@@ -261,7 +278,7 @@
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'pages/dashboard';?>"><span class="submenu-label">View Pages</span></a></li>
 							</ul>
 						</li>
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="forum"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-shield fa-lg"></i> 
@@ -273,11 +290,11 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'forum/dashboard'; ?>"><span class="submenu-label">View topics</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'forum/dashboard/users';?>"><span class="submenu-label">View users</span></a></li>
+								<li <?php if(($this->uri->segment(2)=="dashboard")&&($this->uri->segment(3)=="")){ echo "class='active'";}?>><a href="<?php echo base_url().'forum/dashboard'; ?>"><span class="submenu-label">View topics</span></a></li>
+								<li <?php if($this->uri->segment(3)=="users"){ echo "class='active'";}?>><a href="<?php echo base_url().'forum/dashboard/users';?>"><span class="submenu-label">View users</span></a></li>
 							</ul>
 						</li>
-						<li class="openable">
+						<li class="openable <?php if($this->uri->segment(1)=="article"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-tasks fa-lg"></i> 
@@ -289,8 +306,8 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php //echo base_url().'article/dashboard/add'; ?>"><span class="submenu-label">Add Article</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php //echo base_url().'article/dashboard';?>"><span class="submenu-label">View articles</span></a></li>
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'article/dashboard/add'; ?>"><span class="submenu-label">Add Article</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'article/dashboard';?>"><span class="submenu-label">View articles</span></a></li>
 							</ul>
 						</li>
 					</ul>

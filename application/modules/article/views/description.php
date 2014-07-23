@@ -124,26 +124,7 @@
 								</div>
 							</div>
 						</div>
-						<?php if($this->session->userdata('ForumUserID')) { ?>
-						<a href="#" id="comment" class="btn btn-primary">Post a Comment</a>	
-						<?php } else {?>
-						<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post Comment</a>	
-						<?php } ?>
-						<div id="comment_desc">
-							<h4 class="headline">
-								Add Comment
-								<span class="line"></span>
-							</h4>
-							<form action="" method="post" id="post_comment" class="form-horizontal">
-								<textarea class="form-control validate[required]" rows="10" name="comment_description"></textarea>
-								<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(3);?>">
-								<div class="seperator"></div>
-								<div class="text-right m-bottom-md">
-									<button type="submit" id="btn_comment" class="btn btn-success">Post Comment</button>
-									<a href="#" id="cancel" class="btn">Cancel</a>
-								</div>
-							</form>
-						</div>
+					
 						<?php if($comments){?>
 						<h4 class="headline">
 							Comments 
@@ -166,34 +147,7 @@
 										</small>
 									</div>
 									<p><?php echo $comments[$i]["description"];?></p>
-									<?php if($this->session->userdata('ForumUserID')) { ?>
-									<a href="#" onclick="display(<?php echo $i;?>);return false;" class="btn btn-primary">Post a Reply</a>	
-									<?php } else {?>
-									<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post Reply</a>	
-									<?php } ?>
-									<div id="reply_<?php echo $i;?>" style="display:none;">
-										<h4 class="headline">
-											Add Reply
-											<span class="line"></span>
-										</h4>
-										<form action="" method="post" id="frm_Reply_<?php echo $i?>" 
-										class="form-horizontal">
-											<textarea class="form-control validate[required]" rows="10" name="reply_description"></textarea>
-											<input type="hidden" name="commentid" value="<?php echo $comments[$i]["id"];?>">
-											<input type="hidden" name="articleid" value="<?php echo $this->uri->segment(3);?>">
-											<input type="hidden" name="articlename" value="<?php echo $this->uri->segment(2);?>">
-											<div class="seperator"></div>
-											<div class="text-right m-bottom-md">
-												<button type="submit" class="btn btn-success">Post Reply</button>
-												<a class="btn" onclick="hide('<?php echo $i;?>');return false;">Cancel</a>
-											</div>
-										</form>
-										<script>
-											jQuery(document).ready(function($){
-												$("#frm_Reply_<?php echo $i;?>").validationEngine();
-											});
-										</script>
-									</div>
+									
 									<?php if($replies){ ?>
 									<!-- Nested media object -->
 									<h4 class="headline">Replies

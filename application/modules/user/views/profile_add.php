@@ -1,124 +1,129 @@
-<div class="main">
-	<div class="main-inner">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-					<div class="widget">
-						<div class="widget-header"> <i class="icon-list-alt"></i>
-							<h3>Add Profile</h3>
-						</div>
-						<!-- /widget-header -->
-						<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
-						<div id="successMessage" class="alert alert-success" style="display:none"></div>
-						<div class="widget-content">
-							<div class="big-stats-container">
-								<div class="widget-content">
-									<form class="form-horizontal" id="frm_addprofile" action="" method="POST">
-											<fieldset>
-												<div class="control-group">											
-													<label for="username" class="control-label">Username</label>
-													<div class="controls">
-														<input type="text" value="" id="username" class="span6 validate[required]" name="userName">
-														<p class="help-block">Your username is for logging in and cannot be changed.</p>
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">								<label for="companyName" class="control-label">Company Name</label>
-													<div class="controls">
-														<input type="text" value="" id="companyName" name="companyName" class="span6 validate[required]">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="email" class="control-label">Email </label>
-													<div class="controls">
-														<input type="text" value="" id="email" name="email" class="span4 validate[required,custom[email]]" data-errormessage-value-missing="Email is required!" 
-														data-errormessage-custom-error="Let me give you a hint: someone@nowhere.com" 
-														data-errormessage="This is the fall-back error message." >
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<br><br>
-												<div class="control-group">											
-													<label for="phoneNumber" class="control-label">Phone Number</label>
-													<div class="controls">
-														<input type="text" value="" id="phoneNumber"  name="phoneNumber" 
-														placeholder="Phone Number."
-														 class="span6 validate[required,custom[integer]]">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="password" class="control-label">Password</label>
-													<div class="controls">
-														<input type="password" value="" id="password"  name="password" placeholder="Password"  class="span6 validate[required]">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">	
-													<label for="confirm_password" class="control-label">Confirm Password:</label>
-													<div class="controls">
-														<input type="password" class="login validate[equals[password]]" placeholder="Confirm Password" value="" name="confirm_password" id="confirm_password">
-													</div> <!-- /controls -->
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="companyAddress" class="control-label">Company Address</label>
-													<div class="controls">
-														<input type="text" value="" id="address" name="address" class="span6 ">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="city" class="control-label">City</label>
-													<div class="controls">
-														<input type="text" value="" id="city" name="city" class="span6 ">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">											
-													<label for="state" class="control-label">State</label>
-													<div class="controls">
-														<input type="text" value="" id="state" name="state" class="span6 ">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">									<label for="country" class="control-label">Country</label>
-													<div class="controls">
-														<input type="text" value="" id="country" name="country" class="span6 ">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">						<label for="zip" class="control-label">Zip</label>
-													<div class="controls">
-														<input type="text" value="" id="zipCode" name="zipCode" class="span6 ">
-													</div> <!-- /controls -->				
-												</div> <!-- /control-group -->
-												<div class="control-group">
-													<label for="userType" class="control-label">User Type:</label>
-													<div class="controls">
-														<select class="userType form-control validate[required]"  name="userType" id="userType">
-															<option value="">select user type</option>
-															<?php 
-															//print_r($userType);
-																foreach($userType as $type)
-																{
-																?>
-																	<option value="<?php echo $type['id']; ?>"><?php echo $type['type']; ?> </option>	
-																<?
-																}
-															?>
-														</select>
-													</div>
-												</div> <!-- /field -->
-												<div class="control-group">	
-													<div class="controls">
-														<button class="btn btn-primary" type="submit">Save</button> 
-														<a href="<?php echo base_url().'admin/dashboard' ?>" class="btn">Cancel</a>
-													</div>
-												</div> <!-- /control-group -->
-												
-											</fieldset>
-										</form>
-								</div>
-							</div>
-						</div>
-						<!-- /widget-header -->
+<div id="main-container">
+	<!--<div id="breadcrumb">
+		<ul class="breadcrumb">
+			 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
+			 <li>Form</li>	 
+			 <li class="active">Form Element</li>	 
+		</ul>
+	</div><!--breadcrumb-->
+	<div class="padding-md">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3> <i class="fa fa-user fa-lg"></i> Add Profile </h3></div>
+					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage" class="alert alert-success" style="display:none"></div>
+					<div style="width:70%;">
+					<div class="panel-body">
+						<form class="form-horizontal" id="frm_addprofile" action="" method="POST">
+							<div class="form-group">
+								<label for="username" class="col-lg-2 control-label">Username</label>
+								<div class="col-lg-10">
+									<input type="text" id="username" class="form-control validate[required]" name="userName">
+									<p class="help-block">Your username is for logging in and cannot be changed.</p>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							<div class="form-group">
+								<label for="companyName" class="col-lg-2 control-label">Company Name</label>
+								<div class="col-lg-10">
+									<input type="text" id="companyName" name="companyName" class="form-control validate[required]">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="email" class="col-lg-2 control-label"> Email</label>
+								<div class="col-lg-10">
+									 <input type="text" id="email" name="email" class="form-control validate[required]">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Password" class="col-lg-2 control-label">Password</label>
+								<div class="col-lg-10">
+									<input type="password" class="form-control validate[required]" placeholder="Password" value="" name="password" id="password">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Confirm Password" class="col-lg-2 control-label">Confirm Password</label>
+								<div class="col-lg-10">
+									<input type="password" class="form-control validate[equals[password]]" placeholder="Confirm Password" value="" name="confirm_password" id="confirm_password">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Phone Number" class="col-lg-2 control-label">Phone Number</label>
+								<div class="col-lg-10">
+									<input type="text" id="phoneNumber" placeholder="Phone Number" name="phoneNumber" class="form-control validate[required]">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Company Address" class="col-lg-2 control-label">Company Address</label>
+								<div class="col-lg-10">
+									<input type="text" id="address" name="address"  placeholder="Company Address" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="City" class="col-lg-2 control-label">City</label>
+								<div class="col-lg-10">
+									<input type="text" id="city" name="city" placeholder="City" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="State" class="col-lg-2 control-label">State</label>
+								<div class="col-lg-10">
+									<input type="text" id="state" name="state" placeholder="State" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Country" class="col-lg-2 control-label">Country</label>
+								<div class="col-lg-10">
+									<input type="text" id="country" name="country" placeholder="Country" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Zip" class="col-lg-2 control-label">Zip</label>
+								<div class="col-lg-10">
+									<input type="text" id="zipCode" name="zipCode" placeholder="Zip Code" class="form-control">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<label for="Zip" class="col-lg-2 control-label">User Type:</label>
+								<div class="col-lg-10">
+									<select class="userType form-control validate[required]"  name="userType" id="userType">
+										<option value="">select user type</option>
+										<?php 
+										//print_r($userType);
+											foreach($userType as $type)
+											{
+											?>
+												<option value="<?php echo $type['id']; ?>"><?php echo $type['type']; ?> </option>	
+											<?php
+											}
+										?>
+									</select>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
+									<a href="<?php echo base_url().'admin/dashboard' ?>" class="btn btn-primary">Cancel</a>
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+						</form>
 					</div>
-				</div>
-			</div>
-		</div>
-	<div>
+					</div>
+				</div><!-- /panel -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.padding-md -->
 </div>
 <script>
 	$(document).ready(function(){
@@ -176,6 +181,5 @@
 				}
 			}
 		});
-		$("#frm_signup").validationEngine();
 	});
 </script>

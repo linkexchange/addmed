@@ -4,16 +4,26 @@ class Dashboard extends MX_Controller{
 	public function __construct()
 	{
 		parent::__construct();
+		if(!$this->session->userdata("userType"))
+		{
+			redirect(base_url().'user/login');
+		}
 		$this->load->model('forums');
 		$this->load->model("user");
 		$this->load->helper('url');
-		$this->layout->setLayout('layout/main');
+		$this->layout->setLayout('layout/admin');
 	}
 	public function index($page=1)
 	{
 		$data['topics'] = $this->forums->getAllTopics($page);
 		$data['count']  = $this->forums->getAllTopicsCount();
 		$this->layout->view('view_forum',$data);
+	}
+	public function delete($id)
+	{
+		$this->forums->deleteTopic($id);
+		$this->session->set_flashdata("msg","Topic deleted successfully");
+		redirect(base_url().'forum/dashboard');
 	}
 	public function view($id)
 	{

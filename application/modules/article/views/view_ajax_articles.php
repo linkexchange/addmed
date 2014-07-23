@@ -74,6 +74,6 @@
 <?php endif; ?>
 <?php } else { ?>
 <div id="errorMessage" class="alert alert-danger">
-	No records found.
+	No such articles exist
 </div>
 <?php } ?>

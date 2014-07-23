@@ -36,6 +36,6 @@ if($articles){
 		</div>
 	</div>
 <?php } } else {?>
-	<font color="red" size="3"> No such articles exist </font> 
+	<div class="alert alert-danger"> No such articles exist </div> 
 <?php } ?>		
 	
