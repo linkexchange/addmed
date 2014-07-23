@@ -9,7 +9,7 @@
     <tbody>
         <?php foreach($profiles as $accRecord) : ?>
             <tr id="sma-acc-<?php echo $accRecord['id']; ?>">
-                <?php if($accRecord['smaAccountTypeID']=='1') : ?>
+                <?php if($accRecord['smaAccountTypeID']=='1' || $accRecord['smaAccountTypeID']=='4') : ?>
                     <td class="acc_image">
                         <span class="img-demo">
                             <img src="<?php echo $accRecord['smaAccountProfileImageUrl']; ?>" />
