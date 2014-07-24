@@ -1,14 +1,14 @@
-
-
 <div id="main-container">
 	<div class="padding-md">
-		<div class="panel panel-default table-responsive">
-			<div class="panel-heading">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
 				<h3><b><i class="icon-anchor"></i> View Link Categories</b>
 				<span class="pull-right">
 					<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>link/adLinkCategory"> Add Link Category</a>
 				</span></h3>
 			</div>
+		</div> <br/>
+		<div class="panel panel-default table-responsive" style="border:1px solid #D6E9F3;">
 			<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 			<?php if(isset($msg)){?>
 			<div id="successMessage" class="alert alert-success">
@@ -58,7 +58,6 @@
 					</tbody>
 				</table>
 				<div class="widget-header" style="text-align:right;">
-					 
 					<?php 
 						$mod=10; $inc=1;
 						if($cats_count>$mod) :

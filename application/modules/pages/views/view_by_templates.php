@@ -29,15 +29,17 @@ $(document).ready(function(){
 <?php endif; ?>
 <div id="main-container">
 	<div class="padding-md">
-		<div class="panel panel-default table-responsive">
-					<div class="panel-heading">
-						<h3><b><i class="icon-paperclip"></i> View Pages</b>
-						<span class="pull-right">
-							<?php if($this->session->userdata("userTypeID")==3) : ?>
-								<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>pages/dashboard/add"> Add Page</a>
-							<?php endif; ?>
-						</span></h3>
-					</div>
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3><b><i class="icon-paperclip"></i> View Pages</b>
+				<span class="pull-right">
+					<?php if($this->session->userdata("userTypeID")==3) : ?>
+						<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>pages/dashboard/add"> Add Page</a>
+					<?php endif; ?>
+				</span></h3>
+			</div>
+		</div> <br/>
+		<div class="panel panel-default table-responsive" style="border:1px solid #D6E9F3;">
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none"><?php echo $this->session->flashdata('message');?></div>
 					<div class="panel-body">

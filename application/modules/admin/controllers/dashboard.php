@@ -22,13 +22,14 @@ class Dashboard extends MX_Controller {
 	{
 		$this->load->model("user");
 		$data['users']=$this->user->getAllUser();
+		$data['count']=$this->user->getAllUsersCount();
 		$this->load->model("url");
 		$data['totalLinks']=$this->url->getTotalLinks();
 		$data['publishedLinks']=$this->url->getTotalPublishedLinks();
 		$this->load->model("payments");
 		$data['totalPaidPayment']=$this->payments->getTotalPaidPayment();
 		$data['totalPayingPayment']=$this->payments->getTotalPayingPayment();
-
+		
 		$this->layout->setLayout("layout/admin");
 		$this->layout->view('dashboard',$data);
 	}
@@ -200,7 +201,6 @@ class Dashboard extends MX_Controller {
 			{
 				$data[]="";
 			}
-			$this->layout->setLayout("layout/main");
 			$this->layout->view('dashboard_settings',$data);
 		}
 		

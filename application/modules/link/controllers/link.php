@@ -232,8 +232,9 @@ class Link extends MX_Controller {
 		$this->load->model("url");
 		$result=0;
 		$data = array('cost_per_click' =>$this->input->post('cpc'),
-					  'updated_date'=>date('Y-m-d'),
-				      'updated_by'=>$this->session->userData('userID'));
+						'updated_date'=>date('Y-m-d'),
+						'updated_by'=>$this->session->userData('userID')
+				);
 		$catid = $this->input->post('category');
 		$result=$this->url->addCPC($catid,$data);
 		if($result){
@@ -243,10 +244,18 @@ class Link extends MX_Controller {
 				);
 
 			if($this->url->updateUrlPPCByCategory($catid,$urldata)){
-				echo 102;
+				$data['msg'] = "CPC added successfully";
 			}
+			else
+			{
+
+			}
+
 		}
 		
+		$data['cats']=$this->url->getAllCategories($page=1);
+		$data['cats_count']=$this->url->getCatCount();
+		$this->layout->view('view_categories',$data);
 	}
 
 	public function getCategoryCPC($catID=""){

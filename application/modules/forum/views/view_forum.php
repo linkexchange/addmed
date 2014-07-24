@@ -1,14 +1,11 @@
 <div id="main-container">
 	<div class="padding-md">
-		<div class="panel panel-default table-responsive">
-					<div class="panel-heading">
-						<h3><b><i class="icon-list-alt"></i> Forum</b></h3>
-						<!--<span class="pull-right">
-							<?php if($this->session->userdata("userTypeID")==3) : ?>
-								<a class="btn btn-success icon-anchor" href="<?php echo base_url();?>pages/dashboard/add"> Add Page</a>
-							<?php endif; ?>
-						</span>-->
-					</div>
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3><b><i class="icon-shield"></i> Forum</b></h3>
+			</div>
+		</div> <br/>
+		<div class="panel panel-default table-responsive" style="border:1px solid #D6E9F3;">
 					<?php if($this->session->flashdata('msg')) { ?>
 					<div id="successMessage" class="alert alert-success">
 						<?php echo $this->session->flashdata('msg');?>	

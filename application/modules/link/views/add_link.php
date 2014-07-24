@@ -27,10 +27,14 @@
 		</ul>
 	</div><!--breadcrumb-->
 	<div class="padding-md">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3><b><i class="icon-anchor"></i>  Add Link </b> </h3>
+			</div>
+		</div> <br/>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading"><h3><b><i class="icon-anchor"></i>  Add Link </b> </h3></div>
+				<div class="panel panel-default" style="border:1px solid #D6E9F3;">
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none"></div>
 					<div style="width:50%;">

@@ -7,16 +7,20 @@
 		</ul>
 	</div><!--breadcrumb-->
 	<div class="padding-md">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3> <i class="icon-building"></i> Add Ad </h3>
+			</div>
+		</div> <br/>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading"><h3> <i class="icon-building"></i> Add Ad </h3></div>
+				<div class="panel panel-default" style="border:1px solid #D6E9F3;">
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none"></div>
 					<div class="panel-body">
 						<form class="form-horizontal" id="frm_addAdvertise" action="" method="POST" enctype="multipart/form-data" >
 							<div class="form-group">
-								<label for="template" class="col-lg-2 control-label">select Website</label>
+								<label for="template" class="col-lg-2 control-label">Select Website</label>
 								<div class="col-lg-10">
 									<select id="templateID" name="templateID" class="form-control validate[required]" style="width:60%;">
 										<option value="">Please Select</option>

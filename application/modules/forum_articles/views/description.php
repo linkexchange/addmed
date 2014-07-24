@@ -250,22 +250,17 @@
 						</div>
 						<?php } ?>
 						
-						<h4 class="headline">
-							ABOUT THIS
-							<span class="line"></span>
-						</h4>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
-						</p>
+						
 						<h4 class="headline">
 							PHOTO STREAM
 							<span class="line"></span>
 						</h4>
 						<ul class="photo-stream">
-							<?php for($l=0;$l<count($popular_articles);$l++){?>
+							<?php for($n=0;$n<count($popular_articles);$n++){?>
+							<?php $art = url_title($popular_articles[$n]["topic"],'underscore',TRUE);?>
 							<li>
-								<a href="#">
-									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $popular_articles[$l]["image"];?>" alt="Photo Stream">
+								<a href="<?php echo base_url();?>article/<?php echo $art."/".$popular_articles[$n]["id"];?>">
+									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $popular_articles[$n]["image"];?>" alt="Photo Stream">
 								</a>
 							</li>
 							<?php } ?>

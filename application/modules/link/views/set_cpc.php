@@ -26,10 +26,14 @@
 		</ul>
 	</div><!--breadcrumb-->
 	<div class="padding-md">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3> <i class="icon-anchor"></i> Set CPC for category</h3>
+			</div>
+		</div> <br/>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading"><h3> <i class="icon-anchor"></i> Set CPC for category</h3></div>
+				<div class="panel panel-default" style="border:1px solid #D6E9F3;">
 					<?php if(isset($msg)){?>
 					<div id="errorMessage" class="alert alert-danger">
 					<?php echo $msg;?>
@@ -76,33 +80,8 @@
 	</div><!-- /.padding-md -->
 </div>
 <script>
-	$(document).ready(function(){
-		$('#frm_setCPC').ajaxForm({
-			beforeSubmit : function(){
-				$("#btn_submit").button('loading');
-				$("#successMessage").hide();
-				$("#errorMessage").hide();
-				if($("#frm_setCPC").validationEngine('validate'))
-				{
-					$("#btn_submit").button('loading');
-					return true;
-				}
-				else
-				{
-					$("#btn_submit").button('reset');
-					return false;
-				}
-			},
-			success :  function(responseText, statusText, xhr, $form){
-				$("#btn_submit").button("reset");
-				if(responseText>0)
-				{
-					$("#successMessage").html("CPC added successfully");
-					$("#successMessage").show();
-					window.location=base_url+"link/viewCategories";
-				}
-			}
-		});
+	jQuery(document).ready(function() {
+		// binds form submission and fields to the validation engine
+		jQuery("#frm_setCPC").validationEngine();
 	});
-
 </script>

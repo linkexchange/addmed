@@ -60,10 +60,13 @@
 </style>
 <div id="main-container">
 	<div class="padding-md">
-		<div class="panel panel-default table-responsive">
-					<div class="panel-heading">
-						<h3><b><i class="icon-th-list"></i> View Report</b></h3>
-					</div>
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3><b><i class="icon-list-alt"></i> View Report</b></h3>
+			</div>
+		</div> <br/>
+		<div class="panel panel-default table-responsive" style="border:1px solid #D6E9F3;">
+					
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none">
 					<?php echo $this->session->flashdata('message');?></div>

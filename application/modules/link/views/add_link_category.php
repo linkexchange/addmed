@@ -7,10 +7,14 @@
 		</ul>
 	</div><!--breadcrumb-->
 	<div class="padding-md">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3><b><i class="fa fa-anchor fa-lg"></i>  Add Link Category</b> </h3>
+			</div>
+		</div> <br/>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading"><h3> <i class="fa fa-anchor fa-lg"></i> Add Link Category </h3></div>
 					<?php if(isset($msg)){?>
 					<div id="errorMessage" class="alert alert-danger">
 					<?php echo $msg;?>

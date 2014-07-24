@@ -1,15 +1,7 @@
 <div id="main-container">
-	<div class="main-header clearfix">
-		<div class="page-title">
-			<h3 class="no-margin"><b>Welcome to Social traffic center</b></h3>
-		</div><!-- /page-title -->
-	</div>	
-	
 	<div class="padding-md">
-		
-	
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
-			<div class="panel-heading" style="border:1px solid #D6E9F3;">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
 				<h4><b><i class="fa fa-file-text fa-lg"></i> Articles</b> <span class="badge badge-danger"><?php echo count($articles);?> articles</span>
 				<input type="text" class="form-control input-sm pull-right" id="search2" placeholder="search here..." style="width:200px;"></span>
 				</h4>
