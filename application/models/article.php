@@ -3,7 +3,7 @@ class Article extends CI_Model{
 
 	// return article details by user ID.
 	public function getArticles($uid=0,$limit=0,$tid=0,$bid=0){
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -46,7 +46,7 @@ class Article extends CI_Model{
 		return $this->db->count_all_results();
 	}
 	public function getForumArticles($uid,$limit=0){
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -62,7 +62,7 @@ class Article extends CI_Model{
 		return $result->result_array();
 	}
 	public function getAllForumArticles($limit=0){
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;

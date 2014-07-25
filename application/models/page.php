@@ -3,7 +3,7 @@
 		
 		public function getPages($uid=0,$limit=0,$tid=0)
 		{
-			$numberofrecords=10;
+			$numberofrecords=(int)$this->config->item('record_limit');
 			if($limit>0)
 				$limit=$limit-1;	
 			$startRecord=$limit*$numberofrecords;
@@ -51,7 +51,7 @@
 		{
 			if($limit!="ALL")
 			{
-				$numberofrecords=10;
+				$numberofrecords=(int)$this->config->item('record_limit');
 				if($limit>0)
 					$limit=$limit-1;	
 				$startRecord=$limit*$numberofrecords;

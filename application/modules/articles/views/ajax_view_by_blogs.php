@@ -20,7 +20,7 @@
 		//echo $this->uri->segment(4);
 			$sr=1;
 			if($this->uri->segment(6)>1 ){
-				$sr=10*$this->uri->segment(6)-9;
+				$sr=(int)$this->config->item('record_limit')*$this->uri->segment(6)-((int)$this->config->item('record_limit')-1);
 			}
 		?>
 		<?php  foreach($articles as $article) : ?>
@@ -66,19 +66,20 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-<?php if($count>10) : ?>
+<?php if($count>(int)$this->config->item('record_limit')) : ?>
 <div class="panel-footer clearfix">
 	<ul class="pagination pagination-split m-bottom-md">
 		<li><a href="#">Pages</a></li>
 		<?php 
-			$mod=10; $inc=1;
+			$mod=(int)$this->config->item('record_limit'); $inc=1;
 			if($count>$mod) :
 				for($i=0;$i<=$count;$i++) :
 					if(($i%$mod)==0) :
 		?>
+                
 		<?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
 		<li class="<?php if($inc==$this->uri->segment(6))  echo "active"; else if(!($this->uri->segment(6)) && $inc==1)  echo "active";  ?>">
-			<a href="<?php echo base_url()."articles/dashboard/index/".$inc; ?>"><?php echo $inc;?></a>
+			<a href="<?php echo base_url()."articles/dashboard/index/".$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$inc; ?>"><?php echo $inc;?></a>
 		</li>
 		<?php else : ?>
 		<li class="<?php if($inc==$this->uri->segment(6))  echo "active"; else if(!($this->uri->segment(6)) && $inc==1)  echo "active";  ?>">

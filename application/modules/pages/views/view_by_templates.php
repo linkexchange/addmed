@@ -82,7 +82,7 @@ $(document).ready(function(){
 									//echo $this->uri->segment(4);
 									$sr=1;
 									if($this->uri->segment(5)>1 ){
-										$sr=10*$this->uri->segment(5)-9;
+										$sr=(int)$this->config->item('record_limit')*$this->uri->segment(5)-((int)$this->config->item('record_limit')-1);
 									}
 									$this->load->model('article');
 								?>
@@ -105,18 +105,27 @@ $(document).ready(function(){
 								<?php endforeach; ?>
 							</tbody>
                         </table>
-					<?php if($count>10) : ?>
+			<?php if($count>(int)$this->config->item('record_limit')) : ?>
 					<div class="panel-footer clearfix">
 						<ul class="pagination pagination-split m-bottom-md">
-							<li><a href="#">Pages</a></li>
+							<li><a href="#">Pages <?php echo $this->uri->segment(5); ?></a></li>
 							<?php 
-								$mod=10; $inc=1;
-								if($count>$mod) :
+								$mod=(int)$this->config->item('record_limit'); $inc=1; $pre=1; $next=1; ?>
+                                                                <?php if($this->uri->segment(5)) : $pre=(int)$this->uri->segment(5)-1; else : $pre=0; endif; ?>
+								<?php if($count>$mod) :
+                                                                    if($pre!=0 && $this->uri->segment(5)) : ?>
+                                                                    <li class="">
+                                                                        <a href="<?php echo base_url()."pages/dashboard/index/0/".$pre; ?>">Previous</a>
+                                                                    </li>
+                                                                    <?php elseif($pre!=0 && $this->uri->segment(4)) : ?>
+                                                                        <a href="<?php echo base_url()."pages/dashboard/index/".$this->uri->segment(4)."/".$pre; ?>">Previous</a>
+                                                                    <?php endif; ?>
+                                                                    <?php 
 									for($i=0;$i<=$count;$i++) :
 										if(($i%$mod)==0) :
 							?>
 							
-							<li class="<?php if($inc==$this->uri->segment(5))  echo "active"; else if(!($this->uri->segment(5)) && $inc==1)  echo "active";  ?>">
+							<li class="<?php if($inc==$this->uri->segment(5)) : $next=$inc+1; echo "active"; elseif(!($this->uri->segment(5)) && $inc==1) : $next=$inc+1; echo "active";  endif; ?>">
 								<a href="<?php echo base_url()."pages/dashboard/index/0/".$inc; ?>"><?php echo $inc;?></a>
 							</li>
 							<?php
@@ -125,6 +134,18 @@ $(document).ready(function(){
 									endfor;
 								endif;
 								?>
+                                                        <?php if($next!=$inc) : ?>
+                                                            <?php if($this->uri->segment(4)) : ?>
+                                                                <li class="">
+                                                                    <a href="<?php echo base_url().'pages/dashboard/index/'.$this->uri->segment(4).'/'.$next; ?>">Next</a>
+                                                                </li>
+                                                            <?php else : ?>
+                                                                <li class="">
+                                                                    <a href="<?php echo base_url()."pages/dashboard/index/0/".$next; ?>">Next</a>
+                                                                </li>
+                                                            <?php endif; ?>
+
+                                                        <?php endif; ?>
 						</ul>
 					</div>
 					<?php endif; ?>	
