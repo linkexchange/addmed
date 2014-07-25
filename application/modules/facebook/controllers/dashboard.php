@@ -21,31 +21,83 @@ class Dashboard extends MX_Controller{
         $this->load->library('Facebook', $config);
     }
     function index(){
-        //echo "0"; exit;
+        
 	// Try to get the user's id on Facebook
 	$userId = $this->facebook->getUser();
-       // $user = $this->facebook->api('/me');
-        //print_r($_SESSION);
-        //echo "<pre>"; print_r($user); echo "</pre>";
-        
+            
         //$userId = 0;
         // If user is not yet authenticated, the id will be zero
 	if($userId == 0){
-            // Generate a login url
-           $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email,public_profile,user_friends')); 
-           $this->load->view('main_index', $data);
-            //redirect(base_url('/publisher/accounts'));
+           $this->session->set_flashdata('error', 'Please try agian to connect your facebook account...!');
+           redirect(base_url('/publisher/accounts'));
 	} else {
             // Get user's data and print it
             $user = $this->facebook->api('v2.0/me');
-            print_r($_SESSION);
-            echo "<pre>"; print_r($user); echo "</pre>";
-	}
-        //$this->facebook->destroySession();
+            //echo "<pre>"; print_r($user); echo "</pre>";
+            //print_r($_SESSION); exit;
+            //echo $facebook_id=$user['id'];
+            //echo $facebook_email=$user['email'];
+            $this->setSessionData($user);
+            redirect(base_url('/facebook/dashboard/addFacebookDetails'));
+        }
+        
     }
-    public function resetFacebook(){
+     public function setSessionData($userData){
+                $this->session->set_userdata('facebook_account_id', $userData['id']);
+                $this->session->set_userdata('facebook_account_username', $userData['email']);
+                $this->session->set_userdata('facebook_account_img', '');
+                $this->session->set_userdata('facebook_account_posts', 0);
+                $this->session->set_userdata('facebook_account_followers', 0);        
+    }
+    public function reset_session(){
+        $this->session->unset_userdata('facebook_account_id');
+	$this->session->unset_userdata('facebook_account_username');
+        $this->session->unset_userdata('facebook_account_img');
+        $this->session->unset_userdata('facebook_account_posts');
+        $this->session->unset_userdata('facebook_account_followers');
         $this->facebook->destroySession();
-        redirect(base_url('/publisher/accounts'));
+        //redirect(base_url('/publisher/accounts'));
+    }
+    
+    public function addFacebookDetails(){
+            //echo "<pre>"; print_r($this->session->userdata); echo "</pre>"; exit;
+            $userData=array();
+            $userData['userID']=$this->session->userdata('userID'); 
+            $userData['accountName']=$this->session->userdata('facebook_account_username'); 
+            $userData['accountID']=$this->session->userdata('facebook_account_id');
+            $userData['accountTypeID']='2';          
+            $this->load->model('smaaccount');
+            $isExists=$this->smaaccount->isAccountExists($userData); 
+            if($isExists) :
+                $userData=array();
+                $userData['smaAccountID']=$this->session->userdata('facebook_account_id');
+                $userData['smaAccountProfileImageUrl']=$this->session->userdata('facebook_account_img');
+                $userData['smaAccountName']=$this->session->userdata('facebook_account_username');
+                $userData['smaAccountFollowers']=$this->session->userdata('facebook_account_followers');
+                $userData['smaAccountPosts']=$this->session->userdata('facebook_account_posts');
+                $userData['updatedBy']=$this->session->userdata('userID');
+                $userData['updatedDate']=date("Y-m-d");
+                $isUpdated=$this->smaaccount->updateRecord($isExists,$userData);
+                $this->session->set_flashdata('succ', 'Your facebook account is already connected with your account...!');
+                $this->reset_session();
+                 redirect(base_url('/publisher/accounts'));
+            else :
+                $userData=array();
+                $userData['smaAccountTypeID']=2;
+                $userData['smaAccountID']=$this->session->userdata('facebook_account_id');
+                $userData['smaAccountProfileImageUrl']=$this->session->userdata('facebook_account_img');
+                $userData['smaAccountName']=$this->session->userdata('facebook_account_username');
+                $userData['smaAccountFollowers']=$this->session->userdata('facebook_account_followers');
+                $userData['smaAccountPosts']=$this->session->userdata('facebook_account_posts');
+                $userData['createdBy']=$this->session->userdata('userID');
+                $userData['publisherID']=$this->session->userdata('userID');
+                $userData['createdDate']=date("Y-m-d");
+                $this->reset_session();
+                $isExists=$this->smaaccount->addRecord($userData);
+                $this->session->set_flashdata('succ', 'Your facebook account connected successfully....!');
+                redirect(base_url('/publisher/accounts'));
+            endif;
+            
     }
 }
 

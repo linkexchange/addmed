@@ -43,18 +43,26 @@ ob_start();
 <link href="<?php echo base_url(); ?>/css/custom_sunil.css" rel="stylesheet" />
 
 <div id="main-container">
-    <div id="breadcrumb">
+    <!-- <div id="breadcrumb">
         <ul class="breadcrumb">
             <li><i class="fa fa-home"></i><a href="<?php echo base_url(); ?>"> Home</a></li>
             <li class="active">Accounts</li>	 
 	</ul>
-    </div>
+    </div> -->
     <?php //echo "<pre>"; print_r($this->session->all_userdata()); echo "</pre>"; ?>
-    <?php //echo "<pre>"; print_r($twitterProfileCount); echo "</pre>"; ?>     
-    <div class="padding-md">
-        <div class="row">
+    <?php //echo "<pre>"; print_r($twitterProfileCount); echo "</pre>"; ?>  
+     <div class="padding-md">
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                <h3><b><i class="icon-list-alt"></i> Social Media Accounts</b></h3>
+            </div>
+       
+        <div class="panel-body">
+        <div class="padding-md">
+        
             
-            <div id="successMessage" class="alert alert-success" style="display:none;"></div>
+        <div class="row">
+           <div id="successMessage" class="alert alert-success" style="display:none;"></div>
             <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:right;">
@@ -87,11 +95,11 @@ ob_start();
                     <i class="fa fa-facebook"></i>
                     <ul>
                         <li>
-                            <strong>89k</strong>
+                            <strong id="tumblr-followers"><?php echo $totalFacebookFollowers[0]['smaAccountFollowers']; ?></strong>
                             <span>Likes</span>
-                        </li>
+			</li>
 			<li>
-                            <strong>459</strong>
+                           <strong id="tumblr-posts"><?php echo $totalFacebookPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Pages</span>
 			</li>
                     </ul>
@@ -129,7 +137,7 @@ ob_start();
             </div><!--/col-->	
         </div>
         <div class="row">
-            <div class="panel panel-default">
+            <div class="panel-1 panel-default-1">
 		<ul class="tab-bar grey-tab">
                     <li class="active">
                         <a data-toggle="tab" href="#twitter" id="twitter-tab">
@@ -164,7 +172,7 @@ ob_start();
                         </a>
                     </li>
 		</ul>
-                <div class="padding-md">
+                <div class="padding-md-1">
                     <div class="tab-content">
                         <div id="twitter" class="tab-pane fade active in">
                             <table class="table table-hover table-striped">
@@ -232,60 +240,71 @@ ob_start();
 			<div id="facebook" class="tab-pane fade">
                             <table class="table table-hover table-striped">
                                 <tbody>
-                                    <?php for($i=1;$i<=10;$i++) : ?>
-                                        <tr>
-                                        
-                                            <td class="acc_image">
+                                    <?php foreach($facebookProfiles as $accRecord) : ?>
+                                    <tr id="sma-acc-<?php echo $accRecord['id']; ?>">
+                                           <td class="acc_image">
                                                 <span class="img-demo">
-                                                    IMAGE <?php echo $i; ?>
+                                                    <img src="<?php echo $accRecord['smaAccountProfileImageUrl']; ?>" />
                                                 </span>
-                                            </td>  
+                                            </td>   
                                             <td class="acc_name">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <h4><strong>Facebook <?php echo $i; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span>
-                                                    <span class="text-muted block">$360</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountName']; ?></strong></h4>
                                                 </div>
                                             </td>
+                                            <!-- <td class="acc_blogs">
+                                                <div class="pull-left m-left-sm m-top-sm ">
+                                                    <h4><strong><?php echo $accRecord['smaAccountBlogs']; ?></strong></h4>
+                                                    <span class="text-muted block">Blogs</span> 
+                                                </div>
+                                            </td> 
                                             <td class="acc_followers">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <h4><strong><?php echo $i*1000; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <h4><strong><?php echo $accRecord['smaAccountFollowers']; ?></strong></h4>
+                                                    <span class="text-muted block">Followers</span> 
+                                                </div>
+                                            </td> -->
+                                            <td class="acc_posts">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <h4><strong><?php echo $accRecord['smaAccountPosts']; ?></strong></h4>
+                                                    <span class="text-muted block">Pages</span> 
+                                                </div>
+                                            </td>
+                                            <td class="acc_likes">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <h4><strong><?php echo $accRecord['smaAccountLikes']; ?></strong></h4>
                                                     <span class="text-muted block">Likes</span> 
                                                 </div>
                                             </td>
-                                            <td class="acc_posts">
-                                                <div class="pull-left m-left-sm m-top-sm">
-                                                    <h4><strong><?php echo $i*100; ?></strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
-                                                    <span class="text-muted block">Posts</span> 
-                                                </div>
-                                            </td>
-                                            <td class="acc_posts">
+                                            <td class="acc_actions">
                                                 <div class="pull-left m-left-sm m-top-sm ">
-                                                    <a href="#">
-                                                    <h4><strong>Disconnect</strong></h4>
-                                                    <!-- <span class="badge badge-success">5 items</span> -->
+                                                    <a href="javascript:void(0);" title="Disconnect" alt="Disconnect" onclick="removeRecord(<?php echo $accRecord['id']; ?>,1,'<?php echo 'Tumblr'; ?>');">
+                                                        <h4><strong> <i class="fa fa-ban"></i></strong></h4> 
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endfor; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <ul class="pagination pagination-split m-bottom-md">
-				<li><a href="#">Previous</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">6</a></li>
-				<li><a href="#">7</a></li>
-				<li><a href="#">8</a></li>
-				<li><a href="#">9</a></li>
-				<li><a href="#">Next</a></li>
-                            </ul>
+                            <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?>
+                            <?php if($facebookProfileCount>$mod) : ?>
+                                <ul class="pagination pagination-split m-bottom-md">
+                                    <!-- <li><a href="#">Previous</a></li> -->
+                                    <?php for($i=1;$i<=$facebookProfileCount;$i++) : ?>
+                                        <?php if(($i%$mod)==0) : ?>
+                                            <?php if($inc==1) : ?>
+                                    <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
+                                                <?php $next=$inc+1; ?>
+                                            <?php else : ?>
+                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
+                                            <?php endif; ?>
+                                            <?php $inc++; ?>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Tumblr'; ?>');">Next</a></li>          
+                                </ul>     
+                            <?php endif; ?>
                         </div><!-- /tab-pane -->
                         <div id="tumblr" class="tab-pane fade">
                             <table class="table table-hover table-striped">
@@ -425,6 +444,8 @@ ob_start();
                     </div>
                 </div>
             </div>
+            </div>
+             </div>
         </diV>
 
 <script>

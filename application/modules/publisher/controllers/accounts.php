@@ -60,6 +60,11 @@ class Accounts extends MX_Controller {
             $data['twitterProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Twitter',$page);
             $data['twitterProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Twitter');
             
+            $data['totalFacebookFollowers']=$this->smaaccount->getTotalFollowers($this->session->userData('userID'),'Facebook');
+            $data['totalFacebookPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Facebook');
+            $data['facebookProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Facebook',$page);
+            $data['facebookProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Facebook');
+            
             $data['totalTumblrFollowers']=$this->smaaccount->getTotalFollowers($this->session->userData('userID'),'Tumblr');
             $data['totalTumblrPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Tumblr');
             $data['tumblrProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Tumblr',$page);
