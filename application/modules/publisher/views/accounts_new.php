@@ -217,76 +217,14 @@ ob_start();
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <!-- <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?> -->
-                            <?php $record_limit=(int)$this->config->item('record_limit'); $inc=1; $next=1; $count=$twitterProfileCount; ?>
-                            <?php $pages_limit=(int)$this->config->item('pages_limit'); ?>
+                         
                             <?php 
-                                $totalPages=0;
-                                if($count%$record_limit==0){
-                                    $totalPages=$count/$record_limit;
-                                }
-                                else {
-                                     $totalPages=($count/$record_limit)+1;
-                                }
+                                $count=$twitterProfileCount;
+                                $parameters=array();
+                                $parameters[0]="Twitter";
+                                ajaxPagination('getRecords',$parameters,$count); 
                             ?>
-                            <?php if($count>$record_limit) : ?>
-                                <ul class="pagination pagination-split m-bottom-md">
-                                    <!-- <li><a href="#">Previous</a></li> -->
-                                    <?php for($i=1;$i<=$count;$i++) : ?>
-                                        <?php if(($i%$record_limit)==0) : ?>
-                                            <?php if($inc==1) : ?>
-                                                <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Twitter'; ?>');"><?php echo $inc; ?></a></li>
-                                                <?php $next=$inc+1; ?>
-                                            <?php else : ?>
-                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Twitter'; ?>');"><?php echo $inc; ?></a></li>
-                                            <?php endif; ?>
-                                            <?php $inc++; ?>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
-                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Twitter'; ?>');">Next</a></li>          
-                                </ul>     
-                            <?php endif; ?>
-                            <br/>
-                            <?php $record_limit=(int)$this->config->item('record_limit'); $inc=1; $next=1; $count=$twitterProfileCount; ?>
-                            <?php $pages_limit=(int)$this->config->item('pages_limit'); ?>
-                            <?php 
-                                $totalPages=0;
-                                if($count%$record_limit==0){
-                                    $totalPages=$count/$record_limit;
-                                }
-                                else {
-                                     $totalPages=($count/$record_limit)+1;
-                                }
-                            ?>
-                            <!-- <?php if($totalPages) : ?>
-                                <ul class="pagination pagination-split m-bottom-md">
-                                    <?php if($inc!=1) : ?>
-                                        <li id="page-nav-first"><a href="javascript:void(0);" onclick="getRecords('1','<?php echo 'Twitter'; ?>');">First</a></li>
-                                    <?php endif; ?>
-                                    <?php 
-                                        $count_limit=0;
-                                        if($pages_limit<$totalPages)
-                                            $count_limit=$pages_limit;
-                                        else
-                                            $count_limit=$totalPages;
-                                    ?>
-                                    <?php for($i=1;$i<=$count_limit;$i++) : ?>
-                                        <?php if(($i%$record_limit)==0) : ?>
-                                            <?php if($inc==1) : ?>
-                                                <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Twitter'; ?>');"><?php echo $inc; ?></a></li>
-                                                <?php $next=$inc+1; ?>
-                                            <?php else : ?>
-                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Twitter'; ?>');"><?php echo $inc; ?></a></li>
-                                            <?php endif; ?>
-                                            <?php $inc++; ?>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>   
-                                    <?php if($inc!=$totalPages) : ?>
-                                        <li id="page-nav-last"><a href="javascript:void(0);" onclick="getRecords('<?php echo $totalPages; ?>','<?php echo 'Twitter'; ?>');">Last</a></li>
-                                    <?php endif; ?>
-                                    
-                                </ul>
-                            <?php endif; ?> -->
+                            
 			</div><!-- /tab-pane -->
 			<div id="facebook" class="tab-pane fade">
                             <table class="table table-hover table-striped">
@@ -338,24 +276,12 @@ ob_start();
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?>
-                            <?php if($facebookProfileCount>$mod) : ?>
-                                <ul class="pagination pagination-split m-bottom-md">
-                                    <!-- <li><a href="#">Previous</a></li> -->
-                                    <?php for($i=1;$i<=$facebookProfileCount;$i++) : ?>
-                                        <?php if(($i%$mod)==0) : ?>
-                                            <?php if($inc==1) : ?>
-                                    <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
-                                                <?php $next=$inc+1; ?>
-                                            <?php else : ?>
-                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
-                                            <?php endif; ?>
-                                            <?php $inc++; ?>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
-                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Tumblr'; ?>');">Next</a></li>          
-                                </ul>     
-                            <?php endif; ?>
+                            <?php 
+                                $count=$facebookProfileCount;
+                                $parameters=array();
+                                $parameters[0]="Facebook";
+                                ajaxPagination('getRecords',$parameters,$count); 
+                            ?>
                         </div><!-- /tab-pane -->
                         <div id="tumblr" class="tab-pane fade">
                             <table class="table table-hover table-striped">
@@ -407,24 +333,12 @@ ob_start();
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?>
-                            <?php if($tumblrProfileCount>$mod) : ?>
-                                <ul class="pagination pagination-split m-bottom-md">
-                                    <!-- <li><a href="#">Previous</a></li> -->
-                                    <?php for($i=1;$i<=$tumblrProfileCount;$i++) : ?>
-                                        <?php if(($i%$mod)==0) : ?>
-                                            <?php if($inc==1) : ?>
-                                    <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
-                                                <?php $next=$inc+1; ?>
-                                            <?php else : ?>
-                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Tumblr'; ?>');"><?php echo $inc; ?></a></li>
-                                            <?php endif; ?>
-                                            <?php $inc++; ?>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
-                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Tumblr'; ?>');">Next</a></li>          
-                                </ul>     
-                            <?php endif; ?>
+                             <?php 
+                                $count=$tumblrProfileCount;
+                                $parameters=array();
+                                $parameters[0]="Tumblr";
+                                ajaxPagination('getRecords',$parameters,$count); 
+                            ?>
 			</div><!-- /tab-pane -->
 			<div id="instagram" class="tab-pane fade">
                             <table class="table table-hover table-striped">
@@ -471,24 +385,12 @@ ob_start();
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $next=1;?>
-                            <?php if($instagramProfileCount>$mod) : ?>
-                                <ul class="pagination pagination-split m-bottom-md">
-                                    <!-- <li><a href="#">Previous</a></li> -->
-                                    <?php for($i=1;$i<=$instagramProfileCount;$i++) : ?>
-                                        <?php if(($i%$mod)==0) : ?>
-                                            <?php if($inc==1) : ?>
-                                    <li class="active" id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Instagram'; ?>');"><?php echo $inc; ?></a></li>
-                                                <?php $next=$inc+1; ?>
-                                            <?php else : ?>
-                                                <li id="page-nav-<?php echo $inc; ?>"><a href="javascript:void(0);" onclick="getRecords(<?php echo $inc; ?>,'<?php echo 'Instagram'; ?>');"><?php echo $inc; ?></a></li>
-                                            <?php endif; ?>
-                                            <?php $inc++; ?>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
-                                    <li id="page-nav-next"><a href="javascript:void(0);" onclick="getRecords(<?php echo $next; ?>,'<?php echo 'Instagram'; ?>');">Next</a></li>          
-                                </ul>     
-                            <?php endif; ?>
+                             <?php 
+                                $count=$instagramProfileCount;
+                                $parameters=array();
+                                $parameters[0]="Instagram";
+                                ajaxPagination('getRecords',$parameters,$count); 
+                            ?>
 			</div><!-- /tab-pane -->
 			</div><!-- /tab-content -->
                         </div>

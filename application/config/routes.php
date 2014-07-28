@@ -51,7 +51,7 @@ $route['forum/dashboard/unspam/(:num)'] = "forum/dashboard/unspam/$1";
 $route['forum/dashboard/users/(:num)'] = "forum/dashboard/users/index/$1";
 $route['forum/add'] = "forum_articles/forum/add";
 $route['articles'] = "forum_articles/listing";
-$route['articles/index/(:num)'] = "forum_articles/listing/index/$1";
+$route['articles/(:num)'] = "forum_articles/listing/index/$1";
 $route['article/edit/(:num)'] = "article/dashboard/edit/$1";
 $route['article/getArticles/(:any)'] = "article/dashboard/getArticles/$1";
 $route['article/dashboard/index/(:num)'] = "article/dashboard/index/$1";
@@ -62,6 +62,7 @@ $route['topics'] = "forum_articles/forum/view_forum";
 $route['topics/index/(:num)'] = "forum_articles/forum/view_forum/$1";
 $route['topics/(:num)'] = "forum_articles/forum/view_forum/$1";
 $route['bookmarks'] = "forum_articles/listing/show_bookmarks";
+$route['bookmarks/(:num)'] = "forum_articles/listing/show_bookmarks/$1";
 $route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
 $route['404_override'] = '';
 

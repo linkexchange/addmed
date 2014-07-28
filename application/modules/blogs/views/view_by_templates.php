@@ -141,6 +141,16 @@ $(document).ready(function(){
 							?>
 						</ul>	
 						<?php endif; ?>	
+                                                <!-- <?php 
+                                                    $count;
+                                                    $url=base_url()."blogs/dashboard/index/";
+                                                    if($this->uri->segment(5))
+                                                        $currentPage=$this->uri->segment(5);
+                                                    else
+                                                        $currentPage=1;
+                                                    $parameters[0]=0;
+                                                    pagination($url,$parameters,$count,$currentPage);
+                                                ?> -->
 				</div>
 			</div><!-- /.padding-md -->
 		</div>

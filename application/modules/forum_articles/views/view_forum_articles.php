@@ -46,7 +46,7 @@
 					</div>
 				</div>
 			<?php } } ?>
-			<?php if($count>10) : ?>
+			<!-- <?php if($count>10) : ?>
 				<div class="panel-footer clearfix">
 					<ul class="pagination pagination-split m-bottom-md">
 						<li><a href="#">Pages</a></li>
@@ -67,7 +67,10 @@
 							?>
 					</ul>
 				</div>
-			<?php endif; ?>	
+			<?php endif; ?>	 -->
+			<ul>
+                               <?php  echo $pagination;?>
+                       </ul>
 		</div>
 	<!--<div class="panel-footer clearfix">
 		<ul class="pagination pagination-xs m-top-none pull-right">
