@@ -15,17 +15,14 @@ class Dashboard extends MX_Controller {
 		$this->load->model('publisher');
 		$this->layout->setLayout("layout/publisher");
 	}
-	public function index()
+	public function index($page=1)
 	{
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'));
-		
-		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'));
-		$data['unPublishedUrls']=$this->url->getUnPublishedUrls();
-		$data['unpublished_url_count']=$this->url->getUnPublishedUrlsCount($this->session->userData('userID'));
-
-		//$data['published_url_count']=count($data['publishedUrls']);
-		//$data['unpublished_url_count']=count($data['unPublishedUrls']);
-		
+		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'),$page);
+		$data['unPublishedUrls']=$this->url->getUnPublishedUrls($page);
+		$data['unPubUrlCount']=$this->url->getUnPublishedUrlsCount();
+                $data['pubUrlCount']=$this->url->getPublishedUrlsCount($this->session->userData('userID'));
+			
 		$data['totalPaidPayment']=$this->payments->getTotalPaidByAdvertiser($this->session->userData('userID'));
 
 		$paymentDetails=$this->payments->getTotalPaymentRemainingByAdvertiser($this->session->userData('userID'));
@@ -43,16 +40,16 @@ class Dashboard extends MX_Controller {
 
 		$this->layout->view('dashboard',$data);
 	}
-	public function getpublisherurls($page=1){
-		
+	public function getPublisherUrls($page=1){
+		$data['currentPage']=$page;
 		$data['publishedUrls']=$this->url->getPublisherUrls($this->session->userData('userID'),$page);
-		//$this->layout->setLayout("layout/main");
+                $data['pubUrlCount']=$this->url->getPublishedUrlsCount($this->session->userData('userID'));
 		$this->load->view('dashboard_publisher',$data);
 	}
-	public function getunpublishedurls($page=1){
-		$this->load->model("url");
+	public function getUnpublishedurls($page=1){
+		$data['currentPage']=$page;
 		$data['unPublishedUrls']=$this->url->getUnPublishedUrls($page);
-		//$this->layout->setLayout("layout/main");
+                $data['unPubUrlCount']=$this->url->getUnPublishedUrlsCount();
 		$this->load->view('dashboard_unpublished',$data);
 	}
 	public function settings(){

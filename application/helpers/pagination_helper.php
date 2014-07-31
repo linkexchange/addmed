@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 function ajaxPagination($functionName="",$parameters=array(),$recordCount=0,$currentItem=1){
+    
     $ci=& get_instance();
     $ci->config->load('table');
     $records_per_page=(int)$ci->config->item('record_limit');
@@ -13,8 +14,11 @@ function ajaxPagination($functionName="",$parameters=array(),$recordCount=0,$cur
     $previous=1;
     $next=1;
     $totalPages=0;
-    $start=1    ;
+    $start=1;
     $end=0;
+    
+    if($recordCount<=$records_per_page)
+        return;
     
     if($recordCount%$records_per_page)
         $totalPages=(int)($recordCount/$records_per_page+1);
@@ -150,11 +154,14 @@ function pagination($url="",$parameters=array(),$recordCount=0,$currentItem=1){
     $start=1    ;
     $end=0;
     
+    if($recordCount<=$records_per_page)
+        return;
+    //echo $recordCount; return;
     if($recordCount%$records_per_page)
         $totalPages=(int)($recordCount/$records_per_page+1);
     else
         $totalPages=(int)($recordCount/$records_per_page);
-    
+    //echo $totalPages; return;
     $para="";
     $arrSize=0; $ch=0;
     $arrSize=count($parameters);
@@ -171,7 +178,7 @@ function pagination($url="",$parameters=array(),$recordCount=0,$currentItem=1){
     {
         $para="";
     }
-    
+    //echo $para; return;
     if($para!=""){
         $first='<li class="page-nav-fisrt"><a href="'.$url.$para.'/1/">First</a></li>';
         $last='<li class="page-nav-last"><a href="'.$url.$para.'/'.$totalPages.'/">Last</a></li>';  
@@ -180,20 +187,65 @@ function pagination($url="",$parameters=array(),$recordCount=0,$currentItem=1){
         $first='<li class="page-nav-fisrt"><a href="'.$url.'1">First</a></li>';
         $last='<li class="page-nav-last"><a href="'.$url.'/'.$totalPages.'">Last</a></li>';
     }
+    if($totalPages<$pages_limit)
+        $end=$totalPages;
+    else
+        $end=$pages_limit;
+    
+    $pageDifference=0;
+    if($pages_limit%2)
+        $pageDifference=(int)($pages_limit/2);
+    else
+        $pageDifference=($pages_limit/2)-1;
+    
+    if($currentItem>$pageDifference):
+        $start=$currentItem-$pageDifference;
+        $end=$currentItem+$pageDifference;
+    endif;
+       
+    if($currentItem>=$totalPages || $end>=$totalPages){
+        $end=$totalPages;
+        if($pages_limit%2)
+            $start=$totalPages-$pages_limit+1;
+        else
+            $start=$totalPages-$pages_limit;
+    }
+    
+    if($start<1){
+        $start=1;
+        if($totalPages<$pages_limit)
+            $end=$totalPages;
+        else
+            $end=$pages_limit;
+    }
+    
+    if($currentItem<=1){
+        $pre=0;
+    }else{
+        $pre=$currentItem-1;
+        
+        if($para!=""){
+            $previous='<li class="page-nav-prev"><a href="'.$url.$para.'/'.$pre.'/">Prevoius</a></li>';
+        }
+        else {
+           $previous='<li class="page-nav-prev"><a href="'.$url.$pre.'/">Prevoius</a></li>';
+        }
+    }
+    
     //echo $first;
+    //echo $currentItem; return;
     if($currentItem>=$totalPages){
         $next=0;
     }else{
         $next=(int)$currentItem+1;
-        
         if($para!=""){
-            
             $nextItem='<li class="page-nav-next"><a href="'.$url.$para.'/'.$next.'/">Next</a></li>';
         }
         else {
             $nextItem='<li class="page-nav-next"><a href="'.$url.$next.'/">Next</a></li>';
         }
     }
+    //echo $nextItem; return;
     $output="";
     $output.='<ul class="pagination pagination-split m-bottom-md">';
     
@@ -220,7 +272,7 @@ function pagination($url="",$parameters=array(),$recordCount=0,$currentItem=1){
             endif;
     endfor;
     
-    if($currentItem!=$totalPages):
+    if($currentItem!=$totalPages && $next>0):
            $output.=$nextItem;
            $output.=$last;
     endif;

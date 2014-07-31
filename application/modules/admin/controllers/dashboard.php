@@ -17,6 +17,7 @@ class Dashboard extends MX_Controller {
 		{
 			redirect(base_url().'user/login');
 		}
+		$this->load->model("user");
 	}
 	public function index()
 	{
@@ -33,10 +34,10 @@ class Dashboard extends MX_Controller {
 		$this->layout->setLayout("layout/admin");
 		$this->layout->view('dashboard',$data);
 	}
-	public function user()
+	public function user($page=1)
 	{
-		$this->load->model("user");
-		$data['users']=$this->user->getAllUser();
+		$data['users']=$this->user->getUsers($page);
+		$data['count']=$this->user->getAllusersCount();
 		$this->layout->view('users',$data);
 	}
 	public function cronrun(){

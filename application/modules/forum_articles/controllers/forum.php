@@ -139,30 +139,39 @@ class Forum extends MX_Controller{
 		//echo "<pre>"; print_r($users); echo "</pre>";
 		$i=0;
 		foreach($users as $user){
-			$publishedLinks=$this->leaderboard->getPublishedLinks($user['id']);
-			//echo "<pre>"; print_r($publishedLinks); echo "</pre>";
-			$totalHits=0;
-			$totalEarning=0;
+			$Followers=$this->leaderboard->getFollowersByUser($user['id']);
+                        $Posts=$this->leaderboard->getPostsByUser($user['id']);
+                        $Likes=$this->leaderboard->getLikesByUser($user['id']);
+			//echo "<pre>"; print_r($totalFollowers); echo "</pre>"; 
+			$totalFollowers=0;
+			$totalPosts=0;
+                        $totalLikes=0;
+                        
+                        $totalFollowers=$Followers[0]['smaAccountFollowers'];
+			$totalPosts=$Posts[0]['smaAccountPosts'];
+                        $totalLikes=$Likes[0]['smaAccountLikes'];
 			
-			foreach($publishedLinks as $item){
+			/*foreach($publishedLinks as $item){
 				$totalHits=$totalHits+$item['numberOfClicks'];
 				$totalEarning=$totalEarning+$item['publisherPayment'];
-			}
+			}*/
 			
 			$allUsers[$i]['id']=$user['id'];
 			$allUsers[$i]['userName']=$user['userName'];
-			$allUsers[$i]['totalHits']=$totalHits;
-			$allUsers[$i]['totalEarning']=$totalEarning;
+			$allUsers[$i]['totalFollowers']=$totalFollowers;
+			$allUsers[$i]['totalPosts']=$totalPosts;
+                        $allUsers[$i]['totalLikes']=$totalLikes;
 			$i++;
 		}
-		//echo "<pre>"; print_r($allUsers); echo "</pre>";
+		
 		
 		//$this->layout->view('view_topic',$data);
 		$sort = array();
 		foreach($allUsers as $k=>$v) {
-			$sort['totalHits'][$k] = $v['totalHits'];
+			$sort['totalFollowers'][$k] = $v['totalFollowers'];
 		}
-		array_multisort($sort['totalHits'], SORT_DESC, $allUsers);
+		array_multisort($sort['totalFollowers'], SORT_DESC, $allUsers);
+                //echo "<pre>"; print_r($allUsers); echo "</pre>"; exit;
 		return $allUsers;
 	}
 }	

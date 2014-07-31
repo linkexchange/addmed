@@ -49,7 +49,7 @@ ob_start();
             <li class="active">Accounts</li>	 
 	</ul>
     </div> -->
-    <?php //echo "<pre>"; print_r($this->session->all_userdata()); echo "</pre>"; ?>
+    <?php //echo "<pre>"; print_r($twitterProfiles); echo "</pre>"; ?>
     <?php //echo "<pre>"; print_r($twitterProfileCount); echo "</pre>"; ?>  
      <div class="padding-md">
         <div class="panel panel-default table-responsive">

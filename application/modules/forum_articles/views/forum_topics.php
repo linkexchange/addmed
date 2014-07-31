@@ -25,7 +25,7 @@
 								  }
 								  else 
 								  { 
-									$cnt = 5;
+									$cnt = count($topics);
 								  }
 						   for($i=0;$i<$cnt;$i++) { ?>	
 						<tr style="border:1px solid LightGray;">
@@ -71,26 +71,15 @@
 							</td>
 							<?php } else { ?>	
 							<td colspan="4">
-								<?php if($tcount>10) : ?>
-								<ul class="pagination pagination-split m-bottom-md">
-									<li><a href="#">Pages</a></li>
-									<?php 
-										$mod=10; $inc=1;
-										if($tcount>$mod) :
-											for($i=0;$i<=$tcount;$i++) :
-												if(($i%$mod)==0) :
-									?>
-									<li class="<?php if($inc==$this->uri->segment(3))  echo "active"; else if(!($this->uri->segment(3)) && $inc==1)  echo "active"; ?>">
-										<a href="<?php echo base_url()."topics/index/".$inc; ?>"><?php echo $inc;?></a>
-									</li>
-									<?php
-													$inc++;
-												endif;
-											endfor;
-										endif;
-										?>
-								</ul>
-								<?php endif; ?>
+								<?php 
+									$url=base_url()."topics/index/";
+									if($this->uri->segment(3))
+									$currentPage=(int)$this->uri->segment(3);
+									else
+									$currentPage=1;
+									$parameters=array();
+									pagination($url,$parameters,$tcount,$currentPage);
+								?>     
 							</td>
 						<?php } ?>	
 						</tr>	

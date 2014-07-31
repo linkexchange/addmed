@@ -6,7 +6,7 @@ class Listing extends MX_Controller{
 		parent::__construct();
 		$this->load->model('article');
 		$this->load->helper('url');
-		$this->load->library('pagination');
+		$this->load->helper('pagination_helper');
 		if($this->session->userdata('ForumUserName'))
 		{
 			$this->layout->setLayout('layout/login');
@@ -16,40 +16,8 @@ class Listing extends MX_Controller{
 			$this->layout->setLayout('layout/normal');
 		}
 	}
-	public function index(){
-		$config['base_url'] = base_url().'articles/';
-		$config['per_page'] = 10;
-		if($this->uri->segment(2) =='1')
-			$config['start'] = 0;
-                else if($this->uri->segment(2) !='' && $this->uri->segment(2)>='2')
-			$config['start'] = $config['per_page']*($this->uri->segment(2)-1);
-		else
-			$config['start'] = 0;
-		//mandatory to set uri_segment number which show current page number.
-		$config['uri_segment'] = 2;
-		$config['total_rows']= $this->article->getAllForumArticlesCount();
-		$config['full_tag_open'] = "<ul class='pagination pagination-split m-bottom-md'>";
-		$config['full_tag_close'] = "</ul>"; 
-		
-		$config['first_tag_open']='<li>';
-		$config['first_tag_close']='</li>';
-		
-		$config['prev_tag_open']='<li>';
-		$config['prev_tag_close']='</li>';
-		$config['next_tag_open']='<li>';
-		$config['next_tag_close']='</li>';
-		$config['num_tag_open']='<li>';
-		$config['num_tag_close']='</li>';
-		$config['last_tag_open']='<li>';
-		$config['last_tag_close']='</li>';
-		$config['last_link_open']='</li>';
-		$config['last_link_close']='</li>';
-		$config['cur_tag_open']='<li class="active disabled"><a href="javascript:void(0)" >';
-		$config['cur_tag_close']='</a></li>';
-		// Initialize
-		$this->pagination->initialize($config);
-		$data['pagination'] = $this->pagination->create_links();
-		$data['articles'] = $this->article->getAllForumArticles($config['per_page'], $config['start']);
+	public function index($page=1){
+		$data['articles'] = $this->article->getAllForumArticles($page);
 		$data['count'] = $this->article->getAllForumArticlesCount();
 		$this->layout->view('view_forum_articles',$data);
 	}

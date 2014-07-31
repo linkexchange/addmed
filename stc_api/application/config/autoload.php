@@ -64,7 +64,7 @@ $autoload['libraries'] = array('activerecord','layout','session','database');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url','pagination');
 
 
 /*

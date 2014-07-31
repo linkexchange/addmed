@@ -111,7 +111,7 @@ class Dashboard extends MX_Controller{
                 $userData['createdDate']=date("Y-m-d");
                 $this->reset_session();
                 $isExists=$this->smaaccount->addRecord($userData);
-                $this->session->set_flashdata('succ', 'Tumblr account connected successfully....!');
+                $this->session->set_flashdata('succ', 'Instagram account connected successfully....!');
                 redirect(base_url('/publisher/accounts'));
             endif;
             

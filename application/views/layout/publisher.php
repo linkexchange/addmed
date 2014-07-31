@@ -184,7 +184,7 @@
 								<span class="menu-hover"></span>
 							</a>
 						</li>
-						<li class="openable <?php if($this->uri->segment(1)=="website"){ echo "active open";}?>">
+                                                <!--<li class="openable <?php if($this->uri->segment(1)=="website"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-globe fa-lg"></i> 
@@ -279,7 +279,7 @@
 								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'article/dashboard/add'; ?>"><span class="submenu-label">Add Article</span></a></li>
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'article/dashboard';?>"><span class="submenu-label">View articles</span></a></li>
 							</ul>
-						</li>
+						</li>-->
 					</ul>
 					
 					<!--<div class="alert alert-info">

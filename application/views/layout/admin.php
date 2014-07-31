@@ -198,7 +198,7 @@
 								<a href="<?php echo base_url().'link/setCPC';?>"><span class="submenu-label">set CPC for category</span></a></li>
 							</ul>
 						</li>
-						<li class="openable <?php if($this->uri->segment(1)=="website"){ echo "open active";}?>">
+                                                <!--<li class="openable <?php if($this->uri->segment(1)=="website"){ echo "open active";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-globe fa-lg"></i> 
@@ -278,7 +278,7 @@
 								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'pages/dashboard/add'; ?>"><span class="submenu-label">Add Page</span></a></li>
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'pages/dashboard';?>"><span class="submenu-label">View Pages</span></a></li>
 							</ul>
-						</li>
+						</li>-->
 						<li class="openable <?php if($this->uri->segment(1)=="forum"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">

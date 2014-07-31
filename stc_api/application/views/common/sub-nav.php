@@ -1,19 +1,85 @@
 <!-- /navbar -->
+<?php if($this->uri->segment('2')=="adLinkCategory" || $this->uri->segment('2')=="viewCategories" || $this->uri->segment('2')=="setCPC") : ?>
+<script>
+$(document).ready(function(){
+	$(".mainnav li").removeClass('active');
+	$("#category").addClass('active');
+});
+</script>
+<?php endif; ?>
 <div class="subnavbar">
 	<div class="subnavbar-inner">
 		<div class="container">
 			<ul class="mainnav">
-				<li class="<?php if(($this->uri->segment('1')=="publisher") || $this->uri->segment('1')=="" ) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
+				<!--<?php if($this->session->userdata('userTypeID')==3) { ?>
+				<li id="frontend"><a href="<?php echo base_url()."publisher/frontend"; ?>"><i class="icon-tasks"></i><span>Frontend</span> </a> </li>
+				<?php } ?>-->
+				<li class="<?php if($this->uri->segment('2')=="dashboard" && ($this->uri->segment('1')=="publisher" || $this->uri->segment('1')=="advertiser" || $this->uri->segment('1')=="admin")){ echo "active"; } ?>" id="dashboard"><a href="<?php echo base_url().$this->session->userdata('userType')."/dashboard"; ?>"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
+				
+				<li class="<?php if($this->uri->segment('1')=="link"){ echo "active"; } ?> dropdown subnavbar-open-right">					
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-anchor"></i>
+						<span>Links</span>
+						<b class="caret"></b>
+					</a>	
+					<ul class="dropdown-menu">
+					<?php
+						if($this->session->userData('userTypeID')==2)
+						{
+                    ?>
+						<li><a href="<?php echo base_url().'link/add'; ?>">Add Links</a></li>
+                    	<?php
+						}
+						?>
+						<li><a href="<?php echo base_url().'link/';?>">View Links</a></li>
+						
+						
+						
+					</ul>    				
+				</li>
+			
+				<li id="reports" class="<?php if($this->uri->segment('1')=="reports"){ echo "active"; } ?> dropdown subnavbar-open-right">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-list-alt"></i>
+						<span>Reports</span> 
+					</a>
+					<ul class="dropdown-menu">
+						<?php if($this->session->userData('userTypeID')==3 ||$this->session->userData('userTypeID')==2 ) : ?>
+							<li><a href="<?php echo base_url().'reports/dashboard'; ?>">View Reports</a></li>
+						<?php elseif($this->session->userData('userTypeID')==1) : ?>
+							<li><a href="<?php echo base_url().'reports/dashboard'; ?>">Reports of Links</a></li>
+							<li><a href="<?php echo base_url().'reports/dashboard/publisher'; ?>">Reports of Publishers</a></li>
+							<li><a href="<?php echo base_url().'reports/dashboard/advertiser'; ?>">Reports of Advertisers</a></li>
+						<?php endif; ?>
+						
+                    </ul> 
+				</li>
+				<?php if($this->session->userData('userTypeID')==1) { ?>
+				<li id="category" class="<?php if($this->uri->segment('2')=="adLinkCategory" || $this->uri->segment('2')=="viewCategories"){ echo "active"; } ?> dropdown subnavbar-open-right"> 
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-anchor"></i>
+						<span>Categories</span>
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php echo base_url().'link/adLinkCategory';?>">Add Link category</a></li>
+						<li><a href="<?php echo base_url().'link/viewCategories';?>">View Link category</a></li>
+						<li><a href="<?php echo base_url().'link/setCPC';?>">Set CPC for category</a></li>
+					</ul>		
+				</li>
+				<?php } ?>
+				<?php if($this->session->userData('userTypeID')==1 || $this->session->userData('userTypeID')==3) : ?>
+				<li class="<?php if(($this->uri->segment('1')=="publisher") && $this->uri->segment('2')=="website" ) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
                 	<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     	<i class="icon-dashboard"></i>
                         <span>Websites</span> 
                     </a>
                     <ul class="dropdown-menu">
-						<li><a href="<?php echo base_url().'template/dashboard/add'; ?>">Create Website</a></li>
-                    	<li><a href="<?php echo base_url().'publisher/dashboard'; ?>">View Website</a></li>
+						<li><a href="<?php echo base_url().'website/dashboard/add'; ?>">Create Website</a></li>
+                    	<li><a href="<?php echo base_url().'website/dashboard'; ?>">View Website</a></li>
                     </ul>  
                 </li>
-                <li class="<?php if($this->uri->segment('1')=="blogs") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="blocks" >
+				<li class="<?php if($this->uri->segment('1')=="blogs") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="blocks" >
                 	<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     	<i class="icon-sitemap"></i>
                         <span>Posts</span> 
@@ -24,18 +90,18 @@
                        <!-- <li><a href="<?php echo base_url().'blogs/dashboard/viewbytemplates'; ?>">View Blogs By Templates</a></li>-->
                     </ul>  
                 </li>
-                <li class="<?php if($this->uri->segment('1')=="articles") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="artciles" >
+				<li class="<?php if($this->uri->segment('1')=="articles") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="artciles" >
                 	<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     	<i class="icon-file-text-alt"></i>
                         <span>Gallery Item</span> 
                     </a>
                     <ul class="dropdown-menu">
-						<li><a href="<?php echo base_url().'articles/dashboard/add'; ?>">Add Gallery Item</a></li>
+						<li><a href="<?php echo base_url().'articles/dashboard/addmultiple'; ?>">Add Gallery Item</a></li>
                     	<li><a href="<?php echo base_url().'articles/dashboard/'; ?>">View Gallery Items</a></li>
                         <!--<li><a href="<?php echo base_url().'articles/dashboard/viewbyblogs'; ?>">View Articles By Templates & Blogs</a></li>-->
                     </ul>  
                 </li>
-                <li class="<?php if($this->uri->segment('1')=="advertise") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="adss" >
+				<li class="<?php if($this->uri->segment('1')=="advertise") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="adss" >
                 	<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     	<i class="icon-building"></i>
                         <span>Ads</span> 
@@ -56,16 +122,29 @@
                     	<li><a href="<?php echo base_url().'pages/dashboard/'; ?>">View Pages</a></li>
                     </ul>  
                 </li>
-                 <li class="<?php if($this->uri->segment('1')=="user") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="adss" >
+				<?php if($this->session->userData('userTypeID')==1) { ?>
+				<li class="<?php if(($this->uri->segment('2')=="forum")) : echo "active"; endif; ?> dropdown subnavbar-open-right" id="dashboard" >
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    	<i class="icon-shield"></i>
+                        <span>Forum</span> 
+                    </a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php echo base_url().'forum/dashboard'; ?>">View topics</a></li>
+                    	<li><a href="<?php echo base_url().'forum/dashboard/users'; ?>">View users</a></li>
+					</ul>
+                </li>
+				<?php } ?>
+				<li class="<?php if($this->uri->segment('1')=="article") : echo "active"; endif; ?> dropdown subnavbar-open-right" id="pages" >
                 	<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    	<i class="icon-cog"></i>
-                        <span>Settings</span> 
+                    	<i class="icon-tasks"></i>
+                        <span>Articles</span> 
                     </a>
                     <ul class="dropdown-menu">
-						<li><a href="<?php echo base_url().'user/logout'; ?>">Logout</a></li>
-                    	
+						<li><a href="<?php echo base_url().'article/dashboard/add'; ?>">Add Article</a></li>
+                    	<li><a href="<?php echo base_url().'article/dashboard/'; ?>">View Articles</a></li>
                     </ul>  
                 </li>
+				<?php endif; ?>
 			</ul>
 		</div>
 	<!-- /container --> 

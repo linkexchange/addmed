@@ -15,7 +15,7 @@ class Dashboard extends MX_Controller {
 
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'));
 		
-		$data['publishedUrls']=$this->url->getPublishedUrls($this->session->userData('userID'),$page=1);
+		$data['publishedUrls']=$this->url->getPublishedUrls($this->session->userData('userID'),$page);
 		$data['unPublishedUrls']=$this->url->getUnPublishedUrls($page=1,$this->session->userData('userID'));
 		
 		$data['pubUrlCount']=$this->url->getPublishedUrlsCount($this->session->userData('userID'));
@@ -39,10 +39,20 @@ class Dashboard extends MX_Controller {
 		$this->layout->setLayout("layout/advertiser");
 		$this->layout->view('dashboard',$data);
 	}
-	public function getpublishedurls($page=1){
+	public function getPublishedurls($page=1){
 		$this->load->model("url");
+                $data['currentPage']=$page;
 		$data['publishedUrls']=$this->url->getPublishedUrls($this->session->userData('userID'),$page);
+                $data['pubUrlCount']=$this->url->getPublishedUrlsCount($this->session->userData('userID'));
 		//$this->layout->setLayout("layout/main");
-		$this->load->view('dashboard_published',$data);
+		$this->load->view('view_published_link',$data);
+	}
+        public function getUnpublishedurls($page=1){
+		$this->load->model("url");
+                $data['currentPage']=$page;
+		$data['unPublishedUrls']=$this->url->getUnPublishedUrls($page,$this->session->userData('userID'));
+                $data['unPubUrlCount']=$this->url->getUnPublishedUrlsCount($this->session->userData('userID'));
+		//$this->layout->setLayout("layout/main");
+		$this->load->view('view_unpublished_link',$data);
 	}
 }

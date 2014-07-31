@@ -24,7 +24,7 @@
 						//echo $this->uri->segment(4);
 						$sr=1;
 						if($this->uri->segment(4)>1 ){
-							$sr=10*$this->uri->segment(4)-9;
+							$sr=(int)$this->config->item('record_limit')*$this->uri->segment(4)-((int)$this->config->item('record_limit')-1);
 						}
 					?>
 					<?php $this->load->model("clicksdetail"); ?>
@@ -50,6 +50,18 @@
 					<?php endforeach; ?>
 					</tbody>	
 				</table>
+                                <div class="panel-footer clearfix">
+                                    <?php 
+                                        $count=$UrlCount;
+                                        $url=base_url()."reports/dashboard/publisher/";
+                                        if($this->uri->segment(4))
+                                            $currentPage=$this->uri->segment(4);
+                                        else
+                                            $currentPage=1;
+                                        $parameters=array();
+                                        pagination($url,$parameters,$count,$currentPage);
+                                    ?>
+                                </div>
 			</div><!-- /.padding-md -->
 		</div>		
 	</div>

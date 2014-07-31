@@ -3,7 +3,7 @@ class Article extends CI_Model{
 
 	// return article details by user ID.
 	public function getArticles($uid=0,$limit=0,$tid=0,$bid=0){
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -57,15 +57,16 @@ class Article extends CI_Model{
 		$this->db->where("created_by",$uid);
 		}
 		$this->db->limit($numberofrecords,$startRecord);
+		$this->db->order_by('id','desc');
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->result_array();
 	}
-	public function getAllForumArticles($numberofrecords,$startRecord){
-		/*$numberofrecords=(int)$this->config->item('record_limit');
+	public function getAllForumArticles($limit=0){
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
-		$startRecord=$limit*$numberofrecords; */
+		$startRecord=$limit*$numberofrecords;
 		$this->db->select($this->config->item('table_f_articles').".*,".$this->config->item('table_user').".userName");
 		$this->db->from($this->config->item('table_f_articles'));
 		$this->db->join($this->config->item('table_user'),$this->config->item('table_user').".id = ".$this->config->item('table_f_articles').".created_by","INNER");
@@ -217,15 +218,10 @@ class Article extends CI_Model{
 		$this->db->update($this->config->item('table_bookmarks'), $bookmarkdata);
 		return $this->db->affected_rows();
 	}
-	public function getAllBookmarks($limit=0)
+	public function getAllBookmarks()
 	{
-		$numberofrecords=(int)$this->config->item('record_limit');
-		if($limit>0)
-			$limit=$limit-1;	
-		$startRecord=$limit*$numberofrecords;
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
-		$this->db->limit($numberofrecords,$startRecord);
 		$result = $this->db->get();
 		return $result->result_array();
 	}

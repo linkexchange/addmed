@@ -40,6 +40,6 @@ $config['table_communities_comments'] = "community_comments";
 $config['table_sma_user_type'] = "sma_user_type";
 $config['table_sma_account_details'] = "sma_account_details";
 $config['table_sma_account_posts'] = "sma_account_posts";
-$config['record_limit'] =2;
+$config['record_limit'] =1;
 $config['pages_limit'] = 5;
 ?>

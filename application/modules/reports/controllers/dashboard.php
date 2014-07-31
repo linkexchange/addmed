@@ -17,7 +17,7 @@ class Dashboard extends MX_Controller {
 			$this->layout->setLayout("layout/admin");
 		}
 	}
-	public function index($page=1,$startDate=0,$endDate=0){
+	public function index($startDate=0,$endDate=0,$page=1){
 		//$startDate=0;
 		//$endDate=0;
 
@@ -66,7 +66,6 @@ class Dashboard extends MX_Controller {
 			$this->load->model("clicksdetail");
 			$data['Urls']=$this->clicksdetail->getClickRecords($this->session->userdata('userID'),$startDate,$endDate,$page);
 			$data['UrlCount']=$this->clicksdetail->getClickRecordsCount($this->session->userdata('userID'),$startDate,$endDate);
-			
 			$this->layout->view('dashboard',$data);
 		}
 	}

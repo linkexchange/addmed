@@ -124,7 +124,7 @@ class Login extends MX_Controller {
 						"lastLoggedInOn"=>date("Y-m-d"),
 						"lastLoggedInFrom"=>$type,
 					);
-					$updated = $this->user->updateUser($this->session->userData('ForumUserID'),$userData);
+					$updated = $this->user->updateForumUser($this->session->userData('ForumUserID'),$userData);
 					if($this->session->userData('backurl')){
 						$backurl=$this->session->userData('backurl');
 						$this->session->unset_userdata('backurl');

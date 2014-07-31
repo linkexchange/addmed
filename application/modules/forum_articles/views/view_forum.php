@@ -14,7 +14,7 @@
 			</div>
 		</div> <br/>
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-8">
 				<div class="panel panel-default">
 					
 					<?php if($this->session->flashdata('topicmsg')){ ?>
@@ -83,7 +83,7 @@
 					</table>
 				</div><!-- /panel -->
 			</div>
-			<div class="col-lg-3">
+			<div class="col-lg-4">
 				<div class="panel panel-default" >
 					<div class="panel-heading" style="border:1px solid #D6E9F3;">
 						<h4><b><i class="fa fa-trophy fa-lg"></i> Leaderboard</b></h4>
@@ -100,19 +100,37 @@
 									<tr style="border:1px solid #D6E9F3;">
 										<th>Rank</th>
 										<th>User</th>
-										<th>Hits</th>
+										<th>Followers</th>
+                                                                                <th>Posts</th>
+                                                                                <th>Likes</th>
 										<!-- <th>Earning.</th> -->
 									</tr>
 								</thead>
 								<tbody>
-									<?php $sr=1; foreach($users as $user) : ?>
+                                                                        <?php if(count($users)>10) : ?>
+                                                                            <?php $sr=1; for($i=0; $i<10; $i++) : ?>
+                                                                                <tr style="border:1px solid #D6E9F3;">
+											<td><?php echo $sr; ?></td>
+											<td><?php echo $users[$i]['userName']; ?></td>
+											<td><?php echo $users[$i]['totalFollowers']; ?></td>
+                                                                                        <td><?php echo $users[$i]['totalPosts']; ?></td>
+                                                                                        <td><?php echo $users[$i]['totalLikes']; ?></td>
+										</tr>
+										<?php $sr++; ?>
+                                                                            <?php endfor; ?>
+                                                                        <?php else : ?>
+                                                                            <?php $sr=1; foreach($users as $user) : ?>
 										<tr style="border:1px solid #D6E9F3;">
 											<td><?php echo $sr; ?></td>
 											<td><?php echo $user['userName']; ?></td>
-											<td><?php echo $user['totalHits']; ?></td>
+											<td><?php echo $user['totalFollowers']; ?></td>
+                                                                                        <td><?php echo $user['totalPosts']; ?></td>
+                                                                                        <td><?php echo $user['totalLikes']; ?></td>
 										</tr>
 										<?php $sr++; ?>
-									<?php endforeach; ?>
+                                                                            <?php endforeach; ?> 
+                                                                        <?php endif; ?>
+									
 								</tbody>
 					</table>
 				</div><!-- /panel -->

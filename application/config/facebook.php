@@ -1,4 +1,4 @@
 <?php
-	$config['appId']='416555488484770';
-	$config['secret']='cfd28187096f3d703996638440cfaa44';
+	$config['appId']='416533741820278';
+	$config['secret']='418ab8adcdcc1e00d6ffa79e8d9502f5';
 ?>

@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Link Exchange Phase II</title>
+		<title>Link Exchange</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet">
@@ -40,71 +41,54 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span> 
 				</a>
-                <a class="brand" href="">Link Exchange Phase-II Dashboard</a>	
-                <div class="nav-collapse">
-                </div>
-                <!-- .nav-collapse -->
+				<a class="brand" href="<?php echo base_url(); ?>" >	
+					Link Exchange Dashboard
+				</a>
+			<div class="nav-collapse">
+				<ul class="nav pull-right">
+					<?php
+					if($this->uri->segment(2)=="login" || !($this->uri->segment(2)))
+					{
+					?>
+						<li class="">						
+							<a class="" href="<?php echo base_url(); ?>user/sign_up">
+								Don't have an account? create one.
+							</a>
+							
+						</li>
+					<?php
+					}
+					else if($this->uri->segment(2)=="sign_up" )
+					{
+					?>
+						<li class="">						
+								<a class="" href="<?php echo base_url(); ?>user/login">
+									Already have an account? Login now
+								</a>
+								
+							</li>
+					<?php
+					}
+					?>
+					</ul>
+			
+				 </div>
+			  <!--/.nav-collapse --> 
 			</div>
 			<!-- /container --> 
 		  </div>
 		  <!-- /navbar-inner --> 
 		</div>
-		<!-- /navbar --> 
-        <?php //$this->load->view("common/sub-nav"); ?>
-        <div class="main">
-			<div class="main-inner">
-				<div class="container">
-					<div class="row">
-						<div class="span12">
-       	 					<?php echo $content_for_layout ?>
-                        </div><!-- .span12-->
-                    </div><!-- .row -->
-                </div><!-- .container -->
-           	</div><!-- .main-inner -->
-        </div><!-- .main -->
-        <!-- /bottom of the page -->
-			<div class="extra">
-			  <div class="extra-inner">
-				<div class="container">
-				  <div class="row">
-								<div class="span3">
-									<h4>
-										About Admin </h4>
-									<ul>
-										<li><a href="javascript:;">extra links</a></li>
-									</ul>
-								</div>
-								<!-- /span3 -->
-								<div class="span3">
-									<h4>
-										Support
-									</h4>							
-									<ul>
-										<li><a href="javascript:;">extra links</a></li
-									></ul>
-								</div>
-								<!-- /span3 -->
-								<div class="span3">
-									<h4>
-										Something Legal</h4>
-									<ul>
-										<li><a href="javascript:;">extra links</a></li>
-									</ul>
-								</div>
-								<!-- /span3 -->
-							</div>
-				  <!-- /row --> 
-				</div>
-				<!-- /container --> 
-			  </div>
-			  <!-- /extra-inner --> 
-			</div>
-			<!-- /extra -->
-            <div class="footer">
+		
+		<?php echo $content_for_layout ?>
+		<div class="login-extra">
+			<!-- <a href="#">Forgot Password</a> -->
+		</div>
+		<div class="footer">
 		  <div class="footer-inner">
 			<div class="container">
 			  <div class="row">
-				<div class="span12"> &copy; 2013 <a href="http://www.egrappler.com/">Bootstrap Responsive Admin Template</a>. </div>
+				<div class="span12"> &copy; 2014 <a href="http://www.egrappler.com/">Bootstrap Responsive Admin Template</a>. </div>
 				<!-- /span12 --> 
 			  </div>
 			  <!-- /row --> 

@@ -20,15 +20,16 @@
 <?php $id = $this->uri->segment(4);?>
 <div id="main-container">
 	<div class="padding-md">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3><?php echo $article[0]['topic'];?></h3>
+			</div>
+		</div> <br/>
 		<div class="row">
 			<div class="col-md-11">	
-				<h3 class="headline m-top-md">
-					<?php echo $article[0]['topic'];?>
-					<span class="line"></span>
-				</h3>
 				<div class="row">	
 					<div class="col-md-8">
-						<div class="panel blog-container">
+						<div class="panel blog-container" style="border:1px solid #D6E9F3;">
 							<div class="panel-body">
 								<h4><?php echo $article[0]['topic'];?></h4>
 								<small class="text-muted">By <a href="#"><strong> <?php echo $article[0]['userName'];?></strong></a> |  Post on <?php echo $article[0]['created_date'];?>  | <?php echo $article[0]['no_of_replies'];?> comments</small>

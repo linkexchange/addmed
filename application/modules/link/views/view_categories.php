@@ -20,9 +20,17 @@
 			<?php } ?>
 			
 			<div class="padding-md clearfix">
+                            <?php 
+				//echo $this->uri->segment(4);
+				$sr=1;
+				if($this->uri->segment(3)>1 ){
+                                    $sr=(int)$this->config->item('record_limit')*$this->uri->segment(3)-((int)$this->config->item('record_limit')-1);
+				}
+                            ?>
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
+                                                    <th>Sr.</th>
 							<th>Category Name</th>
                            	<th>Cost Per Click</th>
 							<th>Created at</th>
@@ -36,6 +44,7 @@
 						{
 						?>
 						<tr>
+                                                    <td><?php echo $sr; ?>.</td>
 							<td><?php echo $cat['category_name']; ?></td>
 							<td><?php echo $cat['cost_per_click'];?></td>
 							<td><?php echo $cat['created_date']; ?></td>
@@ -53,27 +62,23 @@
 							</td>
 						</tr>
 						<?php
+                                                    $sr++;
 						}
 						?>
 					</tbody>
 				</table>
-				<div class="widget-header" style="text-align:right;">
-					<?php 
-						$mod=10; $inc=1;
-						if($cats_count>$mod) :
-							echo "Pages:";
-							for($i=0;$i<=$url_count;$i++) :
-								if(($i%$mod)==0) :
-									//echo $inc;
-									?>
-										<a class="btn btn-small btn-success page-<?php echo $inc; ?> <?php if($inc==$this->uri->segment(3))  echo "page-active"; else if(!($this->uri->segment(3)) && $inc==1)  echo "page-active";  ?>" href="<?php echo base_url()."link/index/".$inc; ?>" ><?php echo $inc; ?></a>
-									<?php
-									$inc++;
-								endif;
-							endfor;
-						endif;
-					?> &nbsp;
-				</div>		
+				<div class="panel-footer clearfix">
+                                        <?php 
+                                            $count=$cats_count;
+                                            $url=base_url()."link/viewCategories/";
+                                            if($this->uri->segment(3))
+                                                $currentPage=$this->uri->segment(3);
+                                            else
+                                                $currentPage=1;
+                                            $parameters=array();
+                                            pagination($url,$parameters,$count,$currentPage);
+                                        ?>
+                                </div>	
 			</div><!-- /.padding-md -->
 		</div>	
 	</div><!-- /.padding-md -->

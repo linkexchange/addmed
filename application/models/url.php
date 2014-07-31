@@ -105,7 +105,7 @@ class Url extends CI_Model {
 	public function getAllUrl($cat="",$limit=0)
 	{
 		
-		$numberofrecords=50;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -127,14 +127,27 @@ class Url extends CI_Model {
 	}
 	public function getAllCategories($limit=0)
 	{
-		$numberofrecords=10;
+		//$numberofrecords=(int)$this->config->item('record_limit');
+		//if($limit>0)
+			//$limit=$limit-1;	
+		//$startRecord=$limit*$numberofrecords;
+		$this->db->select("*");
+		$this->db->from("categories");
+		//$this->db->limit($numberofrecords,$startRecord);
+
+		$result = $this->db->get();
+		//echo $this->db->last_query(); 
+		return $result->result_array();
+	}
+	public function displayAllCategories($limit=0)
+	{
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
 		$this->db->select("*");
 		$this->db->from("categories");
-		if($limit!="ALL")
-			$this->db->limit($numberofrecords,$startRecord);
+		$this->db->limit($numberofrecords,$startRecord);
 
 		$result = $this->db->get();
 		//echo $this->db->last_query(); 
@@ -193,7 +206,7 @@ class Url extends CI_Model {
 	}
 	public function getAllAdvertiserUrl($advertiserID,$cat="",$limit=0)
 	{
-		$numberofrecords=50;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -229,7 +242,7 @@ class Url extends CI_Model {
 
 	public function getAllPublisherUrl($publisherID,$cat="",$limit=0)
 	{
-		$numberofrecords=50;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;	
@@ -274,7 +287,7 @@ class Url extends CI_Model {
 	?*/
 	public function getPublishedUrls($userID=0,$limit=0)
 	{
-		$numberofrecords=50;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -301,14 +314,17 @@ class Url extends CI_Model {
 	/*ussed to show all publisshed url by publisher */
 	public function getPublishedUrlsCount($userID=0)
 	{
-		
 		$this->db->select("distinct(".$this->config->item('table_url').".id)");
 		$this->db->from($this->config->item('table_url'));
 
 		$this->db->join($this->config->item('table_published_url'),$this->config->item('table_published_url').".linkID=".$this->config->item('table_url').".id");
 
 		$this->db->join($this->config->item('table_user'),$this->config->item('table_published_url').".publisherID = ".$this->config->item('table_user').".id");
-		$this->db->where("advertiserID", $userID);
+                if($this->session->userdata('userTypeId')==2)
+                    $this->db->where("advertiserID", $userID);
+                elseif($this->session->userdata('userTypeId')==2)
+                    $this->db->where("publisherID", $userID);
+                    
 		//$this->db->limit($numberofrecords,$startRecord);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
@@ -319,7 +335,7 @@ class Url extends CI_Model {
 
 	public function getPublisherUrls($userID=0,$limit=0)
 	{
-		$numberofrecords=50;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -343,30 +359,17 @@ class Url extends CI_Model {
 
 	public function getUnPublishedUrls($limit=0,$userID=0)
 	{
-		
-		//echo $limit;
-		$numberofrecords=50;
+                //echo $limit;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
+                
 		$this->db->select($this->config->item('table_url').".*");
-		
 		$this->db->from($this->config->item('table_url'));
-
-		
-		
 		$this->db->join($this->config->item('table_categories'),$this->config->item('table_url').".categoryID = ".$this->config->item('table_categories').".id",'left');
-		
 		$query = 'select linkID from '.$this->config->item("table_published_url");
-		
-		if($this->session->userData('userTypeID')==3)
-		{
-			$query .=" where publisherID = ".$this->session->userData('userID');
-		}
-
 		$this->db->where($this->config->item('table_url').".id NOT IN (".$query.")");
-
-
 		if($userID)
 		{
 			$this->db->where("advertiserID", $userID);
@@ -374,7 +377,7 @@ class Url extends CI_Model {
 		$this->db->order_by("payPerLink", "desc");
 		$this->db->limit($numberofrecords,$startRecord);
 		$result = $this->db->get();
-		
+                //echo $this->db->last_query();
 		return $result->result_array();
 	}
 	public function getUnPublishedUrlsCount($userID=0)

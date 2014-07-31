@@ -156,3 +156,19 @@
 		
 	</tbody>
 </table>
+<div class="panel-footer clearfix">
+    <?php 
+        $count=$url_count;
+        $url=base_url()."link/index/";
+        if($this->uri->segment(4))
+            $currentPage=(int)$this->uri->segment(4);
+        else
+            $currentPage=1;
+        if($cur_cat_ID) :
+            $parameters[0]=(int)$cur_cat_ID;
+        else :
+            $parameters[0]=0;
+        endif;
+        pagination($url,$parameters,$count,$currentPage);
+    ?>  
+</div>

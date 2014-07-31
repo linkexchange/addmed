@@ -10,7 +10,8 @@ $(document).ready(function(){
 <script>
 	function getCategoryLinks(cid){
 		//alert(cid);
-			if(cid){
+                window.location=base_url+"link/index/"+cid;
+                /*    if(cid){
 				 $.ajax({
 				url:base_url+"link/link/index/"+cid,
 				//beforeSend: loadStartPub,
@@ -24,7 +25,7 @@ $(document).ready(function(){
 			else
 			{
 				$(".setData").hide();
-			}
+			}*/
 	}
 </script>
 <div id="main-container">
@@ -64,6 +65,7 @@ $(document).ready(function(){
 						<table class="table table-bordered table-striped dataTable">
 							<thead>
 								<tr>
+                                                                        <th>Sr.</th>
 									<th>Link </th>
 									<th>Category Name</th>
 									<th>Title</th>
@@ -95,6 +97,10 @@ $(document).ready(function(){
 								$this->load->model("clicksdetail");
 								$this->load->model("user");
 								$this->load->model("url");
+                                                                $sr=1;
+                                                                if($this->uri->segment(4)>1 ){
+                                                                    $sr=(int)$this->config->item('record_limit')*$this->uri->segment(4)-((int)$this->config->item('record_limit')-1);
+                                                                }
 							?>
 							<tbody>
 								<?php
@@ -103,6 +109,7 @@ $(document).ready(function(){
 								{
 								?>
 								<tr>
+                                                                        <td><?php echo $sr; ?></td>
 									<td><?php echo $url['url'];?></td>
 									<td><?php 
 											if($url['categoryID']==0)
@@ -213,39 +220,27 @@ $(document).ready(function(){
 									?> -->
 									</td>
 								</tr>
-								<?php
+								<?php $sr++;
 								}
 								?>
 							</tbody>
 						</table>
-					<?php if($url_count>10) : ?>
-					<div class="panel-footer clearfix">
-						<ul class="pagination pagination-split m-bottom-md">
-							<li><a href="#">Pages</a></li>
-							<?php 
-								$mod=10; $inc=1;
-								if($url_count>$mod) :
-									for($i=0;$i<=$url_count;$i++) :
-										if(($i%$mod)==0) :
-							?>
-							<?php if($cur_cat_ID) : ?>
-							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active";  ?>">
-								<a href="<?php echo base_url()."link/index/".$cur_cat_ID."/".$inc; ?>"><?php echo $inc;?></a>
-							</li>
-							<?php else : ?>
-							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active";  ?>">
-								<a href="<?php echo base_url()."link/index/0/".$inc; ?>"><?php echo $inc;?></a>
-							</li>
-							<?php endif; ?>
-							<?php
-											$inc++;
-										endif;
-									endfor;
-								endif;
-								?>
-						</ul>
-					</div>
-					<?php endif; ?>	
+                                                <div class="panel-footer clearfix">
+                                                     <?php 
+                                                        $count=$url_count;
+                                                        $url=base_url()."link/index/";
+                                                        if($this->uri->segment(4))
+                                                            $currentPage=(int)$this->uri->segment(4);
+                                                        else
+                                                            $currentPage=1;
+                                                        if($cur_cat_ID) :
+                                                            $parameters[0]=(int)$cur_cat_ID;
+                                                        else :
+                                                            $parameters[0]=0;
+                                                        endif;
+                                                        pagination($url,$parameters,$count,$currentPage);
+                                                    ?>  
+                                                </div>
 				</div>
 			</div><!-- /.padding-md -->
 		</div>	

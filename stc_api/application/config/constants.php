@@ -37,8 +37,11 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
-define('BLOG_IMAGE_PATH','http://192.168.1.80/addmed/uploads/blog_images/');
+/*define('BLOG_IMAGE_PATH','http://192.168.1.80/addmed/uploads/blog_images/');
 define('ARTICLE_IMAGE_PATH','http://192.168.1.80/addmed/uploads/article_images/');
+define('WEBSITE_PATH','websites/');*/
+define('BLOG_IMAGE_PATH','uploads/blog_images/');
+define('ARTICLE_IMAGE_PATH','uploads/article_images/');
 define('WEBSITE_PATH','websites/');
 
 /* End of file constants.php */

@@ -41,7 +41,7 @@ class Clicksdetail extends CI_Model {
 		return $result->result_array();
 	}
 	public function getClickRecords($uid=0,$StartDate=0,$endDate=0,$limit=0){
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;

@@ -515,7 +515,7 @@ abstract class BaseFacebook
     $this->establishCSRFTokenState();
     //$currentUrl = $this->getCurrentUrl();
 
-    $currentUrl='http://www.demo.socialtrafficcenter.com/facebook/dashboard';
+    $currentUrl='http://www.socialtrafficcenter.com/facebook/dashboard';
     // if 'scope' is passed as an array, convert to comma separated list
     $scopeParams = isset($params['scope']) ? $params['scope'] : null;
     if ($scopeParams && is_array($scopeParams)) {

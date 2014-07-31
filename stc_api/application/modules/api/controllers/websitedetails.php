@@ -37,7 +37,7 @@ class Websitedetails extends MX_Controller{
 						foreach($blogs as $item){
 							$posts[$index]['postID']=$item['id'];
 							$posts[$index]['postTitle']=$item['title'];
-							$posts[$index]['postImage']=BLOG_IMAGE_PATH."".$item['image'];
+							$posts[$index]['postImage']=base_url().BLOG_IMAGE_PATH."".$item['image'];
 							$posts[$index]['postDescription']=$item['description'];
 							$posts[$index]['postSlug']=$item['blogSlug'];
 
@@ -205,7 +205,7 @@ class Websitedetails extends MX_Controller{
                                                     $galleryItemDetails['galleryItemVideo']=$gallery[$item]['articleVideo'];
                                                                                              
                                                 if($gallery[$item]['articleImage'])
-                                                    $galleryItemDetails['galleryItemImage']=ARTICLE_IMAGE_PATH."".$gallery[$item]['articleImage'];
+                                                    $galleryItemDetails['galleryItemImage']=base_url().ARTICLE_IMAGE_PATH."".$gallery[$item]['articleImage'];
                                                 
 						$pre=$item-1;
 						if($pre<0)
@@ -254,7 +254,7 @@ class Websitedetails extends MX_Controller{
                                     $galleryItemDetails['galleryItemVideo']=$gallery[0]['articleVideo'];
 				
                                 if($gallery[0]['articleImage'])
-                                    $galleryItemDetails['galleryItemImage']=ARTICLE_IMAGE_PATH."".$gallery[0]['articleImage'];
+                                    $galleryItemDetails['galleryItemImage']=base_url().ARTICLE_IMAGE_PATH."".$gallery[0]['articleImage'];
 			}
 
 			if($arrayCount==1){

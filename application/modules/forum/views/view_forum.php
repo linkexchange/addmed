@@ -27,7 +27,7 @@
 							<?php			
 								$sr=1;
 								if($this->uri->segment(4)>1 ){
-									$sr=10*$this->uri->segment(4)-9;
+									$sr=(int)$this->config->item('record_limit')*$this->uri->segment(4)-((int)$this->config->item('record_limit')-1);
 								}
 								foreach($topics as $topic) { ?>
 								<tr>	
@@ -66,29 +66,15 @@
 								<?php } ?>
 							</tbody>
                         </table></b>
-					<?php if($count>10) : ?>
-					<div class="panel-footer clearfix">
-						<ul class="pagination pagination-split m-bottom-md">
-							<li><a href="#">Pages</a></li>
-							<?php 
-								$mod=10; $inc=1;
-								if($count>$mod) :
-									for($i=0;$i<=$count;$i++) :
-										if(($i%$mod)==0) :
-							?>
-							
-							<li class="<?php if($inc==$this->uri->segment(4))  echo "active"; else if(!($this->uri->segment(4)) && $inc==1)  echo "active";  ?>">
-								<a href="<?php echo base_url()."forum/dashboard/index/".$inc; ?>"><?php echo $inc;?></a>
-							</li>
-							<?php
-											$inc++;
-										endif;
-									endfor;
-								endif;
-								?>
-						</ul>
-					</div>
-					<?php endif; ?>	
+						<?php 
+							$url=base_url()."forum/dashboard/index/";
+							if($this->uri->segment(4))
+							$currentPage=(int)$this->uri->segment(4);
+							else
+							$currentPage=1;
+							$parameters=array();
+							pagination($url,$parameters,$count,$currentPage);
+						?>	
 			</div><!-- /.padding-md -->
 		</div>	
 	</div><!-- /.padding-md -->

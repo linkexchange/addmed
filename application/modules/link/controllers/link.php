@@ -48,13 +48,14 @@ class Link extends MX_Controller {
 		$data['url_count']=$this->url->getUrlCount($this->session->userData('userID'),$cat);
 		
 		//echo "<pre>"; print_R($data); exit;
-		if($cat){
+		/*if($cat){
 			$this->load->view('view_links_by_cat',$data);
 		}
 		else{
 			//$this->layout->setLayout("layout/main");
 			$this->layout->view('view_links',$data);
-		}
+		}*/
+                $this->layout->view('view_links',$data);
 	}
 	public function add()
 	{
@@ -133,7 +134,7 @@ class Link extends MX_Controller {
 						  'updated_by'   =>$this->session->userData('userID'));
 			$this->url->updateCategory($data,$this->input->post('id'));
 			$data['msg'] = "Category updated successfully";
-			$data['cats']=$this->url->getAllCategories($page=1);
+			$data['cats']=$this->url->displayAllCategories($page=1);
 			$data['cats_count']=$this->url->getCatCount();
 			$this->layout->view('view_categories',$data);
 		}	
@@ -183,7 +184,7 @@ class Link extends MX_Controller {
 		{
 			$this->url->add_Category($data);
 			$data['msg'] = "Category added successfully";
-			$data['cats']=$this->url->getAllCategories($page=1);
+			$data['cats']=$this->url->displayAllCategories($page=1);
 			$data['cats_count']=$this->url->getCatCount();
 			$this->layout->view('view_categories',$data);
 		}
@@ -218,7 +219,7 @@ class Link extends MX_Controller {
 	public function viewCategories($page=1)
 	{
 		$this->load->model("url");
-		$data['cats']=$this->url->getAllCategories($page);
+		$data['cats']=$this->url->displayAllCategories($page);
 		$data['cats_count']=$this->url->getCatCount();
 		$this->layout->view('view_categories',$data);
 	}
@@ -253,7 +254,7 @@ class Link extends MX_Controller {
 
 		}
 		
-		$data['cats']=$this->url->getAllCategories($page=1);
+		$data['cats']=$this->url->displayAllCategories($page=1);
 		$data['cats_count']=$this->url->getCatCount();
 		$this->layout->view('view_categories',$data);
 	}

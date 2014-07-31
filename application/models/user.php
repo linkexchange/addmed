@@ -70,6 +70,21 @@ class User extends CI_Model {
 		//echo $this->db->last_query();
 		return $result->result_array();
 	}
+        function getUsers($limit=0)
+	{
+            $numberofrecords=(int)$this->config->item('record_limit');
+            if($limit>0)
+               $limit=$limit-1;	
+            $startRecord=$limit*$numberofrecords;
+            $this->db->select($this->config->item('table_user').".*,usertype.type");
+            $this->db->from($this->config->item('table_user'));
+            $this->db->join('usertype',$this->config->item('table_user').".userTypeID = ".'usertype'.".id",'left');
+            $this->db->where("userTypeID !=",1);
+            $this->db->limit($numberofrecords,$startRecord);
+            $result = $this->db->get();
+            //echo $this->db->last_query();
+            return $result->result_array();
+	}
 	function getAllUsersCount()
 	{
 		$this->db->select($this->config->item('table_user').".*,usertype.type");
@@ -78,7 +93,7 @@ class User extends CI_Model {
 		$this->db->where("userTypeID !=",1);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
-		return $result->result_array();
+		return $result->num_rows();
 	}
 	function getUser($id)
 	{

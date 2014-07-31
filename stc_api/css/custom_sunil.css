@@ -1,0 +1,169 @@
+/* 
+    Document   : custom_sunil
+    Created on : Jul 11, 2014, 1:04:12 PM
+    Author     : comp14
+    Description:
+        Purpose of the stylesheet follows.
+*/
+/*
+    # Publisher accounts page css
+    # Start
+*/
+
+#twitter .acc_actions{
+    width: 15%;
+}
+#twitter .acc_posts, #twitter .acc_followers{
+    width: 20%;
+}
+#twitter .acc_name{
+    width: 35%;
+}
+#twitter .acc_image{
+    width: 10%;
+}
+
+#tumblr .acc_actions{
+    width: 14%;
+}
+#tumblr .acc_posts, #tumblr .acc_followers, #tumblr .acc_blogs, #tumblr .acc_likes{
+    width: 14%;
+}
+#tumblr .acc_name{
+    width: 30%;
+}
+.table thead tr th{
+vertical-align : middle;
+}
+
+    .social-box {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    min-height: 160px;
+    text-align: center;
+}
+
+.fa-facebook:before {
+    content: "";
+}
+*:before, *:after {
+    box-sizing: border-box;
+}
+*:before, *:after {
+    box-sizing: border-box;
+}
+.social-box.facebook i {
+    background: none repeat scroll 0 0 #3b5998;
+    color: white;
+    margin: -1px -1px 1px;
+}
+.social-box i {
+    background: none repeat scroll 0 0 #f5f5f5;
+    display: block;
+    font-size: 40px;
+    line-height: 90px;
+}
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+}
+
+
+.social-box ul li:first-child {
+    border-right: 1px solid #f5f5f5;
+}
+.social-box ul li {
+    display: block;
+    float: left;
+    width: 50%;
+}
+.social-box ul li strong {
+    display: block;
+    font-size: 20px;
+}
+b, strong {
+    font-weight: 700;
+}
+.social-box.twitter i {
+    background: none repeat scroll 0 0 #00aced;
+    color: white;
+    margin: -1px -1px 1px;
+}
+.social-box.tumblr i {
+    background: none repeat scroll 0 0 #2c4762;
+    color: white;
+    margin: -1px -1px 1px;
+}
+.social-box.instagram i {
+    background: none repeat scroll 0 0 #306088;
+    color: white;
+    margin: -1px -1px 1px;
+}
+.social-box ul {
+    list-style: none outside none;
+    padding: 10px 0;
+}
+ul, ol {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+.tab-bar li.active #twitter-tab{
+    background: none repeat scroll 0 0 #00aced;
+    color: white; 
+}
+.tab-bar li.active #facebook-tab{
+    background: none repeat scroll 0 0 #3b5998;
+    color: white;
+}
+.tab-bar li.active #tumblr-tab{
+    background: none repeat scroll 0 0 #2c4762;
+    color: white;
+}
+.tab-bar li.active #instagram-tab{
+    background: none repeat scroll 0 0 #306088;
+    color: white;
+}
+.btn-twitter{
+     background: none repeat scroll 0 0 #00aced;
+     color: white;
+}
+.btn-facebook{
+     background: none repeat scroll 0 0 #3b5998;
+    color: white;
+}
+.btn-tumblr{
+    background: none repeat scroll 0 0 #2c4762;
+    color: white;
+}
+.btn-instagram{
+    background: none repeat scroll 0 0 #306088;
+    color: white;
+}
+.btn-social-media:hover{
+    background: none repeat scroll 0 0 #fff;
+}
+.btn-twitter:hover i{
+    color: #00aced;
+}
+.btn-facebook:hover i{
+    color: #3b5998;
+}
+.btn-tumblr:hover i{
+    color: #2c4762;
+}
+.btn-instagram:hover i{
+    color: #306088;
+}
+/*
+    # Publisher accounts page css
+    # End
+*/
+.acc_image .img-demo{
+    background: none;
+    border: 0px;
+}

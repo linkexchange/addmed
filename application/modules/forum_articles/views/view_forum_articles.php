@@ -46,31 +46,15 @@
 					</div>
 				</div>
 			<?php } } ?>
-			<!-- <?php if($count>10) : ?>
-				<div class="panel-footer clearfix">
-					<ul class="pagination pagination-split m-bottom-md">
-						<li><a href="#">Pages</a></li>
-						<?php 
-							$mod=10; $inc=1;
-							if($count>$mod) :
-								for($i=0;$i<=$count;$i++) :
-									if(($i%$mod)==0) :
-						?>
-						<li class="<?php if($inc==$this->uri->segment(3))  echo "active"; else if(!($this->uri->segment(3)) && $inc==1)  echo "active";  ?>">
-							<a href="<?php echo base_url()."articles/index/".$inc; ?>"><?php echo $inc;?></a>
-						</li>
-						<?php
-										$inc++;
-									endif;
-								endfor;
-							endif;
-							?>
-					</ul>
-				</div>
-			<?php endif; ?>	 -->
-			<ul>
-                               <?php  echo $pagination;?>
-                       </ul>
+			<?php 
+				$url=base_url()."articles/index/";
+				if($this->uri->segment(3))
+				$currentPage=(int)$this->uri->segment(3);
+				else
+				$currentPage=1;
+				$parameters=array();
+				pagination($url,$parameters,$count,$currentPage);
+			?>
 		</div>
 	<!--<div class="panel-footer clearfix">
 		<ul class="pagination pagination-xs m-top-none pull-right">
@@ -114,4 +98,17 @@
             }
         });
 	}});
-</script>		
+</script>
+<script>
+    function getRecords(pageNum){
+        $.ajax({
+            url:"<?php echo base_url(); ?>forum_articles/listing/index/"+pageNum,
+                //beforeSend: loadStartPub,
+		//complete: loadStopPub,
+            success:function(result){
+            	//alert(result);
+                $("#articleTable").html(result);
+         }});
+            //pageactive(pid);
+    }
+</script>	

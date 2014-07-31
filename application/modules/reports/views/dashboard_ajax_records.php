@@ -30,8 +30,9 @@
 		<?php 
 			//echo $this->uri->segment(4);
 			$sr=1;
-			if($this->uri->segment(4)>1 ){
-				$sr=10*$this->uri->segment(4)-9;
+			if($this->uri->segment(6)>1 ){
+                            $sr=(int)$this->config->item('record_limit')*$this->uri->segment(6)-((int)$this->config->item('record_limit')-1);
+
 			}
 		?>
 		<?php $this->load->model("user"); ?>
