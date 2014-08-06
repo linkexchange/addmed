@@ -91,8 +91,7 @@ class Profile extends MX_Controller {
 	{
 		$this->load->model("user");
 		$this->user->deleteUser($id);
-		$this->session->set_flashdata('message','User deleted succesfully');
-		redirect(base_url()."admin/dashboard");
+		redirect(base_url()."admin/dashboard/user");
 	}
 	public function add(){
 		$this->load->model("user");

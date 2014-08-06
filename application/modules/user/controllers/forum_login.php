@@ -104,7 +104,7 @@ class Forum_Login extends MX_Controller {
 				$userData['lastLoggedInOn']=date("Y-m-d");
 				$userData['lastLoggedInFrom']=$type;
 				
-				$updated = $this->user->updateUser($this->session->userData('ForumUserID'),$userData);
+				$updated = $this->user->updateForumUser($this->session->userData('ForumUserID'),$userData);
 				
 				echo 1;
 			}
@@ -112,34 +112,40 @@ class Forum_Login extends MX_Controller {
 			{
 				//echo $isUserExists;
 				$userData=array();
+				$ForumUserData=array();
 				if($type=="Google"){
-					$userData['googleID']=$email;
+					$ForumUserData['googleID']=$email;
 				} else if($type=="Facebook"){
-					$userData['facebookID']=$email;
+					$ForumUserData['facebookID']=$email;
 				}else if($type=="Twitter"){
-					$userData['twitterID']=$twitterId;
-					$userData['twitterEmail']=$email;
+					$ForumUserData['twitterID']=$twitterId;
+					$ForumUserData['twitterEmail']=$email;
 				}
-				$userData['userName']=$email;
+				//data for user table
+				$userData['userTypeID']=4;
+				$userData['userName']=$firstName.$lastName;
+				$userData['email']=$email;
 				$userData['password']=$this->getPassword();				
 				$userData['createdDate']=date("Y-m-d");
-				$userData['lastLoggedInOn']=date("Y-m-d");
-				$userData['firstName']=$firstName;
-				$userData['lastName']=$lastName;
-				$userData['lastLoggedInFrom']=$type;
-				
-				
-				$userID = $this->user->createForumUser($userData);
-				if($userID)
+				//data for forum user table
+				//$ForumUserData['userName']=$email;
+				//$ForumUserData['password']=$this->getPassword();				
+				$ForumUserData['createdDate']=date("Y-m-d");
+				$ForumUserData['lastLoggedInOn']=date("Y-m-d");
+				$ForumUserData['firstName']=$firstName;
+				$ForumUserData['lastName']=$lastName;
+				$ForumUserData['lastLoggedInFrom']=$type;
+				$userID  = $this->user->createUser($userData);
+				$ForumUserData['forumUserID']=$userID;
+				$forumID = $this->user->insertForumUser($ForumUserData);
+				if($userID && $forumID)
 				{
-					$userData=$this->user->getUserDataByID($userID);
+					$userData=$this->user->getUserDataByID2($forumID);
 					$this->setUserSession($userData,$type);
 					$this->sendRegistrationEmail();
-					
 					echo 1;
 				}
 			}
-			
 		}
 		else
 		{
@@ -149,12 +155,28 @@ class Forum_Login extends MX_Controller {
 
 	public function setUserSession($userData,$type){
 		foreach($userData as $user){
-			$this->session->set_userdata('ForumUserID', $user['id']);
-			$this->session->set_userdata('ForumUserName', $user['userName']);
-			$this->session->set_userdata('ForumUserFullName',$user['firstName']." ".$user['lastName']);
-			//$this->session->set_userdata('userTypeID',$user['userTypeID']);
-			$this->session->set_userdata('ForumUserType',$type);
-			$this->session->set_userdata('ForumLoggedIn',TRUE);
+			$this->session->set_userdata('userID', $user['id']);
+			$this->session->set_userdata('userName', $user['userName']);
+			if(array_key_exists('forumUserID',$user)) 
+			{
+				$this->session->set_userdata('userTypeID',$user['forumUserID']);
+				$this->session->set_userdata('ForumUserFullName',$user['firstName']." ".$user['lastName']);
+			}
+			else
+			{
+				$this->session->set_userdata('userTypeID',$user['userTypeID']);
+			}
+			$this->session->set_userdata('email',$user['email']);
+			$this->session->set_userdata('loggedIn',TRUE);
+                        
+			if($this->session->userdata('userTypeID')==1)
+				$this->session->set_userdata('userType','admin');
+			else if($this->session->userdata('userTypeID')==2)
+				$this->session->set_userdata('userType','advertiser');
+			else if($this->session->userdata('userTypeID')==3)
+				$this->session->set_userdata('userType','publisher');
+			elseif($this->session->userdata('userTypeID')==4)
+				$this->session->set_userdata('userType','forumUser');
 		}
 					
 	}
@@ -164,7 +186,8 @@ class Forum_Login extends MX_Controller {
 			$this->load->model("user");
 			$userExists=$this->user->userExixts($_POST['email'],$_POST['type']); 
 			if($userExists){
-				$userSpam=$this->user->isUserSpam($userExists); 				if(!$userSpam){
+				$userSpam=$this->user->isUserSpam($userExists); 				
+				if(!$userSpam){
 					$userData=$this->user->getUserDataByID($userExists);
 					$this->setUserSession($userData,$_POST['type']);
 					$userData=array(
@@ -181,7 +204,6 @@ class Forum_Login extends MX_Controller {
 			}
 			else
 			{
-				
 				echo 0;
 			}
 		}
@@ -281,14 +303,15 @@ class Forum_Login extends MX_Controller {
 	public function sendRegistrationEmail(){
 		$this->load->library('email');
 		$this->load->model('user');
-		$user=$this->user->getUserDetails($this->session->userdata('userName'));
-
+		$user=$this->user->getUserDetails2($this->session->userdata('email'));
 		$this->email->clear();
+		$config['protocol'] = 'sendmail';
 		$config['mailtype'] = 'html';
+		$config['charset'] = 'iso-8859-1';
+		$config['wordwrap'] = TRUE;
 		$this->email->initialize($config);
-			
 		$this->email->from('admin@socialtrafficcenter.com', 'Admin');
-		$this->email->to($this->session->userdata('ForumUserName'));
+		$this->email->to($user[0]['email']);
 		//$this->email->cc('another@another-example.com');
 		//$this->email->bcc('them@their-example.com');
 			
@@ -296,11 +319,10 @@ class Forum_Login extends MX_Controller {
 		$msg="";
 		$msg.="<br/>Hello ".$this->session->userdata('ForumUserFuLLName').",";
 		$msg.="<br/><br/>Bellow are your profile details.Please check.<br/>";
-		$msg.="<br/>UserName: ".$user[0]['userName'];
+		$msg.="<br/>UserName: ".$user[0]['email'];
 		$msg.="<br/>Password : ".$user[0]['password'];
 		$msg.="<br/><br/> Thanks,<br/>Regards,<br/>Admin Team.";
 		$this->email->message($msg);
-
 		$this->email->send();
 	}
 	

@@ -4,7 +4,7 @@
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
 				<h4><b><i class="fa fa-file-text fa-lg"></i> Forum</b>
 				<span class="badge badge-info"><?php echo count($topics);?> topics</span>
-				<?php if($this->session->userdata('ForumUserID')){?>
+				<?php if($this->session->userdata('userID')){?>
 				<span class="pull-right">
 					<a class="btn btn-sm btn-success" href="<?php echo base_url();?>forum/add">
 					<i class="fa fa-anchor"></i> Add topic</a>
@@ -19,15 +19,22 @@
 					<table class="table table-hover table-striped">
 						<?php 
 							if($topics){  
-								  if($this->session->userdata('ForumUserID'))
-								  {
-									$cnt = count($topics);
-								  }
-								  else 
-								  { 
-									$cnt = count($topics);
-								  }
-						   for($i=0;$i<$cnt;$i++) { ?>	
+								if($this->session->userdata('userID'))
+								{
+								$count = count($topics);
+								}
+								else 
+								{ 
+									if(count($topics)<5)
+									{
+										$count = count($topics);
+									}
+									else
+									{
+										$count = 5;
+									}		
+								}
+							for($i=0;$i<$count;$i++) { ?>	
 						<tr style="border:1px solid LightGray;">
 							<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
 							<td>
@@ -62,7 +69,7 @@
 						</tr>
 						<?php } }?>
 						<tr style="border:1px solid #D6E9F3;">
-							<?php if(!$this->session->userdata('ForumUserID')){?>
+							<?php if(!$this->session->userdata('userID')){?>
 							<td><br/><span class="badge badge-danger">Access</span></td>
 							<td>
 								<h4 style="font-family:verdana;"><strong>&nbsp;To access the full forum please 

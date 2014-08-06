@@ -19,12 +19,16 @@
 <?php $id = $this->uri->segment(4);?>
 <div id="main-container">
 	<div class="padding-md">
+		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+				<h3>
+					<?php echo $article[0]['topic'];?>
+					<!--<span class="line"></span>-->
+				</h3>
+			</div>
+		</div> <br/>
 		<div class="row">
 			<div class="col-md-11">	
-				<h3 class="headline m-top-md">
-					<?php echo $article[0]['topic'];?>
-					<span class="line"></span>
-				</h3>
 				<div class="row">	
 					<div class="col-md-8">
 						<div class="panel blog-container">

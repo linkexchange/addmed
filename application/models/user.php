@@ -6,6 +6,11 @@ class User extends CI_Model {
 		$this->db->insert($this->config->item('table_user'), $userData);
 		return $this->db->insert_id();
 	}
+	function insertForumUser($userData)
+	{
+		$this->db->insert($this->config->item('table_forum_user'), $userData);
+		return $this->db->insert_id();
+	}
 	function isValidUSer($userName,$password)
 	{
 		$this->db->select('*');
@@ -49,7 +54,11 @@ class User extends CI_Model {
 		$this->db->limit(1);
 		$result = $this->db->get();
 		return $result->result_array();
-		
+	}
+	function connectExistingUser($id,$userdata)
+	{
+		$this->db->where("forumUserID",$id);
+		return $this->db->update($this->config->item('table_forum_user'),$userdata);
 	}
 	function getUserType()
 	{
@@ -235,12 +244,20 @@ class User extends CI_Model {
 	public function getUserDataByID($uid){
 		$this->db->select('*');
 		$this->db->from($this->config->item('table_forum_user'));
-		$this->db->where('id',$uid);
+		$this->db->where('forumUserID',$uid);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->result_array();
 	}
-
+	public function getUserDataByID2($uid){
+		$this->db->select($this->config->item('table_forum_user').'.*,'.$this->config->item('table_user').'.email');
+		$this->db->from($this->config->item('table_forum_user'));
+		$this->db->join($this->config->item('table_user'),$this->config->item('table_forum_user').".forumUserID =".$this->config->item('table_user').".id");
+		$this->db->where($this->config->item('table_forum_user').'.id',$uid);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+	}
 	public function getUserDataByEmail($email,$type){
 		$this->db->select($this->config->item('table_forum_user').".*,".$this->config->item('table_forum_user_type').".type");
 		$this->db->from($this->config->item('table_forum_user'));
@@ -262,8 +279,8 @@ class User extends CI_Model {
 	public function IsValidForumUser($emailId,$password){
 		$id=0;
 		$this->db->select('*');
-		$this->db->from($this->config->item('table_forum_user'));
-		$this->db->where('userName',$emailId);
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where('email',$emailId);
 		$this->db->where('password',$password);
 		$this->db->limit(1);
 		$result = $this->db->get();
@@ -301,7 +318,17 @@ class User extends CI_Model {
 		//echo $this->db->last_query();
 		return $result->result_array();
 	}
-
+	public function getUserDetails2($email){
+		$id=0;
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where('email',$email);
+		//$this->db->where('password',$password);
+		$this->db->limit(1);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+	}
 	public function isUserSpam($uid){
 		$id=0;
 		$this->db->select('id');

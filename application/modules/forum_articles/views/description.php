@@ -34,7 +34,6 @@
 								<h4><?php echo $article[0]['topic'];?></h4>
 								<small class="text-muted">By <a href="#"><strong> <?php echo $article[0]['userName'];?></strong></a> |  Post on <?php echo $article[0]['created_date'];?>  | <?php echo $article[0]['no_of_replies'];?> comments</small>
 								<div class="seperator"></div>
-								<div class="seperator"></div>
 								<div class="image-wrapper">
 									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['image'];?>" alt="Photo of article">
 								</div><!-- /image-wrapper -->
@@ -71,7 +70,7 @@
 										});
 									</script>
 											<div id="successMessage2" class="alert alert-success" style="display:none"></div>
-											<?php if($this->session->userdata("ForumUserID")){?>
+											<?php if($this->session->userdata("userID")){?>
 											<a href='#' id="bookmark">
 												<img id='bkmark' style='width:5%;margin-bottom:26px;'>
 											</a>
@@ -126,7 +125,7 @@
 								</div>
 							</div>
 						</div>
-						<?php if($this->session->userdata('ForumUserID')) { ?>
+						<?php if($this->session->userdata('userID')) { ?>
 						<a href="#" id="comment" class="btn btn-primary">Post a Comment</a>	
 						<?php } else {?>
 						<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post Comment</a>	
@@ -168,7 +167,7 @@
 										</small>
 									</div>
 									<p><?php echo $comments[$i]["description"];?></p>
-									<?php if($this->session->userdata('ForumUserID')) { ?>
+									<?php if($this->session->userdata('userID')) { ?>
 									<a href="#" onclick="display(<?php echo $i;?>);return false;" class="btn btn-primary">Post a Reply</a>	
 									<?php } else {?>
 									<a href="<?php echo base_url();?>user/forum_login/index?link=<?php echo $actual_link;?>" class="btn btn-primary">Login to Post Reply</a>	

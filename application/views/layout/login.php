@@ -39,8 +39,6 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine-en.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script>
 	<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-	<!-- Pace -->
-	<script src='<?php echo base_url();?>js/pace.min.js'></script>
   </head>
 
   <body class="overflow-hidden">
@@ -61,7 +59,7 @@
 		</div>
 
 		<div class="text-center">
-			<a class="btn btn-success m-right-sm" href="<?php echo base_url();?>user/forumlogout">Logout</a>
+			<a class="btn btn-success m-right-sm" href="<?php echo base_url();?>user/logout">Logout</a>
 			<a class="btn btn-danger logoutConfirm_close">Cancel</a>
 		</div>
 	</div>
@@ -82,7 +80,8 @@
 	<!-- Modernizr -->
 	<script src='<?php echo base_url();?>js/modernizr.min.js'></script>
 	
-	
+	<!-- Pace -->
+	<script src='<?php echo base_url();?>js/pace.min.js'></script>
 	
 	<!-- Popup Overlay -->
 	<script src='<?php echo base_url();?>js/jquery.popupoverlay.min.js'></script>

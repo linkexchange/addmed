@@ -11,7 +11,7 @@ class Forum extends MX_Controller{
 		$this->load->model("leaderboard");
 		$this->load->helper('url');
 		$this->load->library('session');
-		if($this->session->userdata('ForumUserName'))
+		if($this->session->userdata('userID'))
 		{
 			$this->layout->setLayout('layout/login');
 		}
@@ -70,7 +70,7 @@ class Forum extends MX_Controller{
 	}
 	public function add()
 	{
-		if(!$this->session->userdata("ForumUserID"))
+		if(!$this->session->userdata("userID"))
 		{
 			redirect(base_url().'user/login');
 		}
@@ -81,7 +81,7 @@ class Forum extends MX_Controller{
 						  'email'=>$this->input->post('email'),
 						  'description'=>$this->input->post('topicDescription'),
 						  'approved'=>'0',
-						  'created_by'=>$this->session->userdata("ForumUserID"),
+						  'created_by'=>$this->session->userdata("userID"),
 						  'created_date'=>date('Y-m-d'));
 			$insert_id = $this->forums->addTopic($data);
 			if($insert_id)
@@ -103,11 +103,19 @@ class Forum extends MX_Controller{
 	{
 		if($this->input->post('post_description'))
 		{
-			$data = array('post_description'=>$this->input->post('post_description'),
-						  'name'=>$this->session->userdata('ForumUserFullName'),
-						  'email'=>$this->session->userdata('ForumUserName'),
-						  'topic_id'=>$this->input->post('topicid'),
-						  'created_date'=>date('Y-m-d'));
+			$data['post_description'] = $this->input->post('post_description');
+			if($this->session->userdata('ForumUserFullName'))
+			{
+				$data['name'] = $this->session->userdata('ForumUserFullName');
+			}
+			else
+			{
+				$data['name'] = $this->session->userdata('userName');
+			}
+			$data['email']= $this->session->userdata('userName');
+			$data['topic_id'] = $this->input->post('topicid');
+			$data['created_by'] = $this->session->userdata('userID');
+			$data['created_date'] = date('Y-m-d');
 			$this->forums->addPostCount($this->input->post('topicid'));	
 			$insert_id = $this->forums->addPost($data);
 			if($insert_id)
@@ -160,7 +168,7 @@ class Forum extends MX_Controller{
 			$allUsers[$i]['userName']=$user['userName'];
 			$allUsers[$i]['totalFollowers']=$totalFollowers;
 			$allUsers[$i]['totalPosts']=$totalPosts;
-                        $allUsers[$i]['totalLikes']=$totalLikes;
+            $allUsers[$i]['totalLikes']=$totalLikes;
 			$i++;
 		}
 		

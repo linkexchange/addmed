@@ -7,7 +7,7 @@ class Listing extends MX_Controller{
 		$this->load->model('article');
 		$this->load->helper('url');
 		$this->load->helper('pagination_helper');
-		if($this->session->userdata('ForumUserName'))
+		if($this->session->userdata('userID'))
 		{
 			$this->layout->setLayout('layout/login');
 		}
@@ -26,10 +26,18 @@ class Listing extends MX_Controller{
 		if($this->input->post('comment_description'))
 		{
 			$data['description'] = $this->input->post('comment_description');
-			$data['name']  = $this->session->userdata('ForumUserFullName');
-			$data['email'] = $this->session->userdata('ForumUserName');	
+			if($this->session->userdata('ForumUserFullName'))
+			{
+				$data['name'] = $this->session->userdata('ForumUserFullName');
+			}
+			else
+			{
+				$data['name'] = $this->session->userdata('userName');
+			}
+			$data['email'] = $this->session->userdata('userName');	
 			$data['articleid'] = $this->input->post('articleid');	
 			$data['status'] = '1';
+			$data['created_by'] = $this->session->userdata('userID');
 			$data['created_date'] = date('Y-m-d');
 			$insert_id=$this->article->add_Comment($data);
 			if($insert_id){
@@ -48,10 +56,18 @@ class Listing extends MX_Controller{
 			//echo "hi"; exit;
 			$data['parent_id'] = $this->input->post('commentid');
 			$data['description'] = $this->input->post('reply_description');
-			$data['name']  = $this->session->userdata('ForumUserFullName');
-			$data['email'] = $this->session->userdata('ForumUserName');	
+			if($this->session->userdata('ForumUserFullName'))
+			{
+				$data['name'] = $this->session->userdata('ForumUserFullName');
+			}
+			else
+			{
+				$data['name'] = $this->session->userdata('userName');
+			}
+			$data['email'] = $this->session->userdata('userName');	
 			$data['articleid'] = $this->input->post('articleid');	
-			$data['status'] = '1';
+			$data['status'] = '1';			
+			$data['created_by'] = $this->session->userdata('userID');
 			$data['created_date'] = date('Y-m-d');
 			$commentData['replied'] = '1';
 			$this->article->update_Comment($this->input->post('commentid'),$commentData);
@@ -70,10 +86,18 @@ class Listing extends MX_Controller{
 			//echo "hi"; exit;
 			$data['parent_id'] = $this->input->post('replyid');
 			$data['description'] = $this->input->post('reply_description2');
-			$data['name']  = $this->session->userdata('ForumUserFullName');
-			$data['email'] = $this->session->userdata('ForumUserName');	
+			if($this->session->userdata('ForumUserFullName'))
+			{
+				$data['name'] = $this->session->userdata('ForumUserFullName');
+			}
+			else
+			{
+				$data['name'] = $this->session->userdata('userName');
+			}
+			$data['email'] = $this->session->userdata('userName');	
 			$data['articleid'] = $this->input->post('articleid');	
 			$data['status'] = '1';
+			$data['created_by'] = $this->session->userdata('userID');
 			$data['created_date'] = date('Y-m-d');
 			$insert_id=$this->article->add_Comment($data);
 			if($insert_id){
@@ -91,7 +115,7 @@ class Listing extends MX_Controller{
 			$bookmarkData = array('name'=>$this->input->post('bookmark'),
 								  'url'=>$this->input->post('bookmarkUrl'),
 								  'articleid'=>$this->input->post('articleid'),
-								  'created_by'=>$this->session->userdata("ForumUserID"),
+								  'created_by'=>$this->session->userdata("userID"),
 								  'created_date'=>date('Y-m-d'));
 			$insert_id=$this->article->add_Bookmark($bookmarkData);
 			if($insert_id){
@@ -139,7 +163,7 @@ class Listing extends MX_Controller{
 	}
 	public function show_bookmarks($page=1)
 	{
-		if(!$this->session->userdata('ForumUserID'))
+		if(!$this->session->userdata('userID'))
 		{
 			redirect(base_url().'user/login');
 		}
@@ -152,10 +176,7 @@ class Listing extends MX_Controller{
 	}
 	public function edit($id)
 	{
-		if(!$this->session->userdata('ForumUserID'))
-		{
-			redirect(base_url().'user/login');
-		}
+		
 		if($this->input->post('bookmark'))
 		{
 			$bookmarkdata = array('name'=>$this->input->post('bookmark'),

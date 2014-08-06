@@ -15,11 +15,16 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<?php if($this->session->userdata("ForumUserID")) {?>
+			<?php if($this->session->userdata("userID")) {?>
 			<ul class="nav-notification clearfix">
 				<li class="profile dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<strong><?php echo $this->session->userdata("ForumuserName");?></strong>
+						<strong><?php if($this->session->userdata("ForumUserFullName")){
+										echo $this->session->userdata("ForumUserFullName");
+									} else {
+										echo $this->session->userdata("userName");
+									}
+								?></strong>
 						<span><i class="fa fa-chevron-down"></i></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -27,7 +32,14 @@
 							<a class="clearfix" href="#">
 								<img src="<?php echo base_url();?>img/user.jpg" alt="User Avatar">
 								<div class="detail">
-									<strong><?php echo $this->session->userdata("ForumUserFullName");?></strong>
+									<strong>
+										<?php if($this->session->userdata("ForumUserFullName")){
+												echo $this->session->userdata("ForumUserFullName");
+											} else {
+												echo $this->session->userdata("userName");
+											}
+										?>
+									</strong>
 									<!--<p class="grey"><?php echo $this->session->userdata("email");?></p>--> 
 								</div>
 							</a>
@@ -58,17 +70,23 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<?php if($this->session->userdata("ForumUserID")) {?>
+					<?php if($this->session->userdata("loggedIn")) {?>
 					<a class="btn btn-sm pull-right logoutConfirm_open"  href="#logoutConfirm">
 						<i class="fa fa-power-off"></i>
 					</a>
 					<?php }?>
 				</div><!-- /size-toggle -->	
-				<?php if($this->session->userdata("ForumUserID")) {?>
+				<?php if($this->session->userdata("loggedIn")) {?>
 				<div class="user-block clearfix">
 					<img src="<?php echo base_url();?>img/user.jpg" alt="User Avatar">
 					<div class="detail">
-						<strong><?php echo $this->session->userdata("ForumUserFullName");?></strong><br/>
+						<strong><?php if($this->session->userdata("ForumUserFullName")){
+										echo $this->session->userdata("ForumUserFullName");
+									} else {
+										echo $this->session->userdata("userName");
+									}
+								?>
+						</strong><br/>
 						
 						<!--<span class="badge badge-danger bounceIn animation-delay4 m-left-xs">4</span>
 						<!--<ul class="list-inline">
@@ -122,7 +140,7 @@
 								<span class="menu-hover"></span>
 							</a>
 						</li>
-						<?php if($this->session->userdata('ForumUserID')){?>
+						<?php if($this->session->userdata('loggedIn')){?>
 						<li <?php if($this->uri->segment(1)=="bookmarks"){ echo "class='active'";}?>>
 							<a href="<?php echo base_url().'bookmarks'; ?>">
 								<span class="menu-icon">

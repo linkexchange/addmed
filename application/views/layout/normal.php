@@ -59,7 +59,7 @@
 		</div>
 
 		<div class="text-center">
-			<a class="btn btn-success m-right-sm" href="<?php echo base_url();?>user/forumlogout">Logout</a>
+			<a class="btn btn-success m-right-sm" href="<?php echo base_url();?>user/logout">Logout</a>
 			<a class="btn btn-danger logoutConfirm_close">Cancel</a>
 		</div>
 	</div>

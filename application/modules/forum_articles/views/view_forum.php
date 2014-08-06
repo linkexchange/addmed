@@ -4,7 +4,7 @@
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
 				<h4><b><i class="fa fa-file-text fa-lg"></i> Forum</b>
 				<span class="badge badge-info"><?php echo count($topics);?> topics</span>
-				<?php if($this->session->userdata('ForumUserID')){?>
+				<?php if($this->session->userdata('userID')){?>
 				<span class="pull-right">
 					<a class="btn btn-sm btn-success" href="<?php echo base_url();?>forum/add">
 					<i class="fa fa-anchor"></i> Add topic</a>
@@ -16,7 +16,6 @@
 		<div class="row">
 			<div class="col-md-8">
 				<div class="panel panel-default">
-					
 					<?php if($this->session->flashdata('topicmsg')){ ?>
 					<div class="alert alert-success">
 					<?php echo $this->session->flashdata('topicmsg');?>	
@@ -25,15 +24,22 @@
 					<table class="table table-hover table-striped">
 						<?php 
 							if($topics){  
-								  if($this->session->userdata('ForumUserID'))
+								  if($this->session->userdata('userID'))
 								  {
 									$count = count($topics);
 								  }
 								  else 
 								  { 
-									$count = count($topics);
+									if(count($topics)<5)
+									{
+										$count = count($topics);
+									}
+									else
+									{
+										$count = 5;
+									}		
 								  }
-						   for($i=0;$i<5;$i++) { ?>	
+						   for($i=0;$i<$count;$i++) { ?>	
 						<tr style="border:1px solid LightGray;">
 							<?php $title = url_title($topics[$i]['name'],'dash',TRUE);?>
 							<td>
@@ -69,15 +75,16 @@
 						<?php } }?>
 						
 						<tr style="border:1px solid #D6E9F3;">
-							<?php if(!$this->session->userdata('ForumUserID')){?>
+							<?php if(!$this->session->userdata('userID')){?>
 							<td><br/><span class="badge badge-danger">Access</span></td>
 							<td>
 								<h4 style="font-family:verdana;"><strong>&nbsp;To access the full forum please 
 								<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Log in</a> or  
 								<a class="btn btn-sm btn-success" href="<?php echo base_url();?>user/login"><i class="fa fa-star"></i> Sign up</a></strong></h4> 
 							</td>
-							<?php } ?>	
-							
+							<?php } else {?>	
+							<td><a class="btn btn-sm btn-success" href="<?php echo base_url();?>topics"><i class="fa fa-star"></i> More topics...</a></td>
+							<?php } ?>
 						</tr>	
 						
 					</table>
@@ -146,8 +153,13 @@
 		</div><br/>
 		<div id="articleTable">
 			<?php 
+                        $articleCount=count($articles);
+                        if($articleCount>5)
+                            $icount=5;
+                        else
+                            $icount=$articleCount;
 			if($articles){
-				for($i=0;$i<5;$i++){?>
+				for($i=0;$i<$icount;$i++){?>
 				<div class="panel panel-default" style="border:2px solid #D6E9F3">
 					<div class="panel-body">
 						<div class="search-header">

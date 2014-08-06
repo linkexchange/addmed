@@ -138,7 +138,7 @@ class Article extends CI_Model{
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
 		$this->db->where('articleid',$id);
-		$this->db->where('created_by',$this->session->userdata('ForumUserID'));
+		$this->db->where('created_by',$this->session->userdata('userID'));
 		$result = $this->db->get();
 		return $result->result_array();
 	}
@@ -218,10 +218,17 @@ class Article extends CI_Model{
 		$this->db->update($this->config->item('table_bookmarks'), $bookmarkdata);
 		return $this->db->affected_rows();
 	}
-	public function getAllBookmarks()
+	public function getAllBookmarks($limit=0)
 	{
+		$numberofrecords=(int)$this->config->item('record_limit');
+		if($limit>0)
+			$limit=$limit-1;	
+		$startRecord=$limit*$numberofrecords;
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
+		$this->db->where("created_by",$this->session->userdata("userID"));
+		$this->db->limit($numberofrecords,$startRecord);
+		$this->db->order_by('id','desc');
 		$result = $this->db->get();
 		return $result->result_array();
 	}
@@ -229,6 +236,7 @@ class Article extends CI_Model{
 	{
 		$this->db->select("*");
 		$this->db->from($this->config->item('table_bookmarks'));
+		$this->db->where("created_by",$this->session->userdata("userID"));
 		return $this->db->count_all_results();
 	}
 	// add article

@@ -24,11 +24,10 @@ class Dashboard extends MX_Controller{
 		$this->load->model('template');
 	}
 	public function index($page=1){
-		
-			//echo $this->session->userData('userTypeID'); exit;
-			$data['articles']=$this->article->getForumArticles($this->session->userData('userID'),$page);
-			$data['count']=$this->article->getForumArticlesCount($this->session->userData('userID'));
-			//$this->layout->view('view_articles',$data);
+		//echo $this->session->userData('userTypeID'); exit;
+		$data['articles']=$this->article->getForumArticles($this->session->userData('userID'),$page);
+		$data['count']=$this->article->getForumArticlesCount($this->session->userData('userID'));
+		$this->layout->view('view_articles',$data);
 	}
 	
 	// add article.

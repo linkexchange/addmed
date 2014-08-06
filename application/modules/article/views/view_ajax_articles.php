@@ -16,7 +16,7 @@
 		//echo $this->uri->segment(4);
 			$sr=1;
 			if($this->uri->segment(4)>1 ){
-				$sr=10*$this->uri->segment(4)-9;
+			$sr=(int)$this->config->item('record_limit')*$this->uri->segment(4)-((int)$this->config->item('record_limit')-1);
 			}
 		?>
 		<?php  foreach($articles as $article) : ?>

@@ -83,7 +83,7 @@
   }
   
   function checkUserByID(email,profileType,firstName,lastName){
-	 $.ajax({
+	$.ajax({
 		type: "POST",
 		url: base_url+"user/forum_login/checkUserByID",
 		data: { email: email, type: profileType }
@@ -91,10 +91,13 @@
 	.done(function( responseText ) {
 		//alert( "Data Saved: " + responseText );
 		if(responseText==0){
+			//alert("Hi");
 			$("#email").val(email);
+			$("#email2").val(email);
 			$("#firstName").val(firstName);
 			$("#lastName").val(lastName);
 			$("#type").val(profileType);
+			$("#type2").val(profileType);
 			$('#myModal').modal('show');
 		}
 		else if(responseText=="-1"){
@@ -126,14 +129,14 @@
 		//alert( "Data Saved: " + responseText );
 		if(responseText==1)	
 		{
-			$("#successMessage").html("You are logged in successfully...!");
-			$("#successMessage").show();
+			$("#successMessage2").html("You are logged in successfully...!");
+			$("#successMessage2").show();
 			window.location=base_url;
 		}
 		else
 		{
-			$("#errorMessage").html("Invalid Login Details!.");
-			$("#errorMessage").show();
+			$("#errorMessage2").html("Invalid Login Details!.");
+			$("#errorMessage2").show();
 		}
 	});	
   }
@@ -218,8 +221,7 @@
 		var email=response.email;
 		var profileType="Facebook";
 		checkUserByID(email,profileType,firstName,lastName);
-	 
-    });
+	});
   }
 </script>
 <div id="main-container">
@@ -301,17 +303,16 @@
 			<div id="successMessage" class="alert alert-success" style="display:none"></div>
 			<div class="login-actions" style="text-align:center; margin-top:10px;">
 				<div id="signin-button" style="float:none;">
-                     <div class="g-signin"
+                    <div class="g-signin"
                       data-callback="loginFinishedCallback"
                       data-approvalprompt="force"
-                      data-clientid="545725806105-3omj6rnbsn9m28ued76t64elt1fhjic0.apps.googleusercontent.com"
+                      data-clientid="851356399609-1v49v5ggmkiijt1101ri2tbqrodaple2.apps.googleusercontent.com"
                       data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
                       data-height="standard"
                       data-cookiepolicy="single_host_origin"
-					  data-width="wide"
-                      >
+					  data-width="wide">
                     </div>
-    				<!-- In most cases, you don't want to use approvalprompt=force. Specified   						here to facilitate the demo.-->
+    				<!-- In most cases, you don't want to use approvalprompt=force. Specified here to facilitate the demo.-->
 
 					
   				</div>
@@ -357,9 +358,73 @@
 	</div><!-- /panel -->
 	</div><!-- /.padding-md -->
 </div>
-		
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="createUser();" >&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Do you aleady have account with us.</h4>
+      </div>
+      <!-- <div class="modal-body">
+        ...
+      </div>-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="connectUser();" >Yes</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="createUser();">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Login.</h4>
+			</div>
+			<div class="panel-body">
+				<form method="post" action="login/checklogin" id="frm_login1">
+					<div id="errorMessage1" class="alert alert-danger" style="display:none"></div>
+					<div id="successMessage1" class="alert alert-success" style="display:none"></div>
+					<div class="form-group">
+						<label>Username</label>
+						<input type="text" placeholder="Username" class="form-control input-sm bounceIn animation-delay2 validate[required]" name="userName">
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" placeholder="Password" class="form-control input-sm bounceIn animation-delay4 validate[required]" name="password">
+					</div>
+					<input type="hidden" id="email2" name="email1" value=""/>
+					<input type="hidden" id="type2" name="type1" value=""/>
+					<div class="modal-footer">
+						<button type="submit" id="btn_submit2" class="btn btn-success">Login</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="createUser();">Continue</button>
+					</div>
+					<!--<button type="submit" id="btn_submit" class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right"><i class="fa fa-sign-in"></i> Sign in</button>-->
+				</form>
+			</div>
+			
+		</div>
+	</div>
+</div>		
 
 <script>
+	function createUser(){
+		//alert("createUser");
+		//alert(email);
+		var profileType=$('#type').val();
+		var firstName=$("#firstName").val();
+		var lastName=$("#lastName").val();
+		var email=$("#email").val();
+		addRecord(firstName,lastName,email,profileType);
+	}
+
+	function connectUser(){
+		$('#myModal').modal('hide');
+		$('#LoginModal').modal('show');
+	}
+	
 	$(function	()	{
 		$('#frm_login').ajaxForm({
 			beforeSubmit : function(){
@@ -406,6 +471,56 @@
 			}
 		});
 		$("#frm_login").validationEngine();
+	});
+	
+	$(function	()	{
+		$('#frm_login1').ajaxForm({
+			beforeSubmit : function(){
+				$("#btn_submit2").button('loading');
+				$("#successMessage1").hide();
+				$("#errorMessage1").hide();
+				
+				if($("#frm_login1").validationEngine('validate'))
+				{
+					$("#btn_submit2").button('loading');
+					return true;
+				}
+				else
+				{
+					$("#btn_submit2").button('reset');
+					return false;
+				}
+			},
+			success :  function(responseText, statusText, xhr, $form){
+				$("#btn_submit").button("reset");
+				if(responseText==0)
+				{
+					$("#errorMessage1").html("Invalid details...!");
+					$("#errorMessage1").show();
+				}
+				else if(responseText>0)
+				{
+					//alert(responseText);
+					//window.location=base_url+"user/login";
+					$.ajax({
+					type: "POST",
+					url: base_url+"user/login/connectUser",
+					data: { email: $("#email2").val(), type: $("#type2").val(), userid: responseText }
+					})
+					.done(function(response) {
+						if(response==100)
+						{
+							window.location=base_url;
+						}
+						else
+						{
+							alert("something's not right");
+						}
+					});
+				}
+			}
+		});
+		$("#frm_login1").validationEngine();
 	});
 </script>
 

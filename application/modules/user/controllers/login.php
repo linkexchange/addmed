@@ -17,6 +17,7 @@ class Login extends MX_Controller {
 	 */
 	public function __construct()
 	{
+		$this->load->model("user");
 		$this->layout->setLayout("layout/login");
 	}	
 	public function index()
@@ -63,6 +64,21 @@ class Login extends MX_Controller {
 			}
 		}
 	}
+	public function getPassword(){
+		$this->load->helper('string');
+		$password=random_string('alnum', 8);
+		return $password;
+	}
+	public function setEmail(){
+		if($this->input->post()){
+			$userName=$this->input->post('userName');
+			echo $userName;
+		}
+		else
+		{
+			echo 0;
+		}
+	}
 	public function forgotpassword(){
 		$this->load->model('user');
 		if($this->input->post()){
@@ -106,8 +122,7 @@ class Login extends MX_Controller {
 	public function twitteremail(){
 
 		if($this->session->userdata('twitter_user_id'))
-		{
-			
+		{	
 			$this->load->model('user');
 			//redirect(base_url()."forum/dashboard");
 			$twitter_id=$this->session->userdata('twitter_user_id');
@@ -139,7 +154,6 @@ class Login extends MX_Controller {
 					$this->session->set_flashdata('flashError', 'This user is marked as spam. Please contact to website admin!.');
 					redirect($this->config->item('base_url')."user/login");
 				}
-				
 			}
 			else
 			{
@@ -152,18 +166,16 @@ class Login extends MX_Controller {
 				$data['twitter']['type']="Twitter";
 				$data['account']=0;
 				//echo "twitter";
-				$this->layout->setLayout("layout/main_login");
 				$this->layout->view('twitter_data',$data);
 			}
 			
 		}
 		else
 		{
-			$this->layout->setLayout("layout/main_login");
 			$this->layout->view('twitter_data');
 		}
 	}
-        public function setUserData(){
+	public function setUserData(){
 		if($this->input->post()){
 			$this->load->model("user");
 			$firstName=$this->input->post('firstName');
@@ -190,7 +202,7 @@ class Login extends MX_Controller {
 				$userData['lastLoggedInOn']=date("Y-m-d");
 				$userData['lastLoggedInFrom']=$type;
 				
-				$updated = $this->user->updateUser($this->session->userData('ForumUserID'),$userData);
+				$updated = $this->user->updateForumUser($this->session->userData('ForumUserID'),$userData);
 				
 				echo 1;
 			}
@@ -198,51 +210,188 @@ class Login extends MX_Controller {
 			{
 				//echo $isUserExists;
 				$userData=array();
+				$ForumUserData=array();
 				if($type=="Google"){
-					$userData['googleID']=$email;
+					$ForumUserData['googleID']=$email;
 				} else if($type=="Facebook"){
-					$userData['facebookID']=$email;
+					$ForumUserData['facebookID']=$email;
 				}else if($type=="Twitter"){
-					$userData['twitterID']=$twitterId;
-					$userData['twitterEmail']=$email;
+					$ForumUserData['twitterID']=$twitterId;
+					$ForumUserData['twitterEmail']=$email;
 				}
-				$userData['userName']=$email;
+				//data for user table
+				$userData['userTypeID']=4;
+				$userData['userName']=$firstName.$lastName;
+				$userData['email']=$email;
 				$userData['password']=$this->getPassword();				
 				$userData['createdDate']=date("Y-m-d");
-				$userData['lastLoggedInOn']=date("Y-m-d");
-				$userData['firstName']=$firstName;
-				$userData['lastName']=$lastName;
-				$userData['lastLoggedInFrom']=$type;
-				
-				
-				$userID = $this->user->createUser($userData);
-				if($userID)
+				//data for forum user table
+				//$ForumUserData['userName']=$email;
+				//$ForumUserData['password']=$this->getPassword();				
+				$ForumUserData['createdDate']=date("Y-m-d");
+				$ForumUserData['lastLoggedInOn']=date("Y-m-d");
+				$ForumUserData['firstName']=$firstName;
+				$ForumUserData['lastName']=$lastName;
+				$ForumUserData['lastLoggedInFrom']=$type;
+				$userID  = $this->user->createUser($userData);
+				$ForumUserData['forumUserID']=$userID;
+				$forumID = $this->user->insertForumUser($ForumUserData);
+				if($userID && $forumID)
 				{
-					$userData=$this->user->getUserDataByID($userID);
+					$userData=$this->user->getUserDataByID2($forumID);
 					$this->setUserSession($userData,$type);
 					$this->sendRegistrationEmail();
-					
 					echo 1;
 				}
 			}
-			
 		}
 		else
 		{
 			echo 0;
 		}
 	}
+	public function connectUser()
+	{
+		$id    = $this->input->post("userid");
+		$email = $this->input->post("email");
+		$type = $this->input->post("type");
+		if($type=="Facebook")
+		{
+			$userdata["facebookID"] = $email;
+		}
+		else if($type=="Google")
+		{
+			$userdata["googleID"] = $email;
+		}
+		else if($type=="Twitter")
+		{
+			$userdata["twitterEmail"] = $email;
+		}
+		$userdata["lastLoggedInFrom"] = $type;
+		$res = $this->user->connectExistingUser($id,$userdata);
+		if($res)
+		{
+			$userdata=$this->user->getUserDataByID($id);
+			$this->setUserSession($userdata,$type);
+			echo 100;
+		}
+		else
+		{
+			echo 102;
+		}
+	}
+	public function connectUserData(){
+		if($this->input->post()){
+			$this->load->model("user");
+			$firstName=$this->input->post('firstName');
+			$lastName=$this->input->post('lastName');
+			$email=$this->input->post('email');
+			$type=$this->input->post('type');
+			if($type="Twitter"){
+				$twitterId=$this->input->post('twitterId');
+			}
+			$userID=$this->input->post('userID');
+			
+			$userData=array();
+			
+			if($type=="Google"){
+				$userData['googleID']=$email;
+			} else if($type=="Facebook"){
+				$userData['facebookID']=$email;
+			}else if($type=="Twitter"){
+				$userData['twitterEmail']=$email;
+				$userData['twitterID']=$twitterId;
+			}
+			
+			$userData['lastLoggedInOn']=date("Y-m-d");
+			$userData['lastLoggedInFrom']=$type;
 
+			$updated = $this->user->updateForumUser($userID,$userData);
+			if($updated)
+			{
+				$userData=$this->user->getUserDataByID2($userID);
+				$this->setUserSession($userData,$type);
+				echo 1;
+			}
+			else
+			{
+				echo 0;
+			}
+		}
+		else
+		{
+			echo 0;
+		}
+	}
+	
+	public function sendRegistrationEmail(){
+		$this->load->library('email');
+		$this->load->model('user');
+		$user=$this->user->getUserDetails2($this->session->userdata('email'));
+		$this->email->clear();
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+			
+		$this->email->from('admin@socialtrafficcenter.com', 'Admin');
+		$this->email->to($this->session->userdata('email'));
+		//$this->email->cc('another@another-example.com');
+		//$this->email->bcc('them@their-example.com');
+			
+		$this->email->subject('STC Registration Details. ');
+		$msg="";
+		$msg.="<br/>Hello ".$this->session->userdata('ForumUserFuLLName').",";
+		$msg.="<br/><br/>Bellow are your profile details.Please check.<br/>";
+		$msg.="<br/>UserName: ".$user[0]['email'];
+		$msg.="<br/>Password : ".$user[0]['password'];
+		$msg.="<br/><br/> Thanks,<br/>Regards,<br/>Admin Team.";
+		$this->email->message($msg);
+		$this->email->send();
+	}
 	public function setUserSession($userData,$type){
 		foreach($userData as $user){
-			$this->session->set_userdata('ForumUserID', $user['id']);
-			$this->session->set_userdata('ForumUserName', $user['userName']);
-			$this->session->set_userdata('ForumUserFullName',$user['firstName']." ".$user['lastName']);
-			//$this->session->set_userdata('userTypeID',$user['userTypeID']);
-			$this->session->set_userdata('ForumUserType',$type);
-			$this->session->set_userdata('ForumLoggedIn',TRUE);
+			$this->session->set_userdata('userID', $user['id']);
+			$this->session->set_userdata('userName', $user['userName']);
+			if(array_key_exists('forumUserID',$user)) 
+			{
+				$this->session->set_userdata('userTypeID',$user['forumUserID']);
+				$this->session->set_userdata('ForumUserFullName',$user['firstName']." ".$user['lastName']);
+			}
+			else
+			{
+				$this->session->set_userdata('userTypeID',$user['userTypeID']);
+			}
+			$this->session->set_userdata('email',$user['userName']);
+			$this->session->set_userdata('loggedIn',TRUE);
+                        
+			if($this->session->userdata('userTypeID')==1)
+				$this->session->set_userdata('userType','admin');
+			else if($this->session->userdata('userTypeID')==2)
+				$this->session->set_userdata('userType','advertiser');
+			else if($this->session->userdata('userTypeID')==3)
+				$this->session->set_userdata('userType','publisher');
+			elseif($this->session->userdata('userTypeID')==4)
+				$this->session->set_userdata('userType','forumUser');
 		}
 					
+	}
+	public function checkLogin(){
+		$this->load->model('user');
+		if($this->input->post()){
+			$userName=$_POST['userName'];
+			$password=$_POST['password'];
+			$userID=$this->user->IsValidForumUser($userName,$password);
+			if($userID){
+				echo $userID;
+			}
+			else
+			{
+				echo 0;
+			}
+		}
+		else
+		{
+			echo 0;
+		}
 	}
 	
 }

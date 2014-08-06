@@ -32,7 +32,7 @@ class Forums extends CI_Model{
 	}
 	public function getAllTopics($limit=0)
 	{
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
@@ -50,6 +50,26 @@ class Forums extends CI_Model{
 	}
 	public function getAllApprovedTopics($limit=0)
 	{
+		if($this->session->userdata("userID"))
+		{
+			$numberofrecords=(int)$this->config->item('record_limit');
+		}
+		else
+		{
+			$numberofrecords=10;
+		}
+		if($limit>0)
+			$limit=$limit-1;	
+		$startRecord=$limit*$numberofrecords;
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_topic'));
+		$this->db->where('approved',1);
+		$this->db->limit($numberofrecords,$startRecord);
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getAllApprovedTopics2($limit=0) {
 		$numberofrecords=10;
 		if($limit>0)
 			$limit=$limit-1;	
@@ -79,7 +99,7 @@ class Forums extends CI_Model{
 	}
 	public function getAllForumUsers($limit=0)
 	{
-		$numberofrecords=10;
+		$numberofrecords=(int)$this->config->item('record_limit');
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;

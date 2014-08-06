@@ -7,11 +7,15 @@
 	</ul>
 </div><!--breadcrumb-->
 <div class="padding-md">
-	<div class="row" style="margin-left:0px;margin-right:0px;">
+	<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+		<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
+			<h3><b><i class="icon-tasks"></i>  Edit Article </b> </h3>
+		</div>
+	</div> <br/>
+	<div class="row">
 		<div class="col-md-12">
 			<?php foreach($articles as $article) : ?>
-			<div class="panel panel-default">
-				<div class="panel-heading"><h3><i class="icon-tasks"></i> Edit Article</h3></div>
+			<div class="panel panel-default" style="border:1px solid #D6E9F3;">
 				<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 				<div id="successMessage" class="alert alert-success" style="display:none"></div>
 				<form class="form-horizontal" id="frm_editArticle" action="" method="POST" enctype="multipart/form-data" >

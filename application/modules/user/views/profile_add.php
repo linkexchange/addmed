@@ -169,7 +169,7 @@
 				{
 					$("#successMessage").html("User registered successfully...!");
 					$("#successMessage").show();
-					window.location=base_url+'admin/dashboard';
+					window.location=base_url+'admin/dashboard/user';
 				}
 				else if(responseText==2)
 				{
