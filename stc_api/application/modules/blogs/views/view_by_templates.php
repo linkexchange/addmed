@@ -44,6 +44,7 @@ $(document).ready(function(){
 				</span></h3>
 			</div>
 		</div> <br/>
+		
 		<div class="panel panel-default table-responsive" style="border:1px solid #D6E9F3;background:#fff;">
 					<div id="errorMessage" class="alert alert-danger" style="display:none"></div>
 					<div id="successMessage" class="alert alert-success" style="display:none">
@@ -65,6 +66,7 @@ $(document).ready(function(){
 							</div><!-- /form-group -->&nbsp; &nbsp;
 						</form>
 					</div>
+					<?php //echo $count;?>
 					<div class="padding-md clearfix">
 						<div class="setData">
 						<table class="table table-bordered table-striped dataTable">
@@ -124,7 +126,7 @@ $(document).ready(function(){
 						</table>
 						
                                                 <?php 
-                                                    $count;
+                                                    //echo $count;
                                                     $url=base_url()."blogs/dashboard/index/";
                                                     if($this->uri->segment(5))
                                                         $currentPage=(int)$this->uri->segment(5);

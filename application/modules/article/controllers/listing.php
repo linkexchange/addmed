@@ -5,10 +5,6 @@ class Listing extends MX_Controller{
 	{
 		parent::__construct();
 		$this->load->model('article');
-		$this->load->model('blog');
-		$this->load->model('page');
-		$this->load->model('template');
-		$this->load->helper('url');
 		if($this->session->userdata("userType")=="publisher")
 		{
 			$this->layout->setLayout("layout/publisher");

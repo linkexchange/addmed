@@ -9,7 +9,8 @@
 				<li class="<?php if($m%2) echo "first"; ?>">
 						<?php $strTitle=array(); ?>
 						<a href="<?php echo $siteUrl; ?>/<?php if(isset($posts[$rand_keys[$i]]->postID)) echo $posts[$rand_keys[$i]]->postSlug; ?>/<?php if(isset($website->id)) echo $website->id; ?>/<?php if(isset($posts[$rand_keys[$i]]->postID)) echo $posts[$rand_keys[$i]]->postID; ?>">
-							<img src="<?php echo $posts[$rand_keys[$i]]->postImage;?>"/>
+							<!-- <img src="<?php echo $posts[$rand_keys[$i]]->postImage;?>"/> -->
+                                                    <img class="lazy" data-original="<?php echo $posts[$rand_keys[$i]]->postImage;?>" /> 
 							<?php 
 								$strLength=strlen($posts[$rand_keys[$i]]->postTitle);
 								$strTitle = str_split($posts[$rand_keys[$i]]->postTitle, 46);
@@ -27,7 +28,8 @@
 				<li class="<?php if($m%2) echo "first"; ?>">
 						<?php $strTitle=array(); ?>
 						<a href="<?php echo $siteUrl; ?>/<?php if(isset($post->postID)) echo $post->postSlug; ?>/<?php if(isset($website->id)) echo $website->id; ?>/<?php if(isset($post->postID)) echo $post->postID; ?>">
-							<img src="<?php echo $post->postImage;?>"/>
+							<!-- <img src="<?php echo $post->postImage;?>"/> -->
+                                                    <img class="lazy" data-original="<?php echo $post->postImage;?>" />
 							<?php 
 								$strLength=strlen($post->postTitle);
 								$strTitle = str_split($post->postTitle, 46);

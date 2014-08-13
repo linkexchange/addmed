@@ -18,16 +18,18 @@ class Dashboard extends MX_Controller {
 			redirect(base_url().'user/login');
 		}
 		$this->load->model("user");
+		$this->load->model("url");
+		$this->load->model("payments");
+		$this->load->model('clicksdetail');
 	}
 	public function index()
 	{
-		$this->load->model("user");
 		$data['users']=$this->user->getAllUser();
 		$data['count']=$this->user->getAllUsersCount();
-		$this->load->model("url");
+		
 		$data['totalLinks']=$this->url->getTotalLinks();
 		$data['publishedLinks']=$this->url->getTotalPublishedLinks();
-		$this->load->model("payments");
+		
 		$data['totalPaidPayment']=$this->payments->getTotalPaidPayment();
 		$data['totalPayingPayment']=$this->payments->getTotalPayingPayment();
 		
@@ -42,10 +44,7 @@ class Dashboard extends MX_Controller {
 	}
 	public function cronrun(){
 			$data="";
-		$this->load->model('url');
-		$this->load->model('user');
-		$this->load->model('clicksdetail');
-		$this->load->model('payments');
+		
 		$links=$this->url->getAllBitlyUrllinks();
 		//echo "<pre>"; print_r($links); echo "</pre>";
 		$adminPer=10;

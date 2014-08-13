@@ -113,7 +113,9 @@
 						?>
 					</tbody>
 				</table>
-				
+				<?php if($count>(int)$this->config->item('record_limit')) { ?>
+					<a class="btn btn-success btn-large  icon-anchor pull-right" href="<?php echo base_url();?>admin/dashboard/user"> More users...</a>
+				<?php } ?>	
 			</div><!-- /.padding-md -->
 		</div>		
 	</div>

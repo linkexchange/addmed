@@ -1,4 +1,26 @@
 <?php 
+define('HDOM_TYPE_ELEMENT', 1);
+define('HDOM_TYPE_COMMENT', 2);
+define('HDOM_TYPE_TEXT',	3);
+define('HDOM_TYPE_ENDTAG',  4);
+define('HDOM_TYPE_ROOT',	5);
+define('HDOM_TYPE_UNKNOWN', 6);
+define('HDOM_QUOTE_DOUBLE', 0);
+define('HDOM_QUOTE_SINGLE', 1);
+define('HDOM_QUOTE_NO',	 3);
+define('HDOM_INFO_BEGIN',   0);
+define('HDOM_INFO_END',	 1);
+define('HDOM_INFO_QUOTE',   2);
+define('HDOM_INFO_SPACE',   3);
+define('HDOM_INFO_TEXT',	4);
+define('HDOM_INFO_INNER',   5);
+define('HDOM_INFO_OUTER',   6);
+define('HDOM_INFO_ENDSPACE',7);
+define('DEFAULT_TARGET_CHARSET', 'UTF-8');
+define('DEFAULT_BR_TEXT', "\r\n");
+define('DEFAULT_SPAN_TEXT', " ");
+define('MAX_FILE_SIZE', 600000);
+
 class Websitedetails extends MX_Controller{
 	// return website and its posts details from secrete key.
 	public function website(){
@@ -199,8 +221,11 @@ class Websitedetails extends MX_Controller{
 						$galleryItemDetails['galleryItemID']=$gallery[$item]['id'];
 						$galleryItemDetails['galleryItemTitle']=$gallery[$item]['articleTitle'];
 						$galleryItemDetails['galleryItemSlug']=$gallery[$item]['slug'];
-                                                $galleryItemDetails['galleryItemDescription']=$gallery[$item]['articleDescription'];
-                                                
+                                                //$galleryItemDetails['galleryItemDescription']=$gallery[$item]['articleDescription'];
+                                                 $description="";
+                                                 $description = $this->str_get_html($gallery[$item]['articleDescription']);
+                                                 $galleryItemDetails['galleryItemDescription']=$description;
+                                                 error_reporting(E_ALL);
                                                 if($gallery[$item]['articleVideo'])
                                                     $galleryItemDetails['galleryItemVideo']=$gallery[$item]['articleVideo'];
                                                                                              
@@ -249,7 +274,10 @@ class Websitedetails extends MX_Controller{
 				$galleryItemDetails['galleryItemID']=$gallery[0]['id'];
 				$galleryItemDetails['galleryItemTitle']=$gallery[0]['articleTitle'];
 				$galleryItemDetails['galleryItemSlug']=$gallery[0]['slug'];
-                                $galleryItemDetails['galleryItemDescription']=$gallery[0]['articleDescription'];
+                                $description="";
+                                $description = $this->str_get_html($gallery[0]['articleDescription']);
+                                $galleryItemDetails['galleryItemDescription']=$description;
+                                error_reporting(E_ALL);
                                 if($gallery[0]['articleVideo'])
                                     $galleryItemDetails['galleryItemVideo']=$gallery[0]['articleVideo'];
 				
@@ -267,7 +295,72 @@ class Websitedetails extends MX_Controller{
 				$galleryItemDetails['nxt']['slug']=$gallery[1]['slug'];
 			}
 		}
+                //print_r($galleryItemDetails); exit;
 		return $galleryItemDetails;
 	}
+        
+        // get html dom from string
+        function str_get_html($html)
+        {
+            error_reporting(0);
+            //echo "test";
+            //echo $html;
+            //$doc = new DOMDocument('1.0', 'iso-8859-1');
+            $doc = DOMDocument::loadHTML($html);
+            //$doc->resolveExternals = TRUE;
+            $c =0;
+            //$doc->loadHTML($html);
+            foreach($doc->getElementsByTagName('img') as $image){
+                if ($c>0) continue;
+                if($image->hasAttribute('src')){
+                    $url="";
+                    $url = $image->getAttribute('src');
+                    $image->setAttribute('class','lazy');
+                    $image->setAttribute('data-original',$url);
+                    $image->setAttribute('src','');
+                }
+                $c = $c+1;
+            }
+            
+            // save html
+            $html=$doc->saveHTML();
+            return $html;
+        }
+        
+        public function getWebsiteAds(){
+            header('Access-Control-Allow-Origin: *');
+            $this->load->model('api');
+            $json_array=array();
+            if(isset($_GET['key'])){
+		$key=$_GET['key']; 
+                if($this->api->isValidKey($key)){
+                    $templateID=$this->api->getTemplateIDByKey($key);
+                    $tempID=0;
+                    foreach($templateID as $item){
+                        $tempID=$item['id'];
+                    }
+                    if($this->api->haveAds($tempID) && $tempID)
+                    {
+			$json_array['haveAds']="True";
+			$ads=$this->api->getWebsiteAds($tempID);
+			$json_array['ads']=$ads[0];
+                    }
+                    else
+                    {
+			$json_array['haveAds']="False";
+                    }
+                }
+                else
+                {
+                    $json_array['error']="Unauthorised API Key";
+                }
+		//$json_array=$this->getWebiteAndPostsDetails($key);
+            }
+            else{
+		$json_array['error']="Unauthorised Key";
+            }
+            $output = json_encode($json_array);
+            echo $output;
+        }
 	
 }

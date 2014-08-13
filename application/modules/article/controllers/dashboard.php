@@ -19,9 +19,6 @@ class Dashboard extends MX_Controller{
 			redirect(base_url().'user/login');
 		}
 		$this->load->model('article');
-		$this->load->model('blog');
-		$this->load->model('page');
-		$this->load->model('template');
 	}
 	public function index($page=1){
 		//echo $this->session->userData('userTypeID'); exit;

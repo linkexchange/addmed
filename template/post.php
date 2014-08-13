@@ -24,8 +24,6 @@
 <title><?php if(!$error) : echo $webtitle;  endif;?> </title>
 <meta charset="iso-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="<?php echo $siteUrl; ?>/css/main.css" rel="stylesheet" type="text/css" media="all">
-<link href="<?php echo $siteUrl; ?>/css/mediaqueries.css" rel="stylesheet" type="text/css" media="all">
 <!--[if lt IE 9]>
 <link href="css/ie/ie8.css" rel="stylesheet" type="text/css" media="all">
 <script src="css/ie/css3-mediaqueries.min.js"></script>
@@ -59,7 +57,8 @@
 				<li class="one_fifth">
 					
 					<a href="<?php echo $siteUrl; ?>/<?php echo $post->postSlug; ?>/<?php echo $website->id; ?>/<?php echo $post->postID; ?>">
-						<img src="<?php echo $post->postImage; ?>" alt="">
+						<!-- <img src="<?php echo $post->postImage; ?>" alt=""> -->
+                                                <img class="lazy" data-original="<?php echo $post->postImage; ?>" /> 
 						<?php $title_len=strlen($post->postTitle); ?>
 						<div class="<?php if($title_len>45) : ?>high-bx-caption <?php else : ?>bx-caption<?php endif; ?> "> 
 							<span><?php echo $post->postTitle; ?></span>
@@ -91,6 +90,15 @@
     <!-- <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p> -->
   </div>
 </div>
+<link href="<?php echo $siteUrl; ?>/css/layout.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/pages.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/elements.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/framework.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/fonts/caviardreams/stylesheet.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/fonts/caviardreams/stylesheet.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/fonts/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/custom.css" rel="stylesheet" type="text/css" media="all">
+<link href="<?php echo $siteUrl; ?>/css/mediaqueries.css" rel="stylesheet" type="text/css" media="all">
 <!-- Scripts -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
@@ -99,5 +107,14 @@
 <script>jQuery(document).ready(function($){ $('img').removeAttr('width height'); });</script>
 <script src="scripts/jquery-mobilemenu.min.js"></script>
 <script src="scripts/custom.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="<?php echo $siteUrl; ?>/scripts/jquery.lazyload.js?v=1.9.1"></script>
+<!-- <script src="http://www.appelsiini.net/js/all.js"></script> -->
+<script type="text/javascript" charset="utf-8">
+ $(window).bind("load", function() {
+   // code here
+    $("img.lazy").lazyload();
+    });
+</script>
 </body>
 </html>

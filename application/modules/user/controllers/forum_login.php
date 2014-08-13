@@ -95,7 +95,7 @@ class Forum_Login extends MX_Controller {
 			
 			if($userId){
 				$userData=array();
-				$userdata=$this->user->getUserDataByID($userId);
+				$userdata=$this->user->getUserDataByID2($userId);
 				if($type=="Twitter" && $userdata[0]['twitterID']==""){
 					$userData['twitterID']=$twitterId;
 					$userData['twitterEmail']=$email;
@@ -140,7 +140,7 @@ class Forum_Login extends MX_Controller {
 				$forumID = $this->user->insertForumUser($ForumUserData);
 				if($userID && $forumID)
 				{
-					$userData=$this->user->getUserDataByID2($forumID);
+					$userData=$this->user->getUserDataByID2($userID);
 					$this->setUserSession($userData,$type);
 					$this->sendRegistrationEmail();
 					echo 1;
@@ -154,6 +154,7 @@ class Forum_Login extends MX_Controller {
 	}
 
 	public function setUserSession($userData,$type){
+		//echo "<pre>"; print_R($userData); exit;
 		foreach($userData as $user){
 			$this->session->set_userdata('userID', $user['id']);
 			$this->session->set_userdata('userName', $user['userName']);
@@ -184,11 +185,12 @@ class Forum_Login extends MX_Controller {
 	public function checkUserByID(){
 		if(isset($_POST['email']) && isset($_POST['type'])){
 			$this->load->model("user");
-			$userExists=$this->user->userExixts($_POST['email'],$_POST['type']); 
+			$userExists=$this->user->userExixts2($_POST['email'],$_POST['type']); 
 			if($userExists){
 				$userSpam=$this->user->isUserSpam($userExists); 				
 				if(!$userSpam){
-					$userData=$this->user->getUserDataByID($userExists);
+					$userData=$this->user->getUserDataByID2($userExists);
+					//echo "<pre>"; print_R($userData); exit;
 					$this->setUserSession($userData,$_POST['type']);
 					$userData=array(
 						"lastLoggedInOn"=>date("Y-m-d"),

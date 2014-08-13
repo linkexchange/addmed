@@ -295,6 +295,11 @@
 						</div>
 					</div>
 					<div id="errorMessage2" class="alert alert-danger" style="display:none"></div>
+					<?php if($this->session->flashdata("spamError")) {?>
+					<div id="errorMessage2" class="alert alert-danger">
+					<?php echo $this->session->flashdata("spamError");?>
+					</div>
+					<?php } ?>
 					<div id="successMessage2" class="alert alert-success" style="display:none"></div>
 					<div class="panel-body">
 						<form method="post" action="#" id="">
@@ -364,13 +369,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="createUser();" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Do you aleady have account with us.</h4>
+        <h4 class="modal-title" id="myModalLabel">Do you already have account with us.</h4>
       </div>
-      <!-- <div class="modal-body">
-        ...
-      </div>-->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="connectUser();" >Yes</button>
+      <div class="modal-body">
+		<button type="button" class="btn btn-success" onclick="connectUser();" >Yes</button>
 		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="createUser();">No</button>
       </div>
     </div>

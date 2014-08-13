@@ -67,34 +67,52 @@ class Dashboard extends MX_Controller{
 				// Check blog id present #start.
 				if($this->input->post('blogID')) :
 					// Check articleImage present #start.
-                                        $slug = url_title($this->input->post('articleTitle_'.$item), 'dash', TRUE);
-                                                $articleData['articleTitle']=$this->input->post('articleTitle_'.$item);
-                                                $articleData['slug']=$slug;
-                                                $articleData['articleDescription']=$this->input->post('articleDescription_'.$item);
-                                                $articleData['blogID']=$this->input->post('blogID');
-                                                $articleData['createdBy']=$this->session->userData('userID');
-                                                $articleData['createdDate']=date('Y-m-d');
-                                                
-						 //echo "<pre>"; print_r($articleData); echo "</pre>"; exit;
-                                                 $this->load->model('article');
-                                                 $insert_id=$this->article->add($articleData);
-                                                 if($insert_id){
-                                                    if($this->input->post('templateID')){
-                                                        $this->load->model("template");
-                                                        $tid=$this->input->post('templateID');
-                                                        $templateData=array(
-                                                            "htmlCreated"=>"Update",
-                                                            "updatedBy"=>$this->session->userData('userID'),
-                                                            "updatedDate"=>date('Y-m-d'),
-                                                        );	
-                                                        $this->template->update($templateData,$tid);
-                                                    }
-                                                    $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." added successfully.<br/>";
-                                                }
-                                                else
-                                                {
-                                                     $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please try again.<br/>";
-                                                }
+                            $slug = url_title($this->input->post('articleTitle_'.$item), 'dash', TRUE);
+							$articleData['articleTitle']=$this->input->post('articleTitle_'.$item);
+							$articleData['slug']=$slug;
+							$articleDescription = $this->input->post('articleDescription_'.$item);
+							if(strpos($articleDescription,"’"))
+							{                              
+								$articleDescription = str_replace("’","'",$articleDescription);
+							}
+							if(strpos($articleDescription,"‘"))
+							{                              
+								$articleDescription = str_replace("‘","'",$articleDescription);
+							}
+							if(strpos($articleDescription,'“'))
+							{                              
+								$articleDescription = str_replace('“','"',$articleDescription);
+							}
+							if(strpos($articleDescription,'”'))
+							{                              
+								$articleDescription = str_replace('”','"',$articleDescription);
+							}
+							$articleData["articleDescription"]=$articleDescription;
+//$articleData['articleDescription']=$this->input->post('articleDescription_'.$item);
+							$articleData['blogID']=$this->input->post('blogID');
+							$articleData['createdBy']=$this->session->userData('userID');
+							$articleData['createdDate']=date('Y-m-d');
+							
+	 //echo "<pre>"; print_r($articleData); echo "</pre>"; exit;
+							 $this->load->model('article');
+							 $insert_id=$this->article->add($articleData);
+							 if($insert_id){
+								if($this->input->post('templateID')){
+									$this->load->model("template");
+									$tid=$this->input->post('templateID');
+									$templateData=array(
+										"htmlCreated"=>"Update",
+										"updatedBy"=>$this->session->userData('userID'),
+										"updatedDate"=>date('Y-m-d'),
+									);	
+									$this->template->update($templateData,$tid);
+								}
+								$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." added successfully.<br/>";
+							}
+							else
+							{
+								 $msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please try again.<br/>";
+							}
 					
 				else :
 					$msg.="Gallery Item $item : ".$this->input->post('articleTitle_'.$item)." Not added. Please select Post.<br/>";
@@ -198,8 +216,25 @@ class Dashboard extends MX_Controller{
 					$slug = url_title($this->input->post('articleTitle'), 'dash', TRUE);
 					$articleData["articleTitle"]=$this->input->post('articleTitle');
 					$articleData["slug"]=$slug;
-                                        $articleData["articleVideo"]=$this->input->post('articleVideo');
-					$articleData["articleDescription"]=$this->input->post('articleDescription');
+                    $articleData["articleVideo"]=$this->input->post('articleVideo');
+					$articleDescription = $this->input->post("articleDescription");
+					if(strpos($articleDescription,"’"))
+					{                              
+						$articleDescription = str_replace("’","'",$articleDescription);
+					}
+					if(strpos($articleDescription,"‘"))
+					{                              
+						$articleDescription = str_replace("‘","'",$articleDescription);
+					}
+					if(strpos($articleDescription,'“'))
+					{                              
+						$articleDescription = str_replace('“','"',$articleDescription);
+					}
+					if(strpos($articleDescription,'”'))
+					{                              
+						$articleDescription = str_replace('”','"',$articleDescription);
+					}
+					$articleData["articleDescription"]=$articleDescription;
 					$articleData["blogID"]=$this->input->post('blogID');
 					$articleData["updatedBy"]=$this->session->userData('userID');
 					$articleData["updatedDate"]=date('Y-m-d');

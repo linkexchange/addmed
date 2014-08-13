@@ -126,14 +126,15 @@ class Login extends MX_Controller {
 			$this->load->model('user');
 			//redirect(base_url()."forum/dashboard");
 			$twitter_id=$this->session->userdata('twitter_user_id');
+			//echo $twitter_id; exit;
 			$twitter_screen_name=$this->session->userdata('twitter_screen_name');
 			$twitter_name=$this->session->userdata('twitter_name');
 			$userExits=$this->user->UserExistsByTwitterID($twitter_id);
 			$type="Twitter";
 			if($userExits){
-				$userSpam=$this->user->isUserSpam($userExits);
+				$userSpam=$this->user->isUserSpam2($userExits);
 				if(!$userSpam){
-					$userData=$this->user->getUserDataByID($userExits);
+					$userData=$this->user->getUserDataByID2($userExits);
 					$this->setUserSession($userData,$type);
 					$userData=array(
 						"lastLoggedInOn"=>date("Y-m-d"),
@@ -151,7 +152,7 @@ class Login extends MX_Controller {
 				}
 				else
 				{
-					$this->session->set_flashdata('flashError', 'This user is marked as spam. Please contact to website admin!.');
+					$this->session->set_flashdata('spamError', 'This user is marked as spam. Please contact to website admin!.');
 					redirect($this->config->item('base_url')."user/login");
 				}
 			}
@@ -172,7 +173,8 @@ class Login extends MX_Controller {
 		}
 		else
 		{
-			$this->layout->view('twitter_data');
+			redirect(base_url().'user/login');
+			//$this->layout->view('twitter_data');
 		}
 	}
 	public function setUserData(){
@@ -193,7 +195,7 @@ class Login extends MX_Controller {
 			
 			if($userId){
 				$userData=array();
-				$userdata=$this->user->getUserDataByID($userId);
+				$userdata=$this->user->getUserDataByID2($userId);
 				if($type=="Twitter" && $userdata[0]['twitterID']==""){
 					$userData['twitterID']=$twitterId;
 					$userData['twitterEmail']=$email;
@@ -238,7 +240,7 @@ class Login extends MX_Controller {
 				$forumID = $this->user->insertForumUser($ForumUserData);
 				if($userID && $forumID)
 				{
-					$userData=$this->user->getUserDataByID2($forumID);
+					$userData=$this->user->getUserDataByID2($userID);
 					$this->setUserSession($userData,$type);
 					$this->sendRegistrationEmail();
 					echo 1;
@@ -271,7 +273,7 @@ class Login extends MX_Controller {
 		$res = $this->user->connectExistingUser($id,$userdata);
 		if($res)
 		{
-			$userdata=$this->user->getUserDataByID($id);
+			$userdata=$this->user->getUserDataByID2($id);
 			$this->setUserSession($userdata,$type);
 			echo 100;
 		}
@@ -305,11 +307,11 @@ class Login extends MX_Controller {
 			
 			$userData['lastLoggedInOn']=date("Y-m-d");
 			$userData['lastLoggedInFrom']=$type;
-
 			$updated = $this->user->updateForumUser($userID,$userData);
 			if($updated)
 			{
 				$userData=$this->user->getUserDataByID2($userID);
+				//echo "<pre>"; print_R($userData); exit;
 				$this->setUserSession($userData,$type);
 				echo 1;
 			}
@@ -327,7 +329,9 @@ class Login extends MX_Controller {
 	public function sendRegistrationEmail(){
 		$this->load->library('email');
 		$this->load->model('user');
+		//echo $this->session->userdata('email');
 		$user=$this->user->getUserDetails2($this->session->userdata('email'));
+		//echo "<pre>"; print_R($user); exit;
 		$this->email->clear();
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
@@ -348,6 +352,7 @@ class Login extends MX_Controller {
 		$this->email->send();
 	}
 	public function setUserSession($userData,$type){
+		//echo "<pre>"; print_R($userData); exit;
 		foreach($userData as $user){
 			$this->session->set_userdata('userID', $user['id']);
 			$this->session->set_userdata('userName', $user['userName']);
@@ -360,7 +365,7 @@ class Login extends MX_Controller {
 			{
 				$this->session->set_userdata('userTypeID',$user['userTypeID']);
 			}
-			$this->session->set_userdata('email',$user['userName']);
+			$this->session->set_userdata('email',$user['email']);
 			$this->session->set_userdata('loggedIn',TRUE);
                         
 			if($this->session->userdata('userTypeID')==1)

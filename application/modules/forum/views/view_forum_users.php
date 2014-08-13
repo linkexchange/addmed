@@ -19,6 +19,7 @@
 									<th>Firstname</th>
 									<th>Lastname</th>
 									<th>Username/Email</th>
+									<th>Last Logged In from</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -36,7 +37,8 @@
 									<td><?php echo $sr; $sr++; ?></td>
 									<td><?php echo $users[$i]['firstName'];?></td>
 									<td><?php echo $users[$i]['lastName'];?></td>
-									<td><?php echo $users[$i]['userName'];?></td>
+									<td><?php echo $users[$i]['email'];?></td>
+									<td><?php echo $users[$i]['lastLoggedInFrom'];?></td>
 									
 									<td>
 										<span id="spam_<?php echo $users[$i]['id'];?>">
@@ -64,7 +66,6 @@
 							$parameters=array();
 							pagination($url,$parameters,$count,$currentPage);
 						?>	
-
 			</div><!-- /.padding-md -->
 		</div>	
 	</div><!-- /.padding-md -->

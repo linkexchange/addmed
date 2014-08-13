@@ -100,29 +100,28 @@ class Forums extends CI_Model{
 	public function getAllForumUsers($limit=0)
 	{
 		$numberofrecords=(int)$this->config->item('record_limit');
+		//echo $limit; exit;
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
-		$this->db->select('*');
-		$this->db->from($this->config->item('table_forum_user'));
+		$this->db->select($this->config->item('table_user').'.*,'.$this->config->item('table_forum_user').'.firstName,lastName,spam,lastLoggedInFrom');
+		$this->db->from($this->config->item('table_user'));
+		$this->db->join($this->config->item('table_forum_user'),$this->config->item('table_user').'.id ='.$this->config->item('table_forum_user').'.forumUserID');
 		$this->db->limit($numberofrecords,$startRecord);
+		$this->db->order_by('id','desc');
 		$result = $this->db->get();
 		return $result->result_array();
 	}
-	public function getAllForumUsersCount($limit=0)
+	public function getAllForumUsersCount()
 	{
-		$numberofrecords=10;
-			if($limit>0)
-				$limit=$limit-1;	
-			$startRecord=$limit*$numberofrecords;
 		$this->db->select('*');
-		$this->db->from($this->config->item('table_forum_user'));
-		$this->db->limit($numberofrecords,$startRecord);
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where('userTypeID',4);
 		return $this->db->count_all_results();
 	}
 	public function spamUser($id,$data)
 	{
-		$this->db->where('id',$id);
+		$this->db->where('forumUserID',$id);
 		$this->db->update($this->config->item('table_forum_user'),$data);
 		return $this->db->affected_rows();
 	}

@@ -21,7 +21,7 @@ class Profile extends MX_Controller {
 	{		
 		//  Call parent Controller
 		parent::__construct();
-		$this->load->model('advertise');
+		//$this->load->model('advertise');
 		if($this->session->userdata("userType")=="advertiser")
 		{
 			$this->layout->setLayout("layout/advertiser");

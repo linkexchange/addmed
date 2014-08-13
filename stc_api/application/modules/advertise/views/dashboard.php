@@ -67,7 +67,7 @@ $(document).ready(function(){
                 if($this->uri->segment(4))
                     $currentPage=(int)$this->uri->segment(4);
                 else
-                    $currentPage=1;
+                $currentPage=1;
                 $parameters=array();
                 pagination($url,$parameters,$count,$currentPage);
            ?>

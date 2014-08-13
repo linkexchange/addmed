@@ -131,7 +131,49 @@ $(document).ready(function(){
                     <?php endforeach; ?>
 		</tbody>
             </table>
-              <?php 
+            <!-- <?php if($count>(int)$this->config->item('record_limit')) : ?>
+                <div class="panel-footer clearfix">
+                    <ul class="pagination pagination-split m-bottom-md">
+                        <li><a href="#">Pages<?php //echo (int)$this->uri->segment(6); ?></a></li>
+                        <?php $mod=(int)$this->config->item('record_limit'); $inc=1; $pre=0; $next=1; ?>
+                        <?php if($this->uri->segment(6)) : $pre=(int)$this->uri->segment(6)-1; else : $pre=0; endif; ?>
+                        <?php if($count>$mod) : ?>
+                            <?php if($pre!=0 && $this->uri->segment(6)) : ?>
+                                <li class="">
+                                    <a href="<?php echo base_url()."articles/dashboard/index/".$this->uri->segment(4)."/".$this->uri->segment(5)."/".$pre; ?>">Previous</a>
+                                </li>
+                            <?php endif; ?>
+                            <?php for($i=0;$i<=$count;$i++) : ?>
+                                <?php if(($i%$mod)==0) : ?>
+                                    <?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
+                                        <li class="<?php if($inc==$this->uri->segment(6)) : echo "active"; $next=$inc+1; elseif(!($this->uri->segment(6)) && $inc==1) : echo "active"; $next=$inc+1; endif; ?>">
+                                            <a href="<?php echo base_url().'articles/dashboard/index/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$inc; ?>"><?php echo $inc;?></a>
+					</li>
+                                    <?php else : ?>
+                                        <li class="<?php if($inc==$this->uri->segment(6)) : echo "active"; $next=$inc+1; elseif(!($this->uri->segment(6)) && $inc==1) : echo "active"; $next=$inc+1; endif; ?>">
+                                            <a href="<?php echo base_url()."articles/dashboard/index/0/0/".$inc; ?>"><?php echo $inc;?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php $inc++; ?>
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                            <?php if($next!=$inc) : ?>
+                                <?php if($this->uri->segment(4) && $this->uri->segment(5)) : ?>
+                                    <li class="">
+                                        <a href="<?php echo base_url().'articles/dashboard/index/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$next; ?>">Next</a>
+                                    </li>
+                                <?php else : ?>
+                                    <li class="">
+                                        <a href="<?php echo base_url()."articles/dashboard/index/0/0/".$next; ?>">Next</a>
+                                    </li>
+                                <?php endif; ?>
+                               
+                            <?php endif; ?>
+			<?php endif; ?>
+                    </ul>
+		</div>
+            <?php endif; ?> -->
+                <?php 
                     $count;
                     $url=base_url()."articles/dashboard/index/";
                     if($this->uri->segment(6))

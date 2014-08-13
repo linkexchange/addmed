@@ -71,15 +71,19 @@ class User extends CI_Model {
 	}
 	function getAllUser()
 	{
+		$numberofrecords=(int)$this->config->item('record_limit');
+		$startRecord = 1;
 		$this->db->select($this->config->item('table_user').".*,usertype.type");
 		$this->db->from($this->config->item('table_user'));
 		$this->db->join('usertype',$this->config->item('table_user').".userTypeID = ".'usertype'.".id",'left');
-		$this->db->where("userTypeID !=",1);
+		//$this->db->where("userTypeID !=",'1');
+		$this->db->where("userTypeID !=",'4');
+		$this->db->limit($numberofrecords,$startRecord);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->result_array();
 	}
-        function getUsers($limit=0)
+    function getUsers($limit=0)
 	{
             $numberofrecords=(int)$this->config->item('record_limit');
             if($limit>0)
@@ -88,7 +92,8 @@ class User extends CI_Model {
             $this->db->select($this->config->item('table_user').".*,usertype.type");
             $this->db->from($this->config->item('table_user'));
             $this->db->join('usertype',$this->config->item('table_user').".userTypeID = ".'usertype'.".id",'left');
-            $this->db->where("userTypeID !=",1);
+            $this->db->where("userTypeID !=","1");
+            $this->db->where("userTypeID !=","4");
             $this->db->limit($numberofrecords,$startRecord);
             $result = $this->db->get();
             //echo $this->db->last_query();
@@ -99,7 +104,8 @@ class User extends CI_Model {
 		$this->db->select($this->config->item('table_user').".*,usertype.type");
 		$this->db->from($this->config->item('table_user'));
 		$this->db->join('usertype',$this->config->item('table_user').".userTypeID = ".'usertype'.".id",'left');
-		$this->db->where("userTypeID !=",1);
+		$this->db->where("userTypeID !=","1");
+		$this->db->where("userTypeID !=","4");
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->num_rows();
@@ -178,16 +184,8 @@ class User extends CI_Model {
 	public function isUserExixts($email="",$type="",$twitterId=""){
 		$id=0;
 		$this->db->select('id');
-		$this->db->from($this->config->item('table_forum_user'));
-		if($type=="Google")
-			$this->db->where('googleID',$email);
-		else if($type=="Facebook")
-			$this->db->where('facebookID',$email);
-		else if($type=="Twitter"){
-			$this->db->where('twitterID',$twitterId);
-		}else
-			return 0;
-		$this->db->or_where('userName',$email);
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where('email',$email);
 		//$this->db->where('OR userName',$email);
 		$this->db->limit(1);
 		$result = $this->db->get();
@@ -199,6 +197,19 @@ class User extends CI_Model {
 	}
 
 	public function userExixts($email="",$type=""){
+		$id=0;
+		$this->db->select('*');
+		$this->db->from($this->config->item('table_user'));
+		$this->db->where('email',$email);
+		$this->db->limit(1);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		foreach($result->result_array() as $user){
+			$id=$user['id'];
+		}
+		return $id;
+	}
+	public function userExixts2($email="",$type=""){
 		$id=0;
 		$this->db->select('*');
 		$this->db->from($this->config->item('table_forum_user'));
@@ -215,11 +226,10 @@ class User extends CI_Model {
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		foreach($result->result_array() as $user){
-			$id=$user['id'];
+			$id=$user['forumUserID'];
 		}
 		return $id;
 	}
-
 	public function userExixtsByEmail($email=""){
 		$this->db->select('*');
 		$this->db->from($this->config->item('table_forum_user'));
@@ -253,9 +263,8 @@ class User extends CI_Model {
 		$this->db->select($this->config->item('table_forum_user').'.*,'.$this->config->item('table_user').'.email');
 		$this->db->from($this->config->item('table_forum_user'));
 		$this->db->join($this->config->item('table_user'),$this->config->item('table_forum_user').".forumUserID =".$this->config->item('table_user').".id");
-		$this->db->where($this->config->item('table_forum_user').'.id',$uid);
+		$this->db->where($this->config->item('table_forum_user').'.forumUserID',$uid);
 		$result = $this->db->get();
-		//echo $this->db->last_query();
 		return $result->result_array();
 	}
 	public function getUserDataByEmail($email,$type){
@@ -271,7 +280,7 @@ class User extends CI_Model {
 
 	function updateForumUser($id,$userData)
 	{
-		$this->db->where("id",$id);
+		$this->db->where("forumUserID",$id);
 		$this->db->update($this->config->item('table_forum_user'), $userData);
 		return $this->db->affected_rows();	
 	}
@@ -293,7 +302,7 @@ class User extends CI_Model {
 
 	public function UserExistsByTwitterID($twiterID){
 		$id=0;
-		$this->db->select('id');
+		$this->db->select('forumUserID');
 		$this->db->from($this->config->item('table_forum_user'));
 		$this->db->where('twitterID',$twiterID);
 		//$this->db->or_where('userName',$email);
@@ -302,7 +311,7 @@ class User extends CI_Model {
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		foreach($result->result_array() as $user){
-			$id=$user['id'];
+			$id=$user['forumUserID'];
 		}
 		return $id;
 	}
@@ -319,7 +328,6 @@ class User extends CI_Model {
 		return $result->result_array();
 	}
 	public function getUserDetails2($email){
-		$id=0;
 		$this->db->select('*');
 		$this->db->from($this->config->item('table_user'));
 		$this->db->where('email',$email);
@@ -333,7 +341,22 @@ class User extends CI_Model {
 		$id=0;
 		$this->db->select('id');
 		$this->db->from($this->config->item('table_forum_user'));
-		$this->db->where('id',$uid);
+		$this->db->where('forumUserID',$uid);
+		$this->db->where('spam','Yes');
+		//$this->db->or_where('spam',"yes");
+		//$this->db->limit(1);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		foreach($result->result_array() as $user){
+			$id=$user['id'];
+		}
+		return $id;
+	}
+	public function isUserSpam2($uid){
+		$id=0;
+		$this->db->select('id');
+		$this->db->from($this->config->item('table_forum_user'));
+		$this->db->where('forumUserID',$uid);
 		$this->db->where('spam','Yes');
 		//$this->db->or_where('spam',"yes");
 		//$this->db->limit(1);

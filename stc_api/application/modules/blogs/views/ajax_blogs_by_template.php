@@ -2,7 +2,7 @@
 <table class="table table-bordered table-striped dataTable">
 	<thead>
 		<tr>
-			<th>Sr. </th>
+			<th>Sr.<?php //echo $count;?></th>
 			<th>Post Title</th>
 			<th>Post Image</th>
 			<!--<th>Blog Description</th>-->
@@ -12,7 +12,7 @@
 			<th class="td-actions">Actions</th>
 		</tr>
 	</thead>
-	
+	<?php //echo $count;?>
 	<tbody>
 	<?php 
 		//echo $this->uri->segment(4);
@@ -56,14 +56,14 @@
 </table>&nbsp;&nbsp;
 	
 <?php 
-    $count;
+    
     $url=base_url()."blogs/dashboard/index/";
     if($this->uri->segment(5))
         $currentPage=$this->uri->segment(5);
     else
         $currentPage=1;
     if($tempID)
-        $parameters[0]=$tempID;
+        $parameters[0]=(int)$tempID;
     else
         $parameters[0]=0;
     pagination($url,$parameters,$count,$currentPage);

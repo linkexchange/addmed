@@ -37,10 +37,10 @@
 				<?php endif; ?>
 			</td>
 			<td class="td-actions">
-				<a class="btn btn-small btn-success" href="<?php echo base_url();?>article/dashboard/edit/<?php echo $article['id'];?>" title="Edit : <?php echo $article['topic']; ?>">
+				<a class="btn btn-small btn-success" href="<?php echo base_url();?>article/edit/<?php echo $article['id'];?>" title="Edit : <?php echo $article['topic']; ?>">
 					<i class="btn-icon-only icon-edit"> </i>
 				</a>
-				<a class="btn btn-danger btn-small" href="<?php echo base_url()."article/dashboard/delete/".$article['id']; ?>" title="Delete : <?php echo $article['topic']; ?>">
+				<a class="btn btn-danger btn-small" href="<?php echo base_url()."article/delete/".$article['id']; ?>" title="Delete : <?php echo $article['topic']; ?>">
 					<i class="btn-icon-only icon-remove"></i>
 				</a>
 			</td>

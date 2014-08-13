@@ -1,17 +1,20 @@
 <?php 
 class Blog extends CI_Model{
-	public function getBlogs($uid=0,$limit=0,$tid=0){
+	public function getBlogs($limit=0,$uid=0,$tid=0){
 		$numberofrecords=(int)$this->config->item('record_limit');
+		//echo $limit; 
 		if($limit>0)
 			$limit=$limit-1;	
 		$startRecord=$limit*$numberofrecords;
+		//exit;
 		$this->db->select($this->config->item('table_blogs').".*,".$this->config->item('table_templates').".name");
 		$this->db->from($this->config->item('table_blogs'));
 		$this->db->join($this->config->item('table_templates'),$this->config->item('table_blogs').".templateID = ".$this->config->item('table_templates').".id",'left');
 
 		if($this->session->userdata('userType')!="admin")
+		{
 			$this->db->where($this->config->item('table_templates').".userID",$uid);
-
+		}
 		
 		if($tid){
 			$this->db->where($this->config->item('table_blogs').".templateID",$tid);
@@ -25,6 +28,7 @@ class Blog extends CI_Model{
 	}
 
 	public function getBlogsCount($uid=0,$tid=0){
+		//echo $tid; exit;
 		$this->db->select($this->config->item('table_blogs').".*,".$this->config->item('table_templates').".name");
 		$this->db->from($this->config->item('table_blogs'));
 		$this->db->join($this->config->item('table_templates'),$this->config->item('table_blogs').".templateID = ".$this->config->item('table_templates').".id",'left');
@@ -84,11 +88,11 @@ class Blog extends CI_Model{
 		
 	}
 
-	public function getBlogsByTemplate($uid=0,$tempID=0,$limit=0){
+	public function getBlogsByTemplate($limit=0,$uid=0,$tempID=0){
 		
 			$numberofrecords=(int)$this->config->item('record_limit');
 			if($limit>0)
-                            $limit=$limit-1;	
+                $limit=$limit-1;	
 			$startRecord=$limit*$numberofrecords;
 		
 		$this->db->select($this->config->item('table_blogs').".*,".$this->config->item('table_templates').".name");

@@ -29,7 +29,7 @@ class Dashboard extends MX_Controller {
 		if($templateID!=0){
 			$data['tempID']=$templateID;
 			
-			$data['blogs']=$this->blog->getBlogs($this->session->userData('userID'),$page,$templateID);
+			$data['blogs']=$this->blog->getBlogs($page,$this->session->userData('userID'),$templateID);
 
 			$data['count']=$this->blog->getBlogsCount($this->session->userData('userID'),$templateID);
 
@@ -38,7 +38,7 @@ class Dashboard extends MX_Controller {
 		}
 		else
 		{
-			$data['blogs']=$this->blog->getBlogs($this->session->userData('userID'),$page);
+			$data['blogs']=$this->blog->getBlogs($page,$this->session->userData('userID'));
 
 			$data['count']=$this->blog->getBlogsCount($this->session->userData('userID'));
 
@@ -226,12 +226,12 @@ class Dashboard extends MX_Controller {
 
 	public function getTemplateBlogs($tempID,$page=1){
 		$data[]="";
-                $page=1;
+        //$page=1;
 		$this->load->model('blog');
-                
-		$data['blogs']=$this->blog->getBlogsByTemplate($this->session->userData('userID'), $tempID, $page);
+        $data['blogs']=$this->blog->getBlogsByTemplate($page,$this->session->userData('userID'),$tempID);
 		$data['count']=$this->blog->getBlogsCountByTemplate($this->session->userData('userID'),$tempID);
 		$data['tempID']=$tempID;
+		//echo "<pre>"; print_R($data); exit;
 		$this->load->view('ajax_blogs_by_template',$data);
 	}
         
