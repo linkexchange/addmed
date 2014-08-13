@@ -14,29 +14,57 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine-en.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="<?php echo base_url();?>js/jquery.circliful.min.js"></script>
+<link href="<?php echo base_url();?>css/jquery.circliful.css" rel="stylesheet" type="text/css" />
 <title>Article Description</title>
 </head>
 <?php $id = $this->uri->segment(4);?>
 <div id="main-container">
 	<div class="padding-md">
-		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
-			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3>
-					<?php echo $article[0]['topic'];?>
-					<!--<span class="line"></span>-->
-				</h3>
-			</div>
-		</div> <br/>
 		<div class="row">
 			<div class="col-md-11">	
+				<h3 class="headline m-top-md">
+					<?php echo $article[0]['topic'];?>
+				</h3>
+				<small class="text-muted">By <a href="#"><strong> <?php echo $article[0]['userName'];?></strong></a> |  Post on <?php echo $article[0]['created_date'];?>  | <?php echo $article[0]['no_of_replies'];?> comments</small>
 				<div class="row">	
 					<div class="col-md-8">
 						<div class="panel blog-container">
 							<div class="panel-body">
-								<h4><?php echo $article[0]['topic'];?></h4>
-								<small class="text-muted">By <a href="#"><strong> <?php echo $article[0]['userName'];?></strong></a> |  Post on <?php echo $article[0]['created_date'];?>  | <?php echo $article[0]['no_of_replies'];?> comments</small>
-								<div class="seperator"></div>
-								<div class="seperator"></div>
+								
+								<?php if($article[0]['monitor_image']!="") { ?>
+								<div class="row">
+								<div class="col-md-4" style="background-image: url(<?php echo base_url();?>img/monitor.jpg); width:240px;height:196px;padding:8px; margin-left:17px;">	
+								<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['monitor_image'];?>" alt="Monitor image" style="height: 140px; width:inherit;">
+								</div> 
+								<?php if($article[0]['ratings']==0) {
+										$fgcolor = "#FE2E2E";
+										$bgcolor = "#FE2E2E";
+									}
+									else if(($article[0]['ratings']<=30)&&($article[0]['ratings']>0))  {
+										$fgcolor = "#FE2E2E";
+										$bgcolor = "#eee";
+									}
+									else if($article[0]['ratings']<=60)  {
+										$fgcolor = "#FFFF00";
+										$bgcolor = "#eee";
+									}
+									else if($article[0]['ratings']<=80)  {
+										$fgcolor = "#90C844";
+										$bgcolor = "#eee";
+									}
+									else if($article[0]['ratings']>80)  {
+										$fgcolor = "#2EFE64";
+										$bgcolor = "#eee";
+									}		
+								?>
+								<div class="col-md-6 pull-right">
+									<div id="myStat2" data-dimension="190" data-text="<?php echo $article[0]['ratings'];?>%" data-info="New Clients" data-width="8" data-fontsize="30" data-percent="<?php echo $article[0]['ratings'];?>" data-fgcolor="<?php echo $fgcolor;?>" data-bgcolor="<?php echo $bgcolor;?>" style="margin:-16px;"></div>
+									<h4 style="margin-left:41px;"><b>Ratings </b></h4>
+								</div>
+								</div>
+								<?php } ?>
+								<br/>
 								<div class="image-wrapper">
 									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['image'];?>" alt="Photo of article">
 								</div><!-- /image-wrapper -->
@@ -375,5 +403,12 @@ e.preventDefault();
 	})
 });
 </script>
-
+<script>
+$( document ).ready(function() {
+        $('#myStathalf').circliful();
+		$('#myStat').circliful();
+		$('#myStathalf2').circliful();
+		$('#myStat2').circliful();
+    });
+</script>
 		

@@ -153,6 +153,17 @@
 							</a>
 						</li>
 						<?php } ?>
+						<li <?php if($this->uri->segment(1)=="monetization_networks"){ echo "class='active'";}?>>
+							<a href="<?php echo base_url();?>monetization_networks">
+								<span class="menu-icon">
+									<i class="fa fa-globe fa-lg"></i> 
+								</span>
+								<span class="text">
+									Monetization
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
 					</ul>
 					
 					<!--<div class="alert alert-info">

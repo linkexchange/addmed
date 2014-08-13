@@ -4,25 +4,27 @@
 		$("#reply_desc").hide();
 	});
 </script>
-<!DOCTYPE html>
 <?php $actual_link = urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");?>
-<html lang="en">
-<head>
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "d78c9ed2-be1a-4a83-857c-fa492054996a", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine-en.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<title>Article Description</title>
-</head>
+<script src="<?php echo base_url();?>js/jquery.circliful.min.js"></script>
+<link href="<?php echo base_url();?>css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+<style>
+#circle {
+  margin: 10px;
+}
+</style>
 <?php $id = $this->uri->segment(4);?>
 <div id="main-container">
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
 				<h3><?php echo $article[0]['topic'];?></h3>
+				<small class="text-muted">By <a href="#"><strong> <?php echo $article[0]['userName'];?></strong></a> |  Post on <?php echo $article[0]['created_date'];?>  | <?php echo $article[0]['no_of_replies'];?> comments</small>
 			</div>
 		</div> <br/>
 		<div class="row">
@@ -31,9 +33,39 @@
 					<div class="col-md-8">
 						<div class="panel blog-container" style="border:1px solid #D6E9F3;">
 							<div class="panel-body">
-								<h4><?php echo $article[0]['topic'];?></h4>
-								<small class="text-muted">By <a href="#"><strong> <?php echo $article[0]['userName'];?></strong></a> |  Post on <?php echo $article[0]['created_date'];?>  | <?php echo $article[0]['no_of_replies'];?> comments</small>
-								<div class="seperator"></div>
+								<?php if($article[0]['monitor_image']!="") { ?>
+								<div class="row">
+								<div class="col-md-4" style="background-image: url(<?php echo base_url();?>img/monitor.jpg); width:240px;height:196px;padding:8px; margin-left:17px;">	
+								<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['monitor_image'];?>" alt="Monitor image" style="height: 140px; width:inherit;">
+								</div> 
+								<?php if($article[0]['ratings']==0) {
+										$fgcolor = "#FE2E2E";
+										$bgcolor = "#FE2E2E";
+									}
+									else if(($article[0]['ratings']<=30)&&($article[0]['ratings']>0))  {
+										$fgcolor = "#FE2E2E";
+										$bgcolor = "#eee";
+									}
+									else if($article[0]['ratings']<=60)  {
+										$fgcolor = "#FFFF00";
+										$bgcolor = "#eee";
+									}
+									else if($article[0]['ratings']<=80)  {
+										$fgcolor = "#90C844";
+										$bgcolor = "#eee";
+									}
+									else if($article[0]['ratings']>80)  {
+										$fgcolor = "#2EFE64";
+										$bgcolor = "#eee";
+									}		
+								?>
+								<div class="col-md-6 pull-right">
+									<div id="myStat2" data-dimension="190" data-text="<?php echo $article[0]['ratings'];?>%" data-info="New Clients" data-width="8" data-fontsize="30" data-percent="<?php echo $article[0]['ratings'];?>" data-fgcolor="<?php echo $fgcolor;?>" data-bgcolor="<?php echo $bgcolor;?>" style="margin:-16px;"></div>
+									<h4 style="margin-left:41px;"><b>Ratings </b></h4>
+								</div>
+								</div>
+								<?php } ?>
+								<br/>
 								<div class="image-wrapper">
 									<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['image'];?>" alt="Photo of article">
 								</div><!-- /image-wrapper -->
@@ -249,8 +281,6 @@
 							</div>
 						</div>
 						<?php } ?>
-						
-						
 						<h4 class="headline">
 							PHOTO STREAM
 							<span class="line"></span>
@@ -270,7 +300,7 @@
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.padding-md -->
-		</div><!-- /main-container -->
+</div><!-- /main-container -->
 <script>
 	$("#comment").click(function(){
 		$("#comment_desc").show();
@@ -383,8 +413,15 @@
 			}
 		});
 		//$("#frm_signup").validationEngine();
-	});
-
+	});	
+</script>
+<script>
+$( document ).ready(function() {
+        $('#myStathalf').circliful();
+		$('#myStat').circliful();
+		$('#myStathalf2').circliful();
+		$('#myStat2').circliful();
+    });
 </script>
 <script type="text/javascript">
 $('a#bookmark').click(function(e){
@@ -410,7 +447,7 @@ e.preventDefault();
 			}})
 		}
 		}
-	})
+	});
 });
 </script>
 

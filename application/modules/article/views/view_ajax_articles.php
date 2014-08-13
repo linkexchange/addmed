@@ -2,13 +2,16 @@
 <table class="table table-bordered table-striped dataTable">
 	<thead>
 		<tr>
-			<th><br/>Sr. </th>
-			<th><br/>Article Topic</th>
-			<th><br/>Article Image</th>
-			<th><br/>View</th>
-			<th><br/>Created Date</th>
-			<th><br/>Last Updated On</th>
-			<th class="td-actions"><br/>Actions</th>
+			<th>Sr. </th>
+			<th>Article Topic</th>
+			<th>Article Image</th>
+			<?php if($this->session->userdata("userTypeID")==1) {?>
+			<th>Monitor Image</th>
+			<th>Ratings</th>
+			<?php }?>
+			<th>Created Date</th>
+			<th>Last Updated On</th>
+			<th class="td-actions">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -16,20 +19,25 @@
 		//echo $this->uri->segment(4);
 			$sr=1;
 			if($this->uri->segment(4)>1 ){
-			$sr=(int)$this->config->item('record_limit')*$this->uri->segment(4)-((int)$this->config->item('record_limit')-1);
+				$sr=(int)$this->config->item('record_limit')*$this->uri->segment(4)-((int)$this->config->item('record_limit')-1);
 			}
 		?>
 		<?php  foreach($articles as $article) : ?>
 		<tr>
 			<td><?php echo $sr; $sr++; ?></td>
-			<td><?php echo $article['topic']; ?></td>
+			<td><a href="<?php echo base_url();?>article/view/<?php echo $article['id'];?>"><?php echo $article['topic'];?></a></td>
 			<td><?php if($article['image']) : ?>
 				<img src="<?php echo base_url().'uploads/forum_article_images/'.$article['image']; ?>" width="100px" height="auto" />
 				<?php endif; ?>
 			</td>
+			<?php if($this->session->userdata("userTypeID")==1) {?>
 			<td>
-			<a target="_blank" href="<?php echo base_url();?>article/listing/view/<?php echo $article['id'];?>">View</a>
+				<?php if($article['monitor_image']) : ?>
+				<img src="<?php echo base_url().'uploads/forum_article_images/'.$article['monitor_image']; ?>" width="100px" height="auto" />
+				<?php endif; ?>
 			</td>
+			<td><?php echo $article['ratings']; ?></td>
+			<?php } ?>
 			<td><?php echo $article['created_date']; ?></td>
 			<td>
 				<?php if($article['updated_date']!="0000-00-00") : ?>

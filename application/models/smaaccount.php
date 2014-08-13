@@ -98,7 +98,27 @@ class Smaaccount extends CI_Model {
 	$this->db->delete($this->config->item('table_sma_account_details'));
         return $this->db->affected_rows();
     }
-    
+    public function getSMA_TwitterIDs()
+	{
+		$this->db->select('*');
+        $this->db->from($this->config->item('table_sma_account_details'));
+		$this->db->where('smaAccountTypeID', 1);
+        $result=$this->db->get();
+        return $result->result_array();
+	}
+	public function getSMA_InstagramIDs()
+	{
+		$this->db->select('*');
+        $this->db->from($this->config->item('table_sma_account_details'));
+		$this->db->where('smaAccountTypeID', 4);
+        $result=$this->db->get();
+        return $result->result_array();
+	}
+	public function updateSMA_Accounts($id,$data)
+	{
+		$this->db->where('id',$id);
+        return $this->db->update($this->config->item('table_sma_account_details'),$data);
+    }
 }
 
 ?>

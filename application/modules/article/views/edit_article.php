@@ -27,16 +27,38 @@
 						</div><!-- /.col -->
 					</div><!-- /form-group -->
 				
-					<div class="setData">
-						<div class="form-group">
+					<div class="form-group">
 							<label for="Article Image" class="col-lg-2 control-label">Article Image</label>
 							<div class="col-lg-5">
 									<img src="<?php echo base_url().'uploads/forum_article_images/'.$article['image']; ?>" width="100px" height="auto" />
-									<input type="file" class="form-control" name="image" id="image" size="20">
+									<input type="file" class="form-control" name="article_image" size="20">
 								<p class="help-block">Maximum allwoed image size is 10MB.</p>
 							</div><!-- /.col -->
-						</div><!-- /form-group -->
-					</div><!-- // .setBlogData -->	
+					</div><!-- /form-group -->
+					<?php if($this->session->userdata("userTypeID")==1) {?>
+					<div class="form-group">
+						<label for="Article Image" class="col-lg-2 control-label">Monitor Image</label>
+						<div class="col-lg-5">
+						<?php if($article['monitor_image']!=""){ ?>	
+							<img src="<?php echo base_url().'uploads/monitor_images/'.$article['monitor_image']; ?>" width="100px" height="auto"/>
+						<?php } ?>	
+							<input type="file" class="form-control" name="monitor_image" size="20">
+							<p class="help-block">Maximum allwoed image size is 10MB.</p>
+						</div><!-- /.col -->
+					</div><!-- /form-group -->
+					
+					<div class="form-group">
+						<label for="Article Topic" class="col-lg-2 control-label">Article Ratings(%)</label>
+						<div class="col-lg-5">
+							<select class="form-control validate[required]" name="ratings" id="ratings">
+								<?php 
+								$i = 0; do{ ?>
+								<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php $i=$i+10;} while($i<101); ?>
+							</select>	
+						</div><!-- /.col -->
+					</div><!-- /form-group -->
+					<?php } ?>
 					<div class="form-group">
 						<label for="Article Description" class="col-lg-2 control-label">Article Description</label>
 						<div class="col-lg-10">

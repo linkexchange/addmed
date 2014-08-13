@@ -60,7 +60,8 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Page length menu
  */
 .dataTables_length {
-	float: left;
+	/*float: left; */
+	display:none;
 }
 
 
@@ -68,8 +69,9 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Filter
  */
 .dataTables_filter {
-	float: right;
-	text-align: right;
+	/* float: right;
+	   text-align: right; */
+	display:none; 
 }
 
 
@@ -77,9 +79,10 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Table information
  */
 .dataTables_info {
-	padding-top: 3px;
+	/* padding-top: 3px;
 	clear: both;
-	float: left;
+	float: left; */
+	display:none; 
 }
 
 
@@ -87,8 +90,9 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Pagination
  */
 .dataTables_paginate {
-	float: right;
-	text-align: right;
+	/*float: right;
+	text-align: right; */
+	display:none;
 }
 
 .dataTables_paginate .ui-button {
@@ -219,10 +223,11 @@ table.dataTable thead th div.DataTables_sort_wrapper {
 }
 
 table.dataTable thead th div.DataTables_sort_wrapper span {
-	position: absolute;
+	/*position: absolute;
 	top: 50%;
 	margin-top: -8px;
-	right: 0;
+	right: 0;*/
+	display:none;
 }
 
 table.dataTable th:active {

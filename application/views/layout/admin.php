@@ -322,6 +322,22 @@
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'article/dashboard';?>"><span class="submenu-label">View articles</span></a></li>
 							</ul>
 						</li>
+						<li class="openable <?php if($this->uri->segment(1)=="monetization"){ echo "active open";}?>">
+							<a href="#">
+								<span class="menu-icon">
+									<i class="fa fa-globe fa-lg"></i> 
+								</span>
+								<span class="text">
+									Monetization
+								</span>
+								<span class="badge badge-info bounceIn animation-delay5">2</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard/add'; ?>"><span class="submenu-label">Add details</span></a></li>
+								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard';?>"><span class="submenu-label">View details</span></a></li>
+							</ul>
+						</li>
 					</ul>
 					
 					<!--<div class="alert alert-info">

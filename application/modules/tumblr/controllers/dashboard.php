@@ -104,26 +104,27 @@ class Dashboard extends CI_Controller{
 					//$this->session->set_userdata('twitter_user_id', $access_token['user_id']);
 					//$this->session->set_userdata('twitter_screen_name', $access_token['screen_name']);
 					$user_Data = $this->connection->get("http://api.tumblr.com/v2/user/info");
-                                        $this->session->set_userdata('tumblr_user_name', $user_Data->response->user->name);
-                                        $posts=0; $followers=0; $totalBlog=0;
-                                        foreach ($user_Data->response->user->blogs as $blog){
-                                            //print_r($blog);
-                                            $posts=$posts+$blog->posts;
-                                            $followers=$followers+$blog->followers;
-                                            $totalBlog++;
-                                        }
-                                        $this->session->set_userdata('tumblr_posts', $posts);
-                                        $this->session->set_userdata('tumblr_followers', $followers);
-                                        $this->session->set_userdata('tumblr_blogs', $totalBlog);
-                                        $this->session->set_userdata('tumblr_likes', $user_Data->response->user->likes);
-                                        //echo "<pre>"; print_r( $this->session->userdata); echo "</pre>";
-                                        //echo "<pre>"; print_r($user_Data); echo "</pre>"; exit;
+                    //echo "<pre>"; print_r($user_Data); exit;
+					$this->session->set_userdata('tumblr_user_name', $user_Data->response->user->name);
+                    $posts=0; $followers=0; $totalBlog=0;
+					foreach ($user_Data->response->user->blogs as $blog){
+						//print_r($blog);
+						$posts=$posts+$blog->posts;
+						$followers=$followers+$blog->followers;
+						$totalBlog++;
+					}
+					$this->session->set_userdata('tumblr_posts', $posts);
+					$this->session->set_userdata('tumblr_followers', $followers);
+					$this->session->set_userdata('tumblr_blogs', $totalBlog);
+					$this->session->set_userdata('tumblr_likes', $user_Data->response->user->likes);
+					//echo "<pre>"; print_r( $this->session->userdata); echo "</pre>";
+					//echo "<pre>"; print_r($user_Data); echo "</pre>"; exit;
                                         
 					//print_r($this->session->userdata); exit;
 					$this->session->unset_userdata('request_token');
 					$this->session->unset_userdata('request_token_secret');
 					redirect(base_url('/tumblr/dashboard/addTumblrDetails'));
-                                }
+                }
 				else
 				{
                                     //echo "Error";// An error occured. Add your notification code here.

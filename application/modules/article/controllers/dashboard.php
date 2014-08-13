@@ -124,13 +124,13 @@ class Dashboard extends MX_Controller{
 		$data[]="";
 		if($this->input->post())
 		{
-			if(isset($_FILES["image"])) { 
+			if(isset($_FILES['article_image'])) { 
 			$config['upload_path'] = './uploads/forum_article_images/';
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['max_size']	= '20000';
 			$this->load->library('upload', $config);
 
-				if ( ! $this->upload->do_upload("image"))
+				if ( ! $this->upload->do_upload("article_image"))
 				{
 					echo $this->upload->display_errors();
 					exit;
@@ -139,14 +139,32 @@ class Dashboard extends MX_Controller{
 				{
 					$data['image_data'] = array('upload_data' => $this->upload->data());
 					$uploaded_file=$data['image_data']['upload_data']['file_name'];
+					$articleData["image"]=$uploaded_file; 
 				}
 			}	
+			if(isset($_FILES['monitor_image'])) { 
+				$config['upload_path'] = './uploads/forum_article_images/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size']	= '20000';
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload("monitor_image"))
+				{
+					echo $this->upload->display_errors();
+					exit;
+				}
+				else
+				{
+					$data['image_data'] = array('upload_data' => $this->upload->data());
+					$uploaded_file2=$data['image_data']['upload_data']['file_name'];
+					$articleData["monitor_image"]=$uploaded_file2;
+				}
+			}
 				$slug = url_title($this->input->post('articleTopic'), 'dash', TRUE);
 				$articleData["topic"]=$this->input->post('articleTopic');
 				$articleData["slug"]=$slug;
-				if(isset($uploaded_file)){
-				$articleData["image"]=$uploaded_file; 
-				}
+				$articleData["description"]=$this->input->post('articleDescription');
+				$articleData["ratings"]=$this->input->post('ratings');
 				$articleData["description"]=$this->input->post('articleDescription');
 				$articleData["updated_by"]=$this->session->userData('userID');
 				$articleData["updated_date"]= date('Y-m-d');
@@ -156,7 +174,6 @@ class Dashboard extends MX_Controller{
 		}
 		else
 		{
-		
 			$data['articles']=$this->article->getForumArticleDetailsByID($aid);
 			$this->layout->view('edit_article',$data);
 		}

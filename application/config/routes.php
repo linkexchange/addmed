@@ -48,7 +48,7 @@ $route['forum/dashboard/approve/(:num)'] = "forum/dashboard/approve/$1";
 $route['forum/dashboard/disapprove/(:num)'] = "forum/dashboard/disapprove/$1";
 $route['forum/dashboard/spam/(:num)'] = "forum/dashboard/spam/$1";
 $route['forum/dashboard/unspam/(:num)'] = "forum/dashboard/unspam/$1";
-$route['forum/dashboard/users/(:num)'] = "forum/dashboard/users/$1";
+$route['forum/dashboard/users/(:num)'] = "forum/dashboard/users/index/$1";
 $route['forum/add'] = "forum_articles/forum/add";
 $route['articles'] = "forum_articles/listing";
 $route['articles/index/(:num)'] = "forum_articles/listing/index/$1";
@@ -64,6 +64,8 @@ $route['topics/(:num)'] = "forum_articles/forum/view_forum/$1";
 $route['bookmarks'] = "forum_articles/listing/show_bookmarks";
 $route['bookmarks/index/(:num)'] = "forum_articles/listing/show_bookmarks/$1";
 $route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
+$route['monetization_networks'] = "monetization_networks/dashboard";
+$route['monetization_networks/index/(:num)'] = "monetization_networks/dashboard/index/$1";
 $route['404_override'] = '';
 
 

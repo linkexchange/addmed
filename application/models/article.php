@@ -30,6 +30,13 @@ class Article extends CI_Model{
 		return $result->result_array();
 
 	}
+	public function getAllForumArticles2(){
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_f_articles'));
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
 	public function getForumArticlesByName($val){
 		$this->db->select($this->config->item('table_f_articles').".*,".$this->config->item('table_user').".userName");
 		$this->db->from($this->config->item('table_f_articles'));
