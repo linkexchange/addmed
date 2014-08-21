@@ -48,7 +48,10 @@ class Login extends MX_Controller {
 					$this->session->set_userdata('userTypeID',$result[0]['userTypeID']);
 					$this->session->set_userdata('email',$result[0]['email']);
 					$this->session->set_userdata('loggedIn',TRUE);
-
+					if($result[0]['profile_image']!="")
+					{
+						$this->session->set_userdata('userPic', $result[0]['profile_image']);
+					}
 					if($result[0]['userTypeID']==1)
 						$this->session->set_userdata('userType','admin');
 					else if($result[0]['userTypeID']==2)

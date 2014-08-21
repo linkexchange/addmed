@@ -73,7 +73,11 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a class="clearfix" href="#">
+								<?php if($this->session->userdata("userPic")) { ?>
+								<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
+								<?php } else { ?>
 								<img src="<?php echo base_url();?>img/user.jpg" alt="User Avatar">
+								<?php } ?>
 								<div class="detail">
 									<strong><?php echo $this->session->userdata("userName");?></strong>
 									<!--<p class="grey"><?php echo $this->session->userdata("email");?></p>--> 
@@ -81,7 +85,7 @@
 							</a>
 						</li>
 						<li class="divider"></li>
-						<!--<li><a href="<?php echo base_url();?>user/profile/edit/<?php echo $this->session->userdata("userID");?>"><i class="fa fa-user fa-lg"></i> Profile</a></li>-->
+						<li><a href="<?php echo base_url();?>user/profile/edit/<?php echo $this->session->userdata("userID");?>"><i class="fa fa-user fa-lg"></i> Edit Profile</a></li>
 						<li><a tabindex="-1" class="main-link logoutConfirm_open" href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
 					</ul>
 				</li>
@@ -102,7 +106,11 @@
 					</a>
 				</div><!-- /size-toggle -->	
 				<div class="user-block clearfix">
+					<?php if($this->session->userdata("userPic")) { ?>
+					<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
+					<?php } else { ?>
 					<img src="<?php echo base_url();?>img/user.jpg" alt="User Avatar">
+					<?php } ?>
 					<div class="detail">
 						<strong><?php echo $this->session->userdata("userName");?></strong><br/>
 						
@@ -135,7 +143,7 @@
 								<span class="menu-hover"></span>
 							</a>
 						</li>
-						<li <?php if(($this->uri->segment(2)=="profile")){ echo "class='active'";}?>>
+						<!--<li <?php if(($this->uri->segment(2)=="profile")){ echo "class='active'";}?>>
 							<a href="<?php echo base_url();?>user/profile/edit/<?php echo $this->session->userdata("userID");?>">
 								<span class="menu-icon">
 									<i class="fa fa-user fa-lg"></i> 
@@ -145,7 +153,27 @@
 								</span>
 								<span class="menu-hover"></span>
 							</a>
+						</li> -->
+						
+						<li class="openable <?php if($this->uri->segment(2)=="profile"){ echo "open active";}?>">
+							<a href="#">
+								<span class="menu-icon">
+									<i class="fa fa-file-text fa-lg"></i> 
+								</span>
+								<span class="text">
+									Profile
+								</span>
+								<span class="badge badge-success bounceIn animation-delay5">2</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<li <?php if(($this->uri->segment(3)=="edit")){ echo "class='active'";}?>>
+								<a href="<?php echo base_url();?>user/profile/edit/<?php echo $this->session->userdata("userID");?>">
+								<span class="submenu-label">Edit Profile</span></a></li>
+								<li <?php if(($this->uri->segment(3)=="addSMA")){ echo "class='active'";}?>><a href="<?php echo base_url();?>user/profile/addSMA"><span class="submenu-label">Add SMA Links</span></a></li>
+							</ul>
 						</li>
+						
 						<li <?php if($this->uri->segment(2)=="accounts"){ echo "class='active'";}?>>
 							<a href="<?php echo base_url();?>publisher/accounts">
 								<span>
@@ -157,6 +185,7 @@
 								<span class="menu-hover"></span>
 							</a>
 						</li>
+						
 						<!--<li class="openable">
 							<a href="#">
 								<span class="menu-icon">

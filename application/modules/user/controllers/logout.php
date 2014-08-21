@@ -24,6 +24,9 @@ class Logout extends MX_Controller {
 		if($this->session->userdata("ForumUserFullName")){
 		$this->session->unset_userdata('ForumUserFullName');
 		}
+		if($this->session->userdata("userPic")){
+		$this->session->unset_userdata('userPic');
+		}
 		$this->session->set_userdata('loggedIn',FALSE);
 		redirect(base_url()."user/login");
 	}

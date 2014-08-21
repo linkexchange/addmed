@@ -4,7 +4,6 @@ ob_start();
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 ?>
 
 
@@ -62,7 +61,7 @@ ob_start();
         
             
         <div class="row">
-           <div id="successMessage" class="alert alert-success" style="display:none;"></div>
+			<div id="successMessage" class="alert alert-success" style="display:none;"></div>
             <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:right;">
@@ -82,13 +81,39 @@ ob_start();
                         <li>
                             <strong id="twitter-followers"><?php echo $totalTwitterFollowers[0]['smaAccountFollowers']; ?></strong>
                             <span>followers</span>
-			</li>
-			<li>
+						</li>
+						<li>
                             <strong id="twitter-posts"><?php echo $totalTwitterPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Posts</span>
-			</li>
+						</li>
                     </ul>
-		</div><!--/social-box-->			
+					<ul>
+                        <li>
+						<input type="radio" name="twitter_pri" value="1" id="twitter_pri"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["twitter_account"]=="1") 
+									{ echo 'checked="checked"';}
+							}
+							else
+							{
+								echo 'checked="checked"';
+							}
+						?>> Public
+						</li>
+						<li>
+						<input type="radio" name="twitter_pri" value="0" id="twitter_pri2"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["twitter_account"]=="0") 
+									{ echo 'checked="checked"';}
+							}
+						?>> Private
+						</li>
+					</ul>	
+				</div><!--/social-box-->			
             </div><!--/col-->
             <div class="col-md-3">
                 <div class="social-box facebook">
@@ -97,12 +122,38 @@ ob_start();
                         <li>
                             <strong id="tumblr-followers"><?php echo $totalFacebookFollowers[0]['smaAccountFollowers']; ?></strong>
                             <span>Likes</span>
-			</li>
-			<li>
+						</li>
+						<li>
                            <strong id="tumblr-posts"><?php echo $totalFacebookPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Pages</span>
-			</li>
+						</li>
                     </ul>
+					<ul>
+                        <li>
+						<input type="radio" name="facebook_pri" value="1" id="facebook_pri"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["facebook_account"]=="1") 
+									{ echo 'checked="checked"';}
+							}
+							else
+							{
+								echo 'checked="checked"';
+							}
+						?>> Public
+						</li>
+						<li>
+						<input type="radio" name="facebook_pri" value="0" id="facebook_pri2"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["facebook_account"]=="0") 
+									{ echo 'checked="checked"';}
+							}
+						?>> Private
+						</li>
+					</ul>
                 </div><!--/social-box-->			
             </div><!--/col-->
             <div class="col-md-3">
@@ -112,65 +163,119 @@ ob_start();
                         <li>
                             <strong id="tumblr-followers"><?php echo $totalTumblrFollowers[0]['smaAccountFollowers']; ?></strong>
                             <span>Followers</span>
-			</li>
-			<li>
+						</li>
+						<li>
                            <strong id="tumblr-posts"><?php echo $totalTumblrPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Posts</span>
-			</li>
+						</li>
                     </ul>
+					<ul>
+                        <li>
+						<input type="radio" name="tumblr_pri" value="1" id="tumblr_pri"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["tumblr_account"]=="1") 
+									{ echo 'checked="checked"';}
+							}
+							else
+							{
+								echo 'checked="checked"';
+							}
+						?>> Public
+						</li>
+						<li>
+						<input type="radio" name="tumblr_pri" value="0" id="tumblr_pri2"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["tumblr_account"]=="0") 
+									{ echo 'checked="checked"';}
+							}
+						?>> Private
+						</li>
+					</ul>
 		</div><!--/social-box-->			
             </div><!--/col-->
             <div class="col-md-3">
                 <div class="social-box instagram">
                     <i class="fa fa-instagram"></i>
                     <ul>
-                       <li>
+						<li>
                             <strong id="tumblr-followers"><?php echo $totalInstagramFollowers[0]['smaAccountFollowers']; ?></strong>
                             <span>Followers</span>
-			</li>
-			<li>
+						</li>
+						<li>
                            <strong id="tumblr-posts"><?php echo $totalInstagramPosts[0]['smaAccountPosts']; ?></strong>
                             <span>Posts</span>
-			</li>
+						</li>
                     </ul>
+					<ul>
+                        <li>
+						<input type="radio" name="instagram_pri" value="1" id="instagram_pri"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["instagram_account"]=="1") 
+									{ echo 'checked="checked"';}
+							}
+							else
+							{
+								echo 'checked="checked"';
+							}
+						?>> Public
+						</li>
+						<li>
+						<input type="radio" name="instagram_pri" value="0" id="instagram_pri2"
+						<?php 
+							if($privacy)
+							{
+								if($privacy[0]["instagram_account"]=="0") 
+									{ echo 'checked="checked"';}
+							}
+						?>> Private
+						</li>
+					</ul>
 		</div><!--/social-box-->			
             </div><!--/col-->	
         </div>
         <div class="row">
             <div class="panel-1 panel-default-1">
+			<div id="successMessage2" class="alert alert-success" style="display:none;"></div>
+            <div id="errorMessage2" class="alert alert-danger" style="display:none;"></div>
 		<ul class="tab-bar grey-tab">
-                    <li class="active">
-                        <a data-toggle="tab" href="#twitter" id="twitter-tab">
-                            <span class="block text-center">
-                                <i class="fa fa-twitter fa-2x"></i> 
-                            </span>
-                            Twitter
-			</a>
-                    </li>
-                    <li class="">
-                        <a data-toggle="tab" href="#facebook" id="facebook-tab">
-                            <span class="block text-center">
-                                <i class="fa fa-facebook fa-2x"></i> 
-                            </span>
-                            Facebook
-			</a>
-                    </li>
-                    <li class="">
-                        <a data-toggle="tab" href="#tumblr" id="tumblr-tab">
-                            <span class="block text-center">
-                                <i class="fa fa-tumblr fa-2x"></i> 
-                            </span>	
-                            Tumblr
-			</a>
-                    </li>
-                    <li class="">
-                        <a data-toggle="tab" href="#instagram" id="instagram-tab">
-                            <span class="block text-center">
-                        	<i class="fa fa-instagram fa-2x"></i> 
-                            </span>	
-                            Instagram
-                        </a>
-                    </li>
+			<li class="active">
+				<a data-toggle="tab" href="#twitter" id="twitter-tab">
+					<span class="block text-center">
+						<i class="fa fa-twitter fa-2x"></i> 
+					</span>
+					Twitter
+				</a>
+			</li>
+			<li class="">
+				<a data-toggle="tab" href="#facebook" id="facebook-tab">
+					<span class="block text-center">
+						<i class="fa fa-facebook fa-2x"></i> 
+					</span>
+					Facebook
+				</a>
+			</li>
+			<li class="">
+				<a data-toggle="tab" href="#tumblr" id="tumblr-tab">
+					<span class="block text-center">
+						<i class="fa fa-tumblr fa-2x"></i> 
+					</span>	
+					Tumblr
+				</a>
+			</li>
+			<li class="">
+				<a data-toggle="tab" href="#instagram" id="instagram-tab">
+					<span class="block text-center">
+					<i class="fa fa-instagram fa-2x"></i> 
+					</span>	
+					Instagram
+				</a>
+			</li>
 		</ul>
                 <div class="padding-md-1">
                     <div class="tab-content">
@@ -205,6 +310,28 @@ ob_start();
                                                     <span class="text-muted block">Posts</span> 
                                                 </div>
                                             </td>
+											<td class="acc_posts">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <select name="privacy" class="form-control" id="twitter_p_<?php echo $twitterAcc["id"];?>" onchange="setTwitterPrivacy(<?php echo $twitterAcc["id"];?>);">
+														<option value="1" 
+															<?php 
+																if($twitterAcc["public"]=="1")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Public
+														</option>
+														<option value="0"
+															<?php 
+																if($twitterAcc["public"]=="0")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Private
+														</option>
+													</select>	
+												</div>
+                                            </td> 
                                             <td class="acc_posts">
                                                 <div class="pull-left m-left-sm m-top-sm ">
                                                     <a href="javascript:void(0);" title="Disconnect" alt="Disconnect" onclick="removeRecord(<?php echo $twitterAcc['id']; ?>,1,'<?php echo 'Twitter'; ?>');">
@@ -265,6 +392,28 @@ ob_start();
                                                     <span class="text-muted block">Likes</span> 
                                                 </div>
                                             </td>
+											<td class="acc_posts">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <select name="privacy" class="form-control" id="facebook_p_<?php echo $accRecord["id"];?>" onchange="setFacebookPrivacy(<?php echo $accRecord["id"];?>);">
+														<option value="1" 
+															<?php 
+																if($accRecord["public"]=="1")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Public
+														</option>
+														<option value="0"
+															<?php 
+																if($accRecord["public"]=="0")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Private
+														</option>
+													</select>
+                                                </div>
+                                            </td>
                                             <td class="acc_actions">
                                                 <div class="pull-left m-left-sm m-top-sm ">
                                                     <a href="javascript:void(0);" title="Disconnect" alt="Disconnect" onclick="removeRecord(<?php echo $accRecord['id']; ?>,1,'<?php echo 'Tumblr'; ?>');">
@@ -322,6 +471,28 @@ ob_start();
                                                     <span class="text-muted block">Likes</span> 
                                                 </div>
                                             </td>
+											<td class="acc_posts">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <select name="privacy" class="form-control" id="tumblr_p_<?php echo $accRecord["id"];?>" onchange="setTumblrPrivacy(<?php echo $accRecord["id"];?>);">
+														<option value="1" 
+															<?php 
+																if($accRecord["public"]=="1")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Public
+														</option>
+														<option value="0"
+															<?php 
+																if($accRecord["public"]=="0")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Private
+														</option>
+													</select>	
+                                                </div>
+                                            </td>
                                             <td class="acc_actions">
                                                 <div class="pull-left m-left-sm m-top-sm ">
                                                     <a href="javascript:void(0);" title="Disconnect" alt="Disconnect" onclick="removeRecord(<?php echo $accRecord['id']; ?>,1,'<?php echo 'Tumblr'; ?>');">
@@ -368,6 +539,28 @@ ob_start();
                                                     <span class="text-muted block">Posts</span> 
                                                 </div>
                                             </td>
+											<td class="acc_posts">
+                                                <div class="pull-left m-left-sm m-top-sm">
+                                                    <select name="privacy" class="form-control" id="instagram_p_<?php echo $accRecord["id"];?>" onchange="setInstagramPrivacy(<?php echo $accRecord["id"];?>);">
+														<option value="1" 
+															<?php 
+																if($accRecord["public"]=="1")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Public
+														</option>
+														<option value="0"
+															<?php 
+																if($accRecord["public"]=="0")
+																{
+																	echo 'selected="selected"';
+																}
+															?>>Private
+														</option>
+													</select>	
+                                                </div>
+                                            </td>
                                             <!-- <td class="acc_likes">
                                                 <div class="pull-left m-left-sm m-top-sm">
                                                     <h4><strong><?php echo $accRecord['smaAccountLikes']; ?></strong></h4>
@@ -393,14 +586,14 @@ ob_start();
                             ?>
 			</div><!-- /tab-pane -->
 			</div><!-- /tab-content -->
-                        </div>
-                    </div>
                 </div>
             </div>
-            </div>
-             </div>
-        </diV>
-
+        </div>
+        </div>
+        </div>
+        </div>
+    </diV>
+</div>
 <script>
     function getRecords(pageNum,type){
         $.ajax({
@@ -480,5 +673,249 @@ ob_start();
             	//$(".accepted table").html(result);
          }});
     }
-    
+    $("#twitter_pri").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_twitter/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your twitter accounts are now public");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#twitter_pri2").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_twitter/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your twitter accounts are now private");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#facebook_pri").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_facebook/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your facebook accounts are now public");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#facebook_pri2").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_facebook/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your facebook accounts are now private");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#tumblr_pri").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_tumblr/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your tumblr accounts are now public");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#tumblr_pri2").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_tumblr/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your tumblr accounts are now private");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#instagram_pri").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_instagram/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your instagram accounts are now public");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	$("#instagram_pri2").click(function()
+	{
+		var value = $(this).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/privacy_instagram/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				$("#successMessage").html("your instagram accounts are now private");
+				$("#successMessage").show();
+			}
+			else
+			{
+				$("#errorMessage").html(result);
+			}
+		}	
+		});	
+	});
+	
+	function setTwitterPrivacy(val)
+	{
+		var value = $("#twitter_p_"+val).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/individual_privacy/"+val+"/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				if(value==1)
+				{
+					$("#successMessage2").html("The twitter account is now public.");
+				}
+				else
+				{	
+					$("#successMessage2").html("The twitter account is now private.");
+				}
+				$("#successMessage2").show();
+			}
+			else
+			{
+				$("#errorMessage2").html(result);
+			}
+		}	
+		});	
+	}
+	function setTumblrPrivacy(val)
+	{
+		var value = $("#tumblr_p_"+val).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/individual_privacy/"+val+"/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				if(value==1)
+				{
+					$("#successMessage2").html("The tumblr account is now public.");
+				}
+				else
+				{	
+					$("#successMessage2").html("The tumblr account is now private.");
+				}
+				$("#successMessage2").show();
+			}
+			else
+			{
+				$("#errorMessage2").html(result);
+			}
+		}	
+		});	
+	}
+	function setInstagramPrivacy(val)
+	{
+		var value = $("#instagram_p_"+val).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/individual_privacy/"+val+"/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				if(value==1)
+				{
+					$("#successMessage2").html("The instagram account is now public.");
+				}
+				else
+				{	
+					$("#successMessage2").html("The instagram account is now private.");
+				}
+				$("#successMessage2").show();
+			}
+			else
+			{
+				$("#errorMessage2").html(result);
+			}
+		}	
+		});	
+	}
+	function setFacebookPrivacy(val)
+	{
+		var value = $("#facebook_p_"+val).val();
+		$.ajax({
+			url:"<?php echo base_url();?>publisher/accounts/individual_privacy/"+val+"/"+value,
+			success:function(result){
+			if(result==102)
+			{
+				if(value==1)
+				{
+					$("#successMessage2").html("The facebook account is now public.");
+				}
+				else
+				{	
+					$("#successMessage2").html("The facebook account is now private.");
+				}
+				$("#successMessage2").show();
+			}
+			else
+			{
+				$("#errorMessage2").html(result);
+			}
+		}	
+		});	
+	}
 </script>

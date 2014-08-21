@@ -41,6 +41,10 @@ $config['table_sma_user_type'] = "sma_user_type";
 $config['table_sma_account_details'] = "sma_account_details";
 $config['table_sma_account_posts'] = "sma_account_posts";
 $config['table_monetization'] = "monetization";
+$config['table_privacy'] = "profile_privacy";
+$config['table_sma_links'] = "user_sma_links";
+$config['table_url_privacy'] = "profile_url_privacy";
+$config['table_account_privacy'] = "user_sma_accounts_privacy";
 $config['record_limit'] =5;
 $config['pages_limit'] = 5;
 ?>

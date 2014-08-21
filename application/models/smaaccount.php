@@ -95,7 +95,7 @@ class Smaaccount extends CI_Model {
     }
     function removeProfile($id){
         $this->db->where("id",$id);
-	$this->db->delete($this->config->item('table_sma_account_details'));
+		$this->db->delete($this->config->item('table_sma_account_details'));
         return $this->db->affected_rows();
     }
     public function getSMA_TwitterIDs()
@@ -119,6 +119,41 @@ class Smaaccount extends CI_Model {
 		$this->db->where('id',$id);
         return $this->db->update($this->config->item('table_sma_account_details'),$data);
     }
+	public function getSMA_tumblrURLs()
+	{
+		$this->db->select('*');
+        $this->db->from($this->config->item('table_sma_account_details'));
+		$this->db->where('smaAccountTypeID', 3);
+        $result=$this->db->get();
+        return $result->result_array();
+    }
+	public function setAccountPrivacy($data)
+	{
+		$this->db->insert($this->config->item('table_account_privacy'),$data);
+		return $this->db->insert_id();
+	}
+	public function updateAccountPrivacy($id,$data)
+	{
+		$this->db->where("userid",$id);
+		return $this->db->update($this->config->item('table_account_privacy'),$data);
+	}
+	public function checkAccountPrivacy($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_account_privacy'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->num_rows();
+	}
+	public function getAccountPrivacyDetails($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_account_privacy'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+	}
 }
 
 ?>

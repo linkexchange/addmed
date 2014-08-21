@@ -14,15 +14,15 @@ class Accounts extends MX_Controller {
 		$this->load->model("url");
 		$this->load->model("payments");
 		$this->load->model("clicksdetail");
-                $this->load->model('smaaccount');
+        $this->load->model('smaaccount');
 		$this->layout->setLayout('layout/publisher');
-                $config = $this->config->item('facebook'); 
-                $this->load->library('Facebook', $config);  
-                $instagramConfig['apiKey'] = $this->config->item('instagram_apiKey'); 
-                $instagramConfig['apiSecret'] = $this->config->item('instagram_apiSecret'); 
-                $instagramConfig['apiCallback'] = $this->config->item('instagram_apiCallback');
-                //print_r($instagramConfig); exit;
-                $this->load->library('Instagram', $instagramConfig);  
+		$config = $this->config->item('facebook'); 
+		$this->load->library('Facebook', $config);  
+		$instagramConfig['apiKey'] = $this->config->item('instagram_apiKey'); 
+		$instagramConfig['apiSecret'] = $this->config->item('instagram_apiSecret'); 
+		$instagramConfig['apiCallback'] = $this->config->item('instagram_apiCallback');
+		//print_r($instagramConfig); exit;
+		$this->load->library('Instagram', $instagramConfig);  
 	}
 	/*public function index($page=1)
 	{
@@ -74,7 +74,7 @@ class Accounts extends MX_Controller {
             $data['totalInstagramPosts']=$this->smaaccount->getTotalPosts($this->session->userData('userID'),'Instagram');
             $data['instagramProfiles']=$this->smaaccount->getProfiles($this->session->userData('userID'),'Instagram',$page);
             $data['instagramProfileCount']=$this->smaaccount->getProfileCount($this->session->userData('userID'),'Instagram');
-            
+            $data["privacy"] = $this->smaaccount->getAccountPrivacyDetails($this->session->userData('userID'));
             $this->layout->view('accounts_new',$data);
 	}
 	public function add()
@@ -199,6 +199,115 @@ class Accounts extends MX_Controller {
         $this->facebook->destroySession();
         redirect(base_url('/publisher/accounts'));
     }
-    
+	public function privacy_twitter($val)
+	{
+		$data = array("userid"=>$this->session->userdata("userID"),
+					  "twitter_account"=>$val);
+		$exists = $this->smaaccount->checkAccountPrivacy($this->session->userdata("userID"));
+		if($exists)
+		{
+			$id = $this->smaaccount->updateAccountPrivacy($this->session->userdata("userID"),$data);
+		}
+		else
+		{
+			$id = $this->smaaccount->setAccountPrivacy($data);
+		}
+		
+		if($id)
+		{
+			echo 102;
+		}
+		else
+		{
+			echo "The database server is not working.Please try again.";
+		}
+	}	
+	
+	public function privacy_facebook($val)
+	{
+		$data = array("userid"=>$this->session->userdata("userID"),
+					  "facebook_account"=>$val);
+		$exists = $this->smaaccount->checkAccountPrivacy($this->session->userdata("userID"));
+		if($exists)
+		{
+			$id = $this->smaaccount->updateAccountPrivacy($this->session->userdata("userID"),$data);
+		}
+		else
+		{
+			$id = $this->smaaccount->setAccountPrivacy($data);
+		}
+		
+		if($id)
+		{
+			echo 102;
+		}
+		else
+		{
+			echo "The database server is not working.Please try again.";
+		}
+	}
+	
+	public function privacy_tumblr($val)
+	{
+		$data = array("userid"=>$this->session->userdata("userID"),
+					  "tumblr_account"=>$val);
+		$exists = $this->smaaccount->checkAccountPrivacy($this->session->userdata("userID"));
+		if($exists)
+		{
+			$id = $this->smaaccount->updateAccountPrivacy($this->session->userdata("userID"),$data);
+		}
+		else
+		{
+			$id = $this->smaaccount->setAccountPrivacy($data);
+		}
+		
+		if($id)
+		{
+			echo 102;
+		}
+		else
+		{
+			echo "The database server is not working.Please try again.";
+		}
+	}
+	
+	public function privacy_instagram($val)
+	{
+		$data = array("userid"=>$this->session->userdata("userID"),
+					  "instagram_account"=>$val);
+		$exists = $this->smaaccount->checkAccountPrivacy($this->session->userdata("userID"));
+		if($exists)
+		{
+			$id = $this->smaaccount->updateAccountPrivacy($this->session->userdata("userID"),$data);
+		}
+		else
+		{
+			$id = $this->smaaccount->setAccountPrivacy($data);
+		}
+		
+		if($id)
+		{
+			echo 102;
+		}
+		else
+		{
+			echo "The database server is not working.Please try again.";
+		}
+	}
+	
+	public function individual_privacy($id,$val)
+	{
+		$data = array("public"=>$val);
+		$true = $this->smaaccount->updateSMA_Accounts($id,$data);
+		if($true)
+		{
+			echo 102;
+		}
+		else
+		{
+			echo "The database server is not working.Please try again.";
+		}
+	}
+	
 }
 ?>

@@ -35,10 +35,10 @@
 		var base_url = "<?php echo base_url(); ?>";
 	</script>
 	<script src="<?php echo base_url();?>js/jquery-1.10.2.min.js"></script>
-	<!--<script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>js/validation/jquery.validationEngine-en.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script>
-	<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>-->
+	<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
   </head>
 
   <body class="overflow-hidden">

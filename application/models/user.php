@@ -300,6 +300,12 @@ class User extends CI_Model {
 		return $id;
 	}
 
+	public function addSMALinks($data)
+	{
+		$this->db->insert($this->config->item('table_sma_links'),$data);
+		return $this->db->insert_id();
+	}
+	
 	public function UserExistsByTwitterID($twiterID){
 		$id=0;
 		$this->db->select('forumUserID');
@@ -366,6 +372,77 @@ class User extends CI_Model {
 			$id=$user['id'];
 		}
 		return $id;
+	}
+	public function existPrivacyofUser($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_privacy'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->num_rows();
+	}
+	public function existPrivacyofUserUrl($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_url_privacy'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->num_rows();
+	}
+	public function updatePrivacyofUser($id,$data)
+	{
+		$this->db->where("userid",$id);
+		$this->db->update($this->config->item('table_privacy'),$data);
+	}
+	public function updatePrivacyofUserUrl($id,$data)
+	{
+		$this->db->where("userid",$id);
+		$this->db->update($this->config->item('table_url_privacy'),$data);
+	}
+	public function insertPrivacyofUser($data)
+	{
+		$this->db->insert($this->config->item('table_privacy'),$data);
+	}
+	public function insertPrivacyofUserUrl($data)
+	{
+		$this->db->insert($this->config->item('table_url_privacy'),$data);
+	}
+	public function getUsersPrivacy($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_privacy'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->result_array();	
+	}
+	public function getUsersUrlPrivacy($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_url_privacy'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->result_array();	
+	}
+	public function getUserSMAUrls($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_sma_links'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->result_array();	
+	}
+	public function getUserSMAUrlsCount($id)
+	{
+		$this->db->select("*");
+		$this->db->from($this->config->item('table_sma_links'));
+		$this->db->where("userid",$id);
+		$result = $this->db->get();
+		return $result->num_rows();	
+	}
+	public function updateSMALinks($id,$data)
+	{
+		$this->db->where("userid",$id);
+		return $this->db->update($this->config->item('table_sma_links'),$data);
 	}
 }
 ?>
