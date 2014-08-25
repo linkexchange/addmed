@@ -46,8 +46,20 @@ class Smaaccount extends CI_Model {
         //$this->db->limit(1);
         $result=$this->db->get();
         return $result->result_array();
-        
     }
+	
+	 public function getTotalFollowers2($uid=0,$type=""){
+        $this->db->select_sum('smaAccountFollowers');
+        $this->db->from($this->config->item('table_sma_account_details'));
+        $this->db->join($this->config->item('table_sma_user_type'),$this->config->item('table_sma_user_type').".sma_user_type_id=".$this->config->item('table_sma_account_details').".smaAccountTypeID");
+        $this->db->where($this->config->item('table_sma_user_type').".title =", $type);
+        $this->db->where($this->config->item('table_sma_account_details').".publisherID =", $uid);
+        $this->db->where($this->config->item('table_sma_account_details').".public", 1);
+        //$this->db->limit(1);
+        $result=$this->db->get();
+        return $result->result_array();
+    }
+	
     public function getTotalPosts($uid=0,$type=""){
         $this->db->select_sum('smaAccountPosts');
         $this->db->from($this->config->item('table_sma_account_details'));
@@ -57,8 +69,21 @@ class Smaaccount extends CI_Model {
         //$this->db->limit(1);
         $result=$this->db->get();
         return $result->result_array();
+    }
+	
+	public function getTotalPosts2($uid=0,$type=""){
+        $this->db->select_sum('smaAccountPosts');
+        $this->db->from($this->config->item('table_sma_account_details'));
+        $this->db->join($this->config->item('table_sma_user_type'),$this->config->item('table_sma_user_type').".sma_user_type_id=".$this->config->item('table_sma_account_details').".smaAccountTypeID");
+        $this->db->where($this->config->item('table_sma_user_type').".title =", $type);
+        $this->db->where($this->config->item('table_sma_account_details').".publisherID =", $uid);
+        $this->db->where($this->config->item('table_sma_account_details').".public", 1);
+        //$this->db->limit(1);
+        $result=$this->db->get();
+        return $result->result_array();
         
     }
+	
     function updateRecord($id,$urlData){
 	$this->db->where("id",$id);
 	$this->db->update($this->config->item('table_sma_account_details'), $urlData);
@@ -80,7 +105,24 @@ class Smaaccount extends CI_Model {
         $result=$this->db->get();
         //echo $this->db->last_query(); exit;
         return $result->result_array();
+    }
+	public function getProfiles2($uid=0,$type="",$limit=0){
+        $numberofrecords=(int)$this->config->item('record_limit');
+        if($limit>0 & $limit!="ALL")
+            $limit=$limit-1;	
+        $startRecord=$limit*$this->config->item('record_limit');
+        $this->db->select('*');
+        $this->db->from($this->config->item('table_sma_account_details'));
+        $this->db->join($this->config->item('table_sma_user_type'),$this->config->item('table_sma_user_type').".sma_user_type_id=".$this->config->item('table_sma_account_details').".smaAccountTypeID");
+        $this->db->where($this->config->item('table_sma_user_type').".title =", $type);
+        $this->db->where($this->config->item('table_sma_account_details').".publisherID =", $uid);
+        $this->db->where($this->config->item('table_sma_account_details').".public =", "1");
         
+        $this->db->limit($numberofrecords,$startRecord);
+        
+        $result=$this->db->get();
+        //echo $this->db->last_query(); exit;
+        return $result->result_array();
     }
     public function getProfileCount($uid=0,$type=""){
         $this->db->select('id');
@@ -92,6 +134,17 @@ class Smaaccount extends CI_Model {
         //$result=$this->db->get();
         return $this->db->count_all_results();
         
+    }
+	public function getProfileCount2($uid=0,$type=""){
+        $this->db->select('id');
+        $this->db->from($this->config->item('table_sma_account_details'));
+        $this->db->join($this->config->item('table_sma_user_type'),$this->config->item('table_sma_user_type').".sma_user_type_id=".$this->config->item('table_sma_account_details').".smaAccountTypeID");
+        $this->db->where($this->config->item('table_sma_user_type').".title =", $type);
+        $this->db->where($this->config->item('table_sma_account_details').".publisherID =", $uid);
+        $this->db->where($this->config->item('table_sma_account_details').".public", "1");
+        //$this->db->limit(1);
+        //$result=$this->db->get();
+        return $this->db->count_all_results();
     }
     function removeProfile($id){
         $this->db->where("id",$id);

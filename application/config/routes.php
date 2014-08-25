@@ -66,6 +66,7 @@ $route['bookmarks/index/(:num)'] = "forum_articles/listing/show_bookmarks/$1";
 $route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
 $route['monetization_networks'] = "monetization_networks/dashboard";
 $route['monetization_networks/index/(:num)'] = "monetization_networks/dashboard/index/$1";
+$route['user/info/(:num)'] = "user/info/index/$1";
 $route['404_override'] = '';
 
 

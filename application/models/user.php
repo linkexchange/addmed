@@ -112,9 +112,10 @@ class User extends CI_Model {
 	}
 	function getUser($id)
 	{
-		$this->db->select("*");
+		$this->db->select($this->config->item('table_user').".*,".$this->config->item('table_user_type').".type");
+		$this->db->join($this->config->item('table_user_type'),$this->config->item('table_user').".userTypeID = ".$this->config->item('table_user_type').".id");
 		$this->db->from($this->config->item('table_user'));
-		$this->db->where("id",$id);
+		$this->db->where($this->config->item('table_user').".id",$id);
 		$result = $this->db->get();
 		//echo $this->db->last_query();
 		return $result->result_array();

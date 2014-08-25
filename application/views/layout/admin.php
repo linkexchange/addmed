@@ -72,15 +72,17 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a class="clearfix" href="#">
-								<?php if($this->session->userdata("userPic")) { ?>
-								<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
-								<?php } ?>
-								<div class="detail">
-									<strong><?php echo $this->session->userdata("userName");?></strong>
-									<!--<p class="grey"><?php echo $this->session->userdata("email");?></p>--> 
-								</div>
-							</a>
+							<a href="<?php echo base_url();?>user/profile">
+							<?php if($this->session->userdata("userPic")) { ?>
+							<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
+							<?php } else { ?>
+							<img src="<?php echo base_url();?>img/user.jpg" alt="User Avatar">
+							<?php } ?>
+							<div class="detail">
+								<strong><?php echo $this->session->userdata("userName");?></strong>
+								<!--<p class="grey"><?php echo $this->session->userdata("email");?></p>--> 
+							</a>	
+							</div>
 						</li>
 						<li class="divider"></li>
 						<li><a href="<?php echo base_url();?>user/profile/edit/<?php echo $this->session->userdata("userID");?>"><i class="fa fa-user fa-lg"></i> Edit Profile</a></li>
@@ -105,6 +107,7 @@
 					</a>
 				</div><!-- /size-toggle -->	
 				<div class="user-block clearfix">
+					<a href="<?php echo base_url();?>user/profile" style="color:#fff;">
 					<?php if($this->session->userdata("userPic")) { ?>
 					<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
 					<?php } else { ?>
@@ -119,6 +122,7 @@
 							<li><a href="inbox.html" class="no-margin">Inbox</a></li>
 						</ul>-->
 					</div>
+					</a>
 				</div>
 				<!-- /user-block -->
 				<!--<div class="search-block">

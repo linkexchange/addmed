@@ -72,7 +72,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a class="clearfix" href="#">
+							<a class="clearfix" href="<?php echo base_url();?>user/profile">
 								<?php if($this->session->userdata("userPic")) { ?>
 								<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
 								<?php } else { ?>
@@ -106,19 +106,20 @@
 					</a>
 				</div><!-- /size-toggle -->	
 				<div class="user-block clearfix">
+					<a href="<?php echo base_url();?>user/profile" style="color:#fff;">
 					<?php if($this->session->userdata("userPic")) { ?>
 					<img src="<?php echo base_url();?>uploads/user_profile_images/<?php echo $this->session->userdata("userPic");?>" alt="User Avatar">
 					<?php } else { ?>
 					<img src="<?php echo base_url();?>img/user.jpg" alt="User Avatar">
 					<?php } ?>
 					<div class="detail">
-						<strong><?php echo $this->session->userdata("userName");?></strong><br/>
-						
+					<?php echo $this->session->userdata("userName");?>
+					</a>	
 						<!--<span class="badge badge-danger bounceIn animation-delay4 m-left-xs">4</span>
 						<!--<ul class="list-inline">
-							<li><a href="profile.html">Profile</a></li>
-							<li><a href="inbox.html" class="no-margin">Inbox</a></li>
-						</ul>-->
+							<li><a class="clearfix" href="<?php echo base_url();?>user/profile">Profile</a></li>
+							<li><a href="inbox.html" class="no-margin">Inbox</a></li>-->
+						</ul>
 					</div>
 				</div>
 				<!-- /user-block -->
