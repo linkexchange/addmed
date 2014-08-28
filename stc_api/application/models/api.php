@@ -16,7 +16,7 @@ class Api extends CI_Model{
 
 	public function getTemplateIDByKey($key){
 		$tid=0;
-		$this->db->select("id,name,updatedDate");
+		$this->db->select("id,name,createdDate,updatedDate");
 		$this->db->from($this->config->item('table_templates'));
 		$this->db->where('apiKey',$key);	
 		$result = $this->db->get();
@@ -42,7 +42,8 @@ class Api extends CI_Model{
 				$this->config->item('table_blogs').".title,".
 				$this->config->item('table_blogs').".image,".
 				$this->config->item('table_blogs').".description,".
-				$this->config->item('table_blogs').".blogSlug"
+				$this->config->item('table_blogs').".blogSlug,".
+				$this->config->item('table_blogs').".createdDate"
 			);
 		$this->db->from($this->config->item('table_blogs'));
 		$this->db->where("templateID",$templateID);

@@ -23,6 +23,7 @@ class Dashboard extends MX_Controller {
 		{
 			redirect(base_url().'user/login');
 		}
+		$this->load->model('template');
 	}
 	public function index($page=1,$msg=0){
 		$data[]="";
@@ -34,7 +35,7 @@ class Dashboard extends MX_Controller {
 	// add advertises
 	public function add(){
 		$data[]="";
-		$this->load->model('template');
+		
 		$data['templates']=$this->template->getAdvertiseTemplates($this->session->userData('userID'),$page="All");
 		if($this->input->post()){
 			if($this->input->post("templateID")){
@@ -82,7 +83,51 @@ class Dashboard extends MX_Controller {
 			$this->layout->view("add_advertise",$data);
 		}
 	}
-
+	public function addHomePageAd(){
+		$data[]="";
+		
+		$data['templates']=$this->template->getHomeAdvertiseTemplates($this->session->userData('userID'),$page="All");
+		if($this->input->post()){
+			if($this->input->post("templateID")){
+				$advertiseData=array(
+					'templateID'=>$this->input->post("templateID"),
+					'adUnitHome1'=>$this->input->post("adUnit1"),
+					'adUnitHome2'=>$this->input->post("adUnit2"),
+					'adUnitHome3'=>$this->input->post("adUnit3"),
+					'adUnitHome4'=>$this->input->post("adUnit4"),
+					'createdBy'=>$this->session->userData('userID'),
+					'createdDate'=>date('Y-m-d'),
+				);
+				//echo "<pre>"; print_r($advertiseData); echo "</pre>";
+				$this->load->model('advertise');
+				$insert_id=$this->advertise->addHomeAd($advertiseData);
+				if($insert_id){
+					if($this->input->post("templateID")){
+						$this->load->model("template");
+						$tid=$this->input->post('templateID');
+						$templateData=array(
+							"htmlCreated"=>"Update",
+							"updatedBy"=>$this->session->userData('userID'),
+							"updatedDate"=>date('Y-m-d'),
+						);	
+						$this->template->update($templateData,$tid);
+					}
+					echo 100;
+				}
+				else
+				{
+					echo 102;
+				}
+			}
+			else{
+				echo 101;
+			}
+		}
+		else
+		{
+			$this->layout->view("add_homepage_advertise",$data);
+		}
+	}
 	public function view($id){
 		$this->load->model('advertise');
 		$data['ad']=$this->advertise->getAd($id);

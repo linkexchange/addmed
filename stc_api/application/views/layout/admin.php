@@ -252,7 +252,7 @@ header("Pragma: no-cache");
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'articles/dashboard';?>"><span class="submenu-label">View Gallery Item(s)</span></a></li>
 							</ul>
 						</li>
-						<li class="openable <?php if($this->uri->segment(1)=="advertise"){ echo "active open";}?>">
+						<li class="openable">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-building fa-lg"></i> 
@@ -260,12 +260,34 @@ header("Pragma: no-cache");
 								<span class="text">
 									Ads
 								</span>
-								<span class="badge badge-success bounceIn animation-delay5">2</span>
 								<span class="menu-hover"></span>
 							</a>
-							<ul class="submenu">
-								<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard/add'; ?>"><span class="submenu-label">Add Ads</span></a></li>
-								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard';?>"><span class="submenu-label">View Ads</span></a></li>
+							<ul class="submenu" style="display: none;">
+								<li class="openable <?php if($this->uri->segment(1)=="advertise"){ echo "active open";}?>">
+									<a href="#">
+										<span class="submenu-label">Home Page</span>
+										<span class="badge badge-danger bounceIn animation-delay1 pull-right">2</span>
+									</a>
+									<ul class="submenu third-level" 
+									<?php if($this->uri->segment(3)=="addHomePageAd"){ 
+										echo "class='active open' style='display: block;'";
+									}
+									else{ echo "style='display: none;'"; }?>>
+										<li <?php if($this->uri->segment(3)=="addHomePageAd"){ echo "class='active'";}?>>
+										<a href="<?php echo base_url();?>advertise/dashboard/addHomePageAd"><span class="submenu-label">Add ads</span></a></li>
+										<li class=""><a href="#"><span class="submenu-label">View ads</span></a></li>
+									</ul>
+								</li>
+								<li class="openable">
+									<a href="#">
+										<span class="submenu-label">Gallery Page</span>
+										<span class="badge badge-success bounceIn animation-delay2 pull-right">2</span>
+									</a>
+									<ul class="submenu third-level" style="">
+										<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard/add'; ?>"><span class="submenu-label">Add Ads</span></a></li>
+										<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'advertise/dashboard';?>"><span class="submenu-label">View Ads</span></a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="openable <?php if($this->uri->segment(1)=="pages"){ echo "active open";}?>">
@@ -397,7 +419,7 @@ header("Pragma: no-cache");
 	<script src="<?php echo base_url(); ?>js/froala_editor.min.js"></script> 
 	<script>
 		  jQuery(function($){
-			  $('#communityDescription').editable({inlineMode: false, height: 500})
+			  $('.adDescription').editable({inlineMode: false, height: 500})
 		  });
 	</script>
   </body>

@@ -6,6 +6,11 @@ class Advertise extends CI_Model{
 	$this->db->insert($this->config->item('table_advertises'), $advertiseData);
 	return $this->db->insert_id();
     }
+	public function addHomeAd($advertiseData)
+    {
+	$this->db->insert($this->config->item('table_home_advertises'), $advertiseData);
+	return $this->db->insert_id();
+    }
     public function getAds($uid=0,$limit=0){
 	$numberofrecords=(int)$this->config->item('record_limit');
 	if($limit>0)
@@ -58,7 +63,7 @@ class Advertise extends CI_Model{
 		return $this->db->affected_rows();	
 		
 	}
-
+	
 	function delete($id)
 	{
 		$this->db->where("id",$id);

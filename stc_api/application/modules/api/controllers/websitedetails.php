@@ -46,6 +46,7 @@ class Websitedetails extends MX_Controller{
 					$json_array['website']['id']=$temp['id'];
 					$json_array['website']['name']=$temp['name'];
 					$json_array['website']['lastUpdated']=$temp['updatedDate'];
+					$json_array['website']['createdDate']=$temp['createdDate'];
 				}
 				$tempID=$json_array['website']['id'];
 				$hasPosts=$this->api->hasPosts($tempID);
@@ -62,6 +63,7 @@ class Websitedetails extends MX_Controller{
 							$posts[$index]['postImage']=base_url().BLOG_IMAGE_PATH."".$item['image'];
 							$posts[$index]['postDescription']=$item['description'];
 							$posts[$index]['postSlug']=$item['blogSlug'];
+							$posts[$index]['createdDate']=$item['createdDate'];
 
 							$index++;
 						}

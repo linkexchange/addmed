@@ -209,6 +209,24 @@ class Template extends CI_Model{
 		//echo $this->db->last_query();
 		return $result->result_array();
 	}	
+	public function getHomeAdvertiseTemplates($uid=0,$limit=0){
+		if($limit!="All"){
+			$numberofrecords=(int)$this->config->item('record_limit');
+			if($limit>0)
+				$limit=$limit-1;	
+			$startRecord=$limit*$numberofrecords;
+		}
+		$this->db->select($this->config->item('table_templates').".*");
+		$this->db->from($this->config->item('table_templates'));
+		$this->db->join($this->config->item('table_home_advertises'),$this->config->item('table_home_advertises').".templateID = ".$this->config->item('table_templates').".id",'left');
+		$this->db->where($this->config->item('table_home_advertises').'.templateID IS NULL');
+		if($limit!="All"){
+			$this->db->limit($numberofrecords,$startRecord);
+		}
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();
+	}
 	// return user Id from template ID
 	public function getUserID($tid){
 		$this->db->select("userID,name");

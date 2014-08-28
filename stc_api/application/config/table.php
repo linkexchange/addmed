@@ -28,6 +28,7 @@ $config['table_templates'] = "template";
 $config['table_blogs'] = "blog";
 $config['table_articles'] = "article";
 $config['table_advertises'] = "advertise";
+$config['table_home_advertises'] = "homepage_advertise";
 $config['table_pages'] = "pages";
 $config['table_f_articles'] = "forum_article";
 $config['table_comments'] = "comments";

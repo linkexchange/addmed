@@ -136,15 +136,19 @@ else{
 				  <!-- #### -->
 				  <div class="one_third">
 					<div class="clear">
-						<?php require_once('randomposts.php'); ?>
+						
 					</div>
 					<div class="ad-unit-5 ads">
-					</div>
+                                            		</div>
 					<div class="ad-unit-6 ads">
 					</div>
 					
 				  </div>
 				</div>
+			
+				<?php require_once('randomposts.php'); ?>
+			
+				
 			<!-- ################################################################################################ -->
 			<div class="clear"></div>
 		<?php else : ?>
@@ -156,7 +160,9 @@ else{
 		<?php header('Location: '.$siteUrl); //echo $api_response->error; ?>
     <?php endif; ?>  
   </div>
+    
 </div>
+
 <!-- Footer -->
 
 <div class="wrapper row4">
@@ -202,12 +208,13 @@ else{
             data : input ,
             dataType : "JSON",
             success : function(data) {
-                //console.log(data)
+                //console.log(data);
                 if(data['haveAds']=="True"){
                     $('.ad-unit-1').html(data['ads']['adUnit1']);
                     $('.ad-unit-2').html(data['ads']['adUnit2']);
                     $('.ad-unit-3').html(data['ads']['adUnit3']);
                     $('.ad-unit-4').html(data['ads']['adUnit4']);
+                    //alert(data['ads']['adUnit5']);
                     $('.ad-unit-5').html(data['ads']['adUnit5']);
                     $('.ad-unit-6').html(data['ads']['adUnit6']);
                     $('.ad-mobile-1').html(data['ads']['adMobile1']);
