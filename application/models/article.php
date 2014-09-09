@@ -37,6 +37,42 @@ class Article extends CI_Model{
 		$result = $this->db->get();
 		return $result->result_array();
 	}
+	public function getNotEaseOfUseArticles(){
+		$this->db->select($this->config->item('table_f_articles').".*");
+		$this->db->from($this->config->item('table_f_articles'));
+		$this->db->join($this->config->item('table_ease_of_use'),$this->config->item('table_f_articles').".id = ".$this->config->item('table_ease_of_use').".articleid",'left');
+		$this->db->where($this->config->item('table_ease_of_use').'.articleid IS NULL');
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getNotMonetizedForumArticles(){
+		$this->db->select($this->config->item('table_f_articles').".*");
+		$this->db->from($this->config->item('table_f_articles'));
+		$this->db->join($this->config->item('table_monetization'),$this->config->item('table_f_articles').".id = ".$this->config->item('table_monetization').".articleid",'left');
+		$this->db->where($this->config->item('table_monetization').'.articleid IS NULL');
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getNotContentsArticles(){
+		$this->db->select($this->config->item('table_f_articles').".*");
+		$this->db->from($this->config->item('table_f_articles'));
+		$this->db->join($this->config->item('table_contents'),$this->config->item('table_f_articles').".id = ".$this->config->item('table_contents').".articleid",'left');
+		$this->db->where($this->config->item('table_contents').'.articleid IS NULL');
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getNotPayoutsForumArticles(){
+		$this->db->select($this->config->item('table_f_articles').".*");
+		$this->db->from($this->config->item('table_f_articles'));
+		$this->db->join($this->config->item('table_payouts'),$this->config->item('table_f_articles').".id = ".$this->config->item('table_payouts').".articleid",'left');
+		$this->db->where($this->config->item('table_payouts').'.articleid IS NULL');
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
 	public function getForumArticlesByName($val){
 		$this->db->select($this->config->item('table_f_articles').".*,".$this->config->item('table_user').".userName");
 		$this->db->from($this->config->item('table_f_articles'));

@@ -50,9 +50,13 @@
 					<div class="form-group">
 						<label for="Article Topic" class="col-lg-2 control-label">Article Ratings(%)</label>
 						<div class="col-lg-5">
-							<select class="form-control validate[required]" name="ratings" id="ratings">
+							<select class="form-control validate[required,custom[number,max[100]]]" name="ratings" id="ratings">
 								<?php 
-								$i = 0; do{ ?>
+								$i = 0; do{ 
+								if($article['ratings']==$i)
+								{ ?>
+								<option value="<?php echo $i;?>" selected="selected"><?php echo $i;?></option>
+								<?php } ?>
 								<option value="<?php echo $i;?>"><?php echo $i;?></option>
 								<?php $i=$i+10;} while($i<101); ?>
 							</select>	
