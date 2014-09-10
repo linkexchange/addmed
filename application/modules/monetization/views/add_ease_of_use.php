@@ -12,7 +12,7 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-globe"></i>  Add Ease of Use Details</b> </h3>
+				<h3><b><i class="icon-user-md"></i>  Add Ease of Use Details</b> </h3>
 			</div>
 		</div> <br/>
 		<div class="row">
@@ -100,7 +100,7 @@
 							<div class="form-group">
 								<label for="bounce_rate" class="col-lg-2 control-label">Bounce Rate</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required,custom[number]]" placeholder="Bounce Rate in %"  name="bounce_rate" id="bounce_rate">
+									<input type="text" class="form-control validate[required,custom[number,max[100]]]" placeholder="Bounce Rate in %"  name="bounce_rate" id="bounce_rate">
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							

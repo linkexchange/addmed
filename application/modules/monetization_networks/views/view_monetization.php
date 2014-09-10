@@ -25,7 +25,6 @@
 						<th>Article</th>
 						<th>sign-Up Link</th>
 						<th>Ratings</th>
-						<th>Created Date</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,11 +42,11 @@
 							<td><?php echo $monet["type_of_network"] ?></td>
 							<td><?php echo $monet["estimated_rate_of_payment"] ?></td>
 							<td><?php echo $monet["payments"] ?></td>
-							<td><a href="<?php echo base_url();?>article/view/<?php echo $monet['articleid'];?>"><?php echo $monet["topic"] ?></a></td>
+							<?php $art = url_title($monet['topic'],'underscore',TRUE);?>
+							<td><a href="<?php echo base_url();?>article/<?php echo $art; ?>/<?php echo $monet['articleid'];?>"><?php echo $monet["topic"] ?></a></td>
 							
 							<td><?php echo $monet['sign_up_link']; ?></td>
 							<td><?php echo $monet['ratings'];?> %</td>
-							<td><?php echo $monet['created_date'];?></td>
 						</tr>
 						<?php endforeach; ?>
 				</tbody>

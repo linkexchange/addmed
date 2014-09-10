@@ -73,6 +73,15 @@ class Article extends CI_Model{
 		$result = $this->db->get();
 		return $result->result_array();
 	}
+	public function getNotSupportForumArticles(){
+		$this->db->select($this->config->item('table_f_articles').".*");
+		$this->db->from($this->config->item('table_f_articles'));
+		$this->db->join($this->config->item('table_support'),$this->config->item('table_f_articles').".id = ".$this->config->item('table_support').".articleid",'left');
+		$this->db->where($this->config->item('table_support').'.articleid IS NULL');
+		$this->db->order_by('id','desc');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
 	public function getForumArticlesByName($val){
 		$this->db->select($this->config->item('table_f_articles').".*,".$this->config->item('table_user').".userName");
 		$this->db->from($this->config->item('table_f_articles'));

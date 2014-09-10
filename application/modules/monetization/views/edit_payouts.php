@@ -41,13 +41,14 @@
 								<label for="dashboard" class="col-lg-2 control-label">Ratings</label>
 								<div class="col-lg-10">
 									<input type="text" class="form-control validate[required,custom[number,max[100]]]" value="<?php echo $payouts[0]["ratings"];?>"  name="ratings" id="ratings">
+									<p><b>Please enter only integer or decimal value. Do not add % sign.</b></p>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
 								<label for="dashboard" class="col-lg-2 control-label">No of publishers</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required,custom[number]]" value="<?php echo $payouts[0]["no_of_publishers"];?>" id="no_of_publishers" name="no_of_publishers">
+									<input type="text" class="form-control validate[required,custom[integer]]" value="<?php echo $payouts[0]["no_of_publishers"];?>" id="no_of_publishers" name="no_of_publishers">
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							

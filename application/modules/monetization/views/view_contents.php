@@ -3,9 +3,9 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-globe"></i> Contents</b>
+				<h3><b><i class="icon-foursquare"></i> Contents</b>
 				<span class="pull-right">
-					<a class="btn btn-success icon-globe" href="<?php echo base_url();?>monetization/dashboard/addContents"> Add Contents</a>
+					<a class="btn btn-success icon-foursquare" href="<?php echo base_url();?>monetization/dashboard/addContents"> Add Contents</a>
 				</span>
 				</h3>
 			</div>

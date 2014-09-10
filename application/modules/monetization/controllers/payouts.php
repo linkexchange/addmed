@@ -151,6 +151,7 @@ class Payouts extends MX_Controller{
 						  'premium_campaigns'=>$this->input->post('campaigns'),
 						  'payment_methods'=>$payments,
 						  'sign_ups'=>$this->input->post('sign_ups'),
+						  'referral_programs'=>$this->input->post('referrals'),
 						  'created_date'=>date('Y-m-d'),
 						  'created_by'=>$this->session->userdata("userID"));
 			//echo "<pre>"; print_R($data); exit;			  

@@ -3,9 +3,9 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-globe"></i> Ease of Use Details</b>
+				<h3><b><i class="icon-user-md"></i> Ease of Use Details</b>
 				<span class="pull-right">
-					<a class="btn btn-success icon-globe" href="<?php echo base_url();?>monetization/dashboard/addEaseOfUse"> Add Ease of use details</a>
+					<a class="btn btn-success icon-user-md" href="<?php echo base_url();?>monetization/dashboard/addEaseOfUse"> Add Ease of use details</a>
 				</span>
 				</h3>
 			</div>

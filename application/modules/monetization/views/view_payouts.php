@@ -123,10 +123,10 @@
 						<td><?php echo $payout['referral_programs'];?> </td>
 						
 						<td class="td-actions">
-							<a class="btn btn-small btn-success" href="<?php //echo base_url().'monetization/payouts/edit/'.$payout['id'];?>" title="Edit" style="margin:2px;">
+							<a class="btn btn-small btn-success" href="<?php echo base_url().'monetization/payouts/edit/'.$payout['id'];?>" title="Edit" style="margin:2px;">
 							<i class="btn-icon-only icon-edit"> </i>
 							</a>
-							<a class="btn btn-danger btn-small" href="<?php //echo base_url()."monetization/payouts/delete/".$payout['id']; ?>" title="Delete" style="margin:2px;padding:6px 13px;">
+							<a class="btn btn-danger btn-small" href="<?php echo base_url()."monetization/payouts/delete/".$payout['id']; ?>" title="Delete" style="margin:2px;padding:6px 13px;">
 							<i class="btn-icon-only icon-remove"></i>
 							</a>
 						</td>

@@ -3,7 +3,11 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-globe"></i> Monetization</b></h3>
+				<h3><b><i class="icon-globe"></i> Monetization</b>
+				<span class="pull-right">
+					<a href="<?php echo base_url();?>monetization/dashboard/add" class="btn btn-success icon-globe"> Add Monetization</a>
+				</span>
+				</h3>
 			</div>
 		</div> <br/>
 		<div class="panel panel-default table-responsive" style="border:1px solid #D6E9F3;">
@@ -59,10 +63,10 @@
 								<?php endif; ?>
 							</td>
 							<td class="td-actions">
-								<a class="btn btn-small btn-success" href="<?php echo base_url();?>monetization/dashboard/edit/<?php echo $monet['id'];?>" title="Edit">
+								<a class="btn btn-small btn-success" href="<?php echo base_url();?>monetization/dashboard/edit/<?php echo $monet['id'];?>" title="Edit" style="margin:2px;">
 								<i class="btn-icon-only icon-edit"> </i>
 								</a>
-								<a class="btn btn-danger btn-small" href="<?php echo base_url()."monetization/dashboard/delete/".$monet['id']; ?>" title="Delete">
+								<a class="btn btn-danger btn-small" href="<?php echo base_url()."monetization/dashboard/delete/".$monet['id']; ?>" title="Delete" style="margin:2px;padding:6px 13px;">
 								<i class="btn-icon-only icon-remove"></i>
 								</a>
 							</td>

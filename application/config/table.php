@@ -48,6 +48,7 @@ $config['table_ease_of_use'] = "ease_of_use";
 $config['table_account_privacy'] = "user_sma_accounts_privacy";
 $config['table_contents'] = "contents";
 $config['table_payouts'] = "payouts";
+$config['table_support'] = "support";
 $config['record_limit'] =5;
 $config['pages_limit'] = 5;
 ?>

@@ -12,7 +12,7 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-money"></i>  Add Payouts</b> </h3>
+				<h3><b><i class="icon-columns"></i>  Edit Support</b> </h3>
 			</div>
 		</div> <br/>
 		<div class="row">
@@ -22,14 +22,15 @@
 					<div id="successMessage" class="alert alert-success" style="display:none"></div>
 					<div style="width:75%;">
 					<div class="panel-body">
-						<form class="form-horizontal" id="frm_add_payouts" action="" method="POST">
+						<form class="form-horizontal" id="frm_edit_support" action="" method="POST">
 							
 							<div class="form-group">
 								<label for="Article" class="col-lg-2 control-label">Article</label>
 								<div class="col-lg-10">
 									<select name="articleid" class="form-control validate[required]">
 										<option value>Please Select</option>
-										<?php foreach($articles as $article){?>
+										<option value="<?php echo $support[0]["articleid"];?>" selected="selected"><?php echo $support[0]["topic"];?></option>
+										<?php foreach($articles as $article){ ?>
 										<option value="<?php echo $article["id"];?>"><?php echo $article["topic"];?></option>
 										<?php } ?>
 									</select>	
@@ -37,30 +38,33 @@
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
-								<label for="dashboard" class="col-lg-2 control-label">Ratings</label>
+								<label for="dashboard" class="col-lg-2 control-label">Support Ratings</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required,custom[number,max[100]]]" placeholder="ratings in %"  name="ratings" id="ratings">
-									<p><b>Please enter only integer or decimal value. Do not add % sign.</b></p>
+									<input type="text" class="form-control validate[required,custom[number,max[100]]]" value="<?php echo $support[0]["support_ratings"];?>"  name="support_ratings" id="support_ratings">
+									<p><b>Please enter only integer or decimal value. Do not enter % sign.</b></p>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
-								<label for="dashboard" class="col-lg-2 control-label">No of publishers</label>
-								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required,custom[integer]]" placeholder="No of articles"  name="no_of_publishers" id="no_of_publishers">
-								</div><!-- /.col -->
-							</div><!-- /form-group -->
-							
-							<div class="form-group">
-								<label for="shortner" class="col-lg-2 control-label">Diversified Earnings</label>
+								<label for="shortner" class="col-lg-2 control-label">Responsive Email</label>
 								<div class="col-lg-1">
-									<input type="radio" class="form-control validate[required]" name="earnings" id="earnings" value="yes">
+									<input type="radio" class="form-control validate[required]" name="responsive_email" id="responsive_email" value="yes"
+									<?php if($support[0]["responsive_email"]=="yes") 
+											{
+												echo 'checked="checked"';
+											}	
+									?>>
 								</div>
 								<div class="col-lg-1">
 									Yes
 								</div>
 								<div class="col-lg-1">
-									<input type="radio" class="form-control validate[required]" name="earnings" id="earnings" value="no"> 
+									<input type="radio" class="form-control validate[required]" name="responsive_email" id="responsive_email" value="no"
+									<?php if($support[0]["responsive_email"]=="no") 
+											{
+												echo 'checked="checked"';
+											}	
+									?>> 
 								</div><!-- /.col -->
 								<div class="col-lg-1">
 									No
@@ -68,15 +72,25 @@
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
-								<label for="shortner" class="col-lg-2 control-label">Premium Campaigns</label>
+								<label for="shortner" class="col-lg-2 control-label">Responsive Skype</label>
 								<div class="col-lg-1">
-									<input type="radio" class="form-control validate[required]" name="campaigns" id="campaigns" value="yes">
+									<input type="radio" class="form-control validate[required]" name="responsive_Skype" id="responsive_Skype" value="yes"
+									<?php if($support[0]["responsive_skype"]=="yes") 
+											{
+												echo 'checked="checked"';
+											}	
+									?>>
 								</div>
 								<div class="col-lg-1">
 									Yes
 								</div>
 								<div class="col-lg-1">
-									<input type="radio" class="form-control validate[required]" name="campaigns" id="campaigns" value="no"> 
+									<input type="radio" class="form-control validate[required]" name="responsive_Skype" id="responsive_Skype" value="no"
+									<?php if($support[0]["responsive_skype"]=="no") 
+											{
+												echo 'checked="checked"';
+											}	
+									?>> 
 								</div><!-- /.col -->
 								<div class="col-lg-1">
 									No
@@ -84,46 +98,17 @@
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
-								<label for="Article" class="col-lg-2 control-label">Payment Methods</label>
+								<label for="dashboard" class="col-lg-2 control-label">Website Reliability</label>
 								<div class="col-lg-10">
-									<select name="payment_methods[]" class="form-control validate[required]" multiple>
-										<option value>Please Select</option>
-										<option value="paypal">Paypal</option>
-										<option value="wire transfer">Wire transfer</option>
-										<option value="google wallet">Google Wallet</option>
-										<option value="payoneer">Payoneer</option>
-									</select>
-									<p><b>Press and Hold the Ctrl button to select multiple options</b></p> 	
+									<input type="text" class="form-control validate[required,custom[number,max[100]]]" value="<?php echo $support[0]["website_reliability"];?>"  name="website_reliability" id="website_reliability">
+									<p><b>Please enter only integer or decimal value. Do not enter % sign.</b></p>
 								</div><!-- /.col -->
-							</div><!-- /form-group -->
-							
-							<div class="form-group">
-								<label for="dashboard" class="col-lg-2 control-label">Sign-Ups</label>
-								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required]" placeholder="Sign Ups"  name="sign_ups" id="sign_ups">
-								</div><!-- /.col -->
-							</div><!-- /form-group -->
-							
-							<div class="form-group">
-								<label for="shortner" class="col-lg-2 control-label">Referral Programs</label>
-								<div class="col-lg-1">
-									<input type="radio" class="form-control validate[required]" name="referrals" id="referrals" value="yes">
-								</div>
-								<div class="col-lg-1">
-									Yes
-								</div>
-								<div class="col-lg-1">
-									<input type="radio" class="form-control validate[required]" name="referrals" id="referrals" value="no"> 
-								</div><!-- /.col -->
-								<div class="col-lg-1">
-									No
-								</div>
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-10">
 									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
-									<a href="<?php echo base_url();?>monetization/payouts" class="btn btn-primary">Cancel</a>
+									<a href="<?php echo base_url();?>monetization/support" class="btn btn-primary">Cancel</a>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 						</form>
@@ -136,12 +121,12 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('#frm_add_payouts').ajaxForm({
+		$('#frm_edit_support').ajaxForm({
 			beforeSubmit : function(){
 				$("#btn_submit").button('loading');
 				$("#successMessage").hide();
 				$("#errorMessage").hide();
-				if($("#frm_add_payouts").validationEngine('validate'))
+				if($("#frm_edit_support").validationEngine('validate'))
 				{
 					$("#btn_submit").button('loading');
 					return true;
@@ -156,9 +141,9 @@
 				$("#btn_submit").button("reset");
 				if(responseText==100)
 				{
-					$("#successMessage").html("Payout Details has been added successfully.");
+					$("#successMessage").html("Support Details has been updated successfully.");
 					$("#successMessage").show();
-					window.location=base_url+"monetization/payouts/";
+					window.location=base_url+"monetization/support/";
 				}
 				else if(responseText==301)
 				{
@@ -175,5 +160,4 @@
 		});
 		//$("#frm_signup").validationEngine();
 	});
-
 </script>

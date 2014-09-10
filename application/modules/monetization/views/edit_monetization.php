@@ -59,7 +59,7 @@
 							<div class="form-group">
 								<label for="Sign-Up Link" class="col-lg-2 control-label">Sign-Up Link</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required]" value="<?php echo $monetization[0]["sign_up_link"];?>" name="Sign_Up_Link" id="Sign_Up_Link"/>
+									<input type="text" class="form-control validate[required,custom[url]]" value="<?php echo $monetization[0]["sign_up_link"];?>" name="Sign_Up_Link" id="Sign_Up_Link"/>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							
@@ -113,11 +113,17 @@
 			},
 			success :  function(responseText, statusText, xhr, $form){
 				$("#btn_submit").button("reset");
-				if(responseText>0)
+				if(responseText==100)
 				{
 					$("#successMessage").html("Monetization Details updated successfully.");
 					$("#successMessage").show();
 					window.location=base_url+"monetization/dashboard";
+				}
+				else if(responseText==301)
+				{
+					$("#errorMessage").html("Your session is expired.");
+					$("#errorMessage").show();
+					window.location=base_url+"user/login";
 				}
 				else
 				{

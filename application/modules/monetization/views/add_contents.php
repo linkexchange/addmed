@@ -12,7 +12,7 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-globe"></i>  Add Contents</b> </h3>
+				<h3><b><i class="icon-foursquare"></i>  Add Contents</b> </h3>
 			</div>
 		</div> <br/>
 		<div class="row">
@@ -40,13 +40,14 @@
 								<label for="dashboard" class="col-lg-2 control-label">Ratings</label>
 								<div class="col-lg-10">
 									<input type="text" class="form-control validate[required,custom[number,max[100]]]" placeholder="ratings in %"  name="ratings" id="ratings">
+									<p><b>Please enter only integer or decimal value. Do not add % sign.</b></p>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
 								<label for="dashboard" class="col-lg-2 control-label">No of articles</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required,custom[number]]" placeholder="No of articles"  name="no_of_articles" id="no_of_articles">
+									<input type="text" class="form-control validate[required,custom[integer]]" placeholder="No of articles"  name="no_of_articles" id="no_of_articles">
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							
@@ -70,6 +71,7 @@
 								<label for="dashboard" class="col-lg-2 control-label">Article Quality</label>
 								<div class="col-lg-10">
 									<input type="text" class="form-control validate[required,custom[number,max[100]]]" placeholder="quality in %"  name="quality" id="quality">
+									<p><b>Please enter only integer or decimal value. Do not add % sign.</b></p>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							

@@ -9,7 +9,9 @@
 	<div class="padding-md">
 		<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 			<div class="panel-heading" style="border:1px solid #D6E9F3;background:#fff;">
-				<h3><b><i class="icon-globe"></i>  Add Monetization Details</b> </h3>
+				<h3><b><i class="icon-globe"></i>  Add Monetization Details</b> 
+				
+				</h3>
 			</div>
 		</div> <br/>
 		<div class="row">
@@ -59,7 +61,7 @@
 							<div class="form-group">
 								<label for="Sign-Up Link" class="col-lg-2 control-label">Sign-Up Link</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required]" placeholder="Sign-Up Link" name="Sign_Up_Link" id="Sign_Up_Link"/>
+									<input type="text" class="form-control validate[required,custom[url]]" placeholder="Sign-Up Link" name="Sign_Up_Link" id="Sign_Up_Link"/>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
 							
@@ -109,11 +111,17 @@
 			},
 			success :  function(responseText, statusText, xhr, $form){
 				$("#btn_submit").button("reset");
-				if(responseText>0)
+				if(responseText==100)
 				{
 					$("#successMessage").html("Monetization Details added successfully.");
 					$("#successMessage").show();
 					window.location=base_url+"monetization/dashboard";
+				}
+				else if(responseText==301)
+				{
+					$("#errorMessage").html("Your session is expired.");
+					$("#errorMessage").show();
+					window.location=base_url+"user/login";
 				}
 				else
 				{
