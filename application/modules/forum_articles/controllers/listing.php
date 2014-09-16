@@ -5,6 +5,7 @@ class Listing extends MX_Controller{
 	{
 		parent::__construct();
 		$this->load->model('article');
+		$this->load->model('monetization');
 		$this->load->helper('url');
 		$this->load->helper('pagination_helper');
 		if($this->session->userdata('userID'))
@@ -130,6 +131,7 @@ class Listing extends MX_Controller{
 			$data['comments'] = $this->article->getAllComments($id);
 			$data['replies']  = $this->article->getAllReplies($id);
 			$data["popular_articles"] = $this->article->getPopularArticles();
+			$data["monetization"] = $this->monetization->getAllMonetizedData($id);
 			$this->layout->view('description',$data);	
 		}
 	}

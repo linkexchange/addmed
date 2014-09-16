@@ -26,6 +26,20 @@ class Monetization extends CI_Model{
 		$this->db->insert($this->config->item('table_support'),$data);
 		return $this->db->insert_id();
 	}
+	public function getAllMonetizedData($id)
+	{
+		$this->db->select($this->config->item("table_f_articles").".id,".$this->config->item("table_monetization").".sign_up_link,".$this->config->item("table_ease_of_use").".*,".$this->config->item("table_contents").".*,".$this->config->item("table_payouts").".*,".$this->config->item("table_support").".*");
+		$this->db->from($this->config->item("table_f_articles"));
+		$this->db->join($this->config->item("table_monetization"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_monetization").".articleid","left");
+		$this->db->join($this->config->item("table_ease_of_use"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_ease_of_use").".articleid","left");
+		$this->db->join($this->config->item("table_contents"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_contents").".articleid","left");
+		$this->db->join($this->config->item("table_payouts"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_payouts").".articleid","left");
+		$this->db->join($this->config->item("table_support"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_support").".articleid","left");
+		$this->db->where($this->config->item("table_f_articles").".id",$id);
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();	
+	}
 	public function getContentsByID($id)
 	{
 		$this->db->select($this->config->item('table_contents').".*,".$this->config->item('table_f_articles').".topic");

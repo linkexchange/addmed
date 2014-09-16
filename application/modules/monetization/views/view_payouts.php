@@ -56,7 +56,7 @@
 					<tr>
 						<td><?php echo $sr; $sr++; ?></td>
 						<td><a href="<?php echo base_url();?>article/view/<?php echo $payout['articleid'];?>"><?php echo $payout["topic"]; ?></a></td>
-						<td><?php echo $payout["ratings"]; ?></td>
+						<td><?php echo $payout["payout_ratings"]; ?></td>
 						<td><?php echo $payout["no_of_publishers"]; ?></td>
 						<td><?php echo $payout["diversified_earnings"]; ?></td>
 						<td><?php echo $payout["premium_campaigns"]; ?></td>
@@ -73,48 +73,48 @@
 							}	
 							if(in_array("paypal",$payments))
 							{			
-								echo '<img src="'.base_url().'img/checked.png">';	
+								echo '<i class="fa fa-check-square-o"></i>';	
 								echo '&nbsp;<b class="success">Paypal</b> <br/>';
 							}
 							else
 							{	
-								echo '<img src="'.base_url().'img/unchecked.png">';
+								echo '<i class="fa fa-times"></i>';
 								echo '&nbsp;<b class="danger">Paypal</b> <br/>';
 							}
 							
 							
 							if(in_array("wire transfer",$payments))
 							{			
-								echo '<img src="'.base_url().'img/checked.png">';	
+								echo '<i class="fa fa-check-square-o"></i>';	
 								echo '&nbsp;<b class="success">Wire transfer</b> <br/>';
 							}
 							else
 							{	
-								echo '<img src="'.base_url().'img/unchecked.png">';
+								echo '<i class="fa fa-times"></i>';
 								echo '&nbsp;<b class="danger">Wire transfer</b> <br/>';
 							}
 							
 						
 							if(in_array("google wallet",$payments))
 							{			
-								echo '<img src="'.base_url().'img/checked.png">';	
+								echo '<i class="fa fa-check-square-o"></i>';	
 								echo '&nbsp;<b class="success">Google Wallet</b> <br/>';
 							}
 							else
 							{	
-								echo '<img src="'.base_url().'img/unchecked.png">';
+								echo '<i class="fa fa-times"></i>';
 								echo '&nbsp;<b class="danger">Google Wallet</b> <br/>';
 							}
 							
 							
 							if(in_array("payoneer",$payments))
 							{			
-								echo '<img src="'.base_url().'img/checked.png">';	
+								echo '<i class="fa fa-check-square-o"></i>';	
 								echo '&nbsp;<b class="success">Payoneer</b>';
 							}
 							else
 							{	
-								echo '<img src="'.base_url().'img/unchecked.png">';
+								echo '<i class="fa fa-times"></i>';
 								echo '&nbsp;<b class="danger">Payoneer</b>';
 							}
 						?>

@@ -68,7 +68,7 @@ class Payouts extends MX_Controller{
 				$payments = $this->input->post('payment_methods');	
 			}
 			$data = array('articleid'=>$this->input->post('articleid'),
-						  'ratings'=>$this->input->post('ratings'),
+						  'payout_ratings'=>$this->input->post('ratings'),
 						  'no_of_publishers'=>$this->input->post('no_of_publishers'),
 						  'diversified_earnings'=>$this->input->post('earnings'),
 						  'premium_campaigns'=>$this->input->post('campaigns'),
@@ -145,7 +145,7 @@ class Payouts extends MX_Controller{
 				$payments = $this->input->post('payment_methods');	
 			}
 			$data = array('articleid'=>$this->input->post('articleid'),
-						  'ratings'=>$this->input->post('ratings'),
+						  'payout_ratings'=>$this->input->post('payout_ratings'),
 						  'no_of_publishers'=>$this->input->post('no_of_publishers'),
 						  'diversified_earnings'=>$this->input->post('earnings'),
 						  'premium_campaigns'=>$this->input->post('campaigns'),

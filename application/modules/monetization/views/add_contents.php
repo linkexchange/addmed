@@ -90,6 +90,13 @@
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
+								<label for="dashboard" class="col-lg-2 control-label">Contact Email</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control validate[required,custom[email]]" placeholder="Contact Email"  name="contact_email" id="contact_email">
+								</div><!-- /.col -->
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-10">
 									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
 									<a href="<?php echo base_url();?>monetization/dashboard/contents" class="btn btn-primary">Cancel</a>

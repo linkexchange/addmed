@@ -37,6 +37,7 @@
 						<th>Article Quality<br/>(in %)</th>
 						<th>New Contents</th>
 						<th>Target Audiences</th>
+						<th>Contact Email</th>
 						<th class="td-actions">Actions</th>
 					</tr>
 				</thead>
@@ -59,6 +60,7 @@
 							
 							<td><?php echo $monet['new_contents']; ?></td>
 							<td><?php echo $monet['target_audience'];?> </td>
+							<td><?php echo $monet['contact_email'];?> </td>
 							
 							<td class="td-actions">
 								<a class="btn btn-small btn-success" href="<?php echo base_url().'monetization/dashboard/editContents/'.$monet['id'];?>" title="Edit" style="margin:2px;">

@@ -40,7 +40,7 @@
 							<div class="form-group">
 								<label for="dashboard" class="col-lg-2 control-label">Ratings</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control validate[required,custom[number,max[100]]]" value="<?php echo $payouts[0]["ratings"];?>"  name="ratings" id="ratings">
+									<input type="text" class="form-control validate[required,custom[number,max[100]]]" value="<?php echo $payouts[0]["payout_ratings"];?>"  name="ratings" id="ratings">
 									<p><b>Please enter only integer or decimal value. Do not add % sign.</b></p>
 								</div><!-- /.col -->
 							</div><!-- /form-group -->
