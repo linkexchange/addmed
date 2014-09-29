@@ -112,6 +112,37 @@
 							</div><!-- /form-group -->
 							
 							<div class="form-group">
+								<label for="dashboard" class="col-lg-2 control-label">Content Request Email</label>
+								<div class="col-lg-6">
+									<input type="text" class="form-control validate[custom[email]]" placeholder="Contact Request Email"  name="content_request_email" id="content_request_email" value="<?php echo $contents[0]["content_request_email"];?>">
+								</div><!-- /.col -->
+								<div class="col-lg-1">
+									<input type="radio" class="form-control" name="content_requests" id="content_requests" value="yes"
+									<?php 
+									if($contents[0]["content_request_email_checked"]=="yes") 
+									{
+										echo 'checked="checked"';				
+									}
+									?>>
+								</div>
+								<div class="col-lg-1">
+									Yes
+								</div>
+								<div class="col-lg-1">
+									<input type="radio" class="form-control" name="content_requests" id="content_requests" value="no"
+									<?php 
+									if($contents[0]["content_request_email_checked"]=="no") 
+									{
+										echo 'checked="checked"';				
+									}
+									?>> 
+								</div><!-- /.col -->
+								<div class="col-lg-1">
+									No
+								</div>
+							</div><!-- /form-group -->
+							
+							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-10">
 									<button id="btn_submit" class="btn btn-success" type="submit">Save</button> 
 									<a href="<?php echo base_url();?>monetization/dashboard/contents" class="btn btn-primary">Cancel</a>

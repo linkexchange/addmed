@@ -104,41 +104,40 @@
 					</div>-->
 					<table class="table table-bordered table-condensed table-hover table-striped">
 						<thead>
-									<tr style="border:1px solid #D6E9F3;">
-										<th>Rank</th>
-										<th>User</th>
-										<th>Followers</th>
-                                                                                <th>Posts</th>
-                                                                                <th>Likes</th>
-										<!-- <th>Earning.</th> -->
-									</tr>
-								</thead>
-								<tbody>
-                                                                        <?php if(count($users)>10) : ?>
-                                                                            <?php $sr=1; for($i=0; $i<10; $i++) : ?>
-                                                                                <tr style="border:1px solid #D6E9F3;">
-											<td><?php echo $sr; ?></td>
-											<td><?php echo $users[$i]['userName']; ?></td>
-											<td><?php echo $users[$i]['totalFollowers']; ?></td>
-                                                                                        <td><?php echo $users[$i]['totalPosts']; ?></td>
-                                                                                        <td><?php echo $users[$i]['totalLikes']; ?></td>
-										</tr>
-										<?php $sr++; ?>
-                                                                            <?php endfor; ?>
-                                                                        <?php else : ?>
-                                                                            <?php $sr=1; foreach($users as $user) : ?>
-										<tr style="border:1px solid #D6E9F3;">
-											<td><?php echo $sr; ?></td>
-											<td><?php echo $user['userName']; ?></td>
-											<td><?php echo $user['totalFollowers']; ?></td>
-                                                                                        <td><?php echo $user['totalPosts']; ?></td>
-                                                                                        <td><?php echo $user['totalLikes']; ?></td>
-										</tr>
-										<?php $sr++; ?>
-                                                                            <?php endforeach; ?> 
-                                                                        <?php endif; ?>
-									
-								</tbody>
+							<tr style="border:1px solid #D6E9F3;">
+									<th>Rank</th>
+									<th>User</th>
+									<th>Followers</th>
+									<th>Posts</th>
+									<th>Likes</th>
+									<!-- <th>Earning.</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<?php if(count($users)>10) : ?>
+							<?php $sr=1; for($i=0; $i<10; $i++) : ?>
+							<tr style="border:1px solid #D6E9F3;">
+								<td><?php echo $sr; ?></td>
+								<td><?php echo $users[$i]['userName']; ?></td>
+								<td><?php echo $users[$i]['totalFollowers']; ?></td>
+								<td><?php echo $users[$i]['totalPosts']; ?></td>
+								<td><?php echo $users[$i]['totalLikes']; ?></td>
+							</tr>
+							<?php $sr++; ?>
+							<?php endfor; ?>
+							<?php else : ?>
+							<?php $sr=1; foreach($users as $user) : ?>
+							<tr style="border:1px solid #D6E9F3;">
+								<td><?php echo $sr; ?></td>
+								<td><?php echo $user['userName']; ?></td>
+								<td><?php echo number_format($user['totalFollowers']); ?></td>
+								<td><?php echo number_format($user['totalPosts']); ?></td>
+								<td><?php echo number_format($user['totalLikes']); ?></td>
+							</tr>
+							<?php $sr++; ?>
+							<?php endforeach; ?> 
+							<?php endif; ?>
+						</tbody>
 					</table>
 				</div><!-- /panel -->
 			</div><!-- /.col -->

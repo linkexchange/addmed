@@ -35,7 +35,7 @@
 								<?php if($article[0]['monitor_image']!="") { ?>
 								<div class="row">
 								<div class="col-md-4" style="background-image: url(<?php echo base_url();?>img/monitor.jpg); width:240px;height:196px;padding:8px; margin-left:17px;">	
-								<img src="<?php echo base_url();?>uploads/forum_article_images/<?php echo $article[0]['monitor_image'];?>" alt="Monitor image" style="height: 140px; width:inherit;">
+								<img src="<?php echo base_url();?>uploads/monitor_images/<?php echo $article[0]['monitor_image'];?>" alt="Monitor image" style="height: 140px; width:inherit;">
 								</div> 
 								<?php if($article[0]['ratings']==0) {
 										$fgcolor = "#FE2E2E";

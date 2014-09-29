@@ -143,7 +143,7 @@ class Dashboard extends MX_Controller{
 				}
 			}	
 			if(isset($_FILES['monitor_image'])) { 
-				$config['upload_path'] = './uploads/forum_article_images/';
+				$config['upload_path'] = './uploads/monitor_images/';
 				$config['allowed_types'] = 'gif|jpg|png';
 				$config['max_size']	= '20000';
 				$this->load->library('upload', $config);
@@ -160,8 +160,27 @@ class Dashboard extends MX_Controller{
 					$articleData["monitor_image"]=$uploaded_file2;
 				}
 			}
+			if(isset($_FILES['website_logo'])) { 
+				$config['upload_path'] = './uploads/website_logo/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size']	= '20000';
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload("website_logo"))
+				{
+					echo $this->upload->display_errors();
+					exit;
+				}
+				else
+				{
+					$data['image_data'] = array('upload_data' => $this->upload->data());
+					$uploaded_file2=$data['image_data']['upload_data']['file_name'];
+					$articleData["website_logo"]=$uploaded_file2;
+				}
+			}
 				$slug = url_title($this->input->post('articleTopic'), 'dash', TRUE);
 				$articleData["topic"]=$this->input->post('articleTopic');
+				$articleData["website_url"]=$this->input->post('website_url');
 				$articleData["slug"]=$slug;
 				$articleData["description"]=$this->input->post('articleDescription');
 				$articleData["ratings"]=$this->input->post('ratings');
@@ -170,7 +189,6 @@ class Dashboard extends MX_Controller{
 				$articleData["updated_date"]= date('Y-m-d');
 				$updated_id=$this->article->updateForumArticle($articleData,$aid);
 				echo 100;
-						
 		}
 		else
 		{

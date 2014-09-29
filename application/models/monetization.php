@@ -40,6 +40,24 @@ class Monetization extends CI_Model{
 		//echo $this->db->last_query();
 		return $result->result_array();	
 	}
+	public function getAllMonetizedDataonPages($limit=0)
+	{
+		$numberofrecords=(int)$this->config->item('record_limit');
+		if($limit>0)
+			$limit=$limit-1;	
+		$startRecord=$limit*$numberofrecords;
+		$this->db->select($this->config->item("table_f_articles").".ratings as article_ratings,topic,website_logo,".$this->config->item("table_f_articles").".id,website_url,".$this->config->item("table_ease_of_use").".dashboard,".$this->config->item("table_contents").".ratings,".$this->config->item("table_payouts").".payout_ratings,".$this->config->item("table_support").".support_ratings");
+		$this->db->from($this->config->item("table_f_articles"));
+		$this->db->join($this->config->item("table_ease_of_use"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_ease_of_use").".articleid","left");
+		$this->db->join($this->config->item("table_contents"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_contents").".articleid","left");
+		$this->db->join($this->config->item("table_payouts"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_payouts").".articleid","left");
+		$this->db->join($this->config->item("table_support"),$this->config->item("table_f_articles").'.id='.$this->config->item("table_support").".articleid","left");
+		$this->db->limit($numberofrecords,$startRecord);
+		$this->db->order_by($this->config->item("table_f_articles").".id","desc");
+		$result = $this->db->get();
+		//echo $this->db->last_query();
+		return $result->result_array();	
+	}
 	public function getContentsByID($id)
 	{
 		$this->db->select($this->config->item('table_contents').".*,".$this->config->item('table_f_articles').".topic");
@@ -104,6 +122,15 @@ class Monetization extends CI_Model{
 		$this->db->join($this->config->item('table_f_articles'),$this->config->item('table_monetization').'.articleid ='.$this->config->item('table_f_articles').'.id');
 		$this->db->limit($numberofrecords,$startRecord);
 		$this->db->order_by("id","desc");
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+	public function getMonetizedDataByID($id)
+	{
+		$this->db->select($this->config->item('table_monetization').".*,".$this->config->item('table_f_articles').".topic");
+		$this->db->from($this->config->item('table_monetization'));
+		$this->db->join($this->config->item('table_f_articles'),$this->config->item('table_monetization').'.articleid ='.$this->config->item('table_f_articles').'.id');
+		$this->db->where($this->config->item('table_monetization').".id",$id);
 		$result = $this->db->get();
 		return $result->result_array();
 	}

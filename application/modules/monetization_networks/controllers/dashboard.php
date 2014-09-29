@@ -10,7 +10,8 @@ class Dashboard extends MX_Controller{
 	}
 	public function index($page=1)
 	{
-		$data["monetization"] = $this->monetization->getMonetizedData($page);
+		//$data["monetization"] = $this->monetization->getMonetizedData($page);
+		$data["monetization"] = $this->monetization->getAllMonetizedDataonPages($page);
 		$data["count"] = $this->monetization->getMonetizedDataCount();
 		$this->layout->view("view_monetization",$data);	
 	}

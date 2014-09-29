@@ -68,6 +68,8 @@ class Dashboard extends MX_Controller{
 						  "new_contents"=>$this->input->post("new_contents"),
 						  "target_audience"=>$this->input->post("target_audience"),
 						  "contact_email"=>$this->input->post("contact_email"),
+						  "content_request_email"=>$this->input->post("content_request_email"),
+						  "content_request_email_checked"=>$this->input->post("content_requests"),
 						  "created_by"=>$this->session->userdata("userID"),
 						  "created_date"=>date('Y-m-d'));
 			//echo "<pre>"; print_R($data); exit;			  
@@ -217,6 +219,8 @@ class Dashboard extends MX_Controller{
 						  "new_contents"=>$this->input->post("new_contents"),
 						  "target_audience"=>$this->input->post("target_audience"),
 						  "contact_email"=>$this->input->post("contact_email"),
+						  "content_request_email"=>$this->input->post("content_request_email"),
+						  "content_request_email_checked"=>$this->input->post("content_requests"),
 						  "updated_by"=>$this->session->userdata("userID"),
 						  "updated_date"=>date('Y-m-d'));
 			$update = $this->monetization->updateContents($id,$data);
