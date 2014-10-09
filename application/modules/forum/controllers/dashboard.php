@@ -19,6 +19,7 @@ class Dashboard extends MX_Controller{
 		$data['count']  = $this->forums->getAllTopicsCount();
 		$this->layout->view('view_forum',$data);
 	}
+	
 	public function delete($id)
 	{
 		$this->forums->deleteTopic($id);

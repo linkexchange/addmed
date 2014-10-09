@@ -333,7 +333,8 @@
 								<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'article/dashboard';?>"><span class="submenu-label">View articles</span></a></li>
 							</ul>
 						</li>
-						<li class="openable <?php if($this->uri->segment(1)=="monetization" && $this->uri->segment(3)!="addeaseofuse" && $this->uri->segment(3)!="easeofuse"&& $this->uri->segment(3)!="contents" && $this->uri->segment(3)!="addcontents" && $this->uri->segment(2)!="payouts" && $this->uri->segment(2)!="support"){ echo "active open";}?>">
+						<!-- 
+							<li class="openable <?php if($this->uri->segment(1)=="monetization" && $this->uri->segment(3)!="addeaseofuse" && $this->uri->segment(3)!="easeofuse"&& $this->uri->segment(3)!="contents" && $this->uri->segment(3)!="addcontents" && $this->uri->segment(2)!="payouts" && $this->uri->segment(2)!="support"){ echo "active open";}?>">
 							<a href="#">
 								<span class="menu-icon">
 									<i class="fa fa-globe fa-lg"></i> 
@@ -413,6 +414,154 @@
 								<li <?php if($this->uri->segment(2)=="support" && $this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/support/';?>"><span class="submenu-label">View details</span></a></li>
 							</ul>
 						</li>
+						-->
+						<li class="openable <?php if($this->uri->segment(1)=="monetization") echo 'active open';?>">
+							<a href="#">
+								<span class="menu-icon">
+									<i class="fa fa-globe fa-lg"></i> 
+								</span>
+								<span class="text">
+									Monetization
+								</span>
+								<span class="badge badge-success bounceIn animation-delay1 pull-right">5</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<ul class="submenu third-level" style="display: block;">
+									<li class="openable <?php if($this->uri->segment(3)=="easeofuse" || $this->uri->segment(3)=="addeaseofuse"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-user-md fa-lg"></i> 
+											</span>
+											<span class="submenu-label">Ease Of Use</span>
+											<span class="badge badge-success bounceIn animation-delay1 pull-right">2</span>
+										</a>
+										<ul class="submenu fourth-level" style="display: none;">
+											<li <?php if($this->uri->segment(3)=="addeaseofuse"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard/addeaseofuse'; ?>"><span class="submenu-label">Add details</span></a></li>
+											<li <?php if($this->uri->segment(3)=="easeofuse"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard/easeofuse';?>"><span class="submenu-label">View details</span></a></li>
+										</ul>
+									</li>
+									<li class="openable <?php if($this->uri->segment(3)=="contents" || $this->uri->segment(3)=="addcontents"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-foursquare fa-lg"></i> 
+											</span>
+											<span class="text">
+												Contents
+											</span>
+											<span class="badge badge-success bounceIn animation-delay5">2</span>
+											<span class="menu-hover"></span>
+										</a>
+										<ul class="submenu">
+											<li <?php if($this->uri->segment(3)=="addcontents"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard/addcontents'; ?>"><span class="submenu-label">Add details</span></a></li>
+											<li <?php if($this->uri->segment(3)=="contents"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard/contents';?>"><span class="submenu-label">View details</span></a></li>
+										</ul>
+									</li>
+									<li class="openable <?php if($this->uri->segment(2)=="payouts"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-money fa-lg"></i> 
+											</span>
+											<span class="text">
+												Payouts
+											</span>
+											<span class="badge badge-warning bounceIn animation-delay5">2</span>
+											<span class="menu-hover"></span>
+										</a>
+										<ul class="submenu">
+											<li <?php if($this->uri->segment(3)=="add" && $this->uri->segment(2)=="payouts"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/payouts/add'; ?>"><span class="submenu-label">Add details</span></a></li>
+											<li <?php if($this->uri->segment(2)=="payouts" && $this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/payouts/';?>"><span class="submenu-label">View details</span></a></li>
+										</ul>
+									</li>
+									<li class="openable <?php if($this->uri->segment(2)=="support"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-share fa-lg"></i> 
+											</span>
+											<span class="text">
+												Support
+											</span>
+											<span class="badge badge-info bounceIn animation-delay5">2</span>
+											<span class="menu-hover"></span>
+										</a>
+										<ul class="submenu">
+											<li <?php if($this->uri->segment(3)=="add" && $this->uri->segment(2)=="support"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/support/add'; ?>"><span class="submenu-label">Add details</span></a></li>
+											<li <?php if($this->uri->segment(2)=="support" && $this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/support/';?>"><span class="submenu-label">View details</span></a></li>
+										</ul>
+									</li>
+									<li class="openable <?php if($this->uri->segment(1)=="monetization" && $this->uri->segment(3)!="addeaseofuse" && $this->uri->segment(3)!="easeofuse"&& $this->uri->segment(3)!="contents" && $this->uri->segment(3)!="addcontents" && $this->uri->segment(2)!="payouts" && $this->uri->segment(2)!="support"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-globe fa-lg"></i> 
+											</span>
+											<span class="text">
+												Network Details
+											</span>
+											<span class="badge badge-danger bounceIn animation-delay5">2</span>
+											<span class="menu-hover"></span>
+										</a>
+										<ul class="submenu">
+											<li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard/add'; ?>"><span class="submenu-label">Add details</span></a></li>
+											<li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'monetization/dashboard';?>"><span class="submenu-label">View details</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</ul>
+						</li>
+						<li <?php if($this->uri->segment(3)=="subscribed_users"){ echo "class='active'";}?>>
+							<a href="<?php echo base_url()."admin/dashboard/subscribed_users"; ?>">
+								<span class="menu-icon">
+									<i class="fa fa-user fa-lg"></i> 
+								</span>
+								<span class="text">
+									Subscribed Users
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+						
+						<li class="openable <?php if($this->uri->segment(1)=="analytics_websites") { echo "active open";}?>">
+							<a href="#">
+								<span class="menu-icon">
+									<i class="fa fa-file-text fa-lg"></i> 
+								</span>
+								<span class="text">
+									Analytics
+								</span>
+								<span class="badge badge-success bounceIn animation-delay1 pull-right">2</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<ul class="submenu third-level" style="display: block;">
+									<li class="openable <?php if($this->uri->segment(1)=="analytics_websites"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-globe fa-lg"></i> 
+											</span>
+											<span class="submenu-label">Websites</span>
+											<span class="badge badge-success bounceIn animation-delay1 pull-right">2</span>
+										</a>
+										<ul class="submenu">
+                                            <li <?php if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="<?php echo base_url().'analytics_websites/dashboard/add'; ?>"><span class="submenu-label">Add websites</span></a></li>
+                                            <li <?php if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="<?php echo base_url().'analytics_websites/dashboard';?>"><span class="submenu-label">View websites</span></a></li>
+                                        </ul>
+									</li>
+									<li class="openable <?php //if($this->uri->segment(1)=="analytics_websites"){ echo "active open";}?>">
+										<a href="#">
+											<span class="menu-icon">
+												<i class="fa fa-foursquare fa-lg"></i> 
+											</span>
+											<span class="submenu-label">Website plans</span>
+											<span class="badge badge-success bounceIn animation-delay1 pull-right">2</span>
+										</a>
+										<ul class="submenu">
+											<li <?php //if($this->uri->segment(3)=="add"){ echo "class='active'";}?>><a href="#<?php //echo base_url().'website_plans/dashboard/add'; ?>"><span class="submenu-label">Add website plan</span></a></li>
+											<li <?php //if($this->uri->segment(3)==""){ echo "class='active'";}?>><a href="#<?php //echo base_url().'website_plans/dashboard';?>"><span class="submenu-label">View website plan</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</ul>
+                        </li>
 					</ul>
 					
 					<!--<div class="alert alert-info">

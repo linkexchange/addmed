@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "forum_articles/forum";
+$route['default_controller'] = "forum_articles/forum/homepage";
 $route['forum'] = "forum_articles/forum";
 $route['forum/index/(:num)'] = "forum_articles/forum/index/$1";
 $route['forum/dashboard/index/(:num)'] = "forum/dashboard/index/$1";
@@ -65,8 +65,11 @@ $route['bookmarks'] = "forum_articles/listing/show_bookmarks";
 $route['bookmarks/index/(:num)'] = "forum_articles/listing/show_bookmarks/$1";
 $route['article/(:any)/(:num)'] = "forum_articles/listing/view/$1/$2";
 $route['monetization_networks'] = "monetization_networks/dashboard";
+$route['analytics'] = "analytics/dashboard";
 $route['monetization_networks/index/(:num)'] = "monetization_networks/dashboard/index/$1";
 $route['user/info/(:num)'] = "user/info/index/$1";
+$route['analytics_websites/index/(:num)'] = "analytics_websites/dashboard/index/$1";
+$route['analytics_websites'] = "analytics_websites/dashboard";
 $route['404_override'] = '';
 
 

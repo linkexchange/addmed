@@ -68,6 +68,12 @@ class Forum extends MX_Controller{
 			$this->layout->view('view_forum',$data);
 		}	
 	}
+	public function homepage()
+	{
+		$data['articles'] = $this->article->getAllForumArticles2();
+		$data['topics'] = $this->forums->getAllApprovedTopics2(1);
+		$this->load->view('layout/final',$data);
+	}
 	public function add()
 	{
 		if(!$this->session->userdata("userID"))
